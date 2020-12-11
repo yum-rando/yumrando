@@ -43,16 +43,130 @@ public class Restaurant {
             joinColumns = {@JoinColumn(name = "list_id")},
             inverseJoinColumns = {@JoinColumn(name = "restaurant_id")}
     )
+    //still working on this to be a list of list of restaurants
     private List<ListRestaurant> lists;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "restaurant_tags",
+            joinColumns = {@JoinColumn(name = "restaurant_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private List<RestaurantTag> tags;
 
     //Constructors
     public Restaurant(){}
 
     //Create/Insert
-
+    public Restaurant(String name, String address, String state, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+        this.name = name;
+        this.address = address;
+        this.state = state;
+        this.lists = lists;
+        this.tags = tags;
+    }
 
     //Read
-
+    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String state, String zipcode, Date chosenTime, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+        this.id = id;
+        this.apiId = apiId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.address = address;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.chosenTime = chosenTime;
+        this.lists = lists;
+        this.tags = tags;
+    }
 
     //Getters & Setters
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(long apiId) {
+        this.apiId = apiId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public Date getChosenTime() {
+        return chosenTime;
+    }
+
+    public void setChosenTime(Date chosenTime) {
+        this.chosenTime = chosenTime;
+    }
+
+    public List<ListRestaurant> getLists() {
+        return lists;
+    }
+
+    public void setLists(List<ListRestaurant> lists) {
+        this.lists = lists;
+    }
+
+    public List<RestaurantTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<RestaurantTag> tags) {
+        this.tags = tags;
+    }
 }
