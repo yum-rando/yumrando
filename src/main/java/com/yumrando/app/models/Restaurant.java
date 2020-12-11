@@ -2,9 +2,10 @@ package com.yumrando.app.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "restaurant")
+@Table(name = "restaurants")
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +35,15 @@ public class Restaurant {
     @Column(columnDefinition = "CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date chosenTime;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    //new table will be created with the combining of columns of list_id and restaurant_id
+    @JoinTable(
+            name = "list_restaurants",
+            joinColumns = {@JoinColumn(name = "list_id")},
+            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")}
+    )
+    private List<ListRestaurant> lists;
 
     //Constructors
     public Restaurant(){}

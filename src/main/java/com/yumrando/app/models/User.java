@@ -38,6 +38,9 @@ public class User {
     @Column
     private String lastName;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ListRestaurant> listOfRestaurant;
+
 
 
 
