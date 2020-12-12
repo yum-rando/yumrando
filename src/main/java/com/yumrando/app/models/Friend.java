@@ -8,10 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "friends")
 public class Friend extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     @ManyToMany(mappedBy = "user")
     private List<User> users;
 
@@ -20,28 +16,13 @@ public class Friend extends User {
         super();
     }
 
-    //Insert/Create\
+    //Insert/Create/Read
     public Friend(List<User> users) {
         super();
         this.users = users;
     }
 
-    //Read
-    public Friend(long id, List<User> users) {
-        super();
-        this.id = id;
-        this.users = users;
-    }
-
     //getters & setters
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public List<User> getUsers() {
         return users;
     }
