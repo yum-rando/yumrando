@@ -1,0 +1,163 @@
+
+"WELCOME TO THE YUM SIDE!"
+
+Really helpful for decision making for restaurant choices.
+Allow choices for picking up or dining in.
+Info on the restaurants so you know what is available.
+User can filter through tags given to each restaurant.
+Randomizer in general, food types, other characteristics.
+Have a user profile.
+Message another profile with the ability to share a restaurant location.
+Social application to some level with favorite choices of restaurants.
+Geolocation at render.
+Guest can have use randomizer right off the bat. (local storage their list).
+Review api or links to the review sites.
+A way to share images to other sites.
+A push notification after an ~hour to guide to a review site.
+DB collecting info for data $$$$$$$$$$$$$
+History of chosen restaurants from randomizer.
+DocuMenu api geolocation search.
+MOBILE RESPONSIVE
+Links to the yelp page.
+Phone number,photo, enter names, email on profile page, and zipcode.
+User can click on another username on their friend list to look at their specific restaurant lists.
+User can add on friend list through a search functionality. (Or through invite).
+User can add on a review to a friends restaurant specific listing.
+Delivery links.
+
+User Stories:
+
+
+As a guest ...
+
+On the landing page I expect to see the randomizer tool.
+On the landing page I will have two options to create the list to be randomized.
+I can create a restaurant entry by clicking "Add List" will pop up a modal to enter information.
+On the add restaurant to list modal, I can type a name and submit or I can search by location (zipcode).
+On the landing page I expect to see a "Yum" button to activate the randomizer.
+On the landing page I expect to see some animation on the randomizer.
+On the landing page I expect to see animation for my chosen restaurant.
+I can refresh the browser and still have my created list. (local storage)
+On the landing page I expect to be advertised to sign up if I want more control of my list.
+On the landing page I expect to see a sign up link to redirect to a sign up page.
+On the sign up page I expect to see a form to fill in password, username, and email (optional).
+After signing up, I expect to go back to the landing page as a User.
+After signing up, I expect my list to be already registered in my personal data (db).
+After signing up, I want the date of my created account to be applied to my restaurant list.
+I expect to filter my list by categories by clicking a button and seeing the list of categories replace my restaurant list with my tag list.
+I expect to remove tags from my filter list of tags and then click on a button.
+I expect to see a dropdown element that contains all my custom lists.
+I expect to see my custom list on the list container when it is selected on the dropdown element.
+I expect to see a button to "Add New List" to create a new custom list.
+
+
+As a User ...
+
+I expect to see my username on the navbar.
+I expect to see my list when I log in.
+I expect to see the randomizer component and my list side to side.
+I expect to scroll up or down through my restaurant list if it is a long list.
+I expect to filter my list by categories by clicking a button and seeing the list of categories replace my restaurant list with my tag list.
+I expect to remove tags from my filter list of tags and then click on a button.
+I expect to reset my custom tags list by clicking the tags filtering button.
+I expect to see a dropdown element that contains all my custom lists.
+I expect to see my custom list on the list container when it is selected on the dropdown element.
+I expect to see a button to "Add New List" to create a new custom list by giving me a blank list container.
+I expect to see an updated list for the randomizer matching the updated categories list.
+I expect to have a "+" button to add on more restaurants to my list.
+I expect to have my restaurant random choice be updated by the date.
+I expect a confirmation modal for saving my current lists after the random choice is made.
+I expect to edit my list on the landing page by clicking the edit button that I will see the
+When I click on the edit button on the restaurant list item, I will see the RestaurantCreate component with the pre-filled information.
+I expect to delete my list items on the landing page.
+I expect to have a "Save Lists" button to save my lists.
+I expect to have some confirmation that my lists were saved.
+I expect to be able to login in to my account by clicking on a log in link on the navbar or redirection.
+I expect to login with my username and password.
+I expect to receive error messages for failed login attempts.
+I expect to be able to go to my profile page by clicking a link on the navbar.
+I expect to be able to see my history of restaurants chosen by the randomizer.
+
+
+I expect to see containers with my custom lists' names and I should be able to delete them.
+I expect to be able to drag and drop custom lists containers to delete them. (NTH)
+I expect to get a modal to confirm deleting the list item.
+I expect to edit my username, email, photo, name, and zipcode by clicking and edit component and changing it live on the profile page.
+I expect to see a favorite tags container with all my used tags and checkboxes.
+I expect to click on the edit button to see the checkboxes for editing my favorite tags.
+I expect to see my favorite tags to be selected on a checkbox.
+I expect to make changes to my favorite tags by checkbox.
+I expect to be able to move one of my restaurant listings to be copied to another of my custom lists.
+I expect to see any connections with other user as friends. (NTH)
+I expect to see my reviews of my restaurant listings. (NTH)
+I expect to see an average of the review ratings between my friends (NTH)
+
+
+OTHER FEATURES:
+
+REST controllers to manage REST requests. (Through JSON objects)
+
+GET controller for user data. ("url/{idUser}") //Fetching a user data in general
+User object -
+ID
+Username
+Phone number
+@ONETOMANY
+Lists of Lists (List name)
+@ONETOMANY
+List of restaurants
+@MANYTOMANY
+List of friends
+List of reviews (Restaurant needs a List of Reviews as well)
+
+POST controller for user data (Register user) ("url")
+Username
+Password
+Date Created
+List of restaurants(objects)
+Note: May want to check Tags for existing tags. If a tag already exits by name, grab that ID and manually put that into the restaurants data of that specific list.
+
+PUT/PATCH ("url/") //updating user
+User object
+*********New info possibly*******
+Username
+Email
+Profile img
+
+Response body - give front end a response (success).
+
+PUT/PATCH ("url") // updating restaurant lists
+Restaurant Lists Objects (When user clicks save).
+Response body - give front end a response.
+DELETE ("url/{idList}") // deleting a user's specific list
+
+Response body - give front end a response (success).
+
+PUT/PATCH ("url") //updating restaurant's datetime when randomizer is finished
+Restaurant object updating the DATETIME. (ID already in object).
+
+Response body - give front end a response (success).
+
+
+
+
+
+Auth
+Hash Password
+Auth process in the backend
+ID in a cookie?
+
+JWT? (is assigned by the backend server)
+COOKIE - Contain the Token
+Frontend can check the cookie for the token and login through that.
+JWT have a timestamp for access.
+
+
+
+
+
+<Form className htmlFor action=*************** METHOD=DELETE>
+input name=
+
+
+
