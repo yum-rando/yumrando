@@ -52,6 +52,14 @@ public class User {
     )
     private List<User> friends;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorite_tags",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private List<RestaurantTag> userFavoriteTags;
+
     //Constructors
     public User (){}
 
