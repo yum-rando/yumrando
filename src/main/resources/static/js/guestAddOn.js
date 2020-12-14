@@ -28,6 +28,11 @@
         listBasic(arrayConstructor());
         })
 
+        $('#search-basic').click(()=>{
+            let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+            apiSearchLocal(coordInput.latitude, coordInput.longitude)
+        })
+
     listBasic(arrayConstructor());
 
     })
