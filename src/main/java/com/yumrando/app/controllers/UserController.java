@@ -14,16 +14,19 @@ public class UserController {
         this.userDao = userDao;
     }
 
+    @GetMapping("/index")
+    public String showIndexPage() {
+        return "index";
+    }
+
     @GetMapping("/register")
-    @ResponseBody
     public String showRegistrationPage() {
-        return "Registration page!";
+        return "user/register";
     }
 
     @GetMapping("/profile")
-    @ResponseBody
     public String showProfile() {
-        return "Profile page goes here!";
+        return "user/profile";
     }
 
     @GetMapping("/login")
