@@ -39,19 +39,11 @@ public class User {
     @Column
     private String lastName;
 
-    //Still trying to figure out how to do this with List of List --> Below is not correct
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ListRestaurant> listOfRestaurant;
-//
-//    //Not to sure how to set this up with the 2 users referring to each other with the JPA
-//    @ManyToMany
-//    @JoinTable(
-//        name = "friends",
-//        joinColumns = {@JoinColumn(name = "user_friend_id")},
-//        inverseJoinColumns = {@JoinColumn(name = "user_id")}
-//    )
-//    private List<User> friends;
-//
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Review> reviews;
 
     @ManyToMany
     @JoinTable(
@@ -61,8 +53,9 @@ public class User {
     )
     private List<RestaurantTag> favoriteTags;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "user")
+    private List<FriendList> friends;
+
 
     //Constructors
     public User (){}
@@ -73,21 +66,23 @@ public class User {
         this.password = password;
     }
 
-//    //Read
-//    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<User> friends) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//        this.phoneNumber = phoneNumber;
-//        this.createdTime = createdTime;
-//        this.zipcode = zipcode;
-//        this.imgURL = imgURL;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.listOfRestaurant = listOfRestaurant;
-//        this.friends = friends;
-//    }
+    //Read
+    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, List<RestaurantTag> favoriteTags, List<FriendList> friends) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.createdTime = createdTime;
+        this.zipcode = zipcode;
+        this.imgURL = imgURL;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.listOfRestaurant = listOfRestaurant;
+        this.reviews = reviews;
+        this.favoriteTags = favoriteTags;
+        this.friends = friends;
+    }
 
     //Getters & Setters
     public long getId() {
@@ -169,20 +164,36 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-//
-//    public List<ListRestaurant> getListOfRestaurant() {
-//        return listOfRestaurant;
-//    }
-//
-//    public void setListOfRestaurant(List<ListRestaurant> listOfRestaurant) {
-//        this.listOfRestaurant = listOfRestaurant;
-//    }
-//
-//    public List<User> getFriends() {
-//        return friends;
-//    }
-//
-//    public void setFriends(List<User> friends) {
-//        this.friends = friends;
-//    }
+
+    public List<ListRestaurant> getListOfRestaurant() {
+        return listOfRestaurant;
+    }
+
+    public void setListOfRestaurant(List<ListRestaurant> listOfRestaurant) {
+        this.listOfRestaurant = listOfRestaurant;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<RestaurantTag> getFavoriteTags() {
+        return favoriteTags;
+    }
+
+    public void setFavoriteTags(List<RestaurantTag> favoriteTags) {
+        this.favoriteTags = favoriteTags;
+    }
+
+    public List<FriendList> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<FriendList> friends) {
+        this.friends = friends;
+    }
 }

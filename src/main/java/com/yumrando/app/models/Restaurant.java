@@ -20,7 +20,7 @@ public class Restaurant {
     @Column(length = 15, unique = true)
     private String phoneNumber;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String website;
 
     @Column
@@ -70,7 +70,7 @@ public class Restaurant {
     }
 
     //Read
-    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String state, String zipcode, Date chosenTime, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String state, String zipcode, Date chosenTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
@@ -80,6 +80,7 @@ public class Restaurant {
         this.state = state;
         this.zipcode = zipcode;
         this.chosenTime = chosenTime;
+        this.reviews = reviews;
         this.lists = lists;
         this.tags = tags;
     }
@@ -171,5 +172,13 @@ public class Restaurant {
 
     public void setTags(List<RestaurantTag> tags) {
         this.tags = tags;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
