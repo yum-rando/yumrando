@@ -60,13 +60,16 @@
         const inputSearch = () => {
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude));
-            setInterval(()=>{
-                if(data.info ===)
-            })
-                console.log(data.info);
-               listResult(data.info);
+            const intervalId = setInterval(()=>{
+                if(typeof results.info !== 'undefined') {
+                    console.log(results.info);
+                    listResult(results.info);
+                    console.log(intervalId);
+                    clearInterval(intervalId);
+                } else {
 
-
+                }
+            }, 1000);
         }
 
         $(document).on('keyup', '#nameSearch',()=>{

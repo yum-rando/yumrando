@@ -6,7 +6,7 @@ const searchName = (name, lat, lon) => `search?q=${name}&lat=${lat}&lon=${lon}`;
 
 let results = {};
 const apiSearch = search => {
-    return fetch(url + search,
+     fetch(url + search,
         {
             headers: {
                 'user-key': zKey
@@ -17,7 +17,7 @@ const apiSearch = search => {
 
         })
     })
-
+    return results;
 }
 
 
