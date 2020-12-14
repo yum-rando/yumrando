@@ -23,7 +23,7 @@ public class User {
     @Column(unique = true)
     private String phoneNumber;
 
-    @Column(columnDefinition = "CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date createdTime;
 
@@ -42,23 +42,29 @@ public class User {
     //Still trying to figure out how to do this with List of List --> Below is not correct
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ListRestaurant> listOfRestaurant;
+//
+//    //Not to sure how to set this up with the 2 users referring to each other with the JPA
+//    @ManyToMany
+//    @JoinTable(
+//        name = "friends",
+//        joinColumns = {@JoinColumn(name = "user_friend_id")},
+//        inverseJoinColumns = {@JoinColumn(name = "user_id")}
+//    )
+//    private List<User> friends;
+//
 
-    //Not to sure how to set this up with the 2 users referring to each other with the JPA
     @ManyToMany
     @JoinTable(
-        name = "friends",
-        joinColumns = {@JoinColumn(name = "user_friend_id")},
-        inverseJoinColumns = {@JoinColumn(name = "user_id")}
+        name = "user_favorite_tags",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
-    private List<User> friends;
+    private List<RestaurantTag> favoriteTags;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_favorite_tags",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
-    )
-    private List<RestaurantTag> userFavoriteTags;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//    private List<FavoriteTag> favoriteTags;
+
+
 
     //Constructors
     public User (){}
@@ -69,21 +75,21 @@ public class User {
         this.password = password;
     }
 
-    //Read
-    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<User> friends) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.createdTime = createdTime;
-        this.zipcode = zipcode;
-        this.imgURL = imgURL;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.listOfRestaurant = listOfRestaurant;
-        this.friends = friends;
-    }
+//    //Read
+//    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<User> friends) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.phoneNumber = phoneNumber;
+//        this.createdTime = createdTime;
+//        this.zipcode = zipcode;
+//        this.imgURL = imgURL;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.listOfRestaurant = listOfRestaurant;
+//        this.friends = friends;
+//    }
 
     //Getters & Setters
     public long getId() {
@@ -165,20 +171,20 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public List<ListRestaurant> getListOfRestaurant() {
-        return listOfRestaurant;
-    }
-
-    public void setListOfRestaurant(List<ListRestaurant> listOfRestaurant) {
-        this.listOfRestaurant = listOfRestaurant;
-    }
-
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
+//
+//    public List<ListRestaurant> getListOfRestaurant() {
+//        return listOfRestaurant;
+//    }
+//
+//    public void setListOfRestaurant(List<ListRestaurant> listOfRestaurant) {
+//        this.listOfRestaurant = listOfRestaurant;
+//    }
+//
+//    public List<User> getFriends() {
+//        return friends;
+//    }
+//
+//    public void setFriends(List<User> friends) {
+//        this.friends = friends;
+//    }
 }
