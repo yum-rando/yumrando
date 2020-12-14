@@ -196,4 +196,5 @@ public class User {
     public void setFriends(List<FriendList> friends) {
         this.friends = friends;
     }
+
 }
