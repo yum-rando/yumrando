@@ -61,10 +61,6 @@ public class User {
     )
     private List<RestaurantTag> favoriteTags;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-//    private List<FavoriteTag> favoriteTags;
-
-
 
     //Constructors
     public User (){}
