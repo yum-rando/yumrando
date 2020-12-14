@@ -26,9 +26,9 @@ public class Restaurant {
     @Column
     private String address;
 
-    @Column(length = 50)
-    private String state;
-
+    @Column
+    private String city;
+    
     @Column(length = 15)
     private String zipcode;
 
@@ -61,23 +61,23 @@ public class Restaurant {
     public Restaurant(){}
 
     //Create/Insert
-    public Restaurant(String name, String address, String state, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(String name, String address, String city, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.name = name;
         this.address = address;
-        this.state = state;
+        this.city = city;
         this.lists = lists;
         this.tags = tags;
     }
 
     //Read
-    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String state, String zipcode, Date chosenTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date chosenTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.website = website;
         this.address = address;
-        this.state = state;
+        this.city = city;
         this.zipcode = zipcode;
         this.chosenTime = chosenTime;
         this.reviews = reviews;
@@ -134,12 +134,12 @@ public class Restaurant {
         this.address = address;
     }
 
-    public String getState() {
-        return state;
+    public String getCity() {
+        return city;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZipcode() {
