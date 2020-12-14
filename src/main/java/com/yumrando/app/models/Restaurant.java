@@ -20,21 +20,24 @@ public class Restaurant {
     @Column(length = 15, unique = true)
     private String phoneNumber;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String website;
 
     @Column
     private String address;
 
-    @Column(length = 50)
-    private String state;
-
+    @Column
+    private String city;
+    
     @Column(length = 15)
     private String zipcode;
 
-    @Column(columnDefinition = "CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date chosenTime;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<Review> reviews;
 
     @ManyToMany(cascade = CascadeType.ALL)
     //new table will be created with the combining of columns of list_id and restaurant_id
@@ -58,25 +61,26 @@ public class Restaurant {
     public Restaurant(){}
 
     //Create/Insert
-    public Restaurant(String name, String address, String state, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(String name, String address, String city, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.name = name;
         this.address = address;
-        this.state = state;
+        this.city = city;
         this.lists = lists;
         this.tags = tags;
     }
 
     //Read
-    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String state, String zipcode, Date chosenTime, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date chosenTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.website = website;
         this.address = address;
-        this.state = state;
+        this.city = city;
         this.zipcode = zipcode;
         this.chosenTime = chosenTime;
+        this.reviews = reviews;
         this.lists = lists;
         this.tags = tags;
     }
@@ -130,12 +134,12 @@ public class Restaurant {
         this.address = address;
     }
 
-    public String getState() {
-        return state;
+    public String getCity() {
+        return city;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZipcode() {
@@ -168,5 +172,13 @@ public class Restaurant {
 
     public void setTags(List<RestaurantTag> tags) {
         this.tags = tags;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
