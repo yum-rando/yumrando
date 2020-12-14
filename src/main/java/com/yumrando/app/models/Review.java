@@ -21,8 +21,8 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date createTime;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
-//    private List<Photo> photos;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
+    private List<Photo> photos;
 
     @ManyToOne
     private User user;
@@ -41,15 +41,15 @@ public class Review {
     }
 
     //Read
-//    public Review(long id, String comment, int rating, Date createTime, List<Photo> photos, User user, Restaurant restaurant) {
-//        this.id = id;
-//        this.comment = comment;
-//        this.rating = rating;
-//        this.createTime = createTime;
-//        this.photos = photos;
-//        this.user = user;
-//        this.restaurant = restaurant;
-//    }
+    public Review(long id, String comment, int rating, Date createTime, List<Photo> photos, User user, Restaurant restaurant) {
+        this.id = id;
+        this.comment = comment;
+        this.rating = rating;
+        this.createTime = createTime;
+        this.photos = photos;
+        this.user = user;
+        this.restaurant = restaurant;
+    }
 
     //Getters & Setters
     public long getId() {
@@ -84,13 +84,13 @@ public class Review {
         this.createTime = createTime;
     }
 
-//    public List<Photo> getPhotos() {
-//        return photos;
-//    }
-//
-//    public void setPhotos(List<Photo> photos) {
-//        this.photos = photos;
-//    }
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
     public User getUser() {
         return user;
