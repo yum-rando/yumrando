@@ -1,5 +1,6 @@
 ($ => {
     $(document).ready(()=>{
+
         const listBasic = array => {
            let parent = $('#restaurant-items');
            parent.empty();
@@ -10,12 +11,26 @@
            })
        }
 
+       const listResult = array => {
+            let parent = $('#search-results');
+            parent.empty();
+            array.map(item => {
+                $(parent).append(
+                    `<div>
+                        <h5>${item.name}</h5>
+                        <p>${item.location.address}</p>
+                        </div>
+                        `
+                )
+            });
+       }
+
         const arrayConstructor = () => {
-            let listDisplay= localStorage.getItem("yumList");
-            if (listDisplay === null){
+            let listDisplayItems = localStorage.getItem("yumList");
+            if (listDisplayItems === null){
                 return [];
             } else {
-               return JSON.parse(listDisplay);
+               return JSON.parse(listDisplayItems);
             }
                 }
 
@@ -28,12 +43,36 @@
         listBasic(arrayConstructor());
         })
 
-        $('#search-basic').click(()=>{
-            let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-            apiSearchLocal(coordInput.latitude, coordInput.longitude)
+        const selectRest = '#search-select';
+        const modalBody = '#search-body';
+
+        $(selectRest).change(()=>{
+            $(modalBody).empty();
+           switch ($(selectRest).val()){
+               case "name":
+                   $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                   break;
+               default:
+                   return;
+           }
         })
+        let delay = 3000;
+        const inputSearch = () => {
+            let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+            apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude));
+            setInterval(()=>{
+                if(data.info ===)
+            })
+                console.log(data.info);
+               listResult(data.info);
 
+
+        }
+
+        $(document).on('keyup', '#nameSearch',()=>{
+            setTimeout(()=>{}, delay)
+            inputSearch();
+        })
     listBasic(arrayConstructor());
-
     })
 })(jQuery);

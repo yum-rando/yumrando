@@ -1,13 +1,23 @@
-const url = 'https://developers.zomato.com/api/v2.1/geocode'
-const apiSearchLocal = (lat, lon) => {
-    fetch(url + `?lat=${lat}&lon=${lon}`,
+const url = 'https://developers.zomato.com/api/v2.1/'
+
+const searchLocal = (lat, lon) => `geocode?lat=${lat}&lon=${lon}`;
+
+const searchName = (name, lat, lon) => `search?q=${name}&lat=${lat}&lon=${lon}`;
+
+let results = {};
+const apiSearch = search => {
+    return fetch(url + search,
         {
             headers: {
                 'user-key': zKey
             }
         }).then( response => {
-        response.json().then( data=>{
-            console.log(data);
+        response.json().then(data=>{
+            results.info = data.restaurants;
+
         })
     })
+
 }
+
+
