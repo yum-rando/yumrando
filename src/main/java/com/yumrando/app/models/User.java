@@ -61,6 +61,8 @@ public class User {
     )
     private List<RestaurantTag> favoriteTags;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Review> reviews;
 
     //Constructors
     public User (){}

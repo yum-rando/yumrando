@@ -36,6 +36,9 @@ public class Restaurant {
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date chosenTime;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<Review> reviews;
+
     @ManyToMany(cascade = CascadeType.ALL)
     //new table will be created with the combining of columns of list_id and restaurant_id
     @JoinTable(
