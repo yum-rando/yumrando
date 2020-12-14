@@ -11,13 +11,13 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String comment;
 
     @Column(nullable = false, length = 1)
     private int rating;
 
-    @Column(columnDefinition = "CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date createTime;
 
