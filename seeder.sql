@@ -1,4 +1,4 @@
-USE yumrando_db;
+USE yum_rando_db;
 
 INSERT INTO users (email, first_name, imgurl, last_name, password, phone_number, username, zipcode)
     VALUES
