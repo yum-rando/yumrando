@@ -1,6 +1,15 @@
 ($ => {
     $(document).ready(()=>{
 
+        const arrayConstructor = () => {
+            let listDisplayItems = localStorage.getItem("yumList");
+            if (listDisplayItems === null){
+                return [];
+            } else {
+                return JSON.parse(listDisplayItems);
+            }
+        }
+
         const listBasic = array => {
             let parent = $('#restaurant-items');
             parent.empty();
@@ -11,34 +20,47 @@
             })
         }
 
+        const updateLocal = object => {
+            localStorage.setItem("yumList", JSON.stringify(
+                [...arrayConstructor(), object]
+            ))
+            listBasic(arrayConstructor());
+        }
+
+
+
+        const obtainRestaurant = num => updateLocal(resultSet[num]);
         const listResult = array => {
             let parent = $('#search-results');
             parent.empty();
-            array.map(({restaurant}) => {
+            resultSet = [];
+            array.map(({restaurant}, num) => {
+                resultSet.push(restaurant);
+                let newId = num;
                 $(parent).append(
-                    `<div>
-                        <h5>${restaurant.name}</h5>
-                        <p>${restaurant.location.address}</p>
-                        </div>
+                    `<div class="container">
+                        <div class="row">
+                            <div class="col-9">
+                                <h5>${restaurant.name}</h5>
+                                <p>${restaurant.location.address}</p>
+                             </div>
+                             <div class="col-3">
+                                 <button id="${num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
+                             </div>
+                         </div>
+                    </div>
                         `
-                )
+                );
+                $(`#${newId}`).click(()=> {
+                    obtainRestaurant(newId);
+                })
             });
-        }
-
-        const arrayConstructor = () => {
-            let listDisplayItems = localStorage.getItem("yumList");
-            if (listDisplayItems === null){
-                return [];
-            } else {
-                return JSON.parse(listDisplayItems);
-            }
         }
 
         $('#add-basic').click(()=>{
             let basicInput = $('#simple-name');
-            localStorage.setItem("yumList", JSON.stringify(
-                [...arrayConstructor(), {name: basicInput.val()}]
-            ))
+            let objectConvert = {name: basicInput.val()};
+           updateLocal(objectConvert);
             basicInput.val("");
             listBasic(arrayConstructor());
         })
