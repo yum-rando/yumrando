@@ -14,11 +14,11 @@
        const listResult = array => {
             let parent = $('#search-results');
             parent.empty();
-            array.map(item => {
+            array.map(({restaurant}) => {
                 $(parent).append(
                     `<div>
-                        <h5>${item.name}</h5>
-                        <p>${item.location.address}</p>
+                        <h5>${restaurant.name}</h5>
+                        <p>${restaurant.location.address}</p>
                         </div>
                         `
                 )
@@ -48,6 +48,7 @@
 
         $(selectRest).change(()=>{
             $(modalBody).empty();
+            $('#nameSearch').empty();
            switch ($(selectRest).val()){
                case "name":
                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
@@ -56,24 +57,19 @@
                    return;
            }
         })
-        let delay = 3000;
+
         const inputSearch = () => {
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-            apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude));
-            const intervalId = setInterval(()=>{
-                if(typeof results.info !== 'undefined') {
-                    console.log(results.info);
-                    listResult(results.info);
-                    console.log(intervalId);
-                    clearInterval(intervalId);
-                } else {
+          apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude)).then(data=> {
+              console.log(data.restaurants);
+              listResult(data.restaurants);
+          });
 
-                }
-            }, 1000);
+
         }
 
-        $(document).on('keyup', '#nameSearch',()=>{
-            setTimeout(()=>{}, delay)
+        $(document).on('change', '#nameSearch',()=>{
+            if(typeof $('#nameSearch').val() !== 'undefined')
             inputSearch();
         })
     listBasic(arrayConstructor());

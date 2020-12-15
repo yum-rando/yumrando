@@ -1,23 +1,21 @@
-const url = 'https://developers.zomato.com/api/v2.1/'
+const urlGet = 'https://developers.zomato.com/api/v2.1/'
 
 const searchLocal = (lat, lon) => `geocode?lat=${lat}&lon=${lon}`;
 
 const searchName = (name, lat, lon) => `search?q=${name}&lat=${lat}&lon=${lon}`;
 
 let results = {};
-const apiSearch = search => {
-     fetch(url + search,
+const apiSearch = async search => {
+    const response = await fetch(urlGet + search,
         {
             headers: {
-                'user-key': zKey
+                'user-key': zKey,
+                'Content-Type': 'application/json'
             }
-        }).then( response => {
-        response.json().then(data=>{
-            results.info = data.restaurants;
-
         })
-    })
-    return results;
+    const restaurants = await response.json();
+    return restaurants;
 }
+
 
 
