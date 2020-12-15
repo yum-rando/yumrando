@@ -15,7 +15,17 @@
             parent.empty();
             array.map(item =>{
                 $(parent).append(
-                    `<h6 id="${item.name}">${item.name}</h6>`
+                    `
+                      <div class="container">
+                      <div class="row">
+                      <div class="col-9">
+                      <h6 id="${item.name}">${item.name}</h6>
+                      </div>
+                     <div class="col-3">
+                     <button type="button">-</button>
+                    </div>
+                      </div>
+                        </div>`
                 );
             })
         }
