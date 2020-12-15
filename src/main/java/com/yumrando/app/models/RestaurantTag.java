@@ -16,20 +16,25 @@ public class RestaurantTag {
     @ManyToMany(mappedBy = "tags")
     private List<Restaurant> restaurants;
 
+    @ManyToMany(mappedBy = "favoriteTags")
+    private List<User> users;
+
     //Constructors
     public RestaurantTag(){}
 
     //Insert/Create
-    public RestaurantTag(String name, List<Restaurant> restaurants) {
+    public RestaurantTag(String name, List<Restaurant> restaurants, List<User> users) {
         this.name = name;
         this.restaurants = restaurants;
+        this.users = users;
     }
 
     //Read
-    public RestaurantTag(long id, String name, List<Restaurant> restaurants) {
+    public RestaurantTag(long id, String name, List<Restaurant> restaurants, List<User> users) {
         this.id = id;
         this.name = name;
         this.restaurants = restaurants;
+        this.users = users;
     }
 
 
@@ -56,6 +61,14 @@ public class RestaurantTag {
 
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
 
