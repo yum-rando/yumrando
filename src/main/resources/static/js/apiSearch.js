@@ -4,7 +4,7 @@ const searchLocal = (lat, lon) => `geocode?lat=${lat}&lon=${lon}`;
 
 const searchName = (name, lat, lon) => `search?q=${name}&lat=${lat}&lon=${lon}`;
 
-let results = {};
+let resultSet = [];
 const apiSearch = async search => {
     const response = await fetch(urlGet + search,
         {
