@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ListRestaurantController {
     private ListRestaurantRepository listRestaurantDao;
 
-    @GetMapping("restaurants/{username}/{listname}")
+    @GetMapping("restaurants/{username}/{listName}")
     private String viewSpecificRestaurantList(@PathVariable String username, @PathVariable String listName, Model vModel){
 
         return "user/profile";

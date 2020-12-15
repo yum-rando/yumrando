@@ -37,7 +37,10 @@ public class RestaurantController {
 
         //Need to review all the restaurants to sort out by the 10 most recent chosen
         //Used the stream method to further apply limit of 10 option to the list of restaurants
-        List<Restaurant> mostRecent = restaurantDao.findAll(Sort.by("chosen_time").descending()).stream().limit(10).collect(Collectors.toList());
+        List<Restaurant> mostRecent = restaurantDao.findAll(Sort.by("chosen_time").descending())
+                .stream()
+                .limit(10)
+                .collect(Collectors.toList());
 
         //Send to the front
         vModel.addAttribute("mostRecent", mostRecent);
