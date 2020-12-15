@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="search-modal" class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search A Restaurant To Add</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="search-modal-body" class="modal-body">
+                <div id="search-container">
+                <select id="search-select" class="form-select form-select-lg mb-3">
+                    <option selected>Search by ...</option>
+                    <option value="name">Restaurant Name</option>
+                    <option value="near">Restaurants Near Me</option>
+                    <option value="3">Three</option>
+                </select>
+                </div>
+                <div id="search-body"></div>
+                <div style="overflow: scroll" data-bs-spy="scroll" data-bs-target="search-container" data-bs-offset="0" tabindex="0" id="search-results"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="search-basic" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
