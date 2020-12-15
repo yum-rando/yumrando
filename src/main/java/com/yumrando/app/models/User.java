@@ -22,7 +22,7 @@ public class User {
     @Column(unique = true)
     private String phoneNumber;
 
-    @Column(columnDefinition = "CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date createdTime;
 
@@ -38,18 +38,23 @@ public class User {
     @Column
     private String lastName;
 
-    //Still trying to figure out how to do this with List of List --> Below is not correct
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ListRestaurant> listOfRestaurant;
 
-    //Not to sure how to set this up with the 2 users referring to each other with the JPA
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Review> reviews;
+
     @ManyToMany
     @JoinTable(
-        name = "friends",
-        joinColumns = {@JoinColumn(name = "user_friend_id")},
-        inverseJoinColumns = {@JoinColumn(name = "user_id")}
+        name = "user_favorite_tags",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
-    private List<User> friends;
+    private List<RestaurantTag> favoriteTags;
+
+    @OneToMany(mappedBy = "user")
+    private List<FriendList> friends;
+
 
     //Constructors
     public User (){}
@@ -61,7 +66,7 @@ public class User {
     }
 
     //Read
-    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<User> friends) {
+    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, List<RestaurantTag> favoriteTags, List<FriendList> friends) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -73,6 +78,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.listOfRestaurant = listOfRestaurant;
+        this.reviews = reviews;
+        this.favoriteTags = favoriteTags;
         this.friends = friends;
     }
 
@@ -165,11 +172,27 @@ public class User {
         this.listOfRestaurant = listOfRestaurant;
     }
 
-    public List<User> getFriends() {
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<RestaurantTag> getFavoriteTags() {
+        return favoriteTags;
+    }
+
+    public void setFavoriteTags(List<RestaurantTag> favoriteTags) {
+        this.favoriteTags = favoriteTags;
+    }
+
+    public List<FriendList> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<User> friends) {
+    public void setFriends(List<FriendList> friends) {
         this.friends = friends;
     }
 }

@@ -70,4 +70,6 @@ public class ListRestaurant {
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
+
+
 }

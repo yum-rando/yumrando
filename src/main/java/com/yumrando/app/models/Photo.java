@@ -16,7 +16,6 @@ public class Photo {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "review_id")
     private Review review;
 
 
