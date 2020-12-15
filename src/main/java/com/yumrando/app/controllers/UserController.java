@@ -18,6 +18,7 @@ public class UserController {
 
     @GetMapping("/index")
     public String showIndexPage() {
+
         return "index";
     }
 
