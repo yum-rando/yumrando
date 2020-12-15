@@ -4,6 +4,6 @@ import com.yumrando.app.models.FriendList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ListFriendsRepository extends JpaRepository <FriendList, Long>{
-//    FriendList findById(long id);
-//    FriendList Save(FriendList friendship);
+    FriendList findById(long id);
+    FriendList save(FriendList friendList);
 }
