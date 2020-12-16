@@ -86,6 +86,7 @@ const deleteLocal = num => {
         })
 
         const selectRest = '#search-select';
+
         const modalBody = '#search-body';
 
         $(selectRest).change(()=>{
@@ -96,8 +97,10 @@ const deleteLocal = num => {
                     $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
                     break;
                 case "near":
+                    // Attach loader to $('#search-results')
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                     apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                        // Clear loader from $('#search-results) (.empty() works well for that)
                         listResult(data.nearby_restaurants)
                     });
                     break;
@@ -107,8 +110,10 @@ const deleteLocal = num => {
         })
 
         const inputSearch = () => {
+            // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude)).then(data=> {
+                // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants);
             });
 
