@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ListRestaurantRepository extends JpaRepository<ListRestaurant, Long> {
     ListRestaurant findById(long id);
-    ListRestaurant Save(ListRestaurant listRestaurant);
+
     ListRestaurant deleteByIdIn(List<Restaurant> restaurants);
 }
