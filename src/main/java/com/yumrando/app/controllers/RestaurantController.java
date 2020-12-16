@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
@@ -50,6 +52,16 @@ public class RestaurantController {
 
         return "user/profile";
     }
+
+    //Randomizer Button --> POST REQUEST
+    @PostMapping("/restaurant/randomizer")
+    public String randomizerBtn(){
+        List<Restaurant> restaurants = restaurantDao.findAll();
+        Random random = new Random();
+        random
+        return "index";
+    }
+
 
     //Adding Restaurant //(Any user, especially if new restaurant) Double Check to make sure this restaurant isn't already in the database
 

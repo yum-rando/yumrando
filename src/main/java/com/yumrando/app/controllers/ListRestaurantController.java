@@ -15,4 +15,15 @@ public class ListRestaurantController {
 
         return "user/profile";
     }
+
+    //Add List
+
+
+    //Update List
+
+
+    //Delete List
+
+
+    //Different ListName Change
 }
