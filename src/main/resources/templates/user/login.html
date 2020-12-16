@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="partials :: head">
+    <title id="customTitle">Sign Up</title>
+</head>
+<body>
+<nav th:replace="partials :: navbar"/>
+<h1>Log In</h1>
+<div class="container">
+    <form th:action="@{register}" method="POST" th:object="${user}">
+        <div class="mb-3">
+            <label for="username" class="form-label">Enter a username</label>
+            <input type="text" class="form-control" id="username" th:field="*{username}" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script th:replace="partials :: bootstrap"></script>
+<script th:replace="partials :: jquery"></script>
+</body>
+</html>

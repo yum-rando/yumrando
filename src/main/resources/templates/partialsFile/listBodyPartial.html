@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="guest-list">
+<div th:fragment="list-body">
+    <div class="container">
+        <div th:replace="partialsFile/userToolbar :: user-toolbar"></div>
     <div class="row">
     <div id="restaurant-items"></div>
     </div>
@@ -14,6 +16,6 @@
             </button>
         </div>
     </div>
-
+    </div>
 </div>
 </html>
