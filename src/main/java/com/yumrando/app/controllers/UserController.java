@@ -2,16 +2,16 @@ package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.UserRepository;
-import com.yumrando.app.repos.Users;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import com.yumrando.app.repos.Users;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
-    private Users users;
-    private PasswordEncoder passwordEncoder;
+//    private Users users;
+//    private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
 
     public UserController(UserRepository userDao){
@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
+    public String showRegistrationPage() {
+//        model.addAttribute("user", new User());
         return "user/register";
     }
 
@@ -48,9 +48,9 @@ public class UserController {
         test.setUsername(username);
         test.setPassword(password);
                 System.out.println(test.getPassword());
-                String hash = passwordEncoder.encode(test.getPassword());
-                test.setPassword(hash);
-                users.save(test);
+//                String hash = passwordEncoder.encode(test.getPassword());
+//                test.setPassword(hash);
+                userDao.save(test);
                 return "redirect:/index"; // If password equals confirmPassword redirect to index
 
 
@@ -66,4 +66,8 @@ public class UserController {
     public String executeLogout() {
         return "redirect:/index";
     }
+    @GetMapping("/login")
+        public String showLogin() {
+            return "user/login";
+        }
 }

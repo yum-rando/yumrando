@@ -7,7 +7,7 @@
 <nav th:replace="partials :: navbar"/>
 <h1>Create an Account</h1>
 <div class="container">
-<form th:action="@{/register}" th:method="post" th:object="${user}">
+<form action="/register" method="post">
     <div class="mb-3">
         <label for="username" class="form-label">Enter a username</label>
         <input type="text" class="form-control" id="username" name="username" required>
