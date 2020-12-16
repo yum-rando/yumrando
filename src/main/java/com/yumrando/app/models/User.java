@@ -56,6 +56,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<FriendList> friends;
 
+    public User(User copy) {
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
 
     //Constructors
     public User (){}
