@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <div th:fragment="list-body">
     <div class="container">
+<!--        <div sec:authorize = "isAuthenticated()">-->
         <div th:replace="partialsFile/userToolbar :: user-toolbar"></div>
+<!--        </div>-->
     <div class="row">
     <div id="restaurant-items"></div>
     </div>
