@@ -9,11 +9,16 @@
                 return JSON.parse(listDisplayItems);
             }
         }
+const deleteLocal = num => {
+            let array = arrayConstructor().filter((rest, index) => index !== num);
+            localStorage.setItem("yumList", JSON.stringify(array));
+            listBasic(array);
+        }
 
         const listBasic = array => {
             let parent = $('#restaurant-items');
             parent.empty();
-            array.map(item =>{
+            array.map((item, num) =>{
                 $(parent).append(
                     `
                       <div class="container">
@@ -22,12 +27,16 @@
                       <h6 id="${item.name}">${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button type="button">-</button>
+                     <button id="delete${num}" type="button" class="btn btn-danger">-</button>
                     </div>
                       </div>
                         </div>`
                 );
+                $(`#delete${num}`).click(()=>{
+                    deleteLocal(num)
+                })
             })
+
         }
 
         const updateLocal = object => {
@@ -40,6 +49,7 @@
 
 
         const obtainRestaurant = num => updateLocal(resultSet[num]);
+
         const listResult = array => {
             let parent = $('#search-results');
             parent.empty();
@@ -76,6 +86,7 @@
         })
 
         const selectRest = '#search-select';
+
         const modalBody = '#search-body';
 
         $(selectRest).change(()=>{
@@ -86,8 +97,10 @@
                     $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
                     break;
                 case "near":
+                    // Attach loader to $('#search-results')
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                     apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                        // Clear loader from $('#search-results) (.empty() works well for that)
                         listResult(data.nearby_restaurants)
                     });
                     break;
@@ -97,8 +110,10 @@
         })
 
         const inputSearch = () => {
+            // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude)).then(data=> {
+                // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants);
             });
 
