@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="app">
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <div></div>
                 <div>Randomizer Tool</div>
-<!--                <div sec:authorize = "isAnonymous()">-->
+                <div sec:authorize = "isAnonymous()">
                 <button type="button">Randomize</button>
-<!--                </div>-->
-<!--                <div sec:authorize = "isAuthenticated()">-->
+                </div>
+                <div sec:authorize = "isAuthenticated()">
                     <button type="button">Randomize</button>
-<!--                </div>-->
+                </div>
             </div>
             <div class="col-6">
                 <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
