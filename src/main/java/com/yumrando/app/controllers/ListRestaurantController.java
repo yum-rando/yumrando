@@ -51,20 +51,20 @@ public class ListRestaurantController {
     }
 
     //Delete List by the ListRestaurant Id
-    @PostMapping("restaurants/lists/{id}/delete")
-    private String deleteListById(@PathVariable long id){
-        System.out.println("Will this run?");
-        listDao.deleteById(id);
-        return "redirect:/index";
-    }
+//    @PostMapping("restaurants/lists/{id}/delete")
+//    private String deleteListById(@PathVariable long id){
+//        System.out.println("Will this run?");
+//        listDao.deleteById(id);
+//        return "redirect:/index";
+//    }
 
     //Delete List by the ListRestaurant Name
-    @PostMapping("restaurant/lists/{listName}")
-    private String deleteListByListName(@PathVariable String listName){
-        System.out.println("Will this run?");
-        listDao.deleteByName(listName);
-        return "index";
-    }
+//    @PostMapping("restaurant/lists/{listName}")
+//    private String deleteListByListName(@PathVariable String listName){
+//        System.out.println("Will this run?");
+//        listDao.deleteByName(listName);
+//        return "index";
+//    }
 
     //Delete List via the Model Attribute
     @PostMapping("restaurant/lists/delete")

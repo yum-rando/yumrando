@@ -142,12 +142,26 @@ const deleteLocal = num => {
                 let listObject = {
                     name: $('#name').val()
                 }
-                apiAddList(listObject).then(data=>{
+                apiAddList(listObject, "/restaurants/lists/create").then(data=>{
                     console.log(data);
                 }).catch(()=>{
                     console.log("We are not champions : (")
                 });
             })
+        })
+
+        $("#currentList").change(() => {
+            console.log($("#currentList").val())
+        })
+
+        $("#add-basic-user").click(() => {
+            const restaurantName = {
+                name: $("#simple-name").val()
+            }
+            const listNumber = $("#currentList").val();
+            const url = `/restaurants/lists/${listNumber}`;
+            apiAddList(restaurantName, url).then(data=>{console.log(data)}).catch(()=>{console.error("Nope!")});
+
         })
 
         listBasic(arrayConstructor());
