@@ -5,6 +5,7 @@ import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
