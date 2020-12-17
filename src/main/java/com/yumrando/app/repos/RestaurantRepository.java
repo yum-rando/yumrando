@@ -8,5 +8,9 @@ import java.util.List;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findById(long id);
 
+
     List<Restaurant> findByOrderByChosenTimeDesc();
+
+    Restaurant save(Restaurant restaurant);
+
 }

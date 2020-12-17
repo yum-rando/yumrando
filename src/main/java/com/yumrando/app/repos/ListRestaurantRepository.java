@@ -11,6 +11,8 @@ import java.util.List;
 public interface ListRestaurantRepository extends JpaRepository<ListRestaurant, Long> {
     ListRestaurant findById(long id);
 
+    ListRestaurant save(ListRestaurant listRestaurant);
+
     ListRestaurant deleteByIdIn(List<Restaurant> restaurants);
     ListRestaurant findByName(String name);
     //String findByNameEquals(String name);
