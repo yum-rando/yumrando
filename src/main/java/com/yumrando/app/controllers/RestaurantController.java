@@ -25,16 +25,18 @@ import java.util.stream.Collectors;
 
 @Controller
 public class RestaurantController {
-    @Autowired
+
     private UserRepository userDao;
-    @Autowired
     private RestaurantRepository restaurantDao;
-    @Autowired
     private ListRestaurantRepository listDao;
-    @Autowired
     private ReviewRepository reviewDao;
 
-
+    public RestaurantController(UserRepository userDao, RestaurantRepository restaurantDao, ListRestaurantRepository listDao, ReviewRepository reviewDao) {
+        this.userDao = userDao;
+        this.restaurantDao = restaurantDao;
+        this.listDao = listDao;
+        this.reviewDao = reviewDao;
+    }
 
     //Reading/Showing all Restaurants
     @GetMapping("/restaurant")
@@ -53,20 +55,17 @@ public class RestaurantController {
         //Need to review all the restaurants to sort out by the 10 most recent chosen
         //Used the stream method to further apply limit of 10 option to the list of restaurants
         List<Restaurant> mostRecent = restaurantDao.findByOrderByChosenTimeDesc();
-//        All(Sort.by("chosen_time").descending())
-//                .stream()
-//                .limit(10)
-//                .collect(Collectors.toList());
 
         List<Review> reviews = reviewDao.findAllByUser(user);
 
         //Send to the front
         vModel.addAttribute("recentReviews", reviews);
 
+
         //Issue --> How to tie this in with the specific user and their choices for restaurants
             //Might have to go thru the Review table since that is a direct connection between Users and Restaurants without a list
 
-        return "user/profile";
+        return "user/test";
     }
 
     //Randomizer Button --> POST REQUEST

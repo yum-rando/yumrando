@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="partials :: head">
-    <title id="customTitle">Profile Page</title>
+    <title id="customTitle">Test Page</title>
 </head>
 <body>
 <nav th:replace="partials :: navbar"/>
 <div>Profile Page</div>
+<div>
+    <h1>Recent Reviews</h1>
+    <div th:each="review : ${recentReviews}">
+        <h1 th:text="${review.restaurant.name}"></h1>
+    </div>
+</div>
 <script th:replace="partials :: bootstrap"></script>
 <script th:replace="partials :: jquery"></script>
 </body>
