@@ -4,10 +4,10 @@
     <title id="customTitle">Yum•Rando</title>
 </head>
 <body>
-<nav th:replace="partials :: navbar"/>
-<div th:replace="add-modal-partial :: add-modal"></div>
-<div th:replace="search-modal-partial :: search-modal"></div>
-<div th:replace="app-partials :: app"/>
+<nav th:replace="partials/navbar :: navbar"/>
+<div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
+<div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
+<div th:replace="partialsFile/app :: app"></div>
 
 
 <script th:replace="partials :: bootstrap"></script>
