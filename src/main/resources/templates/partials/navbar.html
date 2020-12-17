@@ -3,40 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <!--  CSS -->
+    <link href="/css/main.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light" th:fragment ="navbar">
-        <a class="navbar-brand" href="/index">
-            <img src="../../img/yumlogo.png" width="30" height="30" class="d-inline-block align-top" alt="yum rando logo">
-            YumRando
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/index">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Log in
+
+    <nav class="pt-30 pb-30 bg-light text-center navigation_1" th:fragment ="navbar">
+        <div class="container px-xl-0">
+            <div class="row justify-content-center align-items-center f-16">
+                <div class="mb-20 mb-lg-0 col-lg-3 text-lg-left" data-aos="fade-down" data-aos-delay="250">
+                    <a href="/index" class="link color-main f-24 bold">
+                        YumRando
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/log-in">Log in</a>
-                        <a class="dropdown-item" href="/register">Register</a>
-                        <a class="dropdown-item" href="/logout">Logout</a>
-                    </div>
-                </li>
-            </ul>
+                </div>
+                <div class="col-lg-6" data-aos="fade-down" data-aos-delay="0">
+                    <a href="/index" class="link mx-15 color-main">
+                        Home
+                    </a>
+                    <a href="/profile" class="link mx-15 color-main">
+                        Profile
+                    </a>
+                    <a href="/" class="link mx-15 color-main">
+                        Contact
+                    </a>
+                    <a href="/" class="link mx-15 color-main">
+                        About Us
+                    </a>
+                    <a href="#" class="mx-15 link color-main">
+                        <i class="fas fa-search">
+                        </i>
+                    </a>
+                </div>
+                <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
+                    <a href="/login" class="link mr-20 color-main">
+                        Sign In
+                    </a>
+                    <a href="/register" class="btn mr-20 sm action-2 f-16">
+                        Sign Up
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
-    </nav>
+
+
 </body>
 </html>
