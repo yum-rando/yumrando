@@ -13,4 +13,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     Restaurant save(Restaurant restaurant);
 
+    //List<Restaurant> findAllByListId(long id);
+    //List<Restaurant> findAllByListId(long id);
 }
