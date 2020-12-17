@@ -1,6 +1,7 @@
 package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.ListRestaurant;
+import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
@@ -49,6 +50,13 @@ public class ListRestaurantController {
         //return "user/profile";
     }
 
+    @PostMapping("restaurants/lists/create/test")
+    private String createList(@ModelAttribute ListRestaurant listToBeSaved){
+        List<Restaurant> restaurantList = listToBeSaved.getRestaurants();
+        //Not done yet and still working on this
+        return "index";
+    }
+
     //Update List
     @PostMapping("restaurants/lists/edit")
     private String editListRestaurant(@ModelAttribute ListRestaurant listToBeUpdated){
@@ -88,5 +96,5 @@ public class ListRestaurantController {
     }
 
 
-    //Different ListName Change
+    //Different ListName Change --> Possibly needed
 }
