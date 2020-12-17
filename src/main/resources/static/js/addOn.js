@@ -142,7 +142,7 @@ const deleteLocal = num => {
                 let listObject = {
                     name: $('#name').val()
                 }
-                apiAddList(listObject).then((data)=>{
+                apiAddList(listObject).then(data=>{
                     console.log(data);
                 }).catch(()=>{
                     console.log("We are not champions : (")
