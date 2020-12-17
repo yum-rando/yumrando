@@ -133,11 +133,21 @@ const deleteLocal = num => {
                     <label for="name" class="form-label">Enter a name for your list:</label>
                     <input name="name" type="text" class="form-control" id="name">
                     </div>
-                     <button type="submit" class="btn btn-primary">Submit</button>
-
+                     <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
                  </form>
                 `
             )
+            $('#submit-list').click(()=>{
+
+                let listObject = {
+                    name: $('#name').val()
+                }
+                apiAddList(listObject).then((data)=>{
+                    console.log(data);
+                }).catch(()=>{
+                    console.log("We are not champions : (")
+                });
+            })
         })
 
         listBasic(arrayConstructor());

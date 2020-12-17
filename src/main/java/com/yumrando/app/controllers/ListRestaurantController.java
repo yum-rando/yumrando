@@ -8,10 +8,7 @@ import com.yumrando.app.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,23 +30,7 @@ public class ListRestaurantController {
         return "user/profile";
     }
 
-    //Add List -->Make sure no duplicate names
-    @PostMapping("restaurants/lists/create")
-    private String createListOfRestaurants(@ModelAttribute ListRestaurant listToBeSaved){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String listName = listToBeSaved.getName().trim();
-        List<ListRestaurant> listR = listDao.findAll();
-        for (ListRestaurant list : listR) {
-            if (list.getName().equalsIgnoreCase(listName)){
-                //inform user this can't be done; Already a list of this name, try again with another name
-                System.out.println("This will not work");
-            }
-        }
-        listToBeSaved.setUser(userDb);
-        ListRestaurant dbListRestaurant = listDao.save(listToBeSaved);
-        return "redirect:/restaurants/lists/" + dbListRestaurant.getName();
-        //return "user/profile";
-    }
+
 
     @PostMapping("restaurants/lists/create/test")
     private String createList(@ModelAttribute ListRestaurant listToBeSaved){
