@@ -124,6 +124,22 @@ const deleteLocal = num => {
             if(typeof $('#nameSearch').val() !== 'undefined')
                 inputSearch();
         })
+
+        $('#new-list').click(()=>{
+            $('#user-list-items').toggleClass('d-none');
+            $('#add-list-form').append(
+                `<form>
+                    <div class="mb-3">
+                    <label for="name" class="form-label">Enter a name for your list:</label>
+                    <input name="name" type="text" class="form-control" id="name">
+                    </div>
+                     <button type="submit" class="btn btn-primary">Submit</button>
+
+                 </form>
+                `
+            )
+        })
+
         listBasic(arrayConstructor());
     })
 })(jQuery);
