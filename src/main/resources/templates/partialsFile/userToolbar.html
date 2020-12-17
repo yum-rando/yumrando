@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="user-toolbar">
+
+        <div class="row">
+            <div class="col-3">
+                <button id="yummies">My Yummies!</button>
+            </div>
+            <div class="col-3">
+                <form>
+                    <label for="currentList"></label>
+                    <select class="form-select" name="currentList" id="currentList">
+                        <option value="first" selected>User First List</option>
+                        <option value="second">User Second List</option>
+                        <option value="third">User Third List</option>
+                    </select>
+                </form>
+            </div>
+            <div class="col-3">
+                <button id="new-list">New List</button>
+            </div>
+        </div>
+
+</div>
+</html>
