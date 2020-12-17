@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ListFriendsRepository extends JpaRepository <FriendList, Long>{
     FriendList findById(long id);
-    FriendList Save(FriendList friendship);
+    FriendList save(FriendList friendList);
 }
