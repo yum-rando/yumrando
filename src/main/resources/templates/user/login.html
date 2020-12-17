@@ -7,14 +7,14 @@
 <nav th:replace="partials :: navbar"/>
 <h1>Log In</h1>
 <div class="container">
-    <form th:action="@{register}" method="POST" th:object="${user}">
+    <form th:action="@{/login}" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Enter a username</label>
-            <input type="text" class="form-control" id="username" th:field="*{username}" required>
+            <input name="username" type="text" class="form-control" id="username">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}">
+            <input type="password" class="form-control" id="password" name="password">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

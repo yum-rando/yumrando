@@ -14,8 +14,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
 
-    public UserController(UserRepository userDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users){
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
+        this.users = users;
     }
 
     @GetMapping("/index")
@@ -30,31 +32,19 @@ public class UserController {
         return "user/register";
     }
 
-//    @PostMapping("/register")
-//    public String saveUser(@ModelAttribute User user, @RequestParam (name = "confirmPassword") String checkPassword){
-//        if(user.getPassword().equals(checkPassword)){
-//            System.out.println(user.getPassword());
-//            String hash = passwordEncoder.encode(user.getPassword());
-//            user.setPassword(hash);
-//            users.save(user);
-//            return "redirect:/index"; // If password equals confirmPassword redirect to index
-//        }else{
-//            return "redirect:/register";
-//        }
-
     @PostMapping("/register")
-    public String saveUser(@RequestParam String username, @RequestParam String password){
-        User test = new User();
-        test.setUsername(username);
-        test.setPassword(password);
-                System.out.println(test.getPassword());
-                String hash = passwordEncoder.encode(test.getPassword());
-                test.setPassword(hash);
-                users.save(test);
-                return "redirect:/index"; // If password equals confirmPassword redirect to index
-
-
+    public String saveUser(@ModelAttribute User user, @RequestParam (name = "confirmPassword") String checkPassword) {
+        if (user.getPassword().equals(checkPassword)) {
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
+            users.save(user);
+            return "redirect:/index"; // If password equals confirmPassword redirect to index
+        } else {
+            return "redirect:/register";
+        }
     }
+
+
 
     @GetMapping("/profile")
     public String showProfile() {
@@ -66,4 +56,5 @@ public class UserController {
     public String executeLogout() {
         return "redirect:/index";
     }
+
 }
