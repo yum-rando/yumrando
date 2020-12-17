@@ -1,5 +1,7 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,10 @@ public class ListRestaurant {
         this.restaurants = restaurants;
     }
 
+    public ListRestaurant(String name){
+        this.name = name;
+    }
+
     //Read
     public ListRestaurant(long id, String name, User user, List<Restaurant> restaurants) {
         this.id = id;
@@ -54,7 +60,7 @@ public class ListRestaurant {
     public void setName(String name) {
         this.name = name;
     }
-
+@JsonIgnore
     public User getUser() {
         return user;
     }
@@ -70,6 +76,5 @@ public class ListRestaurant {
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
-
 
 }
