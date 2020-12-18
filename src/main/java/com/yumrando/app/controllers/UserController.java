@@ -57,4 +57,11 @@ public class UserController {
         return "redirect:/index";
     }
 
+    @GetMapping("/aboutUs")
+    public String showAbout(){ return "/aboutUs";}
+
+    @GetMapping("/contact")
+    public String showContact(){ return "/contact";}
+
+
 }
