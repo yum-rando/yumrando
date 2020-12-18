@@ -6,7 +6,10 @@ import com.yumrando.app.repos.Users;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -33,17 +36,26 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, @RequestParam (name = "confirmPassword") String checkPassword) {
-        if (user.getPassword().equals(checkPassword)) {
-            String hash = passwordEncoder.encode(user.getPassword());
-            user.setPassword(hash);
-            users.save(user);
-            return "redirect:/index"; // If password equals confirmPassword redirect to index
-        } else {
-            return "redirect:/register";
+    public String saveUser(
+            @Valid User user,
+//            @RequestParam (name = "confirmPassword") String checkPassword,
+            Errors validation,
+            Model model) {
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            System.out.println(validation);
+            return "user/register";
+//        } else if (user.getPassword().equals(checkPassword)) {
+//            String hash = passwordEncoder.encode(user.getPassword());
+//            user.setPassword(hash);
+//            users.save(user);
+//            return "redirect:/index"; // If password equals confirmPassword redirect to index){
+//        }
+        }else{
+            return "redirect:/index";
         }
     }
-
 
 
     @GetMapping("/profile")

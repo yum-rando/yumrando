@@ -1,6 +1,9 @@
 package com.yumrando.app.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +15,13 @@ public class User {
     private long id;
 
     @Column(nullable = false, unique = true, length = 100)
+    @NotBlank(message = "A username is required") // Jakarta Bean constraint for username
+    @Size(max = 200, message = "A username must be no longer than 200 characters")
     private String username;
 
     @Column(nullable = false)
+    @NotBlank(message = "A password is required") // Jakarta Bean constraint for password
+    @Size(max = 200, message = "A password must be no longer than 200 characters")
     private String password;
 
     @Column(unique = true)
