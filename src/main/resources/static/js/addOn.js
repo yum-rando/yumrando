@@ -169,8 +169,12 @@ const selectEvent = (selector, type) => {
             })
         })
 
+        // A Select that changes the list view for user
         $("#currentList").change(() => {
-            console.log($("#currentList").val())
+           const listNum = $("#currentList").val()
+            if (listNum !== 'default') {
+                window.location.assign(`/list/${listNum}`)
+            }
         })
 
         $("#add-basic-user").click(() => {
