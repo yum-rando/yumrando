@@ -11,7 +11,7 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(unique = true)
     private long apiId;
 
     @Column(nullable = false)
@@ -34,7 +34,7 @@ public class Restaurant {
 
     @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
-    private Date chosenTime;
+    private Date createdTime;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<Review> reviews;
@@ -70,7 +70,7 @@ public class Restaurant {
     }
 
     //Read
-    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date chosenTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date createdTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
@@ -79,7 +79,7 @@ public class Restaurant {
         this.address = address;
         this.city = city;
         this.zipcode = zipcode;
-        this.chosenTime = chosenTime;
+        this.createdTime = createdTime;
         this.reviews = reviews;
         this.lists = lists;
         this.tags = tags;
@@ -150,12 +150,12 @@ public class Restaurant {
         this.zipcode = zipcode;
     }
 
-    public Date getChosenTime() {
-        return chosenTime;
+    public Date getcreatedTime() {
+        return createdTime;
     }
 
-    public void setChosenTime(Date chosenTime) {
-        this.chosenTime = chosenTime;
+    public void setcreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
     public List<ListRestaurant> getLists() {
