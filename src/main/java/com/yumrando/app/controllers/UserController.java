@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -36,6 +38,31 @@ public class UserController {
         return "index";
     }
 
+    //User will go to a page with the list options
+    @GetMapping("/{id}")
+    public String showUsersLists(Model vModel, Principal user, @PathVariable long id){
+        if (user != null) {
+            User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            //Chosen List should not be part of the Other list options
+            ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
+            //This is the Other Lists
+            List<ListRestaurant> nonChosenList = new ArrayList<>();
+            //Get all of the List from the User
+            List<ListRestaurant> lists = listDao.findAllByUser(userDb);
+
+            for (ListRestaurant list : lists) {
+                if (list.getId() != id){
+                    nonChosenList.add(list);
+                }
+            }
+            //Chosen List Object to the View
+            vModel.addAttribute("chosenList", chosenList);
+            //Other list should not include the chosen list
+            vModel.addAttribute("lists", nonChosenList);
+        }
+        return "index";
+    }
 
 
     @GetMapping("/register")

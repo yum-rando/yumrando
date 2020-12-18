@@ -8,6 +8,7 @@ import com.yumrando.app.repos.RestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
 import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

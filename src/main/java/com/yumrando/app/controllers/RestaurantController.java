@@ -54,7 +54,7 @@ public class RestaurantController {
 
         //Need to review all the restaurants to sort out by the 10 most recent chosen
         //Used the stream method to further apply limit of 10 option to the list of restaurants
-        List<Restaurant> mostRecent = restaurantDao.findByOrderByChosenTimeDesc();
+        //List<Restaurant> mostRecent = restaurantDao.findByOrderByChosenTimeDesc();
 
         List<Review> reviews = reviewDao.findAllByUser(user);
 

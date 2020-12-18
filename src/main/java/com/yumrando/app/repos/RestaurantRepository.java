@@ -9,7 +9,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findById(long id);
 
 
-    List<Restaurant> findByOrderByChosenTimeDesc();
+    //List<Restaurant> findByOrderByChosenTimeDesc();
 
     Restaurant save(Restaurant restaurant);
 

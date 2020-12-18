@@ -12,7 +12,7 @@ public class Restaurant {
     private long id;
 
     @Column(unique = true)
-    private long apiId;
+    private String apiId;
 
     @Column(nullable = false)
     private String name;
@@ -70,7 +70,7 @@ public class Restaurant {
     }
 
     //Read
-    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date createdTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(long id, String apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date createdTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
@@ -94,11 +94,11 @@ public class Restaurant {
         this.id = id;
     }
 
-    public long getApiId() {
+    public String getApiId() {
         return apiId;
     }
 
-    public void setApiId(long apiId) {
+    public void setApiId(String apiId) {
         this.apiId = apiId;
     }
 
@@ -150,11 +150,11 @@ public class Restaurant {
         this.zipcode = zipcode;
     }
 
-    public Date getcreatedTime() {
+    public Date getCreatedTime() {
         return createdTime;
     }
 
-    public void setcreatedTime(Date createdTime) {
+    public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
 

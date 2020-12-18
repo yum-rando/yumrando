@@ -61,7 +61,7 @@ const deleteLocal = num => {
                 }
                 const listNumber = $("#currentList").val();
                 const url = `/restaurants/lists/${listNumber}`;
-                apiAddList(postObject, url).then(data=>{console.log(data)}).catch(()=>{console.error("Nope!")});
+                apiAddList(postObject, url).then(() =>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
             } else {
                 updateLocal(resultSet[parseInt(num)]);
             }
@@ -173,7 +173,7 @@ const selectEvent = (selector, type) => {
         $("#currentList").change(() => {
            const listNum = $("#currentList").val()
             if (listNum !== 'default') {
-                window.location.assign(`/list/${listNum}`)
+                window.location.assign(`/${listNum}`)
             }
         })
 
@@ -183,7 +183,8 @@ const selectEvent = (selector, type) => {
             }
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
-            apiAddList(restaurantName, url).then(data=>{console.log(data)}).catch(()=>{console.error("Nope!")});
+            console.log(url);
+            apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
 
         })
 
