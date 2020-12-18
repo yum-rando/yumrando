@@ -65,7 +65,9 @@ const deleteLocal = num => {
                                 <p>${restaurant.location.address}</p>
                              </div>
                              <div class="col-3">
+                                <div sec:authorize = "isAnonymous()">
                                  <button id="${num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
+                                </div>
                              </div>
                          </div>
                     </div>
