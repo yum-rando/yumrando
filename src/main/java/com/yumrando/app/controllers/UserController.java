@@ -17,7 +17,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/register")
     public String saveUser(
             @Valid User user,
-//            @RequestParam (name = "confirmPassword") String checkPassword,
+            @RequestParam(name = "confirmPassword") String checkPassword,
             Errors validation,
             Model model) {
         if (validation.hasErrors()) {
@@ -46,15 +46,14 @@ public class UserController {
             model.addAttribute("user", user);
             System.out.println(validation);
             return "user/register";
-//        } else if (user.getPassword().equals(checkPassword)) {
-//            String hash = passwordEncoder.encode(user.getPassword());
-//            user.setPassword(hash);
-//            users.save(user);
-//            return "redirect:/index"; // If password equals confirmPassword redirect to index){
-//        }
-        }else{
-            return "redirect:/index";
+        } else if (user.getPassword().equals(checkPassword)) {
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
+            users.save(user);
+            return "redirect:/index"; // If password equals confirmPassword redirect to index)
         }
+        return "user/register";
+
     }
 
 

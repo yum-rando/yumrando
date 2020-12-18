@@ -14,14 +14,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+   // Jakarta Bean constraint for username
+    @Size(max = 99, message = "A username must be no longer than 99 characters")
     @Column(nullable = false, unique = true, length = 100)
-    @NotBlank(message = "A username is required") // Jakarta Bean constraint for username
-    @Size(max = 200, message = "A username must be no longer than 200 characters")
     private String username;
 
-    @Column(nullable = false)
-    @NotBlank(message = "A password is required") // Jakarta Bean constraint for password
+    // Jakarta Bean constraint for password
     @Size(max = 200, message = "A password must be no longer than 200 characters")
+    @Column(nullable = false)
     private String password;
 
     @Column(unique = true)
