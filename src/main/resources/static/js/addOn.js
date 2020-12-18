@@ -48,15 +48,32 @@ const deleteLocal = num => {
 
 
 
-        const obtainRestaurant = num => updateLocal(resultSet[num]);
+        const obtainRestaurant = num => {
+            if (num.includes('u')){
+                let restaurant = resultSet[parseInt(num.substring(1))]
+                let postObject = {
+                    address: restaurant.location.address,
+                    apiId: restaurant.id,
+                    name: restaurant.name,
+                    website: restaurant.url,
+                    city: restaurant.location.city,
+                    zipcode: restaurant.location.zipcode
+                }
+                const listNumber = $("#currentList").val();
+                const url = `/restaurants/lists/${listNumber}`;
+                apiAddList(postObject, url).then(data=>{console.log(data)}).catch(()=>{console.error("Nope!")});
+            } else {
+                updateLocal(resultSet[parseInt(num)]);
+            }
 
-        const listResult = array => {
-            let parent = $('#search-results');
+        }
+
+        const listResult = (array, type) => {
+            let parent = $('#search-results, #search-results-user');
             parent.empty();
             resultSet = [];
             array.map(({restaurant}, num) => {
                 resultSet.push(restaurant);
-                let newId = num;
                 $(parent).append(
                     `<div class="container">
                         <div class="row">
@@ -65,16 +82,14 @@ const deleteLocal = num => {
                                 <p>${restaurant.location.address}</p>
                              </div>
                              <div class="col-3">
-                                <div sec:authorize = "isAnonymous()">
-                                 <button id="${num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
-                                </div>
+                                 <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
                              </div>
                          </div>
                     </div>
                         `
                 );
-                $(`#${newId}`).click(()=> {
-                    obtainRestaurant(newId);
+                $(`#${type + num}`).click(()=> {
+                    obtainRestaurant(type + num);
                 })
             });
         }
@@ -88,35 +103,37 @@ const deleteLocal = num => {
         })
 
         const selectRest = '#search-select';
-
+        const selectRestUser = '#search-select-user'
         const modalBody = '#search-body';
 
-        $(selectRest).change(()=>{
-            $(modalBody).empty();
-            $('#search-results').empty();
-            switch ($(selectRest).val()){
-                case "name":
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
-                    break;
-                case "near":
-                    // Attach loader to $('#search-results')
-                    let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                    apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-                        // Clear loader from $('#search-results) (.empty() works well for that)
-                        listResult(data.nearby_restaurants)
-                    });
-                    break;
-                default:
-                    return;
-            }
-        })
+const selectEvent = (selector, type) => {
+    $(selector).change(() => {
+        $(modalBody).empty();
+        $('#search-results, #search-results-user').empty();
+        switch ($(selector).val()) {
+            case "name":
+                $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                break;
+            case "near":
+                // Attach loader to $('#search-results')
+                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                    // Clear loader from $('#search-results) (.empty() works well for that)
+                    listResult(data.nearby_restaurants, type)
+                });
+                break;
+            default:
+                return;
+        }
+    })
+}
 
         const inputSearch = () => {
             // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude)).then(data=> {
                 // Clear loader from $('#search-results) (.empty() works well for that)
-                listResult(data.restaurants);
+                listResult(data.restaurants, "");
             });
 
 
@@ -152,8 +169,12 @@ const deleteLocal = num => {
             })
         })
 
+        // A Select that changes the list view for user
         $("#currentList").change(() => {
-            console.log($("#currentList").val())
+           const listNum = $("#currentList").val()
+            if (listNum !== 'default') {
+                window.location.assign(`/list/${listNum}`)
+            }
         })
 
         $("#add-basic-user").click(() => {
@@ -167,6 +188,8 @@ const deleteLocal = num => {
         })
 
         listBasic(arrayConstructor());
+        selectEvent(selectRest, "")
+        selectEvent(selectRestUser, 'u')
     })
 })(jQuery);
 

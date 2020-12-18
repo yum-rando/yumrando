@@ -10,6 +10,12 @@
                 <form>
                     <label for="currentList"></label>
                     <select  class="form-select" name="currentList" id="currentList">
+                        <div th:if="${chosenList != null}">
+                        <option th:value="${chosenList.id}" th:text="${chosenList.name}" selected></option>
+                        </div>
+                        <div th:unless="${chosenList != null}">
+                            <option value="default">Select your list</option>
+                        </div>
                         <option th:each = "list : ${lists}" th:value="${list.id}" th:text="${list.name}"></option>
                     </select>
                 </form>
