@@ -69,6 +69,7 @@ public class ListRestaurant {
         this.user = user;
     }
 
+    @JsonIgnore
     public List<Restaurant> getRestaurants() {
         return restaurants;
     }

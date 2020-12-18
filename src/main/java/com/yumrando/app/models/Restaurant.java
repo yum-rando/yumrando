@@ -43,8 +43,8 @@ public class Restaurant {
     //new table will be created with the combining of columns of list_id and restaurant_id
     @JoinTable(
             name = "list_restaurants",
-            joinColumns = {@JoinColumn(name = "list_id")},
-            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")}
+            joinColumns = {@JoinColumn(name = "restaurant_id")},
+            inverseJoinColumns = {@JoinColumn(name = "list_id")}
     )
     //still working on this to be a list of list of restaurants
     private List<ListRestaurant> lists;
