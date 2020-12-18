@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras" lang="en">
-<div th:fragment="search-modal" class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalContent" aria-hidden="true">
+<div th:fragment="search-modal" class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalContent"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,14 +10,32 @@
             </div>
             <div id="search-modal-body" class="modal-body">
                 <div id="search-container">
-                <select id="search-select" class="form-select form-select-lg mb-3">
-                    <option selected>Search by ...</option>
-                    <option value="name">Restaurant Name</option>
-                    <option value="near">Restaurants Near Me</option>
-                </select>
+                    <div sec:authorize="isAnonymous()">
+                    <select id="search-select" class="form-select form-select-lg mb-3">
+                        <option selected>Search by ...</option>
+                        <option value="name">Restaurant Name</option>
+                        <option value="near">Restaurants Near Me</option>
+                    </select>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <select id="search-select-user" class="form-select form-select-lg mb-3">
+                            <option selected>Search by ...</option>
+                            <option value="name">Restaurant Name</option>
+                            <option value="near">Restaurants Near Me</option>
+                        </select>
+                    </div>
                 </div>
+
                 <div id="search-body"></div>
-                <div style="overflow: scroll" data-bs-spy="scroll" data-bs-target="search-container" data-bs-offset="0" tabindex="0" id="search-results"></div>
+
+                <div sec:authorize="isAnonymous()">
+                    <div style="overflow: scroll" data-bs-spy="scroll" data-bs-target="search-container"
+                         data-bs-offset="0" tabindex="0" id="search-results"></div>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <div style="overflow: scroll" data-bs-spy="scroll" data-bs-target="search-container"
+                         data-bs-offset="0" tabindex="0" id="search-results-user"></div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

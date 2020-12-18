@@ -1,7 +1,6 @@
 
 
 const apiAddList = async (object, url) => {
-    //const url = "/restaurants/lists/create"
     const options = {
         method: 'POST',
         headers: {

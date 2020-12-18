@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 public class UserController {
     private Users users;
@@ -25,12 +27,16 @@ public class UserController {
         this.listDao = listDao;
     }
 
-    @GetMapping("/index")
-    public String showIndexPage(Model model) {
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("lists", listDao.findAllByUser(userDb));
+    @GetMapping("/")
+    public String showIndexPage(Model model, Principal user) {
+        if (user != null) {
+            User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("lists", listDao.findAllByUser(userDb));
+        }
         return "index";
     }
+
+
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model) {
