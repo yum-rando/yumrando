@@ -1,6 +1,7 @@
 package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.ListRestaurant;
+import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
@@ -12,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -62,6 +62,36 @@ public class UserController {
             vModel.addAttribute("lists", nonChosenList);
         }
         return "index";
+    }
+
+    //User Can Delete a Restaurant from the ListofRestaurants
+    @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
+    public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //ListRestaurant list = listDao.getOne(listId);
+        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        List<Restaurant> restaurants = list.getRestaurants();
+        List<Restaurant> newRestaurantList = new ArrayList<>();
+        //restaurants.removeIf(restaurant -> restaurant.getId() == restaurantIdToBeDeleted);
+        for (Restaurant res : restaurants) {
+            if (res.getId() != restaurantIdToBeDeleted){
+                //System.out.println("res.getId() To be compared to restaurantId = " + res.getId());
+                //System.out.println("restaurantIdToBeDeleted = " + restaurantIdToBeDeleted);
+                newRestaurantList.add(res);
+            }
+        }
+
+        for (Restaurant res : newRestaurantList) {
+            System.out.println("res.getName() = " + res.getName());
+        }
+
+        list.setRestaurants(newRestaurantList);
+
+        //vModel.addAttribute("lists", list); --> didn't work
+
+        listDao.save(list);
+
+        return "redirect:/" + listId;
     }
 
 
