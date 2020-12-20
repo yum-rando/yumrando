@@ -82,14 +82,14 @@ public class ListRestaurant {
     //Many-To-Many Relationship Methods
 
     //Adding a restaurant to the ListOfRestaurants
-    public void addRestaurant(Restaurant restaurant){
+    public void addRestaurantToList(Restaurant restaurant){
         this.restaurants.add(restaurant);
         //This by itself is referring to the current list object
         restaurant.getLists().add(this);
     }
 
     //Removing a restaurant from the ListOfRestaurants
-    public void removeRestaurant(Restaurant restaurant){
+    public void removeRestaurantFromList(Restaurant restaurant){
         this.restaurants.remove(restaurant);
         //This by itself is referring to the current list object
         restaurant.getLists().remove(this);

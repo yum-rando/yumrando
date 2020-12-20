@@ -107,4 +107,24 @@ public class Review {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    //Many-to-One Relationship Methods
+
+    //Adding a Photo to a Review
+    public void addPhotoToReview(Photo photo){
+        this.photos.add(photo);
+        photo.setReview(this);
+    }
+    //Removing a Photo from a Review
+    public void removePhotoFromReview(Photo photo){
+        this.photos.remove(photo);
+        photo.setReview(this);
+    }
+
+    //Check Ties with User and Restaurant -->Not sure about this yet
+//    public void userRestaurantReview(User user, Restaurant restaurant){
+//        user.getReviews().add(this);
+//        restaurant.getReviews().add(this);
+//    }
+
 }

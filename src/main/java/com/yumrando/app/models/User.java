@@ -207,15 +207,53 @@ public class User {
     //Many-To-Many Relationship Methods
 
     //Adding a tag to the User's Favorite
-    public void addFavoriteTag(RestaurantTag tag){
+    public void addFavoriteTagToUser(RestaurantTag tag){
         this.favoriteTags.add(tag);
         //This by itself is referring to the current list object
         tag.getUsers().add(this);
     }
     //Removing a tage from the User's Favorite
-    public void removeFavoriteTag(RestaurantTag tag){
+    public void removeFavoriteTagFromUser(RestaurantTag tag){
         this.favoriteTags.remove(tag);
         //This by itself is referring to the current list object
         tag.getUsers().remove(this);
     }
+
+    //Many-to-One Relationship Methods
+
+    //Add a list to User
+    public void addListToUser(ListRestaurant list){
+        this.listOfRestaurant.add(list);
+        list.setUser(this);
+    }
+
+    //Remove a list from user
+    public void removeListFromUser(ListRestaurant list){
+        this.listOfRestaurant.remove(list);
+        list.setUser(this);
+    }
+
+    //Add a review to User
+    public void addReviewToUser(Review review){
+        this.reviews.add(review);
+        review.setUser(this);
+    }
+    //Remove a review from User
+    public void removeReviewFromUser(Review review){
+        this.reviews.remove(review);
+        review.setUser(this);
+    }
+
+    //Add a friend to User
+    public void addFriendToUser(FriendList friend){
+        this.friends.add(friend);
+        friend.setUser(this);
+    }
+
+    //Remove a friend from User
+    public void removeFriendFromUser(FriendList friend){
+        this.friends.remove(friend);
+        friend.setUser(this);
+    }
+
 }

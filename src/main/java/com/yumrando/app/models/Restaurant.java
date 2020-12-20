@@ -187,30 +187,44 @@ public class Restaurant {
     //Many-To-Many Relationship Methods
 
     //Adding a list to Restaurant
-    public void addList (ListRestaurant listRestaurant){
+    public void addListToRestaurant (ListRestaurant listRestaurant){
         this.lists.add(listRestaurant);
         //This by itself is referring to the current list object
         listRestaurant.getRestaurants().add(this);
     }
 
     //Deleting a list from Restaurant
-    public void removeList (ListRestaurant listRestaurant){
+    public void removeListFromRestaurant (ListRestaurant listRestaurant){
         this.lists.remove(listRestaurant);
         //This by itself is referring to the current list object
         listRestaurant.getRestaurants().remove(this);
     }
 
     //Adding a tag to Restaurant
-    public void addTag (RestaurantTag tag){
+    public void addTagToRestaurant (RestaurantTag tag){
         this.tags.add(tag);
         //This by itself is referring to the current list object
         tag.getRestaurants().add(this);
     }
 
     //Deleting a tag from Restaurant
-    public void removeTag (RestaurantTag tag){
+    public void removeTagFromRestaurant (RestaurantTag tag){
         this.tags.remove(tag);
         //This by itself is referring to the current list object
         tag.getRestaurants().remove(this);
+    }
+
+    //Many-to-One Relationship Methods
+
+    //Add a review to Restaurant
+    public void addReviewToRestaurant(Review review){
+        this.reviews.add(review);
+        review.setRestaurant(this);
+    }
+
+    //Remove a review from Restaurant
+    public void removeReviewFromRestaurant(Review review){
+        this.reviews.remove(review);
+        review.setRestaurant(this);
     }
 }
