@@ -3,6 +3,8 @@ package com.yumrando.app.models;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -50,7 +52,7 @@ public class User {
         joinColumns = {@JoinColumn(name = "user_id")},
         inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
-    private List<RestaurantTag> favoriteTags;
+    private Set<RestaurantTag> favoriteTags;
 
     @OneToMany(mappedBy = "user")
     private List<FriendList> friends;
@@ -72,7 +74,7 @@ public class User {
     }
 
     //Read
-    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, List<RestaurantTag> favoriteTags, List<FriendList> friends) {
+    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, Set<RestaurantTag> favoriteTags, List<FriendList> friends) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -186,11 +188,11 @@ public class User {
         this.reviews = reviews;
     }
 
-    public List<RestaurantTag> getFavoriteTags() {
+    public Set<RestaurantTag> getFavoriteTags() {
         return favoriteTags;
     }
 
-    public void setFavoriteTags(List<RestaurantTag> favoriteTags) {
+    public void setFavoriteTags(Set<RestaurantTag> favoriteTags) {
         this.favoriteTags = favoriteTags;
     }
 
@@ -202,4 +204,18 @@ public class User {
         this.friends = friends;
     }
 
+    //Many-To-Many Relationship Methods
+
+    //Adding a tag to the User's Favorite
+    public void addFavoriteTag(RestaurantTag tag){
+        this.favoriteTags.add(tag);
+        //This by itself is referring to the current list object
+        tag.getUsers().add(this);
+    }
+    //Removing a tage from the User's Favorite
+    public void removeFavoriteTag(RestaurantTag tag){
+        this.favoriteTags.remove(tag);
+        //This by itself is referring to the current list object
+        tag.getUsers().remove(this);
+    }
 }
