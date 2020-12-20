@@ -17,6 +17,7 @@ public interface ListRestaurantRepository extends JpaRepository<ListRestaurant, 
     ListRestaurant findByName(String name);
     //String findByNameEquals(String name);
     ListRestaurant findAllByUserAndName(User user, String name);
+    ListRestaurant findAllByUserAndId(User user, long id);
     ListRestaurant deleteByName(String name);
     List<ListRestaurant> findAllByUser(User user);
     List<ListRestaurant> findAllByUserId(long id);

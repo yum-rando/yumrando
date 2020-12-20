@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ListRestaurantController {
@@ -34,7 +35,7 @@ public class ListRestaurantController {
 
     @PostMapping("restaurants/lists/create/test")
     private String createList(@ModelAttribute ListRestaurant listToBeSaved){
-        List<Restaurant> restaurantList = listToBeSaved.getRestaurants();
+        Set<Restaurant> restaurantList = listToBeSaved.getRestaurants();
         //Not done yet and still working on this
         return "index";
     }
