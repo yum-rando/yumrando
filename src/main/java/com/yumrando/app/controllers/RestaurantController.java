@@ -10,6 +10,7 @@ import com.yumrando.app.repos.ReviewRepository;
 import com.yumrando.app.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,5 +108,16 @@ public class RestaurantController {
 
     //Deleting Restaurant (Admin)
 
+    @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
+    public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        Restaurant rest = restaurantDao.findById(restaurantIdToBeDeleted);
+
+        list.removeRestaurantFromList(rest);
+        listDao.save(list);
+
+        return "redirect:/" + listId;
+    }
 
 }

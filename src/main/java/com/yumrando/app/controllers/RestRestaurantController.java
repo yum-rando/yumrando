@@ -115,16 +115,4 @@ public class RestRestaurantController {
 
     }
 
-    @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
-    public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
-        Restaurant rest = restaurantDao.findById(restaurantIdToBeDeleted);
-
-        list.removeRestaurantFromList(rest);
-        listDao.save(list);
-
-        return "redirect:/" + listId;
-    }
-
 }
