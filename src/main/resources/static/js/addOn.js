@@ -112,7 +112,12 @@ const selectEvent = (selector, type) => {
         $('#search-results, #search-results-user').empty();
         switch ($(selector).val()) {
             case "name":
-                $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                if(type === "") {
+                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                } else {
+                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                }
+
                 break;
             case "near":
                 // Attach loader to $('#search-results')
@@ -128,21 +133,26 @@ const selectEvent = (selector, type) => {
     })
 }
 
-        const inputSearch = () => {
+        const inputSearch = (selector, type) => {
             // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-            apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude)).then(data=> {
+            apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data=> {
                 // Clear loader from $('#search-results) (.empty() works well for that)
-                listResult(data.restaurants, "");
+                listResult(data.restaurants, type);
             });
 
 
         }
-
-        $(document).on('change', '#nameSearch',()=>{
-            if(typeof $('#nameSearch').val() !== 'undefined')
-                inputSearch();
-        })
+const inputSearchSetup = (selector, type) => {
+    $(document).on('change', selector,()=>{
+        if(typeof $(selector).val() !== 'undefined')
+            inputSearch(selector, type);
+    })
+}
+        // $(document).on('change', '#nameSearch',()=>{
+        //     if(typeof $('#nameSearch').val() !== 'undefined')
+        //         inputSearch("");
+        // })
 
         $('#new-list').click(()=>{
             $('#user-list-items').toggleClass('d-none');
@@ -162,7 +172,7 @@ const selectEvent = (selector, type) => {
                     name: $('#name').val()
                 }
                 apiAddList(listObject, "/restaurants/lists/create").then(data=>{
-                    console.log(data);
+                    window.location.assign(`/${data.id}`)
                 }).catch(()=>{
                     console.log("We are not champions : (")
                 });
@@ -191,6 +201,8 @@ const selectEvent = (selector, type) => {
         listBasic(arrayConstructor());
         selectEvent(selectRest, "")
         selectEvent(selectRestUser, 'u')
+        inputSearchSetup('#nameSearch', "")
+        inputSearchSetup('#nameSearchUser','u')
     })
 })(jQuery);
 
