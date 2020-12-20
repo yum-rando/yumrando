@@ -1,4 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div></div>
+<div th:fragment="user-info">
+
+    <div class="row">
+        <div class="col-8">
+            <div class="container">
+            <form action="">
+                <input name="firstName" placeholder="First Name" type="text">
+                <input name="lastName" placeholder="Last Name" type="text">
+                <input name="email" placeholder="Email" type="email">
+                <input name="phoneNumber" placeholder="Phone Number" type="text">
+                <input name="zipcode" placeholder="Zipcode" type="text">
+                <div>
+                    <button class="btn btn-primary" type="button">Edit Profile</button>
+                    <button class="d-none btn btn-primary" type="submit">Submit Changes</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        <div class="col-4">
+            Profile Picture
+        </div>
+    </div>
+
+</div>
 </html>
