@@ -10,6 +10,7 @@ import com.yumrando.app.repos.ReviewRepository;
 import com.yumrando.app.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,7 @@ public class RestaurantController {
 
         //Need to review all the restaurants to sort out by the 10 most recent chosen
         //Used the stream method to further apply limit of 10 option to the list of restaurants
-        List<Restaurant> mostRecent = restaurantDao.findByOrderByChosenTimeDesc();
+        //List<Restaurant> mostRecent = restaurantDao.findByOrderByChosenTimeDesc();
 
         List<Review> reviews = reviewDao.findAllByUser(user);
 
@@ -107,5 +108,16 @@ public class RestaurantController {
 
     //Deleting Restaurant (Admin)
 
+    @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
+    public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        Restaurant rest = restaurantDao.findById(restaurantIdToBeDeleted);
+
+        list.removeRestaurantFromList(rest);
+        listDao.save(list);
+
+        return "redirect:/" + listId;
+    }
 
 }

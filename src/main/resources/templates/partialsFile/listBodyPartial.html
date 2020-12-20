@@ -9,7 +9,14 @@ xmlns:sec="http://www.thymeleaf.org/extras">
     <div class="row">
         <div sec:authorize = "isAuthenticated()">
             <div id="add-list-form"></div>
-            <div id="user-list-items"></div>
+            <div th:if="${chosenList != null}" class="container" id="user-list-items">
+                <div th:each="rest : ${chosenList.restaurants}">
+                    <h6 th:text="${rest.name}"></h6>
+                    <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
+                        <button>Delete</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div sec:authorize="isAnonymous()">
             <div id="restaurant-items"></div>

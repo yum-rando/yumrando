@@ -1,7 +1,10 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tags")
@@ -14,23 +17,23 @@ public class RestaurantTag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    private List<Restaurant> restaurants;
+    private Set<Restaurant> restaurants;
 
     @ManyToMany(mappedBy = "favoriteTags")
-    private List<User> users;
+    private Set<User> users;
 
     //Constructors
     public RestaurantTag(){}
 
     //Insert/Create
-    public RestaurantTag(String name, List<Restaurant> restaurants, List<User> users) {
+    public RestaurantTag(String name, Set<Restaurant> restaurants, Set<User> users) {
         this.name = name;
         this.restaurants = restaurants;
         this.users = users;
     }
 
     //Read
-    public RestaurantTag(long id, String name, List<Restaurant> restaurants, List<User> users) {
+    public RestaurantTag(long id, String name, Set<Restaurant> restaurants, Set<User> users) {
         this.id = id;
         this.name = name;
         this.restaurants = restaurants;
@@ -55,20 +58,48 @@ public class RestaurantTag {
         this.name = name;
     }
 
-    public List<Restaurant> getRestaurants() {
+    public Set<Restaurant> getRestaurants() {
         return restaurants;
     }
-
-    public void setRestaurants(List<Restaurant> restaurants) {
+    @JsonIgnore
+    public void setRestaurants(Set<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    //Many-To-Many Relationship Methods
+
+    //Adding a Restaurant to the RestaurantTags
+    public void addRestaurantToTag(Restaurant restaurant){
+        this.restaurants.add(restaurant);
+        //This by itself is referring to the current list object
+        restaurant.getTags().add(this);
+    }
+    //Removing a Restaurant from a RestaurantTags
+    public void removeRestaurantFromTag(Restaurant restaurant){
+        this.restaurants.remove(restaurant);
+        //This by itself is referring to the current list object
+        restaurant.getTags().remove(this);
+    }
+
+    //Adding a User to the RestaurantTags
+    public void addUserToTag(User user){
+        this.users.add(user);
+        //This by itself is referring to the current list object
+        user.getFavoriteTags().add(this);
+    }
+    //Removing a User from a RestaurantTags
+    public void removeUserFromTag(User user){
+        this.users.remove(user);
+        //This by itself is referring to the current list object
+        user.getFavoriteTags().remove(this);
     }
 }
 
