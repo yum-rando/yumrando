@@ -48,6 +48,7 @@ const deleteLocal = num => {
 
 
 
+
         const obtainRestaurant = num => {
             if (num.includes('u')){
                 let restaurant = resultSet[parseInt(num.substring(1))]
@@ -70,10 +71,13 @@ const deleteLocal = num => {
 
         const listResult = (array, type) => {
             let parent = $('#search-results, #search-results-user');
+
             parent.empty();
             resultSet = [];
             array.map(({restaurant}, num) => {
                 resultSet.push(restaurant);
+
+
                 $(parent).append(
                     `<div class="container">
                         <div class="row">
@@ -82,14 +86,18 @@ const deleteLocal = num => {
                                 <p>${restaurant.location.address}</p>
                              </div>
                              <div class="col-3">
+
                                  <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
+
                              </div>
                          </div>
                     </div>
                         `
                 );
+
                 $(`#${type + num}`).click(()=> {
                     obtainRestaurant(type + num);
+
                 })
             });
         }
@@ -128,12 +136,15 @@ const selectEvent = (selector, type) => {
     })
 }
 
+
         const inputSearch = () => {
             // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($('#nameSearch').val(), coordInput.latitude, coordInput.longitude)).then(data=> {
                 // Clear loader from $('#search-results) (.empty() works well for that)
+
                 listResult(data.restaurants, "");
+
             });
 
 
@@ -169,12 +180,14 @@ const selectEvent = (selector, type) => {
             })
         })
 
+
         // A Select that changes the list view for user
         $("#currentList").change(() => {
            const listNum = $("#currentList").val()
             if (listNum !== 'default') {
                 window.location.assign(`/${listNum}`)
             }
+
         })
 
         $("#add-basic-user").click(() => {
@@ -183,14 +196,17 @@ const selectEvent = (selector, type) => {
             }
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
+
             console.log(url);
             apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+
 
         })
 
         listBasic(arrayConstructor());
         selectEvent(selectRest, "")
         selectEvent(selectRestUser, 'u')
+
     })
 })(jQuery);
 
