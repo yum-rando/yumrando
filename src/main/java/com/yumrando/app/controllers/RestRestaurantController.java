@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class RestRestaurantController {
@@ -72,7 +74,7 @@ public class RestRestaurantController {
 
     @CrossOrigin
     @PostMapping("restaurants/lists/{id}")
-    List<Restaurant> restaurants (@RequestBody Restaurant restaurantToBeSaved, @PathVariable long id){
+    Set<Restaurant> restaurants (@RequestBody Restaurant restaurantToBeSaved, @PathVariable long id){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         listDao.findAllByUser(userDb);
 
@@ -80,19 +82,21 @@ public class RestRestaurantController {
         ListRestaurant listRes = listDao.findById(id);
         //Need to establish the Many-To-Many relationship between restaurants and lists, however, 1st I need to verify if there are lists for both
         if(listRes.getRestaurants() == null){
-            List<Restaurant> startList = new ArrayList<>();
+            Set<Restaurant> startList = new HashSet<>();
             startList.add(restaurantToBeSaved);
             listRes.setRestaurants(startList);
         } else {
             listRes.getRestaurants().add(restaurantToBeSaved);
+            //listRes.addRestaurantToList(restaurantToBeSaved); // --> This does the operation for us with adding it to both sides of the many-to-many table
         }
 
         if(restaurantToBeSaved.getLists() == null){
-            List<ListRestaurant> startListRest = new ArrayList<>();
+            Set<ListRestaurant> startListRest = new HashSet<>();
             startListRest.add(listRes);
             restaurantToBeSaved.setLists(startListRest);
         } else {
             restaurantToBeSaved.getLists().add(listRes);
+            //restaurantToBeSaved.addListToRestaurant(listRes); // --> This does the operation for us with adding it to both sides of the many-to-many table
         }
 
         //Applying the Many-To-Many Relationship
@@ -111,5 +115,16 @@ public class RestRestaurantController {
 
     }
 
+    @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
+    public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        Restaurant rest = restaurantDao.findById(restaurantIdToBeDeleted);
+
+        list.removeRestaurantFromList(rest);
+        listDao.save(list);
+
+        return "redirect:/" + listId;
+    }
 
 }

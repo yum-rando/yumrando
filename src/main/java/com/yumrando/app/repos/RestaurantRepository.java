@@ -1,6 +1,7 @@
 package com.yumrando.app.repos;
 
 import com.yumrando.app.models.Restaurant;
+import com.yumrando.app.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
