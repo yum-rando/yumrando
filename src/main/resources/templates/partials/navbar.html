@@ -45,6 +45,10 @@
                     <a href="/register" class="btn mr-20 sm action-2 f-16">
                         Sign Up
                     </a>
+                    <form th:action="@{/logout}" sec:authorize="isAuthenticated()
+            th:method="post">
+                    <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>
