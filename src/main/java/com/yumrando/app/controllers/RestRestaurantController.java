@@ -94,32 +94,56 @@ public class RestRestaurantController {
             Set<Restaurant> startList = new HashSet<>();
             //Need to check if the restaurant to be save is already in the table
             //If yes,
-            //Check if the restaurant is already the system by it’s name, address, zip code, or ID, if not, then add it to the restaurant table and add it to the list,
+            //Check if the restaurant is already the system by it’s name or apiId, if not, then add it to the restaurant table and add it to the list,
             // if it is, then do not add it to the restaurant table since it’s already there and add it to the listRestaurant table with the list the user decided
+
+            //Work on this tomorrow Tuesday: 12/22/2020
+            //Need to verify if restaurantToBeSaved is already in the DB, if so, then just add it to the list and update the listDao
+            //If not in DB, then need to add it to the list and the DB via the restaurantDao and still updating the listDao
+
+
             startList.add(restaurantToBeSaved);
             listRes.setRestaurants(startList);
         } else {
             //listRes.getRestaurants().add(restaurantToBeSaved);
             //listRes.addRestaurantToList(restaurantToBeSaved); // --> This does the operation for us with adding it to both sides of the many-to-many table
+//            for (Restaurant res : dbRestaurants) {
+//                if (apiId != null && apiId.equals(res.getApiId())){
+//                    System.out.println("Testing if the API CREDENTIALS ARE WORKING - LIST");
+//                    System.out.println("listRes = " + listRes.getName());
+//                    System.out.println("listRes.getRestaurants() = " + listRes.getRestaurants());
+//                    System.out.println("restaurantToBeSaved = " + restaurantToBeSaved.getName());
+//                    listRes.getRestaurants().add(restaurantToBeSaved);
+//                    //restaurantToBeSaved.addListToRestaurant(listRes);
+//                    //listRes.addRestaurantToList(restaurantToBeSaved);
+//                }else if (name.equalsIgnoreCase(res.getName())){
+//                    System.out.println("Testing if the NAME CREDENTIALS ARE WORKING - LIST");
+//                    listRes.getRestaurants().add(restaurantToBeSaved);
+//                    //listRes.addRestaurantToList(restaurantToBeSaved);
+//                    //restaurantToBeSaved.addListToRestaurant(listRes);
+//                    //listRes.addRestaurantToList(restaurantToBeSaved);
+//                } else {
+//                    listRes.getRestaurants().add(restaurantToBeSaved);
+//                }
+//            }
+
             for (Restaurant res : dbRestaurants) {
-                if (apiId != null && apiId.equals(res.getApiId())){
-                    System.out.println("Testing if the API CREDENTIALS ARE WORKING - LIST");
+                if ((apiId != null && !apiId.equals(res.getApiId())) || !name.equalsIgnoreCase(res.getName())){
+                    System.out.println("Testing if the API & NAME CREDENTIALS ARE WORKING - LIST");
                     System.out.println("listRes = " + listRes.getName());
                     System.out.println("listRes.getRestaurants() = " + listRes.getRestaurants());
                     System.out.println("restaurantToBeSaved = " + restaurantToBeSaved.getName());
                     listRes.getRestaurants().add(restaurantToBeSaved);
-                    //restaurantToBeSaved.addListToRestaurant(listRes);
-                    //listRes.addRestaurantToList(restaurantToBeSaved);
-                }else if (name.equalsIgnoreCase(res.getName())){
-                    System.out.println("Testing if the NAME CREDENTIALS ARE WORKING - LIST");
-                    listRes.getRestaurants().add(restaurantToBeSaved);
-                    //listRes.addRestaurantToList(restaurantToBeSaved);
+                    restaurantDao.save(restaurantToBeSaved);
                     //restaurantToBeSaved.addListToRestaurant(listRes);
                     //listRes.addRestaurantToList(restaurantToBeSaved);
                 } else {
                     listRes.getRestaurants().add(restaurantToBeSaved);
                 }
             }
+
+
+
         }
 
 
@@ -186,9 +210,27 @@ public class RestRestaurantController {
 //            }
 //        }
 
+
+        for (Restaurant res : dbRestaurants) {
+            if ((apiId != null && !apiId.equals(res.getApiId())) || !name.equalsIgnoreCase(res.getName())){
+                System.out.println("Testing if the API & NAME CREDENTIALS ARE WORKING - LIST");
+                System.out.println("listRes = " + listRes.getName());
+                System.out.println("listRes.getRestaurants() = " + listRes.getRestaurants());
+                System.out.println("restaurantToBeSaved = " + restaurantToBeSaved.getName());
+                listRes.getRestaurants().add(restaurantToBeSaved);
+                restaurantDao.save(restaurantToBeSaved);
+                //restaurantToBeSaved.addListToRestaurant(listRes);
+                //listRes.addRestaurantToList(restaurantToBeSaved);
+            } else {
+                listRes.getRestaurants().add(restaurantToBeSaved);
+            }
+        }
+
         //This is where it is actually saving to the the restaurant table
         //Need this to save a new restaurant not an already in table restaurant
         //restaurantDao.save(restaurantToBeSaved);
+
+        //Add to my list since it is being updated by the new restaurant
         listDao.save(listRes);
 
         for (Restaurant res : listRes.getRestaurants()) {
@@ -199,6 +241,25 @@ public class RestRestaurantController {
 
         return listRes.getRestaurants();
 
+    }
+
+    private void checkRestaurantToBeSaved (Set<Restaurant> restaurants, Restaurant resToBeSaved, ListRestaurant list){
+        String apiId = resToBeSaved.getApiId();
+        String resName = resToBeSaved.getName();
+        for (Restaurant res : restaurants) {
+            if ((apiId != null && !apiId.equals(res.getApiId())) || !resName.equalsIgnoreCase(res.getName())){
+                System.out.println("Testing if the API & NAME CREDENTIALS ARE WORKING - LIST");
+                System.out.println("listRes = " + list.getName());
+                System.out.println("listRes.getRestaurants() = " + list.getRestaurants());
+                System.out.println("restaurantToBeSaved = " + resToBeSaved.getName());
+                list.getRestaurants().add(resToBeSaved);
+                restaurantDao.save(resToBeSaved);
+                //restaurantToBeSaved.addListToRestaurant(listRes);
+                //listRes.addRestaurantToList(restaurantToBeSaved);
+            } else {
+                list.getRestaurants().add(resToBeSaved);
+            }
+        }
     }
 
 }
