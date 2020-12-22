@@ -77,12 +77,23 @@ public class RestRestaurantController {
     Set<Restaurant> restaurants (@RequestBody Restaurant restaurantToBeSaved, @PathVariable long id){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         listDao.findAllByUser(userDb);
-
         //Need to retrieve the id from the list
         ListRestaurant listRes = listDao.findById(id);
+        //Need to check the criteria for the restaurant
+        String name = restaurantToBeSaved.getName();
+        String apiId = restaurantToBeSaved.getApiId();
+
+        //Set<Restaurant> dbRestToBeSavedCheck = restaurantDao.findAllByNameOrApiId(name, apiId);
+        //Set<Restaurant> dbRestaurants = restaurantDao.findAllByLists(listRes);
+        List<Restaurant> dbRestaurants = restaurantDao.findAll();
+
         //Need to establish the Many-To-Many relationship between restaurants and lists, however, 1st I need to verify if there are lists for both
         if(listRes.getRestaurants() == null){
             Set<Restaurant> startList = new HashSet<>();
+            //Need to check if the restaurant to be save is already in the table
+            //If yes,
+            //Check if the restaurant is already the system by it’s name, address, zip code, or ID, if not, then add it to the restaurant table and add it to the list,
+            // if it is, then do not add it to the restaurant table since it’s already there and add it to the listRestaurant table with the list the user decided
             startList.add(restaurantToBeSaved);
             listRes.setRestaurants(startList);
         } else {
@@ -103,7 +114,30 @@ public class RestRestaurantController {
         //listRes.getRestaurants().add(restaurantToBeSaved);
         //restaurantToBeSaved.getLists().add(listRes);
 
-        restaurantDao.save(restaurantToBeSaved);
+
+        //Not done with below, will need to check if the apiId is null, as well as if it is the same as what is in the restaurant table
+        for (Restaurant res : dbRestaurants) {
+            if (apiId != null) {
+                if (apiId.equals(res.getApiId()) || name.equalsIgnoreCase(res.getName())){
+                    System.out.println("Testing the either the APIID or the NAME is the same");
+                    listRes.addRestaurantToList(restaurantToBeSaved);
+                } else {
+                    listRes.addRestaurantToList(restaurantToBeSaved);
+                    restaurantDao.save(restaurantToBeSaved);
+                }
+            } else {
+                if (name.equalsIgnoreCase(res.getName())) {
+                    System.out.println("Testing the either the APIID or the NAME is the same");
+                    listRes.addRestaurantToList(restaurantToBeSaved);
+                } else {
+                    listRes.addRestaurantToList(restaurantToBeSaved);
+                    restaurantDao.save(restaurantToBeSaved);
+                }
+            }
+        }
+
+        //This is where it is actually saving to the the restaurant table
+        //restaurantDao.save(restaurantToBeSaved);
 
         for (Restaurant res : listRes.getRestaurants()) {
             System.out.println("res.getName() = " + res.getName());
