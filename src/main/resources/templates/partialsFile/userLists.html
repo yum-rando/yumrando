@@ -23,7 +23,8 @@
 
                 </div>
                 <div class="col-2">
-                    <button th:id="${list.id}" class="btn btn-danger d-none delete-list">x</button>
+                    <form th:method="POST" th:action="@{'URL GOES HERE WITH THE LIST ID'}"></form>
+                    <button type = "submit" class="btn btn-danger d-none delete-list">x</button>
                 </div>
             </div>
 
