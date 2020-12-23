@@ -1,8 +1,9 @@
 ($ => {
     "use strict"
+
     $('#add-list').click(()=>{
-        $('#user-list-items').toggleClass('d-none');
-        $('#add-list-form').append(
+        $('.list-items').addClass('d-none');
+        $('#list-form').empty().append(
             `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Enter a name for your list:</label>
@@ -26,7 +27,9 @@
     })
 
     $('#edit-list').click(()=> {
-        $('#delete-list, #icon-container').toggleClass('d-none');
+        $('#list-form').empty();
+        $('.list-items').removeClass('d-none');
+        $('.delete-list, .icon-container').toggleClass('d-none');
     })
 
 

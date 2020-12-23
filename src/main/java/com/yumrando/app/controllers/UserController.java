@@ -118,7 +118,11 @@ public class UserController {
 
 
     @GetMapping("/profile")
-    public String showProfile() {
+    public String showProfile(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long userId = user.getId();
+        List<ListRestaurant> listings = listDao.findAllByUserId(userId);
+        model.addAttribute("lists", listings);
         return "user/profile";
     }
 
