@@ -17,13 +17,9 @@
         <div class="list-items"  th:each="list : ${lists}">
             <div class="row">
                 <div class="col-10">
-
-
                     <h6><span th:text="${list.name}" th:remove="tag"></span>
-                        <span class="icon-container d-none"><i class="fas fa-edit"></i></span>
+                        <span th:attr="data-id=${list.id}, data-name=${list.name}" class="icon-container d-none"><i class="fas fa-edit"></i></span>
                     </h6>
-
-
 
                 </div>
                 <div class="col-2">
