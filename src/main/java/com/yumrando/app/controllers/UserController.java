@@ -64,38 +64,6 @@ public class UserController {
         return "index";
     }
 
-//    //User Can Delete a Restaurant from the ListOfRestaurants
-//    @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
-//    public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        //ListRestaurant list = listDao.getOne(listId);
-//        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
-//        Set<Restaurant> restaurants = list.getRestaurants();
-//        Set<Restaurant> newRestaurantList = new HashSet<>();
-//        //restaurants.removeIf(restaurant -> restaurant.getId() == restaurantIdToBeDeleted);
-//        for (Restaurant res : restaurants) {
-//            if (res.getId() != restaurantIdToBeDeleted){
-//                //System.out.println("res.getId() To be compared to restaurantId = " + res.getId());
-//                //System.out.println("restaurantIdToBeDeleted = " + restaurantIdToBeDeleted);
-//                newRestaurantList.add(res);
-//            }
-//        }
-//
-//        for (Restaurant res : newRestaurantList) {
-//            System.out.println("res.getName() = " + res.getName());
-//        }
-//
-//        list.setRestaurants(newRestaurantList);
-//
-//        //vModel.addAttribute("lists", list); --> didn't work
-//
-//        listDao.save(list);
-//
-//        return "redirect:/" + listId;
-//    }
-
-
-
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model) {
@@ -114,8 +82,6 @@ public class UserController {
             return "redirect:/register";
         }
     }
-
-
 
     @GetMapping("/profile")
     public String showProfile() {

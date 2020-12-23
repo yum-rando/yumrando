@@ -40,7 +40,7 @@ public class Restaurant {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<Review> reviews;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     //new table will be created with the combining of columns of list_id and restaurant_id
     @JoinTable(
             name = "list_restaurants",
