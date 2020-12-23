@@ -48,6 +48,7 @@ const deleteLocal = num => {
 
 
 
+
         const obtainRestaurant = num => {
             if (num.includes('u')){
                 let restaurant = resultSet[parseInt(num.substring(1))]
@@ -70,10 +71,12 @@ const deleteLocal = num => {
 
         const listResult = (array, type) => {
             let parent = $('#search-results, #search-results-user');
+
             parent.empty();
             resultSet = [];
             array.map(({restaurant}, num) => {
                 resultSet.push(restaurant);
+
                 $(parent).append(
                     `<div class="container">
                         <div class="row">
@@ -82,14 +85,22 @@ const deleteLocal = num => {
                                 <p>${restaurant.location.address}</p>
                              </div>
                              <div class="col-3">
+
+
                                  <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
+
+
                              </div>
                          </div>
                     </div>
                         `
                 );
+
+
                 $(`#${type + num}`).click(()=> {
                     obtainRestaurant(type + num);
+
+
                 })
             });
         }
@@ -112,11 +123,13 @@ const selectEvent = (selector, type) => {
         $('#search-results, #search-results-user').empty();
         switch ($(selector).val()) {
             case "name":
+
                 if(type === "") {
                     $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
                 } else {
                     $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
                 }
+
 
                 break;
             case "near":
@@ -133,26 +146,26 @@ const selectEvent = (selector, type) => {
     })
 }
 
+
         const inputSearch = (selector, type) => {
             // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data=> {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
+
             });
 
 
         }
+
 const inputSearchSetup = (selector, type) => {
     $(document).on('change', selector,()=>{
         if(typeof $(selector).val() !== 'undefined')
             inputSearch(selector, type);
     })
 }
-        // $(document).on('change', '#nameSearch',()=>{
-        //     if(typeof $('#nameSearch').val() !== 'undefined')
-        //         inputSearch("");
-        // })
+
 
         $('#new-list').click(()=>{
             $('#user-list-items').toggleClass('d-none');
@@ -172,12 +185,15 @@ const inputSearchSetup = (selector, type) => {
                     name: $('#name').val()
                 }
                 apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+
                     window.location.assign(`/${data.id}`)
+
                 }).catch(()=>{
                     console.log("We are not champions : (")
                 });
             })
         })
+
 
         // A Select that changes the list view for user
         $("#currentList").change(() => {
@@ -185,6 +201,7 @@ const inputSearchSetup = (selector, type) => {
             if (listNum !== 'default') {
                 window.location.assign(`/${listNum}`)
             }
+
         })
 
         $("#add-basic-user").click(() => {
@@ -193,16 +210,20 @@ const inputSearchSetup = (selector, type) => {
             }
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
+
             console.log(url);
             apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+
 
         })
 
         listBasic(arrayConstructor());
         selectEvent(selectRest, "")
         selectEvent(selectRestUser, 'u')
+
         inputSearchSetup('#nameSearch', "")
         inputSearchSetup('#nameSearchUser','u')
+
     })
 })(jQuery);
 

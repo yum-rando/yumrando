@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="partials :: head">
-    <title id="customTitle">Yum•Rando</title>
+<head th:replace="partials/head :: head">
+
 </head>
 <body>
+
 <nav th:replace="partials/navbar :: navbar"/>
+
 <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
 <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
 <div th:replace="partialsFile/app :: app"></div>
 
 
-<script th:replace="partials :: bootstrap"></script>
-<script th:replace="partials :: jquery"></script>
+<script th:replace="partials/scripts :: script"></script>
 <script src="js/apiKey.js"></script>
 <script src="js/apiSearch.js"></script>
 <script src="js/apiAddList.js"></script>
 <script src="js/geoLocation.js"></script>
-<script src="js/AddOn.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
