@@ -25,5 +25,9 @@
         })
     })
 
+    $('#edit-list').click(()=> {
+        $('#delete-list, #icon-container').toggleClass('d-none');
+    })
+
 
 })(jQuery);
