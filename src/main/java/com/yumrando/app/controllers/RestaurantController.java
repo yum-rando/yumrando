@@ -103,23 +103,6 @@ public class RestaurantController {
 //    }
 
 
-    //Adding Restaurant //(Any user, especially if new restaurant) Double Check to make sure this restaurant isn't already in the database
-    @PostMapping("restaurants/lists/{id}/restaurant")
-    public String addRestaurantToList(@PathVariable long id, Restaurant restaurantToBeSaved){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //Need to retrieve the id from the list
-        ListRestaurant listRes = listDao.findAllByUserAndId(userDb, id);
-        //Add restaurant to specific list
-        //listRes.addRestaurantToList(restaurantToBeSaved);
-        //restaurantToBeSaved.addListToRestaurant(listRes);
-        //Save the list
-        listDao.save(listRes);
-
-        return "redirect:/" + id;
-    }
-
-
-
     //Deleting a restaurant from a list
     @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
     public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {

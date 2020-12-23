@@ -10,16 +10,10 @@ import java.util.Set;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findById(long id);
-    //Set<Restaurant> findAllByLists(ListRestaurant list);
-
-    //List<Restaurant> findByOrderByChosenTimeDesc();
 
     Restaurant save(Restaurant restaurant);
     Restaurant findAllByApiId (String apiId);
 
-    //List<Restaurant> findAllByListId(long id);
-    //List<Restaurant> findAllByListId(long id);
-
-    Set<Restaurant> findAllByApiIdOrName(String restaurantApiId, String RestaurantName);
+    //Set<Restaurant> findAllByApiIdOrName(String restaurantApiId, String RestaurantName);
     //Set<Restaurant>findAllByApiIdOrNameAndAddressAndZipcode(String apiId, String name, String address, String zipcode);
 }
