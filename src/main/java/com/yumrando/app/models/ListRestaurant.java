@@ -20,7 +20,7 @@ public class ListRestaurant {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "lists")
+    @ManyToMany(mappedBy = "lists", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Restaurant> restaurants;
 
     //Constructors
@@ -85,6 +85,9 @@ public class ListRestaurant {
     public void addRestaurantToList(Restaurant restaurant){
         this.restaurants.add(restaurant);
         //This by itself is referring to the current list object
+        System.out.println("restaurant.getName() = " + restaurant.getName());
+        System.out.println("restaurant.getLists() = " + restaurant.getLists()); //null
+        System.out.println("this.getName() = " + this.getName());
         restaurant.getLists().add(this);
     }
 
