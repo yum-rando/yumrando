@@ -28,89 +28,41 @@ public class RestRestaurantController {
         this.userDao = userDao;
     }
 
-//    @CrossOrigin
-//    @PostMapping("restaurants/lists/{id}")
-//    ListRestaurant restaurants (@RequestBody Restaurant restaurantToBeSave, @PathVariable long id){
-//
-//
-//        //listDao.setId(id);
-//        //ListRestaurant listRes = listDao.findById(id);
-//        ListRestaurant listRes = listDao.findById(id);
-//        //ListRestaurant listRes = listDao.findById(id);
-//        //ListRestaurant listRes = listDao.findById(id);
-//
-//
-//
-//        System.out.println(listRes.getName());
-//        System.out.println(restaurantToBeSave.getName());
-//
-//        System.out.println("listRes.getRestaurants() = " + listRes.getRestaurants());
-//        System.out.println("restaurantToBeSave.getLists() = " + restaurantToBeSave.getLists());
-//
-//        //Establishing the Many-to-Many Relationship
-//        //listRes.getRestaurants().add(restaurantToBeSave);
-//
-//        if (restaurantToBeSave.getLists() == null) {
-//
-//        }
-//        restaurantToBeSave.getLists().add(listRes);
-//        System.out.println(restaurantToBeSave.getLists());
-//        listRes.getRestaurants().add(restaurantToBeSave);
-//        System.out.println(listRes.getRestaurants());
-//        restaurantDao.save(restaurantToBeSave);
-//
-//        List <Restaurant> restaurants = listRes.getRestaurants();
-//        for (Restaurant res : restaurants) {
-//            System.out.println(res.getName());
-//        }
-//
-//
-//        Restaurant rest = restaurantDao.save(restaurantToBeSave);
-//        restaurants.add(rest);
-//        listRes.setRestaurants(restaurants);
-//
-//        return listDao.save(listRes);
-//    }
-
     @CrossOrigin
     @PostMapping("restaurants/lists/{id}")
     Set<Restaurant> restaurants (@RequestBody Restaurant restaurantToBeSaved, @PathVariable long id){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         listDao.findAllByUser(userDb);
+        ListRestaurant listRes = listDao.findAllByUserAndId(userDb, id);
+        String name = restaurantToBeSaved.getName();
+        String apiId = restaurantToBeSaved.getApiId();
+        Set<ListRestaurant> resList = restaurantToBeSaved.getLists();
+        Restaurant restaurantDb = restaurantDao.findAllByApiId(apiId);
 
-        //Need to retrieve the id from the list
-        ListRestaurant listRes = listDao.findById(id);
-        //Need to establish the Many-To-Many relationship between restaurants and lists, however, 1st I need to verify if there are lists for both
-        if(listRes.getRestaurants() == null){
+        //Checking if lists exists
+        if(listRes.getRestaurants() == null) {
             Set<Restaurant> startList = new HashSet<>();
-            startList.add(restaurantToBeSaved);
+
             listRes.setRestaurants(startList);
-        } else {
-            listRes.getRestaurants().add(restaurantToBeSaved);
-            //listRes.addRestaurantToList(restaurantToBeSaved); // --> This does the operation for us with adding it to both sides of the many-to-many table
         }
 
         if(restaurantToBeSaved.getLists() == null){
             Set<ListRestaurant> startListRest = new HashSet<>();
-            startListRest.add(listRes);
             restaurantToBeSaved.setLists(startListRest);
-        } else {
+        }
+
+        if (restaurantDb == null){
+            listRes.getRestaurants().add(restaurantToBeSaved);
             restaurantToBeSaved.getLists().add(listRes);
-            //restaurantToBeSaved.addListToRestaurant(listRes); // --> This does the operation for us with adding it to both sides of the many-to-many table
+            restaurantDao.save(restaurantToBeSaved);
+
+        } else {
+            listRes.getRestaurants().add(restaurantDb);
+            restaurantDb.getLists().add(listRes);
+            restaurantDao.save(restaurantDb);
         }
 
-        //Applying the Many-To-Many Relationship
-        //listRes.getRestaurants().add(restaurantToBeSaved);
-        //restaurantToBeSaved.getLists().add(listRes);
-
-        restaurantDao.save(restaurantToBeSaved);
-
-        for (Restaurant res : listRes.getRestaurants()) {
-            System.out.println("res.getName() = " + res.getName());
-        }
-
-        //System.out.println(listRes.getRestaurants());
-
+        listDao.save(listRes);
         return listRes.getRestaurants();
 
     }

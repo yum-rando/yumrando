@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -102,12 +103,7 @@ public class RestaurantController {
 //    }
 
 
-    //Adding Restaurant //(Any user, especially if new restaurant) Double Check to make sure this restaurant isn't already in the database
-
-
-
-    //Deleting Restaurant (Admin)
-
+    //Deleting a restaurant from a list
     @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
     public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -119,5 +115,7 @@ public class RestaurantController {
 
         return "redirect:/" + listId;
     }
+
+    //Deleting Restaurant (Admin)
 
 }
