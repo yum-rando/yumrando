@@ -92,28 +92,30 @@ public class UserController {
         return "user/profile";
     }
 
+    @GetMapping("profile/{username}")
+    public String showProfileSpecificUser(@PathVariable String username, Model vModel){
+        vModel.addAttribute("userInfo", userDao.findByUsername(username));
+        return "/user/profile";
+    }
+
+    @PostMapping("profile/{username}/edit")
+    public String editProfileBtn(@ModelAttribute User userToBeUpdated){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userToBeUpdated.setFirstName(userDb.getFirstName());
+        userToBeUpdated.setLastName(userDb.getLastName());
+        userToBeUpdated.setEmail(userDb.getEmail());
+        userToBeUpdated.setPhoneNumber(userDb.getPhoneNumber());
+        userToBeUpdated.setZipcode(userDb.getZipcode());
+        userDao.save(userToBeUpdated);
+        return "redirect:/user/profile";
+    }
+
     @PostMapping("/logout")
     @ResponseBody
     public String executeLogout() {
         return "redirect:/index";
     }
 
-    @PatchMapping("/{username}/list/{listId}/edit")
-    public String editListName(@PathVariable String username, @PathVariable long listId, @ModelAttribute ListRestaurant list){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        list.setUser(userDb);
-        listDao.save(list);
-        return "redirect:/user/profile";
-    }
 
-
-    @PostMapping("/delete/lists/{listId}")
-    public String deleteListFromUser(@PathVariable long listId){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
-        userDb.removeListFromUser(list);
-        userDao.save(userDb);
-        return "redirect:/user/profile";
-    }
 
 }
