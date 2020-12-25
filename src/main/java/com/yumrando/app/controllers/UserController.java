@@ -98,4 +98,22 @@ public class UserController {
         return "redirect:/index";
     }
 
+    @PatchMapping("/{username}/list/{listId}/edit")
+    public String editListName(@PathVariable String username, @PathVariable long listId, @ModelAttribute ListRestaurant list){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        list.setUser(userDb);
+        listDao.save(list);
+        return "redirect:/user/profile";
+    }
+
+
+    @PostMapping("/delete/lists/{listId}")
+    public String deleteListFromUser(@PathVariable long listId){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        userDb.removeListFromUser(list);
+        userDao.save(userDb);
+        return "redirect:/user/profile";
+    }
+
 }

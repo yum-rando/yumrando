@@ -31,14 +31,15 @@ public class ListRestaurantController {
         return "user/profile";
     }
 
-
-
     @PostMapping("restaurants/lists/create/test")
     private String createList(@ModelAttribute ListRestaurant listToBeSaved){
         Set<Restaurant> restaurantList = listToBeSaved.getRestaurants();
         //Not done yet and still working on this
         return "index";
     }
+
+    //Take what is is from the UserController and input it here since it is impacting the list information
+
 
     //Update List
     @PostMapping("restaurants/lists/edit")
