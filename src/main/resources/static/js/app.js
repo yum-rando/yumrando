@@ -115,7 +115,8 @@
             basicInput.val("");
             listBasic(arrayConstructor());
             tagSelection=[];
-            $("#tag-choices").empty();
+            $("#tag-choices, #tag-addon").empty();
+            $("#tag-choice").toggleClass('d-none')
         })
 
         const selectRest = '#search-select';
