@@ -2,6 +2,8 @@
     "use strict"
     $(document).ready(()=>{
 
+        let tagSelection = [];
+
         const arrayConstructor = () => {
             let listDisplayItems = localStorage.getItem("yumList");
             if (listDisplayItems === null){
@@ -10,7 +12,7 @@
                 return JSON.parse(listDisplayItems);
             }
         }
-const deleteLocal = num => {
+        const deleteLocal = num => {
             let array = arrayConstructor().filter((rest, index) => index !== num);
             localStorage.setItem("yumList", JSON.stringify(array));
             listBasic(array);
@@ -112,37 +114,37 @@ const deleteLocal = num => {
            updateLocal(objectConvert);
             basicInput.val("");
             listBasic(arrayConstructor());
+            tagSelection=[];
+            $("#tag-choices").empty();
         })
 
         const selectRest = '#search-select';
         const selectRestUser = '#search-select-user'
         const modalBody = '#search-body';
 
-const selectEvent = (selector, type) => {
-    $(selector).change(() => {
-        $(modalBody).empty();
-        $('#search-results, #search-results-user').empty();
-        switch ($(selector).val()) {
-            case "name":
+    const selectEvent = (selector, type) => {
+        $(selector).change(() => {
+            $(modalBody).empty();
+            $('#search-results, #search-results-user').empty();
+            switch ($(selector).val()) {
+                case "name":
 
-                if(type === "") {
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
-                } else {
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
-                }
-
-
-                break;
-            case "near":
-                // Attach loader to $('#search-results')
-                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                    if(type === "") {
+                        $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                    } else {
+                        $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                     }
+                    break;
+                case "near":
+                    // Attach loader to $('#search-results')
+                    let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                    apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                     // Clear loader from $('#search-results) (.empty() works well for that)
                     listResult(data.nearby_restaurants, type)
                 });
-                break;
-            default:
-                return;
+                    break;
+                default:
+                    return;
         }
     })
 }
@@ -212,10 +214,32 @@ const inputSearchSetup = (selector, type) => {
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
 
-            console.log(url);
             apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+        })
 
-
+        $("#tag-choice").click(function(){
+            $(this).toggleClass('d-none')
+            $("#tag-addon").append(
+                `
+                <div>
+                   <input id="tag-type" type="text">
+                   <button id="tag-submit" class="btn btn-primary">Add Tag</button> 
+                </div>
+`
+            )
+            $("#tag-submit").click(()=>{
+                let tagInput = $("#tag-type").val();
+                tagSelection.push(tagInput);
+                $("#tag-choices").empty();
+                tagSelection.map(tag => {
+                    $("#tag-choices").append(
+                        `
+                        <li>${tag}</li>
+                    `
+                    );
+                    $("#tag-type").val("");
+                })
+            })
         })
 
         listBasic(arrayConstructor());
