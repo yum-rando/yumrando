@@ -41,8 +41,12 @@ public class ListRestaurantController {
     //Take what is is from the UserController and input it here since it is impacting the list information
 
     //UPDATING the List Name Here
-    @PatchMapping("/{username}/list/{listId}/edit")
-    public String editListName(@PathVariable String username, @PathVariable long listId, @ModelAttribute ListRestaurant list){
+    //@PatchMapping("/{username}/list/{listId}/edit")
+    @PatchMapping("/lists/{listId}/edit")
+    public String editListName(
+            //@PathVariable String username,
+            @PathVariable long listId,
+            @ModelAttribute ListRestaurant list){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ListRestaurant listDb = listDao.findAllByUserAndId(userDb, listId);
         listDb.setUser(userDb);

@@ -42,7 +42,6 @@ public class RestRestaurantController {
         //Checking if lists exists
         if(listRes.getRestaurants() == null) {
             Set<Restaurant> startList = new HashSet<>();
-
             listRes.setRestaurants(startList);
         }
 
@@ -52,13 +51,14 @@ public class RestRestaurantController {
         }
 
         if (restaurantDb == null){
-            listRes.getRestaurants().add(restaurantToBeSaved);
-            restaurantToBeSaved.getLists().add(listRes);
+            //listRes.getRestaurants().add(restaurantToBeSaved);
+            //restaurantToBeSaved.getLists().add(listRes);
+            listRes.addRestaurantToList(restaurantToBeSaved); //this is working now
             restaurantDao.save(restaurantToBeSaved);
-
         } else {
-            listRes.getRestaurants().add(restaurantDb);
-            restaurantDb.getLists().add(listRes);
+            //listRes.getRestaurants().add(restaurantDb);
+            //restaurantDb.getLists().add(listRes);
+            listRes.addRestaurantToList(restaurantDb); //this is also working now
             restaurantDao.save(restaurantDb);
         }
 
