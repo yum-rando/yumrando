@@ -26,8 +26,8 @@
                     `
                       <div class="container">
                       <div class="row">
-                      <div class="col-9">
-                      <h6 id="${item.name}">${item.name}</h6>
+                      <div id="r${num}" class="col-9">
+                      <h6>${item.name}</h6>
                       </div>
                      <div class="col-3">
                      <button id="delete${num}" type="button" class="btn btn-danger">-</button>
@@ -49,9 +49,6 @@
             listBasic(arrayConstructor());
         }
 
-
-
-
         const obtainRestaurant = num => {
             if (num.includes('u')){
                 let restaurant = resultSet[parseInt(num.substring(1))]
@@ -69,7 +66,6 @@
             } else {
                 updateLocal(resultSet[parseInt(num)]);
             }
-
         }
 
         const listResult = (array, type) => {
@@ -123,33 +119,32 @@
         const selectRestUser = '#search-select-user'
         const modalBody = '#search-body';
 
-    const selectEvent = (selector, type) => {
-        $(selector).change(() => {
-            $(modalBody).empty();
-            $('#search-results, #search-results-user').empty();
-            switch ($(selector).val()) {
-                case "name":
+        const selectEvent = (selector, type) => {
+            $(selector).change(() => {
+                $(modalBody).empty();
+                $('#search-results, #search-results-user').empty();
+                switch ($(selector).val()) {
+                    case "name":
 
-                    if(type === "") {
-                        $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
-                    } else {
-                        $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
-                     }
-                    break;
-                case "near":
-                    // Attach loader to $('#search-results')
-                    let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                    apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-                    // Clear loader from $('#search-results) (.empty() works well for that)
-                    listResult(data.nearby_restaurants, type)
-                });
-                    break;
-                default:
-                    return;
+                        if(type === "") {
+                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                        } else {
+                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                        }
+                        break;
+                    case "near":
+                        // Attach loader to $('#search-results')
+                        let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                        apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                        // Clear loader from $('#search-results) (.empty() works well for that)
+                        listResult(data.nearby_restaurants, type)
+                    });
+                        break;
+                    default:
+                        return;
+                }
+            })
         }
-    })
-}
-
 
         const inputSearch = (selector, type) => {
             // Attach loader to $('#search-results')
@@ -157,19 +152,15 @@
             apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data=> {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
-
             });
-
-
         }
 
-const inputSearchSetup = (selector, type) => {
-    $(document).on('change', selector,()=>{
-        if(typeof $(selector).val() !== 'undefined')
-            inputSearch(selector, type);
-    })
-}
-
+        const inputSearchSetup = (selector, type) => {
+            $(document).on('change', selector,()=>{
+             if(typeof $(selector).val() !== 'undefined')
+                    inputSearch(selector, type);
+            })
+        }
 
         $('#new-list').click(()=>{
             $('#user-list-items').toggleClass('d-none');
@@ -241,6 +232,18 @@ const inputSearchSetup = (selector, type) => {
                     $("#tag-type").val("");
                 })
             })
+        })
+
+        const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
+
+        const randomizer = () => {
+           let chosenIndex = randomizerChoice(arrayConstructor().length);
+            $(`#r${chosenIndex}`).css('background-color', 'cyan');
+        }
+
+        $('#guest-random').click(()=>{
+            listBasic(arrayConstructor());
+            randomizer();
         })
 
         listBasic(arrayConstructor());
