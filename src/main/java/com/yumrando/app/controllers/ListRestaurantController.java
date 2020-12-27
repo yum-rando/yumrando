@@ -31,13 +31,6 @@ public class ListRestaurantController {
         return "user/profile";
     }
 
-    @PostMapping("restaurants/lists/create/test")
-    private String createList(@ModelAttribute ListRestaurant listToBeSaved){
-        Set<Restaurant> restaurantList = listToBeSaved.getRestaurants();
-        //Not done yet and still working on this
-        return "index";
-    }
-
     //Take what is is from the UserController and input it here since it is impacting the list information
 
     //UPDATING the List Name Here
@@ -67,15 +60,15 @@ public class ListRestaurantController {
     }
 
     //Update List -->another method will test this later
-    @PostMapping("restaurants/lists/edit")
-    private String editListRestaurant(@ModelAttribute ListRestaurant listToBeUpdated){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        listToBeUpdated.setUser(userDb);
-        listDao.save(listToBeUpdated);
-
-        //redirect to the specific ListRestaurants page
-        return "redirect:/restaurants/lists/" + listToBeUpdated.getName();
-    }
+//    @PostMapping("restaurants/lists/edit")
+//    private String editListRestaurant(@ModelAttribute ListRestaurant listToBeUpdated){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        listToBeUpdated.setUser(userDb);
+//        listDao.save(listToBeUpdated);
+//
+//        //redirect to the specific ListRestaurants page
+//        return "redirect:/restaurants/lists/" + listToBeUpdated.getName();
+//    }
 
     //Delete List by the ListRestaurant Id
 //    @PostMapping("restaurants/lists/{id}/delete")
@@ -94,16 +87,15 @@ public class ListRestaurantController {
 //    }
 
     //Delete List via the Model Attribute
-    @PostMapping("restaurant/lists/delete")
-    private String deleteListByModelAttr(@ModelAttribute ListRestaurant listToBeDeleted){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        listToBeDeleted.setUser(userDb);
-        listDao.deleteByName(listToBeDeleted.getName());
-        listDao.deleteById(listToBeDeleted.getId());
-
-        return "index";
-    }
-
+//    @PostMapping("restaurant/lists/delete")
+//    private String deleteListByModelAttr(@ModelAttribute ListRestaurant listToBeDeleted){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        listToBeDeleted.setUser(userDb);
+//        listDao.deleteByName(listToBeDeleted.getName());
+//        listDao.deleteById(listToBeDeleted.getId());
+//
+//        return "index";
+//    }
 
     //Different ListName Change --> Possibly needed
 }
