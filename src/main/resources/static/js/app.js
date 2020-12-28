@@ -236,14 +236,36 @@
 
         const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
 
-        const randomizer = () => {
+        const randomizerDelay = ()=> Math.floor(Math.random() * Math.floor(10) + 1) * 100;
+
+        const randomizerLoop = ()=> Math.floor(Math.random() * Math.floor(8) + 14);
+
+
+        const guestRandomizer = () => {
            let chosenIndex = randomizerChoice(arrayConstructor().length);
             $(`#r${chosenIndex}`).css('background-color', 'cyan');
         }
 
-        $('#guest-random').click(()=>{
-            listBasic(arrayConstructor());
-            randomizer();
+        const loopFunc = (limit, loop) => {
+            if (loop === limit){
+                setTimeout(()=>{
+                    listBasic(arrayConstructor());
+                    guestRandomizer();
+                    $('#guest-random').attr("disabled", false);
+                }, randomizerDelay());
+            } else {
+                setTimeout(()=>{
+                    listBasic(arrayConstructor());
+                    guestRandomizer();
+                    return loopFunc(limit, loop + 1);
+                }, randomizerDelay());
+            }
+
+        }
+        $('#guest-random').click(function(){
+            $(this).attr("disabled", true);
+            let loopLimit = randomizerLoop();
+            loopFunc(loopLimit, 0);
         })
 
         listBasic(arrayConstructor());
