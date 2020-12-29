@@ -95,4 +95,10 @@ public class ListRestaurant {
         restaurant.getLists().remove(this);
     }
 
+    //Removing all restaurants from a ListOfRestaurants
+    public void removingAllRestaurantsFromList(Set<Restaurant> restaurants){
+        this.restaurants.removeAll(restaurants);
+        restaurants.remove(this);
+    }
+
 }
