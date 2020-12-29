@@ -6,7 +6,7 @@
         <div class="col-8">
             <div class="container">
                 <!-- Add th fields for form and each input according to the way it is named in the User model-->
-                <form th:action="@{'/profile/' + ${userInfo.username}}" th:method="POST" th:object="${userInfo}">
+                <form th:action="@{'/profile/' + ${username}}" th:method="PUT" th:object="${userInfo}">
                     <input th:field="*{firstName}" name="firstName" placeholder="First Name" type="text">
                     <input th:field="*{lastName}" name="lastName" placeholder="Last Name" type="text">
                     <input th:field="*{email}" name="email" placeholder="Email" type="email">

@@ -14,8 +14,8 @@ public interface ListRestaurantRepository extends JpaRepository<ListRestaurant, 
     ListRestaurant findById(long id);
 
     //ListRestaurant save(ListRestaurant listRestaurant);
-    ListRestaurant save(ListRestaurant list, String id);
-    ListRestaurant save(ListRestaurantNameOnly listRestaurant, String id);
+    //ListRestaurant save(ListRestaurant list, String id);
+    //ListRestaurant save(ListRestaurantNameOnly listRestaurant, String id);
 
     //ListRestaurant deleteByIdIn(List<Restaurant> restaurants);
     ListRestaurant findByName(String name);

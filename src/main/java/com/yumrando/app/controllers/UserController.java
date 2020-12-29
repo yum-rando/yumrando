@@ -98,7 +98,7 @@ public class UserController {
         return "/user/profile";
     }
 
-    @PostMapping("profile/{username}/edit")
+    @PutMapping("profile/{username}")
     public String editProfileBtn(@ModelAttribute User userToBeUpdated){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userToBeUpdated.setFirstName(userDb.getFirstName());
@@ -107,7 +107,7 @@ public class UserController {
         userToBeUpdated.setPhoneNumber(userDb.getPhoneNumber());
         userToBeUpdated.setZipcode(userDb.getZipcode());
         userDao.save(userToBeUpdated);
-        return "redirect:/user/profile";
+        return "redirect:/profile/" + userToBeUpdated.getUsername();
     }
 
     @PostMapping("/logout")

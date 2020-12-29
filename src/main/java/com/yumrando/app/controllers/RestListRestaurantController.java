@@ -42,28 +42,25 @@ public class RestListRestaurantController {
 
     }
 
-    @CrossOrigin
-    @PutMapping("/lists/{listId}")
-    public ListRestaurant editListObject(@RequestBody ListRestaurant listToBeUpdated,
-                                         @PathVariable("listId") String listId){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        listToBeUpdated.setUser(userDb);
-        return listDao.save(listToBeUpdated, listId); //not liking this method with 2 parameters
-    }
-
-    @CrossOrigin
-    @PatchMapping("/lists/{listId}")
-    public ListRestaurant editListName(
-            //@PathVariable String username,
-            //@ModelAttribute ListRestaurant list
-            @RequestBody ListRestaurantNameOnly listToBeUpdated,
-            @PathVariable("listId") String listId
-            ){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //ListRestaurant listDb = listDao.findAllByUserAndId(userDb, listId);
-        //listDb.setUser(userDb);
-        //listDao.save(listDb);
-        listToBeUpdated.setUser(userDb);
-        return listDao.save(listToBeUpdated, listId); //not liking this method with 2 parameters
-    }
+    //Put Method to replace all info -->Not really needed
+//    @CrossOrigin
+//    @PutMapping("/lists/{listId}")
+//    public ListRestaurant editListObject(@RequestBody ListRestaurant listToBeUpdated,
+//                                         @PathVariable("listId") String listId){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        listToBeUpdated.setUser(userDb);
+//        return listDao.save(listToBeUpdated, listId); //not liking this method with 2 parameters
+//    }
+//
+//    //Path Method to replace ONLY the NAME field
+//    @CrossOrigin
+//    @PatchMapping("/lists/{listId}")
+//    public ListRestaurant editListName(
+//            //@PathVariable String username,
+//            //@ModelAttribute ListRestaurant list
+//            @RequestBody ListRestaurantNameOnly listToBeUpdatedName,
+//            @PathVariable("listId") String listId
+//            ){
+//        return listDao.save(listToBeUpdatedName, listId); //not liking this method with 2 parameters
+//    }
 }
