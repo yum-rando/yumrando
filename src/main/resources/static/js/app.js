@@ -26,7 +26,7 @@
                     `
                       <div class="container">
                       <div class="row">
-                      <div id="r${num}" class="col-9">
+                      <div id="r${num}" class="col-9" data-bs-toggle="modal" data-bs-target="#showModal">
                       <h6>${item.name}</h6>
                       </div>
                      <div class="col-3">
@@ -37,6 +37,14 @@
                 );
                 $(`#delete${num}`).click(()=>{
                     deleteLocal(num)
+                });
+
+                $(`#r${num}`).click(()=>{
+                $('#show-modal-label').empty().append(
+                `
+                <h5 class="modal-title">${item.name}</h5>
+                `
+                )
                 })
             })
 

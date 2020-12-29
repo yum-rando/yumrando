@@ -6,10 +6,11 @@
 <body>
 
 <nav th:replace="partials/navbar :: navbar"/>
-
+<div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
 <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
 <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
 <div th:replace="partialsFile/app :: app"></div>
+
 
 
 <script th:replace="partials/scripts :: script"></script>
