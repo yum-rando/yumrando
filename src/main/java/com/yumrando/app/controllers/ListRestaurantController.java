@@ -4,6 +4,7 @@ import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
+import com.yumrando.app.repos.RestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.Set;
 public class ListRestaurantController {
     private UserRepository userDao;
     private ListRestaurantRepository listDao;
+    private RestaurantRepository restaurantDao;
 
     public ListRestaurantController(ListRestaurantRepository listDao, UserRepository userDao) {
         this.listDao = listDao;
@@ -54,6 +56,7 @@ public class ListRestaurantController {
     public String deleteListFromUser(@PathVariable long listId){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        list.removingAllRestaurantsFromList(restaurantDao.findAllByLists(list));
         userDb.removeListFromUser(list);
         userDao.save(userDb);
         return "redirect:/user/profile";
