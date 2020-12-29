@@ -252,13 +252,15 @@
         const guestRandomizer = () => {
            let chosenIndex = randomizerChoice(arrayConstructor().length);
             $(`#r${chosenIndex}`).css('background-color', 'cyan');
+            return `#r${chosenIndex}`;
         }
 
         const loopFunc = (limit, loop) => {
             if (loop === limit){
                 setTimeout(()=>{
                     listBasic(arrayConstructor());
-                    guestRandomizer();
+                    let finalSelection = guestRandomizer();
+                    $(finalSelection).click();
                     $('#guest-random').attr("disabled", false);
                 }, randomizerDelay());
             } else {
