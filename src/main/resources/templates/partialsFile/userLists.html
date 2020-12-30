@@ -23,8 +23,9 @@
 
                 </div>
                 <div class="col-2">
-                    <form th:method="POST" th:action="@{'/delete/lists/' + ${list.id}}"></form>
-                    <button type = "submit" class="btn btn-danger d-none delete-list">x</button>
+                    <form th:method="POST" th:action="@{'/delete/lists/' + ${list.id}}">
+                        <button type = "submit" class="btn btn-danger d-none delete-list">x</button>
+                    </form>
                 </div>
             </div>
 

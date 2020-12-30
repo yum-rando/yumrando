@@ -56,14 +56,16 @@ public class ListRestaurantController {
     public String deleteListFromUser(@PathVariable long listId){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
-        //Removing the restaurants from the Lists 1st
-        list.removingAllRestaurantsFromList(restaurantDao.findAllByLists(list));
-        //Not sure about this below, don't want to permanently to delete from database but just from the list for now
-        //restaurantDao.removeAllByLists(list);
+        Set<Restaurant> restaurants = list.getRestaurants();
+        if (restaurants != null){
+            //Removing the restaurants from the Lists 1st to satisfy the many-to-many relationship
+            for (Restaurant res : restaurants) {
+                res.removeListFromRestaurant(list);
+            }
+        }
         //Removing the list from the user
-        userDb.removeListFromUser(list);
-        userDao.save(userDb);
-        return "redirect:/user/profile";
+        listDao.deleteById(listId); //this works
+        return "redirect:/profile";
     }
 
     //Update List -->another method will test this later
