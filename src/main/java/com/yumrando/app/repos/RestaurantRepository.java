@@ -15,6 +15,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findAllByApiId (String apiId);
 
     Set<Restaurant> findAllByLists (ListRestaurant list);
+    public void removeAllByLists(ListRestaurant list);
 
     //Set<Restaurant> findAllByApiIdOrName(String restaurantApiId, String RestaurantName);
     //Set<Restaurant>findAllByApiIdOrNameAndAddressAndZipcode(String apiId, String name, String address, String zipcode);

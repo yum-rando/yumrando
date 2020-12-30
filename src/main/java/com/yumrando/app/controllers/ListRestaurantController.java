@@ -56,7 +56,11 @@ public class ListRestaurantController {
     public String deleteListFromUser(@PathVariable long listId){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        //Removing the restaurants from the Lists 1st
         list.removingAllRestaurantsFromList(restaurantDao.findAllByLists(list));
+        //Not sure about this below, don't want to permanently to delete from database but just from the list for now
+        //restaurantDao.removeAllByLists(list);
+        //Removing the list from the user
         userDb.removeListFromUser(list);
         userDao.save(userDb);
         return "redirect:/user/profile";

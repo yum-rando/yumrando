@@ -42,6 +42,18 @@ public class RestListRestaurantController {
 
     }
 
+    //PostMapping since the PUT/PATCH methods are not working via the save method for the name change
+    @CrossOrigin
+    @PostMapping("lists/{listId}")
+    public ListRestaurant editListObject(
+            @RequestBody ListRestaurant listToBeUpdated,
+            @PathVariable long listId
+    ){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        listToBeUpdated.setUser(userDb);
+        return listDao.save(listToBeUpdated);
+    }
+
     //Put Method to replace all info -->Not really needed
 //    @CrossOrigin
 //    @PutMapping("/lists/{listId}")
