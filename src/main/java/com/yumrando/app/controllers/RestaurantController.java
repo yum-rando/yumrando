@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -99,12 +100,7 @@ public class RestaurantController {
 //    }
 
 
-    //Adding Restaurant //(Any user, especially if new restaurant) Double Check to make sure this restaurant isn't already in the database
-
-
-
-    //Deleting Restaurant (Admin)
-
+    //Deleting a restaurant from a list
     @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
     public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -121,6 +117,7 @@ public class RestaurantController {
 //        check to see if restaurant has reviews if so does logged in user have one for this restaurant
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Restaurant restCheck = restaurantDao.findById(id);
+
 
         // **** Ad Error page for 404 ****
         if(restCheck == null){
@@ -151,4 +148,8 @@ public class RestaurantController {
 //        have to redirect to specific list item
         return "redirect:/" + id;
     }
+
+    //Deleting Restaurant (Admin)
+
+
 }
