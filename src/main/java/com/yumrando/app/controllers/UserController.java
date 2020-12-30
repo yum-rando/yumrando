@@ -2,6 +2,7 @@ package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
+import com.yumrando.app.models.Review;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -109,6 +111,20 @@ public class UserController {
         userDao.save(userToBeUpdated);
         return "redirect:/profile/" + userToBeUpdated.getUsername();
     }
+
+    //This is for the REVIEW CONTROLLER
+    //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
+//    public void updateReviewTime(Review review){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        review.setUser(userDb);
+//        Date now = new Date();
+//        String pattern = "yyyy-MM-dd HH:mm:ss";
+//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+//        String mysqlUpdateDate = formatter.format(now);
+//        review.setUpdateTime(mysqlUpdateDate);
+//        reviewDao.save(review);
+//    }
+
 
     @PostMapping("/logout")
     @ResponseBody

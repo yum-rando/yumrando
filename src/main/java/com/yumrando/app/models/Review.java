@@ -21,9 +21,8 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date createTime;
 
-    @Column(columnDefinition = "TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
-    private Date updateTime;
+    @Column(length = 25)
+    private String updateTime;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
     private List<Photo> photos;
@@ -45,7 +44,7 @@ public class Review {
     }
 
     //Read
-    public Review(long id, String comment, int rating, Date createTime, Date updateTime, List<Photo> photos, User user, Restaurant restaurant) {
+    public Review(long id, String comment, int rating, Date createTime, String updateTime, List<Photo> photos, User user, Restaurant restaurant) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
@@ -89,11 +88,11 @@ public class Review {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
