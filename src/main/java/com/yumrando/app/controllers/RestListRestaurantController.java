@@ -42,37 +42,21 @@ public class RestListRestaurantController {
 
     }
 
-    //PostMapping since the PUT/PATCH methods are not working via the save method for the name change
     @CrossOrigin
-    @PostMapping("lists/{listId}")
+    @PatchMapping("lists/{listId}/edit")
     public ListRestaurant editListObject(
             @RequestBody ListRestaurant listToBeUpdated,
             @PathVariable long listId
     ){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        for (ListRestaurant listItem : listDao.findAllByUser(userDb)) {
+            if (listItem.getName().equalsIgnoreCase(listToBeUpdated.getName())){
+                return listToBeUpdated;
+            }
+        }
+        //Make sure that the listToBeUpdated is from the user and has the same id of the list so it can be updated with its name
         listToBeUpdated.setUser(userDb);
+        listToBeUpdated.setId(listId);
         return listDao.save(listToBeUpdated);
     }
-
-    //Put Method to replace all info -->Not really needed
-//    @CrossOrigin
-//    @PutMapping("/lists/{listId}")
-//    public ListRestaurant editListObject(@RequestBody ListRestaurant listToBeUpdated,
-//                                         @PathVariable("listId") String listId){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        listToBeUpdated.setUser(userDb);
-//        return listDao.save(listToBeUpdated, listId); //not liking this method with 2 parameters
-//    }
-//
-//    //Path Method to replace ONLY the NAME field
-//    @CrossOrigin
-//    @PatchMapping("/lists/{listId}")
-//    public ListRestaurant editListName(
-//            //@PathVariable String username,
-//            //@ModelAttribute ListRestaurant list
-//            @RequestBody ListRestaurantNameOnly listToBeUpdatedName,
-//            @PathVariable("listId") String listId
-//            ){
-//        return listDao.save(listToBeUpdatedName, listId); //not liking this method with 2 parameters
-//    }
 }

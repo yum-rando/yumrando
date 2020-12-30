@@ -35,11 +35,9 @@ public class ListRestaurantController {
 
     //Take what is is from the UserController and input it here since it is impacting the list information
 
-    //UPDATING the List Name Here
-    //@PatchMapping("/{username}/list/{listId}/edit")
-//    @PatchMapping("/lists/{listId}/edit")
+//    //UPDATING the List Name Here
+//    @PostMapping("/lists/{listId}/edit")
 //    public String editListName(
-//            //@PathVariable String username,
 //            @PathVariable long listId,
 //            @ModelAttribute ListRestaurant list){
 //        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -48,7 +46,15 @@ public class ListRestaurantController {
 //        //list.setUser(userDb);
 //        listDao.save(listDb);
 //        //listDao.save(list);
-//        return "redirect:/user/profile";
+//        return "redirect:/profile";
+//    }
+
+//    @PostMapping("lists/{listId}/edit")
+//    public String editListName(@ModelAttribute ListRestaurant listToBeUpdated){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        listToBeUpdated.setUser(userDb);
+//        listDao.save(listToBeUpdated);
+//        return "redirect:/profile";
 //    }
 
     //DELETING the List from the USER here
