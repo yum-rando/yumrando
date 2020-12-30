@@ -91,16 +91,11 @@ public class UserController {
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
         model.addAttribute("lists", listings);
+        model.addAttribute("userInfo", userDao.findByUsername(user.getUsername()));
         return "user/profile";
     }
 
-    @GetMapping("profile/{username}")
-    public String showProfileSpecificUser(@PathVariable String username, Model vModel){
-        vModel.addAttribute("userInfo", userDao.findByUsername(username));
-        return "/user/profile";
-    }
-
-    @PutMapping("profile/{username}")
+    @PutMapping("/profile")
     public String editProfileBtn(@ModelAttribute User userToBeUpdated){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userToBeUpdated.setFirstName(userDb.getFirstName());
@@ -109,7 +104,7 @@ public class UserController {
         userToBeUpdated.setPhoneNumber(userDb.getPhoneNumber());
         userToBeUpdated.setZipcode(userDb.getZipcode());
         userDao.save(userToBeUpdated);
-        return "redirect:/profile/" + userToBeUpdated.getUsername();
+        return "redirect:/profile";
     }
 
     //This is for the REVIEW CONTROLLER

@@ -24,7 +24,7 @@
                     <a href="/index" class="link mx-15 color-main">
                         Home
                     </a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{'/profile/' + ${#authentication.principal.username}}" class="link mx-15 color-main">
+                    <a sec:authorize="isAuthenticated()" th:href="@{'/profile/'}" class="link mx-15 color-main">
                         Profile
                     </a>
                     <a href="/" class="link mx-15 color-main">
