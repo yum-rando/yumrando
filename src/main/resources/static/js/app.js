@@ -244,9 +244,9 @@
 
         const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
 
-        const randomizerDelay = ()=> Math.floor(Math.random() * Math.floor(10) + 1) * 100;
+        const randomizerDelay = ()=> Math.floor(Math.random() * Math.floor(10) + 1) * 75;
 
-        const randomizerLoop = ()=> Math.floor(Math.random() * Math.floor(8) + 14);
+        const randomizerLoop = ()=> Math.floor(Math.random() * Math.floor(8) + 12);
 
 
         const guestRandomizer = () => {
