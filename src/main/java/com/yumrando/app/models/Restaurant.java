@@ -3,6 +3,7 @@ package com.yumrando.app.models;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")
@@ -11,8 +12,8 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
-    private long apiId;
+    @Column(unique = true)
+    private String apiId;
 
     @Column(nullable = false)
     private String name;
@@ -34,20 +35,20 @@ public class Restaurant {
 
     @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
-    private Date chosenTime;
+    private Date createdTime;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<Review> reviews;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     //new table will be created with the combining of columns of list_id and restaurant_id
     @JoinTable(
             name = "list_restaurants",
-            joinColumns = {@JoinColumn(name = "list_id")},
-            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")}
+            joinColumns = {@JoinColumn(name = "restaurant_id")},
+            inverseJoinColumns = {@JoinColumn(name = "list_id")}
     )
     //still working on this to be a list of list of restaurants
-    private List<ListRestaurant> lists;
+    private Set<ListRestaurant> lists;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -55,13 +56,13 @@ public class Restaurant {
             joinColumns = {@JoinColumn(name = "restaurant_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
-    private List<RestaurantTag> tags;
+    private Set<RestaurantTag> tags;
 
     //Constructors
     public Restaurant(){}
 
     //Create/Insert
-    public Restaurant(String name, String address, String city, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(String name, String address, String city, Set<ListRestaurant> lists, Set<RestaurantTag> tags) {
         this.name = name;
         this.address = address;
         this.city = city;
@@ -70,7 +71,7 @@ public class Restaurant {
     }
 
     //Read
-    public Restaurant(long id, long apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date chosenTime, List<Review> reviews, List<ListRestaurant> lists, List<RestaurantTag> tags) {
+    public Restaurant(long id, String apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date createdTime, List<Review> reviews, Set<ListRestaurant> lists, Set<RestaurantTag> tags) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
@@ -79,7 +80,7 @@ public class Restaurant {
         this.address = address;
         this.city = city;
         this.zipcode = zipcode;
-        this.chosenTime = chosenTime;
+        this.createdTime = createdTime;
         this.reviews = reviews;
         this.lists = lists;
         this.tags = tags;
@@ -94,11 +95,11 @@ public class Restaurant {
         this.id = id;
     }
 
-    public long getApiId() {
+    public String getApiId() {
         return apiId;
     }
 
-    public void setApiId(long apiId) {
+    public void setApiId(String apiId) {
         this.apiId = apiId;
     }
 
@@ -150,27 +151,27 @@ public class Restaurant {
         this.zipcode = zipcode;
     }
 
-    public Date getChosenTime() {
-        return chosenTime;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setChosenTime(Date chosenTime) {
-        this.chosenTime = chosenTime;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public List<ListRestaurant> getLists() {
+    public Set<ListRestaurant> getLists() {
         return lists;
     }
 
-    public void setLists(List<ListRestaurant> lists) {
+    public void setLists(Set<ListRestaurant> lists) {
         this.lists = lists;
     }
 
-    public List<RestaurantTag> getTags() {
+    public Set<RestaurantTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<RestaurantTag> tags) {
+    public void setTags(Set<RestaurantTag> tags) {
         this.tags = tags;
     }
 
@@ -180,5 +181,50 @@ public class Restaurant {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+
+    //Many-To-Many Relationship Methods
+
+    //Adding a list to Restaurant
+    public void addListToRestaurant (ListRestaurant listRestaurant){
+        this.lists.add(listRestaurant);
+        //This by itself is referring to the current list object
+        listRestaurant.getRestaurants().add(this);
+    }
+
+    //Deleting a list from Restaurant
+    public void removeListFromRestaurant (ListRestaurant listRestaurant){
+        this.lists.remove(listRestaurant);
+        //This by itself is referring to the current list object
+        listRestaurant.getRestaurants().remove(this);
+    }
+
+    //Adding a tag to Restaurant
+    public void addTagToRestaurant (RestaurantTag tag){
+        this.tags.add(tag);
+        //This by itself is referring to the current list object
+        tag.getRestaurants().add(this);
+    }
+
+    //Deleting a tag from Restaurant
+    public void removeTagFromRestaurant (RestaurantTag tag){
+        this.tags.remove(tag);
+        //This by itself is referring to the current list object
+        tag.getRestaurants().remove(this);
+    }
+
+    //Many-to-One Relationship Methods
+
+    //Add a review to Restaurant
+    public void addReviewToRestaurant(Review review){
+        this.reviews.add(review);
+        review.setRestaurant(this);
+    }
+
+    //Remove a review from Restaurant
+    public void removeReviewFromRestaurant(Review review){
+        this.reviews.remove(review);
+        review.setRestaurant(this);
     }
 }

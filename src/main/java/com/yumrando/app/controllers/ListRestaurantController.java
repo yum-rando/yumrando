@@ -8,12 +8,10 @@ import com.yumrando.app.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ListRestaurantController {
@@ -33,27 +31,11 @@ public class ListRestaurantController {
         return "user/profile";
     }
 
-    //Add List -->Make sure no duplicate names
-    @PostMapping("restaurants/lists/create")
-    private String createListOfRestaurants(@ModelAttribute ListRestaurant listToBeSaved){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String listName = listToBeSaved.getName().trim();
-        List<ListRestaurant> listR = listDao.findAll();
-        for (ListRestaurant list : listR) {
-            if (list.getName().equalsIgnoreCase(listName)){
-                //inform user this can't be done; Already a list of this name, try again with another name
-                System.out.println("This will not work");
-            }
-        }
-        listToBeSaved.setUser(userDb);
-        ListRestaurant dbListRestaurant = listDao.save(listToBeSaved);
-        return "redirect:/restaurants/lists/" + dbListRestaurant.getName();
-        //return "user/profile";
-    }
+
 
     @PostMapping("restaurants/lists/create/test")
     private String createList(@ModelAttribute ListRestaurant listToBeSaved){
-        List<Restaurant> restaurantList = listToBeSaved.getRestaurants();
+        Set<Restaurant> restaurantList = listToBeSaved.getRestaurants();
         //Not done yet and still working on this
         return "index";
     }
@@ -70,20 +52,20 @@ public class ListRestaurantController {
     }
 
     //Delete List by the ListRestaurant Id
-    @PostMapping("restaurants/lists/{id}/delete")
-    private String deleteListById(@PathVariable long id){
-        System.out.println("Will this run?");
-        listDao.deleteById(id);
-        return "redirect:/index";
-    }
+//    @PostMapping("restaurants/lists/{id}/delete")
+//    private String deleteListById(@PathVariable long id){
+//        System.out.println("Will this run?");
+//        listDao.deleteById(id);
+//        return "redirect:/index";
+//    }
 
     //Delete List by the ListRestaurant Name
-    @PostMapping("restaurant/lists/{listName}")
-    private String deleteListByListName(@PathVariable String listName){
-        System.out.println("Will this run?");
-        listDao.deleteByName(listName);
-        return "index";
-    }
+//    @PostMapping("restaurant/lists/{listName}")
+//    private String deleteListByListName(@PathVariable String listName){
+//        System.out.println("Will this run?");
+//        listDao.deleteByName(listName);
+//        return "index";
+//    }
 
     //Delete List via the Model Attribute
     @PostMapping("restaurant/lists/delete")

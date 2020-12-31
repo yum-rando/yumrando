@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="user-info">
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="container">
+                <!-- Add th fields for form and each input according to the way it is named in the User model-->
+            <form action="">
+                <input name="firstName" placeholder="First Name" type="text">
+                <input name="lastName" placeholder="Last Name" type="text">
+                <input name="email" placeholder="Email" type="email">
+                <input name="phoneNumber" placeholder="Phone Number" type="text">
+                <input name="zipcode" placeholder="Zipcode" type="text">
+                <div>
+<!--                    <button class="btn btn-primary" type="button">Edit Profile</button>-->
+                    <button class="btn btn-primary" type="submit">Submit Changes</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        <div class="col-4">
+            Profile Picture
+        </div>
+    </div>
+
+</div>
+</div>
+</html>

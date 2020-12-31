@@ -6,13 +6,17 @@
             <div class="col-3">
                 <button id="yummies">My Yummies!</button>
             </div>
-            <div class="col-3">
+            <div th:if="${lists != null}" class="col-3">
                 <form>
                     <label for="currentList"></label>
-                    <select class="form-select" name="currentList" id="currentList">
-                        <option value="first" selected>User First List</option>
-                        <option value="second">User Second List</option>
-                        <option value="third">User Third List</option>
+                    <select  class="form-select" name="currentList" id="currentList">
+                        <div th:if="${chosenList != null}">
+                        <option th:value="${chosenList.id}" th:text="${chosenList.name}" selected></option>
+                        </div>
+                        <div th:unless="${chosenList != null}">
+                            <option value="default">Select your list</option>
+                        </div>
+                        <option th:each = "list : ${lists}" th:value="${list.id}" th:text="${list.name}"></option>
                     </select>
                 </form>
             </div>

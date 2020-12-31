@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="list-body">
     <div class="container">
-<!--        <div sec:authorize = "isAuthenticated()">-->
+        <div sec:authorize = "isAuthenticated()">
         <div th:replace="partialsFile/userToolbar :: user-toolbar"></div>
-<!--        </div>-->
+        </div>
     <div class="row">
-    <div id="restaurant-items"></div>
+        <div sec:authorize = "isAuthenticated()">
+            <div id="add-list-form"></div>
+            <div th:if="${chosenList != null}" class="container" id="user-list-items">
+                <div th:each="rest : ${chosenList.restaurants}">
+                    <h6 th:text="${rest.name}"></h6>
+                    <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
+                        <button>Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <div id="restaurant-items"></div>
+        </div>
+
     </div>
     <div class="row">
         <div>
