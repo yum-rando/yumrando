@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -38,22 +38,22 @@
                         </i>
                     </a>
                 </div>
-                <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
-                    <a href="/login" class="link mr-20 color-main">
+
+                <ul class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
+                    <li href="/login" class="link mr-20 color-main">
                         Sign In
-                    </a>
-                    <a href="/register" class="btn mr-20 sm action-2 f-16">
+                    </li>
+                    <li href="/register" class="btn mr-20 sm action-2 f-16">
                         Sign Up
-                    </a>
-                    <form th:action="@{/logout}" sec:authorize="isAuthenticated()
+                    </li>
+                    <li>
+                        <form th:action="@{/logout}" sec:authorize="isAuthenticated()
             th:method="post">
-                    <button class="btn-link btn" style="margin-top: 8px">Logout</button>
-                    </form>
-                </div>
-            </div>
+                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                        </form>
+                    </li>
         </div>
     </nav>
-
 
 </body>
 </html>
