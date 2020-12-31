@@ -242,6 +242,14 @@
             })
         })
 
+        $('.user-restaurants').click(function(){
+            let restId = $(this).attr("id").substring(1);
+            apiShow(restId, "restaurant/show/").then(response => {
+                console.log(response);
+                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+            });
+        });
+
         const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
 
         const randomizerDelay = ()=> Math.floor(Math.random() * Math.floor(10) + 1) * 75;

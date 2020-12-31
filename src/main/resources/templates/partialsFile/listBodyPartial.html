@@ -11,7 +11,7 @@ xmlns:sec="http://www.thymeleaf.org/extras">
             <div id="add-list-form"></div>
             <div th:if="${chosenList != null}" class="container" id="user-list-items">
                 <div th:each="rest : ${chosenList.restaurants}">
-                    <div class="user-restaurants" th:id="${'r' + rest.id }">
+                    <div class="user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal" data-bs-target="#showModal">
                         <h6 th:text="${rest.name}"></h6>
                         <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
                             <button>Delete</button>
