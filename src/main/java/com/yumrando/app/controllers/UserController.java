@@ -95,8 +95,7 @@ public class UserController {
         return "user/profile";
     }
 
-    //Make sure if info is null users will be able to still submit the info and the database will take it
-    //@PatchMapping("/profile") //-->Needs to be a patch mapping and need to make that on the front end
+    //Would have liked to used a Patch but used a Post instead due to the html form not accepting a Patch method
     @PostMapping("/profile")
     public String editProfileBtn(@ModelAttribute User userToBeUpdated){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
