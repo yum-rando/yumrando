@@ -255,6 +255,10 @@
             return `#r${chosenIndex}`;
         }
 
+        const userRandomizer = () => {
+            let chosenIndex = randomizerChoice($('.user-restaurants').length)
+        }
+
         const loopFunc = (limit, loop) => {
             if (loop === limit){
                 setTimeout(()=>{
