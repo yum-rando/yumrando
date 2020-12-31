@@ -18,44 +18,20 @@ import java.util.Set;
 public class ListRestaurantController {
     private UserRepository userDao;
     private ListRestaurantRepository listDao;
-    private RestaurantRepository restaurantDao;
 
     public ListRestaurantController(ListRestaurantRepository listDao, UserRepository userDao) {
         this.listDao = listDao;
         this.userDao = userDao;
     }
 
-    @GetMapping("restaurants/{username}/{listName}")
-    private String viewSpecificRestaurantList(@PathVariable String username, @PathVariable String listName, Model vModel){
-        User user = userDao.findByUsername(username);
-        ListRestaurant specificList = listDao.findAllByUserAndName(user, listName);
-        vModel.addAttribute("specificList", specificList);
+    //Viewing all restaurants from a specific list
+    @GetMapping("/lists/{listName}/restaurants")
+    private String viewSpecificRestaurantList(@PathVariable String listName, Model vModel){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ListRestaurant specificList = listDao.findAllByUserAndName(userDb, listName);
+        vModel.addAttribute("specificList", specificList.getRestaurants());
         return "user/profile";
     }
-
-    //Take what is is from the UserController and input it here since it is impacting the list information
-
-//    //UPDATING the List Name Here
-//    @PostMapping("/lists/{listId}/edit")
-//    public String editListName(
-//            @PathVariable long listId,
-//            @ModelAttribute ListRestaurant list){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        ListRestaurant listDb = listDao.findAllByUserAndId(userDb, listId);
-//        listDb.setUser(userDb);
-//        //list.setUser(userDb);
-//        listDao.save(listDb);
-//        //listDao.save(list);
-//        return "redirect:/profile";
-//    }
-
-//    @PostMapping("lists/{listId}/edit")
-//    public String editListName(@ModelAttribute ListRestaurant listToBeUpdated){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        listToBeUpdated.setUser(userDb);
-//        listDao.save(listToBeUpdated);
-//        return "redirect:/profile";
-//    }
 
     //DELETING the List from the USER here
     @PostMapping("/delete/lists/{listId}")
@@ -74,43 +50,4 @@ public class ListRestaurantController {
         return "redirect:/profile";
     }
 
-    //Update List -->another method will test this later
-//    @PostMapping("restaurants/lists/edit")
-//    private String editListRestaurant(@ModelAttribute ListRestaurant listToBeUpdated){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        listToBeUpdated.setUser(userDb);
-//        listDao.save(listToBeUpdated);
-//
-//        //redirect to the specific ListRestaurants page
-//        return "redirect:/restaurants/lists/" + listToBeUpdated.getName();
-//    }
-
-    //Delete List by the ListRestaurant Id
-//    @PostMapping("restaurants/lists/{id}/delete")
-//    private String deleteListById(@PathVariable long id){
-//        System.out.println("Will this run?");
-//        listDao.deleteById(id);
-//        return "redirect:/index";
-//    }
-
-    //Delete List by the ListRestaurant Name
-//    @PostMapping("restaurant/lists/{listName}")
-//    private String deleteListByListName(@PathVariable String listName){
-//        System.out.println("Will this run?");
-//        listDao.deleteByName(listName);
-//        return "index";
-//    }
-
-    //Delete List via the Model Attribute
-//    @PostMapping("restaurant/lists/delete")
-//    private String deleteListByModelAttr(@ModelAttribute ListRestaurant listToBeDeleted){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        listToBeDeleted.setUser(userDb);
-//        listDao.deleteByName(listToBeDeleted.getName());
-//        listDao.deleteById(listToBeDeleted.getId());
-//
-//        return "index";
-//    }
-
-    //Different ListName Change --> Possibly needed
 }

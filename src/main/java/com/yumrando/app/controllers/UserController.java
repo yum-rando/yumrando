@@ -91,18 +91,18 @@ public class UserController {
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
         model.addAttribute("lists", listings);
-        model.addAttribute("userInfo", userDao.findByUsername(user.getUsername()));
+        model.addAttribute("userInfo", userDao.findById(userId));
         return "user/profile";
     }
 
-    @PutMapping("/profile")
+    //Make sure if info is null users will be able to still submit the info and the database will take it
+    //@PatchMapping("/profile") //-->Needs to be a patch mapping and need to make that on the front end
+    @PostMapping("/profile")
     public String editProfileBtn(@ModelAttribute User userToBeUpdated){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userToBeUpdated.setFirstName(userDb.getFirstName());
-        userToBeUpdated.setLastName(userDb.getLastName());
-        userToBeUpdated.setEmail(userDb.getEmail());
-        userToBeUpdated.setPhoneNumber(userDb.getPhoneNumber());
-        userToBeUpdated.setZipcode(userDb.getZipcode());
+        userToBeUpdated.setId(userDb.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
+        userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
+        userToBeUpdated.setUsername(userDb.getUsername()); //Needed this since the username can't be null in a post
         userDao.save(userToBeUpdated);
         return "redirect:/profile";
     }
