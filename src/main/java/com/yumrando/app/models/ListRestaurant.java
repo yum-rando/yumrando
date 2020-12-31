@@ -20,7 +20,7 @@ public class ListRestaurant {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "lists")
+    @ManyToMany(mappedBy = "lists", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Restaurant> restaurants;
 
     //Constructors

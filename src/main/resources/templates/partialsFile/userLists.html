@@ -2,30 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <div th:fragment="user-lists-profile">
 
-        <div class="row">
-            <div class="col-8">
-                <h4>My Lists</h4>
-            </div>
-            <div class="col-3">
-                <button id="edit-list" class="btn btn-primary" type="button">Edit</button>
-            </div>
-            <div class="col-1">
-                <button id="add-list" class="btn btn-primary" type="button">+</button>
-            </div>
+    <div class="row">
+        <div class="col-9">
+            <h4>My Lists</h4>
         </div>
-        <div class="container">
-            <div class="row">
+        <div class="col-3">
+            <button id="edit-list" class="btn btn-primary" type="button">Edit</button>
+            <button id="add-list" class="btn btn-primary" type="button">+</button>
+        </div>
 
+    </div>
+    <div class="container">
+        <div id="list-form"></div>
+        <div class="list-items"  th:each="list : ${lists}">
+            <div class="row">
                 <div class="col-10">
-                    List item
+                    <h6><span th:text="${list.name}" th:remove="tag"></span>
+                        <span th:attr="data-id=${list.id}, data-name=${list.name}" class="icon-container d-none"><i class="fas fa-edit"></i></span>
+                    </h6>
+
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-danger">x</button>
+                    <form th:method="POST" th:action="@{'URL GOES HERE WITH THE LIST ID'}"></form>
+                    <button type = "submit" class="btn btn-danger d-none delete-list">x</button>
                 </div>
-
             </div>
-        </div>
 
+
+        </div>
+    </div>
 
 
 </div>

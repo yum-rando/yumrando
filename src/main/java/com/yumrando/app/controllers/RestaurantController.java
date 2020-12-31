@@ -13,15 +13,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -102,12 +100,7 @@ public class RestaurantController {
 //    }
 
 
-    //Adding Restaurant //(Any user, especially if new restaurant) Double Check to make sure this restaurant isn't already in the database
-
-
-
-    //Deleting Restaurant (Admin)
-
+    //Deleting a restaurant from a list
     @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
     public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantIdToBeDeleted) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -119,5 +112,44 @@ public class RestaurantController {
 
         return "redirect:/" + listId;
     }
+    @GetMapping("/review/{id}")
+    public String reviewRestaurantForm(Model model, @PathVariable long id){
+//        check to see if restaurant has reviews if so does logged in user have one for this restaurant
+        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Restaurant restCheck = restaurantDao.findById(id);
+
+
+        // **** Ad Error page for 404 ****
+        if(restCheck == null){
+            return "redirect:/"; // if User has review for restaurant then redirect to home
+        }
+
+        Review reviewCheck = reviewDao.findReviewByUserIdAndRestaurantId(reviewUser.getId(), id);
+
+        if(reviewCheck == null){
+            model.addAttribute("review", new Review());
+        }else{
+            model.addAttribute("review", reviewCheck);
+        }
+        model.addAttribute("id", id);
+        model.addAttribute("restaurantName", restaurantDao.findById(id).getName());
+        return "user/review";
+
+
+
+    }
+    @PostMapping("/review/{id}")
+    public String saveReview(@ModelAttribute Review review, @PathVariable long id){
+        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        review.setUser(reviewUser);
+        Restaurant revRestaurant = restaurantDao.findById(id);
+        review.setRestaurant(revRestaurant);
+        reviewDao.save(review);
+//        have to redirect to specific list item
+        return "redirect:/" + id;
+    }
+
+    //Deleting Restaurant (Admin)
+
 
 }
