@@ -51,7 +51,7 @@
             let listObject = {
                 name: $('#nameEdit').val()
             }
-            apiEdit(listObject,"URL GOES HERE").then(data=>{
+            apiEdit(listObject,`/lists/${listId}/edit`).then(data=>{
                 window.location.assign('/profile')
             }).catch(()=>{
                 console.log("We are not champions : (")

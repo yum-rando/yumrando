@@ -35,15 +35,12 @@ public class RestRestaurantController {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         listDao.findAllByUser(userDb);
         ListRestaurant listRes = listDao.findAllByUserAndId(userDb, id);
-        String name = restaurantToBeSaved.getName();
         String apiId = restaurantToBeSaved.getApiId();
-        Set<ListRestaurant> resList = restaurantToBeSaved.getLists();
         Restaurant restaurantDb = restaurantDao.findAllByApiId(apiId);
 
         //Checking if lists exists
         if(listRes.getRestaurants() == null) {
             Set<Restaurant> startList = new HashSet<>();
-
             listRes.setRestaurants(startList);
         }
 
@@ -53,13 +50,14 @@ public class RestRestaurantController {
         }
 
         if (restaurantDb == null){
-            listRes.getRestaurants().add(restaurantToBeSaved);
-            restaurantToBeSaved.getLists().add(listRes);
+            //listRes.getRestaurants().add(restaurantToBeSaved);
+            //restaurantToBeSaved.getLists().add(listRes);
+            listRes.addRestaurantToList(restaurantToBeSaved); //this is working now
             restaurantDao.save(restaurantToBeSaved);
-
         } else {
-            listRes.getRestaurants().add(restaurantDb);
-            restaurantDb.getLists().add(listRes);
+            //listRes.getRestaurants().add(restaurantDb);
+            //restaurantDb.getLists().add(listRes);
+            listRes.addRestaurantToList(restaurantDb); //this is also working now
             restaurantDao.save(restaurantDb);
         }
 

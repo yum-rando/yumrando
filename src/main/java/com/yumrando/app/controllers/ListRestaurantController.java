@@ -4,6 +4,7 @@ import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
+import com.yumrando.app.repos.RestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,61 +24,30 @@ public class ListRestaurantController {
         this.userDao = userDao;
     }
 
-    @GetMapping("restaurants/{username}/{listName}")
-    private String viewSpecificRestaurantList(@PathVariable String username, @PathVariable String listName, Model vModel){
-        User user = userDao.findByUsername(username);
-        ListRestaurant specificList = listDao.findAllByUserAndName(user, listName);
-        vModel.addAttribute("specificList", specificList);
+    //Viewing all restaurants from a specific list
+    @GetMapping("/lists/{listName}/restaurants")
+    private String viewSpecificRestaurantList(@PathVariable String listName, Model vModel){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ListRestaurant specificList = listDao.findAllByUserAndName(userDb, listName);
+        vModel.addAttribute("specificList", specificList.getRestaurants());
         return "user/profile";
     }
 
-
-
-    @PostMapping("restaurants/lists/create/test")
-    private String createList(@ModelAttribute ListRestaurant listToBeSaved){
-        Set<Restaurant> restaurantList = listToBeSaved.getRestaurants();
-        //Not done yet and still working on this
-        return "index";
-    }
-
-    //Update List
-    @PostMapping("restaurants/lists/edit")
-    private String editListRestaurant(@ModelAttribute ListRestaurant listToBeUpdated){
+    //DELETING the List from the USER here
+    @PostMapping("/delete/lists/{listId}")
+    public String deleteListFromUser(@PathVariable long listId){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        listToBeUpdated.setUser(userDb);
-        listDao.save(listToBeUpdated);
-
-        //redirect to the specific ListRestaurants page
-        return "redirect:/restaurants/lists/" + listToBeUpdated.getName();
+        ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
+        Set<Restaurant> restaurants = list.getRestaurants();
+        if (restaurants != null){
+            //Removing the restaurants from the Lists 1st to satisfy the many-to-many relationship
+            for (Restaurant res : restaurants) {
+                res.removeListFromRestaurant(list);
+            }
+        }
+        //Removing the list from the user
+        listDao.deleteById(listId); //this works
+        return "redirect:/profile";
     }
 
-    //Delete List by the ListRestaurant Id
-//    @PostMapping("restaurants/lists/{id}/delete")
-//    private String deleteListById(@PathVariable long id){
-//        System.out.println("Will this run?");
-//        listDao.deleteById(id);
-//        return "redirect:/index";
-//    }
-
-    //Delete List by the ListRestaurant Name
-//    @PostMapping("restaurant/lists/{listName}")
-//    private String deleteListByListName(@PathVariable String listName){
-//        System.out.println("Will this run?");
-//        listDao.deleteByName(listName);
-//        return "index";
-//    }
-
-    //Delete List via the Model Attribute
-    @PostMapping("restaurant/lists/delete")
-    private String deleteListByModelAttr(@ModelAttribute ListRestaurant listToBeDeleted){
-        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        listToBeDeleted.setUser(userDb);
-        listDao.deleteByName(listToBeDeleted.getName());
-        listDao.deleteById(listToBeDeleted.getId());
-
-        return "index";
-    }
-
-
-    //Different ListName Change --> Possibly needed
 }
