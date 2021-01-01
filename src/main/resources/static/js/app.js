@@ -2,6 +2,8 @@
     "use strict"
     $(document).ready(()=>{
 
+        let tagSelection = [];
+
         const arrayConstructor = () => {
             let listDisplayItems = localStorage.getItem("yumList");
             if (listDisplayItems === null){
@@ -10,7 +12,7 @@
                 return JSON.parse(listDisplayItems);
             }
         }
-const deleteLocal = num => {
+        const deleteLocal = num => {
             let array = arrayConstructor().filter((rest, index) => index !== num);
             localStorage.setItem("yumList", JSON.stringify(array));
             listBasic(array);
@@ -24,8 +26,8 @@ const deleteLocal = num => {
                     `
                       <div class="container">
                       <div class="row">
-                      <div class="col-9">
-                      <h6 id="${item.name}">${item.name}</h6>
+                      <div id="r${num}" class="col-9" data-bs-toggle="modal" data-bs-target="#showModal">
+                      <h6>${item.name}</h6>
                       </div>
                      <div class="col-3">
                      <button id="delete${num}" type="button" class="btn btn-danger">-</button>
@@ -35,6 +37,14 @@ const deleteLocal = num => {
                 );
                 $(`#delete${num}`).click(()=>{
                     deleteLocal(num)
+                });
+
+                $(`#r${num}`).click(()=>{
+                $('#show-modal-label').empty().append(
+                `
+                <h5 class="modal-title">${item.name}</h5>
+                `
+                )
                 })
             })
 
@@ -46,9 +56,6 @@ const deleteLocal = num => {
             ))
             listBasic(arrayConstructor());
         }
-
-
-
 
         const obtainRestaurant = num => {
             if (num.includes('u')){
@@ -67,7 +74,6 @@ const deleteLocal = num => {
             } else {
                 updateLocal(resultSet[parseInt(num)]);
             }
-
         }
 
         const listResult = (array, type) => {
@@ -112,41 +118,41 @@ const deleteLocal = num => {
            updateLocal(objectConvert);
             basicInput.val("");
             listBasic(arrayConstructor());
+            tagSelection=[];
+            $("#tag-choices, #tag-addon").empty();
+            $("#tag-choice").toggleClass('d-none')
         })
 
         const selectRest = '#search-select';
         const selectRestUser = '#search-select-user'
         const modalBody = '#search-body';
 
-const selectEvent = (selector, type) => {
-    $(selector).change(() => {
-        $(modalBody).empty();
-        $('#search-results, #search-results-user').empty();
-        switch ($(selector).val()) {
-            case "name":
+        const selectEvent = (selector, type) => {
+            $(selector).change(() => {
+                $(modalBody).empty();
+                $('#search-results, #search-results-user').empty();
+                switch ($(selector).val()) {
+                    case "name":
 
-                if(type === "") {
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
-                } else {
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                        if(type === "") {
+                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                        } else {
+                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                        }
+                        break;
+                    case "near":
+                        // Attach loader to $('#search-results')
+                        let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                        apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                        // Clear loader from $('#search-results) (.empty() works well for that)
+                        listResult(data.nearby_restaurants, type)
+                    });
+                        break;
+                    default:
+                        return;
                 }
-
-
-                break;
-            case "near":
-                // Attach loader to $('#search-results')
-                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-                    // Clear loader from $('#search-results) (.empty() works well for that)
-                    listResult(data.nearby_restaurants, type)
-                });
-                break;
-            default:
-                return;
+            })
         }
-    })
-}
-
 
         const inputSearch = (selector, type) => {
             // Attach loader to $('#search-results')
@@ -154,19 +160,15 @@ const selectEvent = (selector, type) => {
             apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data=> {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
-
             });
-
-
         }
 
-const inputSearchSetup = (selector, type) => {
-    $(document).on('change', selector,()=>{
-        if(typeof $(selector).val() !== 'undefined')
-            inputSearch(selector, type);
-    })
-}
-
+        const inputSearchSetup = (selector, type) => {
+            $(document).on('change', selector,()=>{
+             if(typeof $(selector).val() !== 'undefined')
+                    inputSearch(selector, type);
+            })
+        }
 
         $('#new-list').click(()=>{
             $('#user-list-items').toggleClass('d-none');
@@ -212,10 +214,80 @@ const inputSearchSetup = (selector, type) => {
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
 
-            console.log(url);
             apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+        })
+
+        $("#tag-choice").click(function(){
+            $(this).toggleClass('d-none')
+            $("#tag-addon").append(
+                `
+                <div>
+                   <input id="tag-type" type="text">
+                   <button id="tag-submit" class="btn btn-primary">Add Tag</button> 
+                </div>
+`
+            )
+            $("#tag-submit").click(()=>{
+                let tagInput = $("#tag-type").val();
+                tagSelection.push(tagInput);
+                $("#tag-choices").empty();
+                tagSelection.map(tag => {
+                    $("#tag-choices").append(
+                        `
+                        <li>${tag}</li>
+                    `
+                    );
+                    $("#tag-type").val("");
+                })
+            })
+        })
+
+        $('.user-restaurants').click(function(){
+            let restId = $(this).attr("id").substring(1);
+            apiShow(restId, "restaurant/show/").then(response => {
+                console.log(response);
+                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+            });
+        });
+
+        const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
+
+        const randomizerDelay = ()=> Math.floor(Math.random() * Math.floor(10) + 1) * 75;
+
+        const randomizerLoop = ()=> Math.floor(Math.random() * Math.floor(8) + 12);
 
 
+        const guestRandomizer = () => {
+           let chosenIndex = randomizerChoice(arrayConstructor().length);
+            $(`#r${chosenIndex}`).css('background-color', 'cyan');
+            return `#r${chosenIndex}`;
+        }
+
+        const userRandomizer = () => {
+            let chosenIndex = randomizerChoice($('.user-restaurants').length)
+        }
+
+        const loopFunc = (limit, loop) => {
+            if (loop === limit){
+                setTimeout(()=>{
+                    listBasic(arrayConstructor());
+                    let finalSelection = guestRandomizer();
+                    $(finalSelection).click();
+                    $('#guest-random').attr("disabled", false);
+                }, randomizerDelay());
+            } else {
+                setTimeout(()=>{
+                    listBasic(arrayConstructor());
+                    guestRandomizer();
+                    return loopFunc(limit, loop + 1);
+                }, randomizerDelay());
+            }
+
+        }
+        $('#guest-random').click(function(){
+            $(this).attr("disabled", true);
+            let loopLimit = randomizerLoop();
+            loopFunc(loopLimit, 0);
         })
 
         listBasic(arrayConstructor());

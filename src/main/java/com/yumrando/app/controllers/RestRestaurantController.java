@@ -1,5 +1,6 @@
 package com.yumrando.app.controllers;
 
+import ch.qos.logback.core.pattern.util.RestrictedEscapeUtil;
 import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.User;
@@ -65,6 +66,12 @@ public class RestRestaurantController {
         listDao.save(listRes);
         return listRes.getRestaurants();
 
+    }
+
+    @CrossOrigin
+    @GetMapping("restaurant/show/{id}")
+    Restaurant restShow (@PathVariable long id){
+        return restaurantDao.findById(id);
     }
 
 }
