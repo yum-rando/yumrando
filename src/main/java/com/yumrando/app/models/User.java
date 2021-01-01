@@ -221,18 +221,6 @@ public class User {
 
     //Many-to-One Relationship Methods
 
-    //Add a list to User
-    public void addListToUser(ListRestaurant list){
-        this.listOfRestaurant.add(list);
-        list.setUser(this);
-    }
-
-    //Remove a list from user
-    public void removeListFromUser(ListRestaurant list){
-        this.listOfRestaurant.remove(list);
-        list.setUser(this);
-    }
-
     //Add a review to User
     public void addReviewToUser(Review review){
         this.reviews.add(review);
