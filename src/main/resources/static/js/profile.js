@@ -57,7 +57,12 @@
                 console.log("We are not champions : (")
             });
         })
+    })
 
+    $('#toggle-user-info').click(function(){
+        $(this).toggleClass('d-none');
+        $('.user-info-input').attr("disabled", false);
+        $('#user-info-submit').removeClass('d-none');
     })
 
 
