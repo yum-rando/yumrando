@@ -264,7 +264,13 @@
         }
 
         const userRandomizer = () => {
-            let chosenIndex = randomizerChoice($('.user-restaurants').length)
+            let chosenIndex = randomizerChoice($('.user-restaurants').length);
+
+            $(".user-restaurants").css('background-color', "").each(function(index){
+                if (index === chosenIndex){
+                    $(this).css('background-color', 'cyan').click();
+                }
+            })
         }
 
         const loopFunc = (limit, loop) => {
@@ -288,6 +294,10 @@
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
             loopFunc(loopLimit, 0);
+        })
+
+        $('#user-random').click(function(){
+            userRandomizer();
         })
 
         listBasic(arrayConstructor());
