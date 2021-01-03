@@ -70,7 +70,7 @@
                 }
                 const listNumber = $("#currentList").val();
                 const url = `/restaurants/lists/${listNumber}`;
-                apiAddList(postObject, url).then(() =>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+                apiCreate(postObject, url).then(() =>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
             } else {
                 updateLocal(resultSet[parseInt(num)]);
             }
@@ -187,7 +187,7 @@
                 let listObject = {
                     name: $('#name').val()
                 }
-                apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+                apiCreate(listObject, "/restaurants/lists/create").then(data=>{
 
                     window.location.assign(`/${data.id}`)
 
@@ -214,7 +214,7 @@
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
 
-            apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+            apiCreate(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
         })
 
         $("#tag-choice").click(function(){
@@ -247,6 +247,7 @@
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
                 $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+                $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`)
             });
         });
 
@@ -277,7 +278,7 @@
 
         const guestFinalInterface = confirm => {
             listBasic(arrayConstructor());
-            if (confirm === true) {
+            if (confirm) {
                 let finalSelection = guestRandomizer();
                 $(finalSelection).click();
                 $('#guest-random').attr("disabled", false);
@@ -287,8 +288,15 @@
         }
 
         const userFinalInterface = confirm => {
-            if (confirm === true){
+            if (confirm){
                 let finalSelection = userRandomizer();
+                let chosenRestId = finalSelection.substring(2);
+                let rest = {id: chosenRestId};
+                // POST REST REQUEST SET UP WITH URL
+                // apiCreate(rest, URL).then(()=>{
+                //     $(finalSelection).click();
+                // })
+                // TODO: DELETE SINGLE LINE BELOW ONCE URL IS SET UP ABOVE ON APICREATE
                 $(finalSelection).click();
                 $('#user-random').attr("disabled", false);
             } else {

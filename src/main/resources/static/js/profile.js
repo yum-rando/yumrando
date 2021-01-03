@@ -18,7 +18,7 @@
             let listObject = {
                 name: $('#name').val()
             }
-            apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+            apiCreate(listObject, "/restaurants/lists/create").then(data=>{
                 window.location.assign('/profile')
             }).catch(()=>{
                 console.log("We are not champions : (")
