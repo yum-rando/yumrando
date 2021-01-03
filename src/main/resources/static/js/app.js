@@ -265,19 +265,18 @@
 
         const userRandomizer = () => {
             let chosenIndex = randomizerChoice($('.user-restaurants').length);
-
+            let chosenElement = "";
             $(".user-restaurants").css('background-color', "").each(function(index){
                 if (index === chosenIndex){
-                    $(this).css('background-color', 'cyan').click();
-                    console.log($(this));
+                    $(this).css('background-color', 'cyan');
+                 chosenElement = '#' + $(this).attr('id');
                 }
             })
+            return chosenElement;
         }
 
         const guestFinalInterface = confirm => {
-
             listBasic(arrayConstructor());
-
             if (confirm === true) {
                 let finalSelection = guestRandomizer();
                 $(finalSelection).click();
@@ -287,15 +286,33 @@
             }
         }
 
-        const loopFunc = (limit, loop) => {
+        const userFinalInterface = confirm => {
+            if (confirm === true){
+                let finalSelection = userRandomizer();
+                $(finalSelection).click();
+                $('#user-random').attr("disabled", false);
+            } else {
+                userRandomizer();
+            }
+        }
+
+        const loopFunc = (limit, loop, user) => {
             if (loop === limit){
                 setTimeout(()=>{
-                   guestFinalInterface(true)
+              if (user === 'guest'){
+                  guestFinalInterface(true);
+              } else {
+                  userFinalInterface(true);
+              }
                 }, randomizerDelay());
             } else {
                 setTimeout(()=>{
-                   guestFinalInterface(false)
-                    return loopFunc(limit, loop + 1);
+                    if (user === 'guest'){
+                        guestFinalInterface(false);
+                    } else {
+                        userFinalInterface(false);
+                    }
+                    return loopFunc(limit, loop + 1, user);
                 }, randomizerDelay());
             }
 
@@ -303,11 +320,13 @@
         $('#guest-random').click(function(){
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
-            loopFunc(loopLimit, 0);
+            loopFunc(loopLimit, 0, 'guest');
         })
 
         $('#user-random').click(function(){
-            userRandomizer();
+            $(this).attr("disabled", true);
+            let loopLimit = randomizerLoop();
+            loopFunc(loopLimit, 0, 'user');
         })
 
         listBasic(arrayConstructor());
