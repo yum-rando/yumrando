@@ -269,22 +269,32 @@
             $(".user-restaurants").css('background-color', "").each(function(index){
                 if (index === chosenIndex){
                     $(this).css('background-color', 'cyan').click();
+                    console.log($(this));
                 }
             })
+        }
+
+        const guestFinalInterface = confirm => {
+
+            listBasic(arrayConstructor());
+
+            if (confirm === true) {
+                let finalSelection = guestRandomizer();
+                $(finalSelection).click();
+                $('#guest-random').attr("disabled", false);
+            } else {
+                guestRandomizer();
+            }
         }
 
         const loopFunc = (limit, loop) => {
             if (loop === limit){
                 setTimeout(()=>{
-                    listBasic(arrayConstructor());
-                    let finalSelection = guestRandomizer();
-                    $(finalSelection).click();
-                    $('#guest-random').attr("disabled", false);
+                   guestFinalInterface(true)
                 }, randomizerDelay());
             } else {
                 setTimeout(()=>{
-                    listBasic(arrayConstructor());
-                    guestRandomizer();
+                   guestFinalInterface(false)
                     return loopFunc(limit, loop + 1);
                 }, randomizerDelay());
             }
