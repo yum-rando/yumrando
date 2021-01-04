@@ -11,8 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -74,15 +76,23 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, @RequestParam (name = "confirmPassword") String checkPassword) {
-        if (user.getPassword().equals(checkPassword)) {
+    public String saveUser(
+            @Valid User user,
+            Errors validation,
+            @RequestParam(name = "confirmPassword") String checkPassword,
+            Model model) {
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            System.out.println(validation.getAllErrors());
+            return "user/register";
+        } else if (user.getPassword().equals(checkPassword)) {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
-            return "redirect:/login"; // If password equals confirmPassword redirect to index
-        } else {
-            return "redirect:/register";
+            return "redirect:/index"; // If password equals confirmPassword redirect to index)
         }
+        return "user/register";
     }
 
     @GetMapping("/profile")
