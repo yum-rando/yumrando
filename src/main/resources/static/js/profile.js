@@ -18,7 +18,7 @@
             let listObject = {
                 name: $('#name').val()
             }
-            apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+            apiCreate(listObject, "/restaurants/lists/create").then(data=>{
                 window.location.assign('/profile')
             }).catch(()=>{
                 console.log("We are not champions : (")
@@ -57,7 +57,12 @@
                 console.log("We are not champions : (")
             });
         })
+    })
 
+    $('#toggle-user-info').click(function(){
+        $(this).toggleClass('d-none');
+        $('.user-info-input').attr("disabled", false);
+        $('#user-info-submit').removeClass('d-none');
     })
 
 

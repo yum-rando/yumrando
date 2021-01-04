@@ -70,7 +70,7 @@
                 }
                 const listNumber = $("#currentList").val();
                 const url = `/restaurants/lists/${listNumber}`;
-                apiAddList(postObject, url).then(() =>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+                apiCreate(postObject, url).then(() =>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
             } else {
                 updateLocal(resultSet[parseInt(num)]);
             }
@@ -171,8 +171,8 @@
         }
 
         $('#new-list').click(()=>{
-            $('#user-list-items').toggleClass('d-none');
-            $('#add-list-form').append(
+            $('#user-list-items').addClass('d-none');
+            $('#add-list-form').empty().append(
                 `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Enter a name for your list:</label>
@@ -187,7 +187,7 @@
                 let listObject = {
                     name: $('#name').val()
                 }
-                apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+                apiCreate(listObject, "/restaurants/lists/create").then(data=>{
 
                     window.location.assign(`/${data.id}`)
 
@@ -214,7 +214,7 @@
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
 
-            apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+            apiCreate(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
         })
 
         $("#tag-choice").click(function(){
@@ -247,6 +247,7 @@
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
                 $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+                $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`)
             });
         });
 
@@ -264,22 +265,62 @@
         }
 
         const userRandomizer = () => {
-            let chosenIndex = randomizerChoice($('.user-restaurants').length)
+            let chosenIndex = randomizerChoice($('.user-restaurants').length);
+            let chosenElement = "";
+            $(".user-restaurants").css('background-color', "").each(function(index){
+                if (index === chosenIndex){
+                    $(this).css('background-color', 'cyan');
+                 chosenElement = '#' + $(this).attr('id');
+                }
+            })
+            return chosenElement;
         }
 
-        const loopFunc = (limit, loop) => {
+        const guestFinalInterface = confirm => {
+            listBasic(arrayConstructor());
+            if (confirm) {
+                let finalSelection = guestRandomizer();
+                $(finalSelection).click();
+                $('#guest-random').attr("disabled", false);
+            } else {
+                guestRandomizer();
+            }
+        }
+
+        const userFinalInterface = confirm => {
+            if (confirm){
+                let finalSelection = userRandomizer();
+                let chosenRestId = finalSelection.substring(2);
+                let rest = {id: chosenRestId};
+                // POST REST REQUEST SET UP WITH URL
+                // apiCreate(rest, URL).then(()=>{
+                //     $(finalSelection).click();
+                // })
+                // TODO: DELETE SINGLE LINE BELOW ONCE URL IS SET UP ABOVE ON APICREATE
+                $(finalSelection).click();
+                $('#user-random').attr("disabled", false);
+            } else {
+                userRandomizer();
+            }
+        }
+
+        const loopFunc = (limit, loop, user) => {
             if (loop === limit){
                 setTimeout(()=>{
-                    listBasic(arrayConstructor());
-                    let finalSelection = guestRandomizer();
-                    $(finalSelection).click();
-                    $('#guest-random').attr("disabled", false);
+              if (user === 'guest'){
+                  guestFinalInterface(true);
+              } else {
+                  userFinalInterface(true);
+              }
                 }, randomizerDelay());
             } else {
                 setTimeout(()=>{
-                    listBasic(arrayConstructor());
-                    guestRandomizer();
-                    return loopFunc(limit, loop + 1);
+                    if (user === 'guest'){
+                        guestFinalInterface(false);
+                    } else {
+                        userFinalInterface(false);
+                    }
+                    return loopFunc(limit, loop + 1, user);
                 }, randomizerDelay());
             }
 
@@ -287,7 +328,13 @@
         $('#guest-random').click(function(){
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
-            loopFunc(loopLimit, 0);
+            loopFunc(loopLimit, 0, 'guest');
+        })
+
+        $('#user-random').click(function(){
+            $(this).attr("disabled", true);
+            let loopLimit = randomizerLoop();
+            loopFunc(loopLimit, 0, 'user');
         })
 
         listBasic(arrayConstructor());
