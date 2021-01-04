@@ -171,8 +171,8 @@
         }
 
         $('#new-list').click(()=>{
-            $('#user-list-items').toggleClass('d-none');
-            $('#add-list-form').append(
+            $('#user-list-items').addClass('d-none');
+            $('#add-list-form').empty().append(
                 `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Enter a name for your list:</label>
