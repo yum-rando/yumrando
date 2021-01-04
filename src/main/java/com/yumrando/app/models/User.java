@@ -15,7 +15,7 @@ public class User {
     private long id;
 
    // Jakarta Bean constraint for username
-    @Size(max = 99, message = "A username must be no longer than 99 characters")
+    @Size(max = 99, min = 1, message = "A username must be no longer than 99 characters and longer than 1")
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
@@ -75,6 +75,10 @@ public class User {
 
     //Create/Insert
     public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    public User(String username, String password, String confirmPassword){
         this.username = username;
         this.password = password;
     }

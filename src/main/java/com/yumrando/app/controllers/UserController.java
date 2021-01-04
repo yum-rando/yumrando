@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @Controller
 public class UserController {
     private Users users;
@@ -38,13 +39,13 @@ public class UserController {
     @PostMapping("/register")
     public String saveUser(
             @Valid User user,
-            @RequestParam(name = "confirmPassword") String checkPassword,
             Errors validation,
+            @RequestParam(name = "confirmPassword") String checkPassword,
             Model model) {
         if (validation.hasErrors()) {
             model.addAttribute("errors", validation);
             model.addAttribute("user", user);
-            System.out.println(validation);
+            System.out.println(validation.getAllErrors());
             return "user/register";
         } else if (user.getPassword().equals(checkPassword)) {
             String hash = passwordEncoder.encode(user.getPassword());
