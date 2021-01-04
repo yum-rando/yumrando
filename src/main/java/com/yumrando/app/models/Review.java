@@ -1,5 +1,7 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -21,12 +23,17 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP) //This is needed since using the java.util.date
     private Date createTime;
 
+    @Column(length = 25)
+    private String updateTime;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
     private List<Photo> photos;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
 
@@ -41,11 +48,12 @@ public class Review {
     }
 
     //Read
-    public Review(long id, String comment, int rating, Date createTime, List<Photo> photos, User user, Restaurant restaurant) {
+    public Review(long id, String comment, int rating, Date createTime, String updateTime, List<Photo> photos, User user, Restaurant restaurant) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
         this.createTime = createTime;
+        this.updateTime = updateTime;
         this.photos = photos;
         this.user = user;
         this.restaurant = restaurant;
@@ -84,6 +92,14 @@ public class Review {
         this.createTime = createTime;
     }
 
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public List<Photo> getPhotos() {
         return photos;
     }
@@ -107,4 +123,24 @@ public class Review {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    //Many-to-One Relationship Methods
+
+    //Adding a Photo to a Review
+    public void addPhotoToReview(Photo photo){
+        this.photos.add(photo);
+        photo.setReview(this);
+    }
+    //Removing a Photo from a Review
+    public void removePhotoFromReview(Photo photo){
+        this.photos.remove(photo);
+        photo.setReview(this);
+    }
+
+    //Check Ties with User and Restaurant -->Not sure about this yet
+//    public void userRestaurantReview(User user, Restaurant restaurant){
+//        user.getReviews().add(this);
+//        restaurant.getReviews().add(this);
+//    }
+
 }

@@ -7,10 +7,10 @@ xmlns:sec="http://www.thymeleaf.org/extras">
             <div class="col-6">
                 <div>Randomizer Tool</div>
                 <div sec:authorize = "isAnonymous()">
-                <button type="button">Randomize</button>
+                <button id="guest-random" type="button">Randomize</button>
                 </div>
                 <div sec:authorize = "isAuthenticated()">
-                    <button type="button">Randomize</button>
+                    <button id="user-random" type="button">Randomize</button>
                 </div>
             </div>
             <div class="col-6">

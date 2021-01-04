@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "lists")
@@ -19,14 +20,14 @@ public class ListRestaurant {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "lists")
-    private List<Restaurant> restaurants;
+    @ManyToMany(mappedBy = "lists", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Restaurant> restaurants;
 
     //Constructors
     public ListRestaurant() {}
 
     //Insert/Create
-    public ListRestaurant(String name, User user, List<Restaurant> restaurants) {
+    public ListRestaurant(String name, User user, Set<Restaurant> restaurants) {
         this.name = name;
         this.user = user;
         this.restaurants = restaurants;
@@ -37,7 +38,7 @@ public class ListRestaurant {
     }
 
     //Read
-    public ListRestaurant(long id, String name, User user, List<Restaurant> restaurants) {
+    public ListRestaurant(long id, String name, User user, Set<Restaurant> restaurants) {
         this.id = id;
         this.name = name;
         this.user = user;
@@ -69,12 +70,29 @@ public class ListRestaurant {
         this.user = user;
     }
 
-    public List<Restaurant> getRestaurants() {
+    @JsonIgnore
+    public Set<Restaurant> getRestaurants() {
         return restaurants;
     }
 
-    public void setRestaurants(List<Restaurant> restaurants) {
+    public void setRestaurants(Set<Restaurant> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    //Many-To-Many Relationship Methods
+
+    //Adding a restaurant to the ListOfRestaurants
+    public void addRestaurantToList(Restaurant restaurant){
+        this.restaurants.add(restaurant);
+        //This by itself is referring to the current list object
+        restaurant.getLists().add(this);
+    }
+
+    //Removing a restaurant from the ListOfRestaurants
+    public void removeRestaurantFromList(Restaurant restaurant){
+        this.restaurants.remove(restaurant);
+        //This by itself is referring to the current list object
+        restaurant.getLists().remove(this);
     }
 
 }

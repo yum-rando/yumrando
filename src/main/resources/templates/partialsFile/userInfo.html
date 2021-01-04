@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="user-info">
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="container">
+                <form th:action="@{'/profile/'}" th:method="POST" th:object="${userInfo}">
+                    <input class="user-info-input" th:field="*{firstName}" name="firstName" placeholder="First Name" type="text" disabled>
+                    <input class="user-info-input" th:field="*{lastName}" name="lastName" placeholder="Last Name" type="text" disabled>
+                    <input class="user-info-input" th:field="*{email}" name="email" placeholder="Email" type="email" disabled>
+                    <input class="user-info-input" th:field="*{phoneNumber}" name="phoneNumber" placeholder="Phone Number" type="text" disabled>
+                    <input class="user-info-input" th:field="*{zipcode}" name="zipcode" placeholder="Zipcode" type="text" disabled>
+                    <div>
+                    <button id="toggle-user-info" class="btn btn-primary" type="button">Edit Profile</button>
+                    <button id="user-info-submit" class="btn btn-primary d-none" type="submit">Submit Changes</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        <div class="col-4">
+            Profile Picture
+        </div>
+    </div>
+
+</div>
+</div>
+</html>
