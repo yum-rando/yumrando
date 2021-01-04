@@ -29,4 +29,18 @@ public class ReviewController {
         this.userDao = userDao;
     }
 
+    @PostMapping("delete/restaurants/reviews/{restaurantId}/{reviewId}")
+    //Since the review requires both the user id and the restaurant id, you don't really need the review id
+    public String deleteReview(@PathVariable long restaurantId, @PathVariable long reviewId){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Review reviewToBeDeleted = reviewDao.findReviewByUserIdAndRestaurantId(userDb.getId(), restaurantId);
+        //Review reviewToBeDeletedB = reviewDao.findReviewByUserIdAndId(userDb.getId(), reviewId);
+        reviewDao.deleteById(reviewToBeDeleted.getId());
+        //reviewDao.deleteById(reviewToBeDeletedB.getId());
+        return "redirect:/profile";
+    }
+
+    //Adding Pictures and Deleting Pictures from a review
+
+
 }

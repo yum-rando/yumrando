@@ -13,8 +13,11 @@ public class RestaurantTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
+
+    @ManyToOne
+    private User user;
 
     @ManyToMany(mappedBy = "tags")
     private Set<Restaurant> restaurants;
@@ -26,16 +29,18 @@ public class RestaurantTag {
     public RestaurantTag(){}
 
     //Insert/Create
-    public RestaurantTag(String name, Set<Restaurant> restaurants, Set<User> users) {
+    public RestaurantTag(String name, User user, Set<Restaurant> restaurants, Set<User> users) {
         this.name = name;
+        this.user = user;
         this.restaurants = restaurants;
         this.users = users;
     }
 
     //Read
-    public RestaurantTag(long id, String name, Set<Restaurant> restaurants, Set<User> users) {
+    public RestaurantTag(long id, String name, User user, Set<Restaurant> restaurants, Set<User> users) {
         this.id = id;
         this.name = name;
+        this.user = user;
         this.restaurants = restaurants;
         this.users = users;
     }
@@ -56,6 +61,14 @@ public class RestaurantTag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Restaurant> getRestaurants() {
