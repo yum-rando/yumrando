@@ -1,4 +1,4 @@
-const apiAddList = async (object, url) => {
+const apiCreate = async (object, url) => {
     const options = {
         method: 'POST',
         headers: {
@@ -11,6 +11,8 @@ const apiAddList = async (object, url) => {
     const confirmation = await response.json();
     return confirmation;
 }
+
+
 
 
 

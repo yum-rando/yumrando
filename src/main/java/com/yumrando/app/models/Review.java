@@ -1,5 +1,7 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +29,11 @@ public class Review {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
     private List<Photo> photos;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
 
