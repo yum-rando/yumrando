@@ -340,6 +340,7 @@
         })
 
         $('#random-name, #random-name-user').click(function(){
+            $("#show-modal-review").empty();
             let nameValue = $('#random-search-input').val();
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             let modalLabel = "#show-modal-label";
