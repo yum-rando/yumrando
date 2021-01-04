@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<html lang="en">
+<!--xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">&ndash;&gt;-->
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
    <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">-->
     <!--  CSS -->
     <link href="/css/main.css" rel="stylesheet" />
 </head>
@@ -46,12 +47,14 @@
                     <li href="/register" class="btn mr-20 sm action-2 f-16">
                         Sign Up
                     </li>
-                    <li>
-                        <form th:action="@{/logout}" sec:authorize="isAuthenticated()
-            th:method="post">
-                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
-                        </form>
-                    </li>
+<!--                    <li>-->
+<!--                        <form th:action="@{/logout}" sec:authorize="isAuthenticated()-->
+<!--            th:method="post">-->
+<!--                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+                </ul>
+        </div>
         </div>
     </nav>
 
