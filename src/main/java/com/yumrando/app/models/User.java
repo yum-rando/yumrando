@@ -46,6 +46,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Review> reviews;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<RestaurantTag> tags;
+
     @ManyToMany
     @JoinTable(
         name = "user_favorite_tags",
@@ -74,7 +77,7 @@ public class User {
     }
 
     //Read
-    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, Set<RestaurantTag> favoriteTags, List<FriendList> friends) {
+    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, List<RestaurantTag> tags, Set<RestaurantTag> favoriteTags, List<FriendList> friends) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -87,6 +90,7 @@ public class User {
         this.lastName = lastName;
         this.listOfRestaurant = listOfRestaurant;
         this.reviews = reviews;
+        this.tags = tags;
         this.favoriteTags = favoriteTags;
         this.friends = friends;
     }
@@ -186,6 +190,14 @@ public class User {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<RestaurantTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<RestaurantTag> tags) {
+        this.tags = tags;
     }
 
     public Set<RestaurantTag> getFavoriteTags() {
