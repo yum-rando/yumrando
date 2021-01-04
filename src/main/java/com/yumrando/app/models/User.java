@@ -15,12 +15,12 @@ public class User {
     private long id;
 
    // Jakarta Bean constraint for username
-    @Size(max = 99, min = 1, message = "A username must be no longer than 99 characters and longer than 1")
+    @Size(max = 99, min = 1, message = "Please re-enter with a valid username")
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
     // Jakarta Bean constraint for password
-    @Size(max = 200, message = "A password must be no longer than 200 characters")
+    @Size(max = 200, min = 1, message = "Please re-enter with a valid password")
     @Column(nullable = false)
     private String password;
 
@@ -101,7 +101,6 @@ public class User {
         this.friends = friends;
     }
 
-    //Getters & Setters
     public long getId() {
         return id;
     }
@@ -213,5 +212,4 @@ public class User {
     public void setFriends(List<FriendList> friends) {
         this.friends = friends;
     }
-
 }

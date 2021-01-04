@@ -11,17 +11,17 @@
     <div class="mb-3">
         <label for="username" class="form-label">Enter a username</label>
         <input type="text" class="form-control" th:field="*{username}" id="username">
-        <p th:if="${#fields.hasErrors('username')}" th:errors:="*{username}"></p>
+        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
     </div>
-<!--    <div class="mb-3">-->
-<!--        <label for="password" class="form-label">Password</label>-->
-<!--        <input type="password" class="form-control" th:field="*{password}" id="password">-->
-<!--        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>-->
-<!--    </div>-->
-<!--    <div class="mb-3">-->
-<!--        <label for="confirmPassword">Confirm Password</label>-->
-<!--        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">-->
-<!--    </div>-->
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" th:field="*{password}" id="password">
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+    </div>
+    <div class="mb-3">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
