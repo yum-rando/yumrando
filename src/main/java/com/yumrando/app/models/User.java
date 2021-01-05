@@ -1,6 +1,7 @@
 package com.yumrando.app.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // Jakarta Bean constraint for username
+    @Size(max = 99, min = 1, message = "Please re-enter with a valid username")
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
+    // Jakarta Bean constraint for password
+    @Size(max = 200, min = 1, message = "Please re-enter with a valid password")
     @Column(nullable = false)
     private String password;
 
@@ -46,6 +51,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Review> reviews;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<RestaurantTag> tags;
+
     @ManyToMany
     @JoinTable(
         name = "user_favorite_tags",
@@ -73,8 +81,13 @@ public class User {
         this.password = password;
     }
 
+    public User(String username, String password, String confirmPassword){
+        this.username = username;
+        this.password = password;
+    }
+
     //Read
-    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, Set<RestaurantTag> favoriteTags, List<FriendList> friends) {
+    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, List<RestaurantTag> tags, Set<RestaurantTag> favoriteTags, List<FriendList> friends) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -87,6 +100,7 @@ public class User {
         this.lastName = lastName;
         this.listOfRestaurant = listOfRestaurant;
         this.reviews = reviews;
+        this.tags = tags;
         this.favoriteTags = favoriteTags;
         this.friends = friends;
     }
@@ -186,6 +200,14 @@ public class User {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<RestaurantTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<RestaurantTag> tags) {
+        this.tags = tags;
     }
 
     public Set<RestaurantTag> getFavoriteTags() {
