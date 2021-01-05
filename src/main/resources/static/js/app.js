@@ -1,18 +1,20 @@
 ($ => {
     "use strict"
-    $(document).ready(()=>{
+    $(document).ready(() => {
 
         let tagSelection = [];
         let randomSearchResult = {};
+        let initialList = [];
 
         const arrayConstructor = () => {
             let listDisplayItems = localStorage.getItem("yumList");
-            if (listDisplayItems === null){
+            if (listDisplayItems === null) {
                 return [];
             } else {
                 return JSON.parse(listDisplayItems);
             }
         }
+
         const deleteLocal = num => {
             let array = arrayConstructor().filter((rest, index) => index !== num);
             localStorage.setItem("yumList", JSON.stringify(array));
@@ -22,7 +24,7 @@
         const listBasic = array => {
             let parent = $('#restaurant-items');
             parent.empty();
-            array.map((item, num) =>{
+            array.map((item, num) => {
                 $(parent).append(
                     `
                       <div class="container">
@@ -36,16 +38,16 @@
                       </div>
                         </div>`
                 );
-                $(`#delete${num}`).click(()=>{
+                $(`#delete${num}`).click(() => {
                     deleteLocal(num)
                 });
 
-                $(`#r${num}`).click(()=>{
-                $('#show-modal-label').empty().append(
-                `
+                $(`#r${num}`).click(() => {
+                    $('#show-modal-label').empty().append(
+                        `
                 <h5 class="modal-title">${item.name}</h5>
                 `
-                )
+                    )
                 })
             })
 
@@ -57,14 +59,18 @@
             ))
             listBasic(arrayConstructor());
         }
-        const updateCurrentList = rest =>{
+        const updateCurrentList = rest => {
             const listNumber = $("#currentList").val();
             const url = `/restaurants/lists/${listNumber}`;
-            apiCreate(rest, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+            apiCreate(rest, url).then(() => {
+                window.location.assign(`/${listNumber}`)
+            }).catch(() => {
+                console.error("Nope!")
+            });
         }
 
         const obtainRestaurant = num => {
-            if (num.includes('u')){
+            if (num.includes('u')) {
                 let restaurant = resultSet[parseInt(num.substring(1))]
                 let postObject = {
                     address: restaurant.location.address,
@@ -108,7 +114,7 @@
                 );
 
 
-                $(`#${type + num}`).click(()=> {
+                $(`#${type + num}`).click(() => {
                     obtainRestaurant(type + num);
 
 
@@ -116,13 +122,13 @@
             });
         }
 
-        $('#add-basic').click(()=>{
+        $('#add-basic').click(() => {
             let basicInput = $('#simple-name');
             let objectConvert = {name: basicInput.val()};
-           updateLocal(objectConvert);
+            updateLocal(objectConvert);
             basicInput.val("");
             listBasic(arrayConstructor());
-            tagSelection=[];
+            tagSelection = [];
             $("#tag-choices, #tag-addon").empty();
             $("#tag-choice").toggleClass('d-none')
         })
@@ -138,7 +144,7 @@
                 switch ($(selector).val()) {
                     case "name":
 
-                        if(type === "") {
+                        if (type === "") {
                             $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
                         } else {
                             $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
@@ -148,9 +154,9 @@
                         // Attach loader to $('#search-results')
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-                        // Clear loader from $('#search-results) (.empty() works well for that)
-                        listResult(data.nearby_restaurants, type)
-                    });
+                            // Clear loader from $('#search-results) (.empty() works well for that)
+                            listResult(data.nearby_restaurants, type)
+                        });
                         break;
                     default:
                         return;
@@ -161,21 +167,21 @@
         const inputSearch = (selector, type) => {
             // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-            apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data=> {
+            apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data => {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
             });
         }
 
         const inputSearchSetup = (selector, type) => {
-            $(document).on('change', selector,()=>{
-             if(typeof $(selector).val() !== 'undefined')
+            $(document).on('change', selector, () => {
+                if (typeof $(selector).val() !== 'undefined')
                     inputSearch(selector, type);
             })
         }
 
-        $('#new-list').click(()=>{
-            $('#user-list-items').addClass('d-none');
+        $('#new-list').click(() => {
+            $('#user-list-items, #user-list-initial').addClass('d-none');
             $('#add-list-form').empty().append(
                 `<form>
                     <div class="mb-3">
@@ -186,16 +192,16 @@
                  </form>
                 `
             )
-            $('#submit-list').click(()=>{
+            $('#submit-list').click(() => {
 
                 let listObject = {
                     name: $('#name').val()
                 }
-                apiCreate(listObject, "/restaurants/lists/create").then(data=>{
+                apiCreate(listObject, "/restaurants/lists/create").then(data => {
 
                     window.location.assign(`/${data.id}`)
 
-                }).catch(()=>{
+                }).catch(() => {
                     console.log("We are not champions : (")
                 });
             })
@@ -204,7 +210,7 @@
 
         // A Select that changes the list view for user
         $("#currentList").change(() => {
-           const listNum = $("#currentList").val()
+            const listNum = $("#currentList").val()
             if (listNum !== 'default') {
                 window.location.assign(`/${listNum}`)
             }
@@ -219,7 +225,7 @@
             updateCurrentList(restaurantName);
         })
 
-        $("#tag-choice").click(function(){
+        $("#tag-choice").click(function () {
             $(this).toggleClass('d-none')
             $("#tag-addon").append(
                 `
@@ -229,7 +235,7 @@
                 </div>
 `
             )
-            $("#tag-submit").click(()=>{
+            $("#tag-submit").click(() => {
                 let tagInput = $("#tag-type").val();
                 tagSelection.push(tagInput);
                 $("#tag-choices").empty();
@@ -244,7 +250,7 @@
             })
         })
 
-        $('.user-restaurants').click(function(){
+        $('.user-restaurants').click(function () {
             let restId = $(this).attr("id").substring(1);
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
@@ -255,13 +261,48 @@
 
         const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
 
-        const randomizerDelay = ()=> Math.floor(Math.random() * Math.floor(10) + 1) * 75;
+        const randomizerDelay = () => Math.floor(Math.random() * Math.floor(10) + 1) * 75;
 
-        const randomizerLoop = ()=> Math.floor(Math.random() * Math.floor(8) + 12);
+        const randomizerLoop = () => Math.floor(Math.random() * Math.floor(8) + 12);
 
+        const userInitialList = () => {
+            if(window.location.pathname === "/"){
+                $("#user-add-buttons").addClass('d-none');
+                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                    let adjustableArr = data.nearby_restaurants;
+                    for (let i = 1; i <= 5; i++) {
+                        let chosenIndex = randomizerChoice(adjustableArr.length);
+                        initialList.push(adjustableArr[chosenIndex]);
+                        adjustableArr = adjustableArr.filter((rest, index) => index !== chosenIndex);
+                    }
+                    initialList.map(({restaurant}, num) => {
+                        $("#user-list-initial").append(
+                            `
+                            <div class="container">
+                                <div class="row">
+                                    <div class="user-restaurants" id="r${num}" data-bs-toggle="modal" data-bs-target="#showModal">
+                                        <h6>${restaurant.name}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                        );
+
+                        $(`#r${num}`).click(() => {
+                            $('#show-modal-label').empty().append(
+                                `
+                <h5 class="modal-title">${restaurant.name}</h5>
+                `
+                            )
+                        })
+                    })
+                })
+            }
+        }
 
         const guestRandomizer = () => {
-           let chosenIndex = randomizerChoice(arrayConstructor().length);
+            let chosenIndex = randomizerChoice(arrayConstructor().length);
             $(`#r${chosenIndex}`).css('background-color', 'cyan');
             return `#r${chosenIndex}`;
         }
@@ -269,10 +310,10 @@
         const userRandomizer = () => {
             let chosenIndex = randomizerChoice($('.user-restaurants').length);
             let chosenElement = "";
-            $(".user-restaurants").css('background-color', "").each(function(index){
-                if (index === chosenIndex){
+            $(".user-restaurants").css('background-color', "").each(function (index) {
+                if (index === chosenIndex) {
                     $(this).css('background-color', 'cyan');
-                 chosenElement = '#' + $(this).attr('id');
+                    chosenElement = '#' + $(this).attr('id');
                 }
             })
             return chosenElement;
@@ -290,14 +331,16 @@
         }
 
         const userFinalInterface = confirm => {
-            if (confirm){
+            if (confirm) {
                 let finalSelection = userRandomizer();
                 let chosenRestId = finalSelection.substring(2);
-                let rest = {id: chosenRestId};
-                // POST REST REQUEST SET UP WITH URL
-                // apiCreate(rest, URL).then(()=>{
-                //     $(finalSelection).click();
-                // })
+                if (window.location.pathname !== "/") {
+                    let rest = {id: chosenRestId};
+                    // POST REST REQUEST SET UP WITH URL
+                    // apiCreate(rest, URL).then(()=>{
+                    //     $(finalSelection).click();
+                    // })
+                }
                 // TODO: DELETE SINGLE LINE BELOW ONCE URL IS SET UP ABOVE ON APICREATE
                 $(finalSelection).click();
                 $('#user-random').attr("disabled", false);
@@ -307,17 +350,17 @@
         }
 
         const loopFunc = (limit, loop, user) => {
-            if (loop === limit){
-                setTimeout(()=>{
-              if (user === 'guest'){
-                  guestFinalInterface(true);
-              } else {
-                  userFinalInterface(true);
-              }
+            if (loop === limit) {
+                setTimeout(() => {
+                    if (user === 'guest') {
+                        guestFinalInterface(true);
+                    } else {
+                        userFinalInterface(true);
+                    }
                 }, randomizerDelay());
             } else {
-                setTimeout(()=>{
-                    if (user === 'guest'){
+                setTimeout(() => {
+                    if (user === 'guest') {
                         guestFinalInterface(false);
                     } else {
                         userFinalInterface(false);
@@ -327,26 +370,26 @@
             }
 
         }
-        $('#guest-random').click(function(){
+        $('#guest-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
             loopFunc(loopLimit, 0, 'guest');
         })
 
-        $('#user-random').click(function(){
+        $('#user-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
             loopFunc(loopLimit, 0, 'user');
         })
 
-        $('#random-name, #random-name-user').click(function(){
+        $('#random-name, #random-name-user').click(function () {
             $("#show-modal-review").empty();
             let nameValue = $('#random-search-input').val();
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             let modalLabel = "#show-modal-label";
             $(modalLabel).empty();
 
-            apiSearch(searchName(nameValue,coordInput.latitude, coordInput.longitude)).then(data => {
+            apiSearch(searchName(nameValue, coordInput.latitude, coordInput.longitude)).then(data => {
                 let chosenIndex = randomizerChoice(data.restaurants.length);
                 let chosenRestaurant = data.restaurants[chosenIndex].restaurant;
                 randomSearchResult = {
@@ -357,14 +400,14 @@
                     city: chosenRestaurant.location.city,
                     zipcode: chosenRestaurant.location.zipcode
                 }
-                if($(this).attr("id") === "random-name"){
+                if ($(this).attr("id") === "random-name") {
                     $(modalLabel).append(
                         `
                             <h5 class="modal-title">${randomSearchResult.name}</h5>
                             <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
                         `
                     );
-                    $("#add-random-rest").click(()=>{
+                    $("#add-random-rest").click(() => {
                         updateLocal(chosenRestaurant);
                     })
                 } else {
@@ -374,8 +417,8 @@
                             <a id="add-random-restUser">Add To List</a>
                         `
                     );
-                    $("#add-random-restUser").click(()=>{
-                       updateCurrentList(randomSearchResult);
+                    $("#add-random-restUser").click(() => {
+                        updateCurrentList(randomSearchResult);
                     })
                 }
 
@@ -383,11 +426,14 @@
         })
 
         listBasic(arrayConstructor());
-        selectEvent(selectRest, "")
-        selectEvent(selectRestUser, 'u')
+        selectEvent(selectRest, "");
+        selectEvent(selectRestUser, 'u');
 
-        inputSearchSetup('#nameSearch', "")
-        inputSearchSetup('#nameSearchUser','u')
+        inputSearchSetup('#nameSearch', "");
+        inputSearchSetup('#nameSearchUser', 'u');
+
+        userInitialList();
+
 
     })
 })(jQuery);
