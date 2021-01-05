@@ -64,6 +64,19 @@
         $('.user-info-input').attr("disabled", false);
         $('#user-info-submit').removeClass('d-none');
     })
+    $("#add-friend").click(()=> {
+        $('#friend-list').addClass('d-none');
+        $('#friend-form').empty().append(
+            `<form>
+                    <div class="mb-3">
+                    <label for="name" class="form-label">Type the username you would like to send a friend request:</label>
+                    <input name="name" type="text" class="form-control" id="friend-username">
+                    </div>
+                     <button id="submit-friend-request" type="button" class="btn btn-primary">Submit</button>
+                 </form>
+                `
+        )
+    });
 
 
 

@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="user-friends-list">
+<div th:fragment="user-friends-list" class="container my-3">
     <div class="row">
+        <div class="col-10">
             <h4>My Friends</h4>
+        </div>
+        <div class="col-2">
+            <button id="add-friend" type="button" class="btn btn-primary">+</button>
+        </div>
     </div>
     <div class="container">
-        <div class="row">
-            <h4>List goes here</h4>
+        <div id="friend-form"></div>
+        <div id="friend-list">
+            <div class="row"></div>
         </div>
+
     </div>
 </div>
 </html>

@@ -90,7 +90,7 @@ public class UserController {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
-            return "redirect:/index"; // If password equals confirmPassword redirect to index)
+            return "redirect:/"; // If password equals confirmPassword redirect to index)
         }
         return "user/register";
     }
@@ -133,7 +133,7 @@ public class UserController {
     @PostMapping("/logout")
     @ResponseBody
     public String executeLogout() {
-        return "redirect:/index";
+        return "redirect:/";
     }
 
 
