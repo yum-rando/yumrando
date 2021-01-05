@@ -1,6 +1,7 @@
 package com.yumrando.app.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // Jakarta Bean constraint for username
+    @Size(max = 99, min = 1, message = "Please re-enter with a valid username")
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
+    // Jakarta Bean constraint for password
+    @Size(max = 200, min = 1, message = "Please re-enter with a valid password")
     @Column(nullable = false)
     private String password;
 
@@ -72,6 +77,11 @@ public class User {
 
     //Create/Insert
     public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password, String confirmPassword){
         this.username = username;
         this.password = password;
     }

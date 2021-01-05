@@ -9,6 +9,8 @@ xmlns:sec="http://www.thymeleaf.org/extras">
     <div class="row">
         <div sec:authorize = "isAuthenticated()">
             <div id="add-list-form"></div>
+            <div th:if="${chosenList == null}" class="container" id="user-list-initial">
+            </div>
             <div th:if="${chosenList != null}" class="container" id="user-list-items">
                 <div th:each="rest : ${chosenList.restaurants}">
                     <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal" data-bs-target="#showModal">
@@ -31,13 +33,25 @@ xmlns:sec="http://www.thymeleaf.org/extras">
 
     </div>
     <div class="row">
+        <div sec:authorize="isAnonymous()">
         <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                Add Restaurant
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal">
+                Search Restaurant
+            </button>
+        </div>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+        <div id="user-add-buttons">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                Add Restaurant
             </button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal">
                 Search Restaurant
             </button>
+        </div>
         </div>
     </div>
     </div>
