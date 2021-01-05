@@ -336,13 +336,11 @@
                 let chosenRestId = finalSelection.substring(2);
                 if (window.location.pathname !== "/") {
                     let rest = {id: chosenRestId};
-                    // POST REST REQUEST SET UP WITH URL
-                    // apiCreate(rest, URL).then(()=>{
-                    //     $(finalSelection).click();
-                    // })
+                    const url = `restaurants/reviews`;
+                    apiCreate(rest, url).then(() => {
+                        $(finalSelection).click();
+                    })
                 }
-                // TODO: DELETE SINGLE LINE BELOW ONCE URL IS SET UP ABOVE ON APICREATE
-                $(finalSelection).click();
                 $('#user-random').attr("disabled", false);
             } else {
                 userRandomizer();

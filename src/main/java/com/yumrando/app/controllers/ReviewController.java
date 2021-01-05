@@ -9,12 +9,10 @@ import com.yumrando.app.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -29,15 +27,16 @@ public class ReviewController {
         this.userDao = userDao;
     }
 
-    @PostMapping("delete/restaurants/reviews/{restaurantId}/{reviewId}")
-    //Since the review requires both the user id and the restaurant id, you don't really need the review id
-    public String deleteReview(@PathVariable long restaurantId, @PathVariable long reviewId){
+    @GetMapping("/restaurants/{restaurantId}/reviews/")
+    List<Review> allReviewsForSpecificRestaurantShow(@PathVariable long restaurantId, Model vModel){
+        vModel.addAttribute("restaurantReviews", reviewDao.findAllByRestaurantId(restaurantId));
+        return reviewDao.findAllByRestaurantId(restaurantId);
+    }
+
+    @GetMapping("/restaurants/{restaurantId}/reviews/{reviewId}")
+    Review specificReviewForRestaurant(@PathVariable long restaurantId, @PathVariable long reviewId){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Review reviewToBeDeleted = reviewDao.findReviewByUserIdAndRestaurantId(userDb.getId(), restaurantId);
-        //Review reviewToBeDeletedB = reviewDao.findReviewByUserIdAndId(userDb.getId(), reviewId);
-        reviewDao.deleteById(reviewToBeDeleted.getId());
-        //reviewDao.deleteById(reviewToBeDeletedB.getId());
-        return "redirect:/profile";
+        return reviewDao.findReviewByUserIdAndRestaurantId(userDb.getId(), restaurantId);
     }
 
     //Adding Pictures and Deleting Pictures from a review
