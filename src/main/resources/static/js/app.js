@@ -336,7 +336,6 @@
                 let chosenRestId = finalSelection.substring(2);
                 let rest = {id: chosenRestId};
                 const url = `restaurants/reviews`;
-                // POST REST REQUEST SET UP WITH URL
                 apiCreate(rest, url).then(()=>{
                     $(finalSelection).click();
                 })
