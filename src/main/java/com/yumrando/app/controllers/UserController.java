@@ -5,6 +5,7 @@ import com.yumrando.app.models.Restaurant;
 import com.yumrando.app.models.Review;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
+import com.yumrando.app.repos.ReviewRepository;
 import com.yumrando.app.repos.UserRepository;
 import com.yumrando.app.repos.Users;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,12 +24,14 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
     private final ListRestaurantRepository listDao;
+    private final ReviewRepository reviewDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao){
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
         this.listDao = listDao;
+        this.reviewDao = reviewDao;
     }
 
     @GetMapping("/")
@@ -90,8 +93,11 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
+        List<Review> reviews = reviewDao.findAllByOrderByUpdateTimeDesc();
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
+        //Need to show the info for the reviews or restaurants in the the descending order
+        model.addAttribute("history", reviews);
         return "user/profile";
     }
 

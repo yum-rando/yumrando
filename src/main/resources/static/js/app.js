@@ -292,12 +292,11 @@
                 let finalSelection = userRandomizer();
                 let chosenRestId = finalSelection.substring(2);
                 let rest = {id: chosenRestId};
+                const url = `restaurants/reviews`;
                 // POST REST REQUEST SET UP WITH URL
-                // apiCreate(rest, URL).then(()=>{
-                //     $(finalSelection).click();
-                // })
-                // TODO: DELETE SINGLE LINE BELOW ONCE URL IS SET UP ABOVE ON APICREATE
-                $(finalSelection).click();
+                apiCreate(rest, url).then(()=>{
+                    $(finalSelection).click();
+                })
                 $('#user-random').attr("disabled", false);
             } else {
                 userRandomizer();
