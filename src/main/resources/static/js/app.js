@@ -334,11 +334,13 @@
             if (confirm) {
                 let finalSelection = userRandomizer();
                 let chosenRestId = finalSelection.substring(2);
-                let rest = {id: chosenRestId};
-                const url = `restaurants/reviews`;
-                apiCreate(rest, url).then(()=>{
-                    $(finalSelection).click();
-                })
+                if (window.location.pathname !== "/") {
+                    let rest = {id: chosenRestId};
+                    const url = `restaurants/reviews`;
+                    apiCreate(rest, url).then(() => {
+                        $(finalSelection).click();
+                    })
+                }
                 $('#user-random').attr("disabled", false);
             } else {
                 userRandomizer();
