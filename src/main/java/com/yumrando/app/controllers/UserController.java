@@ -93,10 +93,10 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
-        List<Review> reviews = reviewDao.findAllByOrderByUpdateTimeDesc();
+        List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
-        //Need to show the info for the reviews or restaurants in the the descending order
+        //Need to show the info for the reviews or restaurants in the the descending order for specific user
         model.addAttribute("history", reviews);
         return "user/profile";
     }
@@ -111,20 +111,6 @@ public class UserController {
         userDao.save(userToBeUpdated);
         return "redirect:/profile";
     }
-
-    //This is for the REVIEW CONTROLLER
-    //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
-//    public void updateReviewTime(Review review){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        review.setUser(userDb);
-//        Date now = new Date();
-//        String pattern = "yyyy-MM-dd HH:mm:ss";
-//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-//        String mysqlUpdateDate = formatter.format(now);
-//        review.setUpdateTime(mysqlUpdateDate);
-//        reviewDao.save(review);
-//    }
-
 
     @PostMapping("/logout")
     @ResponseBody
