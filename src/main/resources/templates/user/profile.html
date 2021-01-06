@@ -9,9 +9,9 @@
 <div th:replace="partialsFile/userHistoryList :: user-history-list"/>
 <div th:replace="partialsFile/userFriendsList :: user-friends-list"/>
 <script th:replace="partials/scripts :: script"></script>
-<script src="js/apiAddList.js"></script>
-<script src="js/apiEditList.js"></script>
-<script src="js/profile.js"></script>
+<script th:src="@{/js/apiCreate.js}"></script>
+<script th:src="@{/js/apiEdit.js}"></script>
+<script th:src="@{/js/profile.js}"></script>
 
 </body>
 </html>

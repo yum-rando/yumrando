@@ -6,17 +6,21 @@ xmlns:sec="http://www.thymeleaf.org/extras">
         <div class="row">
             <div class="col-6">
                 <div>Randomizer Tool</div>
+                <div id="random-button-tool"></div>
                 <div sec:authorize = "isAnonymous()">
-                <button type="button">Randomize</button>
+                <button id="guest-random" type="button">Randomize</button>
                 </div>
                 <div sec:authorize = "isAuthenticated()">
-                    <button type="button">Randomize</button>
+                    <button id="user-random" type="button">Randomize</button>
                 </div>
             </div>
             <div class="col-6">
                 <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
 
             </div>
+        </div>
+        <div class="row">
+            <div th:replace="partialsFile/randomSearch :: random-search"></div>
         </div>
     </div>
 </div>

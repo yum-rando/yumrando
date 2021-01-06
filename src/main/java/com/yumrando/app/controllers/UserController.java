@@ -2,17 +2,22 @@ package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
+import com.yumrando.app.models.Review;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
+import com.yumrando.app.repos.ReviewRepository;
 import com.yumrando.app.repos.UserRepository;
 import com.yumrando.app.repos.Users;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -21,12 +26,14 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
     private final ListRestaurantRepository listDao;
+    private final ReviewRepository reviewDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao){
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
         this.listDao = listDao;
+        this.reviewDao = reviewDao;
     }
 
     @GetMapping("/")
@@ -72,15 +79,23 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, @RequestParam (name = "confirmPassword") String checkPassword) {
-        if (user.getPassword().equals(checkPassword)) {
+    public String saveUser(
+            @Valid User user,
+            Errors validation,
+            @RequestParam(name = "confirmPassword") String checkPassword,
+            Model model) {
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            System.out.println(validation.getAllErrors());
+            return "user/register";
+        } else if (user.getPassword().equals(checkPassword)) {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
-            return "redirect:/login"; // If password equals confirmPassword redirect to index
-        } else {
-            return "redirect:/register";
+            return "redirect:/index"; // If password equals confirmPassword redirect to index)
         }
+        return "user/register";
     }
 
     @GetMapping("/profile")
@@ -88,8 +103,23 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
+        List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
         model.addAttribute("lists", listings);
+        model.addAttribute("userInfo", userDao.findById(userId));
+        //Need to show the info for the reviews or restaurants in the the descending order for specific user
+        model.addAttribute("history", reviews);
         return "user/profile";
+    }
+
+    //Would have liked to used a Patch but used a Post instead due to the html form not accepting a Patch method
+    @PostMapping("/profile")
+    public String editProfileBtn(@ModelAttribute User userToBeUpdated){
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userToBeUpdated.setId(userDb.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
+        userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
+        userToBeUpdated.setUsername(userDb.getUsername()); //Needed this since the username can't be null in a post
+        userDao.save(userToBeUpdated);
+        return "redirect:/profile";
     }
 
     @PostMapping("/logout")
@@ -97,5 +127,7 @@ public class UserController {
     public String executeLogout() {
         return "redirect:/index";
     }
+
+
 
 }

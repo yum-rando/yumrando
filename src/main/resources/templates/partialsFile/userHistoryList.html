@@ -9,35 +9,57 @@
     </div>
     <div class="container">
         <div class="row">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
+<!--            <table class="table table-hover">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col">#</th>-->
+<!--                    <th scope="col">First</th>-->
+<!--                    <th scope="col">Last</th>-->
+<!--                    <th scope="col">Handle</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <th scope="row">1</th>-->
+<!--                    <td>Mark</td>-->
+<!--                    <td>Otto</td>-->
+<!--                    <td>@mdo</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">2</th>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">3</th>-->
+<!--                    <td colspan="2">Larry the Bird</td>-->
+<!--                    <td>@twitter</td>-->
+<!--                </tr><tr>-->
+<!--                    <th scope="row">1</th>-->
+<!--                    <td>Mark</td>-->
+<!--                    <td>Otto</td>-->
+<!--                    <td>@mdo</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">2</th>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">3</th>-->
+<!--                    <td colspan="2">Larry the Bird</td>-->
+<!--                    <td>@twitter</td>-->
+
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            Below is bringing in all of the restaurants in descending order via the updateTime, the if statement limits its to 5-->
+            <div th:each="rando : ${history}">
+                <div th:if="${randoStat.count} <= 5">
+                <h1 th:text="${rando.getRestaurant().name}"></h1>
+                </div>
+            </div>
         </div>
     </div>
 </div>

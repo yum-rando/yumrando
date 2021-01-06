@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<!--xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">&ndash;&gt;-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <!-- Bootstrap -->
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
    <!-- FontAwesome CSS -->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <!--  CSS -->
     <link href="/css/main.css" rel="stylesheet" />
 </head>
@@ -25,7 +24,7 @@
                     <a href="/index" class="link mx-15 color-main">
                         Home
                     </a>
-                    <a href="/profile" class="link mx-15 color-main">
+                    <a sec:authorize="isAuthenticated()" th:href="@{'/profile/'}" class="link mx-15 color-main">
                         Profile
                     </a>
                     <a href="/" class="link mx-15 color-main">
@@ -39,24 +38,18 @@
                         </i>
                     </a>
                 </div>
-
-                <ul class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
-                    <li href="/login" class="link mr-20 color-main">
+                <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
+                    <a href="/login" class="link mr-20 color-main">
                         Sign In
-                    </li>
-                    <li href="/register" class="btn mr-20 sm action-2 f-16">
+                    </a>
+                    <a href="/register" class="btn mr-20 sm action-2 f-16">
                         Sign Up
-                    </li>
-<!--                    <li>-->
-<!--                        <form th:action="@{/logout}" sec:authorize="isAuthenticated()-->
-<!--            th:method="post">-->
-<!--                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>-->
-<!--                        </form>-->
-<!--                    </li>-->
-                </ul>
-        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
+
 
 </body>
 </html>

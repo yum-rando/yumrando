@@ -18,7 +18,7 @@
             let listObject = {
                 name: $('#name').val()
             }
-            apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+            apiCreate(listObject, "/restaurants/lists/create").then(data=>{
                 window.location.assign('/profile')
             }).catch(()=>{
                 console.log("We are not champions : (")
@@ -51,13 +51,18 @@
             let listObject = {
                 name: $('#nameEdit').val()
             }
-            apiEdit(listObject,"URL GOES HERE").then(data=>{
+            apiEdit(listObject,`/lists/${listId}/edit`).then(data=>{
                 window.location.assign('/profile')
             }).catch(()=>{
                 console.log("We are not champions : (")
             });
         })
+    })
 
+    $('#toggle-user-info').click(function(){
+        $(this).toggleClass('d-none');
+        $('.user-info-input').attr("disabled", false);
+        $('#user-info-submit').removeClass('d-none');
     })
 
 

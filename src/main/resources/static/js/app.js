@@ -1,16 +1,21 @@
 ($ => {
     "use strict"
-    $(document).ready(()=>{
+    $(document).ready(() => {
+
+        let tagSelection = [];
+        let randomSearchResult = {};
+        let initialList = [];
 
         const arrayConstructor = () => {
             let listDisplayItems = localStorage.getItem("yumList");
-            if (listDisplayItems === null){
+            if (listDisplayItems === null) {
                 return [];
             } else {
                 return JSON.parse(listDisplayItems);
             }
         }
-const deleteLocal = num => {
+
+        const deleteLocal = num => {
             let array = arrayConstructor().filter((rest, index) => index !== num);
             localStorage.setItem("yumList", JSON.stringify(array));
             listBasic(array);
@@ -19,13 +24,13 @@ const deleteLocal = num => {
         const listBasic = array => {
             let parent = $('#restaurant-items');
             parent.empty();
-            array.map((item, num) =>{
+            array.map((item, num) => {
                 $(parent).append(
                     `
                       <div class="container">
                       <div class="row">
-                      <div class="col-9">
-                      <h6 id="${item.name}">${item.name}</h6>
+                      <div id="r${num}" class="col-9" data-bs-toggle="modal" data-bs-target="#showModal">
+                      <h6>${item.name}</h6>
                       </div>
                      <div class="col-3">
                      <button id="delete${num}" type="button" class="btn btn-danger">-</button>
@@ -33,8 +38,16 @@ const deleteLocal = num => {
                       </div>
                         </div>`
                 );
-                $(`#delete${num}`).click(()=>{
+                $(`#delete${num}`).click(() => {
                     deleteLocal(num)
+                });
+
+                $(`#r${num}`).click(() => {
+                    $('#show-modal-label').empty().append(
+                        `
+                <h5 class="modal-title">${item.name}</h5>
+                `
+                    )
                 })
             })
 
@@ -46,12 +59,18 @@ const deleteLocal = num => {
             ))
             listBasic(arrayConstructor());
         }
-
-
-
+        const updateCurrentList = rest => {
+            const listNumber = $("#currentList").val();
+            const url = `/restaurants/lists/${listNumber}`;
+            apiCreate(rest, url).then(() => {
+                window.location.assign(`/${listNumber}`)
+            }).catch(() => {
+                console.error("Nope!")
+            });
+        }
 
         const obtainRestaurant = num => {
-            if (num.includes('u')){
+            if (num.includes('u')) {
                 let restaurant = resultSet[parseInt(num.substring(1))]
                 let postObject = {
                     address: restaurant.location.address,
@@ -61,13 +80,10 @@ const deleteLocal = num => {
                     city: restaurant.location.city,
                     zipcode: restaurant.location.zipcode
                 }
-                const listNumber = $("#currentList").val();
-                const url = `/restaurants/lists/${listNumber}`;
-                apiAddList(postObject, url).then(() =>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+                updateCurrentList(postObject);
             } else {
                 updateLocal(resultSet[parseInt(num)]);
             }
-
         }
 
         const listResult = (array, type) => {
@@ -98,7 +114,7 @@ const deleteLocal = num => {
                 );
 
 
-                $(`#${type + num}`).click(()=> {
+                $(`#${type + num}`).click(() => {
                     obtainRestaurant(type + num);
 
 
@@ -106,71 +122,67 @@ const deleteLocal = num => {
             });
         }
 
-        $('#add-basic').click(()=>{
+        $('#add-basic').click(() => {
             let basicInput = $('#simple-name');
             let objectConvert = {name: basicInput.val()};
-           updateLocal(objectConvert);
+            updateLocal(objectConvert);
             basicInput.val("");
             listBasic(arrayConstructor());
+            tagSelection = [];
+            $("#tag-choices, #tag-addon").empty();
+            $("#tag-choice").toggleClass('d-none')
         })
 
         const selectRest = '#search-select';
         const selectRestUser = '#search-select-user'
         const modalBody = '#search-body';
 
-const selectEvent = (selector, type) => {
-    $(selector).change(() => {
-        $(modalBody).empty();
-        $('#search-results, #search-results-user').empty();
-        switch ($(selector).val()) {
-            case "name":
+        const selectEvent = (selector, type) => {
+            $(selector).change(() => {
+                $(modalBody).empty();
+                $('#search-results, #search-results-user').empty();
+                switch ($(selector).val()) {
+                    case "name":
 
-                if(type === "") {
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
-                } else {
-                    $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                        if (type === "") {
+                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                        } else {
+                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                        }
+                        break;
+                    case "near":
+                        // Attach loader to $('#search-results')
+                        let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                        apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                            // Clear loader from $('#search-results) (.empty() works well for that)
+                            listResult(data.nearby_restaurants, type)
+                        });
+                        break;
+                    default:
+                        return;
                 }
-
-
-                break;
-            case "near":
-                // Attach loader to $('#search-results')
-                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-                    // Clear loader from $('#search-results) (.empty() works well for that)
-                    listResult(data.nearby_restaurants, type)
-                });
-                break;
-            default:
-                return;
+            })
         }
-    })
-}
-
 
         const inputSearch = (selector, type) => {
             // Attach loader to $('#search-results')
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-            apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data=> {
+            apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data => {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
-
             });
-
-
         }
 
-const inputSearchSetup = (selector, type) => {
-    $(document).on('change', selector,()=>{
-        if(typeof $(selector).val() !== 'undefined')
-            inputSearch(selector, type);
-    })
-}
+        const inputSearchSetup = (selector, type) => {
+            $(document).on('change', selector, () => {
+                if (typeof $(selector).val() !== 'undefined')
+                    inputSearch(selector, type);
+            })
+        }
 
-
-        $('#new-list').click(()=>{
-            $('#user-list-items').toggleClass('d-none');
-            $('#add-list-form').append(
+        $('#new-list').click(() => {
+            $('#user-list-items, #user-list-initial').addClass('d-none');
+            $('#add-list-form').empty().append(
                 `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Enter a name for your list:</label>
@@ -180,16 +192,16 @@ const inputSearchSetup = (selector, type) => {
                  </form>
                 `
             )
-            $('#submit-list').click(()=>{
+            $('#submit-list').click(() => {
 
                 let listObject = {
                     name: $('#name').val()
                 }
-                apiAddList(listObject, "/restaurants/lists/create").then(data=>{
+                apiCreate(listObject, "/restaurants/lists/create").then(data => {
 
                     window.location.assign(`/${data.id}`)
 
-                }).catch(()=>{
+                }).catch(() => {
                     console.log("We are not champions : (")
                 });
             })
@@ -198,32 +210,228 @@ const inputSearchSetup = (selector, type) => {
 
         // A Select that changes the list view for user
         $("#currentList").change(() => {
-           const listNum = $("#currentList").val()
+            const listNum = $("#currentList").val()
             if (listNum !== 'default') {
                 window.location.assign(`/${listNum}`)
             }
 
         })
 
+
         $("#add-basic-user").click(() => {
             const restaurantName = {
                 name: $("#simple-name").val()
             }
-            const listNumber = $("#currentList").val();
-            const url = `/restaurants/lists/${listNumber}`;
+            updateCurrentList(restaurantName);
+        })
 
-            console.log(url);
-            apiAddList(restaurantName, url).then(()=>{window.location.assign(`/${listNumber}`)}).catch(()=>{console.error("Nope!")});
+        $("#tag-choice").click(function () {
+            $(this).toggleClass('d-none')
+            $("#tag-addon").append(
+                `
+                <div>
+                   <input id="tag-type" type="text">
+                   <button id="tag-submit" class="btn btn-primary">Add Tag</button> 
+                </div>
+`
+            )
+            $("#tag-submit").click(() => {
+                let tagInput = $("#tag-type").val();
+                tagSelection.push(tagInput);
+                $("#tag-choices").empty();
+                tagSelection.map(tag => {
+                    $("#tag-choices").append(
+                        `
+                        <li>${tag}</li>
+                    `
+                    );
+                    $("#tag-type").val("");
+                })
+            })
+        })
 
+        $('.user-restaurants').click(function () {
+            let restId = $(this).attr("id").substring(1);
+            apiShow(restId, "restaurant/show/").then(response => {
+                console.log(response);
+                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+                $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`)
+            });
+        });
 
+        const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
+
+        const randomizerDelay = () => Math.floor(Math.random() * Math.floor(10) + 1) * 75;
+
+        const randomizerLoop = () => Math.floor(Math.random() * Math.floor(8) + 12);
+
+        const userInitialList = () => {
+            if(window.location.pathname === "/"){
+                $("#user-add-buttons").addClass('d-none');
+                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                    let adjustableArr = data.nearby_restaurants;
+                    for (let i = 1; i <= 5; i++) {
+                        let chosenIndex = randomizerChoice(adjustableArr.length);
+                        initialList.push(adjustableArr[chosenIndex]);
+                        adjustableArr = adjustableArr.filter((rest, index) => index !== chosenIndex);
+                    }
+                    initialList.map(({restaurant}, num) => {
+                        $("#user-list-initial").append(
+                            `
+                            <div class="container">
+                                <div class="row">
+                                    <div class="user-restaurants" id="r${num}" data-bs-toggle="modal" data-bs-target="#showModal">
+                                        <h6>${restaurant.name}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                        );
+
+                        $(`#r${num}`).click(() => {
+                            $('#show-modal-label').empty().append(
+                                `
+                <h5 class="modal-title">${restaurant.name}</h5>
+                `
+                            )
+                        })
+                    })
+                })
+            }
+        }
+
+        const guestRandomizer = () => {
+            let chosenIndex = randomizerChoice(arrayConstructor().length);
+            $(`#r${chosenIndex}`).css('background-color', 'cyan');
+            return `#r${chosenIndex}`;
+        }
+
+        const userRandomizer = () => {
+            let chosenIndex = randomizerChoice($('.user-restaurants').length);
+            let chosenElement = "";
+            $(".user-restaurants").css('background-color', "").each(function (index) {
+                if (index === chosenIndex) {
+                    $(this).css('background-color', 'cyan');
+                    chosenElement = '#' + $(this).attr('id');
+                }
+            })
+            return chosenElement;
+        }
+
+        const guestFinalInterface = confirm => {
+            listBasic(arrayConstructor());
+            if (confirm) {
+                let finalSelection = guestRandomizer();
+                $(finalSelection).click();
+                $('#guest-random').attr("disabled", false);
+            } else {
+                guestRandomizer();
+            }
+        }
+
+        const userFinalInterface = confirm => {
+            if (confirm) {
+                let finalSelection = userRandomizer();
+                let chosenRestId = finalSelection.substring(2);
+                if (window.location.pathname !== "/") {
+                    let rest = {id: chosenRestId};
+                    const url = `restaurants/reviews`;
+                    apiCreate(rest, url).then(() => {
+                        $(finalSelection).click();
+                    })
+                }
+                $('#user-random').attr("disabled", false);
+            } else {
+                userRandomizer();
+            }
+        }
+
+        const loopFunc = (limit, loop, user) => {
+            if (loop === limit) {
+                setTimeout(() => {
+                    if (user === 'guest') {
+                        guestFinalInterface(true);
+                    } else {
+                        userFinalInterface(true);
+                    }
+                }, randomizerDelay());
+            } else {
+                setTimeout(() => {
+                    if (user === 'guest') {
+                        guestFinalInterface(false);
+                    } else {
+                        userFinalInterface(false);
+                    }
+                    return loopFunc(limit, loop + 1, user);
+                }, randomizerDelay());
+            }
+
+        }
+        $('#guest-random').click(function () {
+            $(this).attr("disabled", true);
+            let loopLimit = randomizerLoop();
+            loopFunc(loopLimit, 0, 'guest');
+        })
+
+        $('#user-random').click(function () {
+            $(this).attr("disabled", true);
+            let loopLimit = randomizerLoop();
+            loopFunc(loopLimit, 0, 'user');
+        })
+
+        $('#random-name, #random-name-user').click(function () {
+            $("#show-modal-review").empty();
+            let nameValue = $('#random-search-input').val();
+            let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+            let modalLabel = "#show-modal-label";
+            $(modalLabel).empty();
+
+            apiSearch(searchName(nameValue, coordInput.latitude, coordInput.longitude)).then(data => {
+                let chosenIndex = randomizerChoice(data.restaurants.length);
+                let chosenRestaurant = data.restaurants[chosenIndex].restaurant;
+                randomSearchResult = {
+                    address: chosenRestaurant.location.address,
+                    apiId: chosenRestaurant.id,
+                    name: chosenRestaurant.name,
+                    website: chosenRestaurant.url,
+                    city: chosenRestaurant.location.city,
+                    zipcode: chosenRestaurant.location.zipcode
+                }
+                if ($(this).attr("id") === "random-name") {
+                    $(modalLabel).append(
+                        `
+                            <h5 class="modal-title">${randomSearchResult.name}</h5>
+                            <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
+                        `
+                    );
+                    $("#add-random-rest").click(() => {
+                        updateLocal(chosenRestaurant);
+                    })
+                } else {
+                    $(modalLabel).append(
+                        `
+                            <h5 class="modal-title">${randomSearchResult.name}</h5>
+                            <a id="add-random-restUser">Add To List</a>
+                        `
+                    );
+                    $("#add-random-restUser").click(() => {
+                        updateCurrentList(randomSearchResult);
+                    })
+                }
+
+            });
         })
 
         listBasic(arrayConstructor());
-        selectEvent(selectRest, "")
-        selectEvent(selectRestUser, 'u')
+        selectEvent(selectRest, "");
+        selectEvent(selectRestUser, 'u');
 
-        inputSearchSetup('#nameSearch', "")
-        inputSearchSetup('#nameSearchUser','u')
+        inputSearchSetup('#nameSearch', "");
+        inputSearchSetup('#nameSearchUser', 'u');
+
+        userInitialList();
+
 
     })
 })(jQuery);
