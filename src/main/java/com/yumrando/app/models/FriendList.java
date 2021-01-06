@@ -17,7 +17,7 @@ public class FriendList {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "friend_id")
+    @JoinColumn(name = "friend_id", nullable = false)
     private User friend;
 
     @Column(nullable = false)

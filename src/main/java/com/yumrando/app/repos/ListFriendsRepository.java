@@ -8,5 +8,6 @@ public interface ListFriendsRepository extends JpaRepository <FriendList, Long>{
     FriendList findById(long id);
 
     FriendList save(FriendList friendList);
+    FriendList findAllByUserIdAndFriendId(long userId, long friendId);
 
 }

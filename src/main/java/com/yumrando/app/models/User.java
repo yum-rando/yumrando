@@ -1,5 +1,7 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -61,7 +63,7 @@ public class User {
         inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
     private Set<RestaurantTag> favoriteTags;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<FriendList> friends;
 

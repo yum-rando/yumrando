@@ -26,7 +26,7 @@ public class UserController {
     private final UserRepository userDao;
     private final ListRestaurantRepository listDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
@@ -44,7 +44,7 @@ public class UserController {
 
     //User will go to a page with the list options
     @GetMapping("/{id}")
-    public String showUsersLists(Model vModel, Principal user, @PathVariable long id){
+    public String showUsersLists(Model vModel, Principal user, @PathVariable long id) {
         if (user != null) {
             User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -56,7 +56,7 @@ public class UserController {
             List<ListRestaurant> lists = listDao.findAllByUser(userDb);
 
             for (ListRestaurant list : lists) {
-                if (list.getId() != id){
+                if (list.getId() != id) {
                     nonChosenList.add(list);
                 }
             }
@@ -107,7 +107,7 @@ public class UserController {
 
     //Would have liked to used a Patch but used a Post instead due to the html form not accepting a Patch method
     @PostMapping("/profile")
-    public String editProfileBtn(@ModelAttribute User userToBeUpdated){
+    public String editProfileBtn(@ModelAttribute User userToBeUpdated) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userToBeUpdated.setId(userDb.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
         userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
@@ -128,14 +128,6 @@ public class UserController {
 //        review.setUpdateTime(mysqlUpdateDate);
 //        reviewDao.save(review);
 //    }
-
-
-    @PostMapping("/logout")
-    @ResponseBody
-    public String executeLogout() {
-        return "redirect:/";
-    }
-
 
 
 }
