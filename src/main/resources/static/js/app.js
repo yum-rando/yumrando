@@ -220,7 +220,9 @@
 
         $("#add-basic-user").click(() => {
             const restaurantName = {
-                name: $("#simple-name").val()
+                name: $("#simple-name").val().trim(),
+                address: $("#simple-address").val().trim(),
+                zipcode: $("#simple-zipcode").val().trim()
             }
             updateCurrentList(restaurantName);
         })
