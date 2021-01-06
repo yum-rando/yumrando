@@ -1,6 +1,4 @@
-/*font-family: 'Chivo', sans-serif;*/
-/*font-family: 'Courgette', cursive;*/
-/*font-family: 'Poppins', sans-serif;*/
+/*font-family: 'Quando', serif;*/
 /*
     Table of contents:
     1. Common styles
@@ -20,15 +18,78 @@ body{
 }
 /* --- 2. Navbar --- */
 .navbar{
-    position: absolute;
-    width: 1440px;
-    height: 115px;
-    left: 0px;
-    top: -10px;
-
-    background: #17F9B0;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #383A47 !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
+#navLogo{
+    width: 229px;
+    height: 46px;
+    left: 58px;
+    top: 7px;
+}
+
+.navbar-light .navbar-toggler{
+    color: #AAC6FC !important;
+    border: #AAC6FC;
+}
+
+.collapse:not(.show){
+    display: none;
+}
+
+.links{
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #AAC6FC !important;
+
+}
+
+.links:hover{
+    text-decoration: underline;
+}
+
+.login{
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #E0719E;
+    background: #F3F6E6;
+    border: 1px solid #E0719E;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+.login:hover{
+    color: #F3F6E6;
+    background: #E0719E;
+    border: 1px solid #E0719E;
+
+}
+
+.register{
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #F3F6E6;
+    background: #E0719E;
+    border-radius: 6px;
+    border: 1px solid #E0719E;
+}
+
+.register:hover{
+    color: #AAC6FC;
+    background: #E0719E;
+    border: 1px solid #AAC6FC;
+
+}
+
 
 /* --- 3. Load animation --- */
 #logo{
