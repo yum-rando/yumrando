@@ -83,15 +83,15 @@
             let inputValue = $("#friend-username").val()
             let friend = {username: inputValue }
             const url = "profile/friends/create"
-            apiCreate(friend, url).then(()=>{
-                window.location.assign('/profile')
-            }).catch(()=> {
+            apiCreate(friend, url)
+                .then(()=>{
+                    setTimeout(()=>{
+                        window.location.assign('/profile')}, 500)
+                    })
+                .catch(()=> {
                 $("#friend-username").addClass("is-invalid");
             })
         })
     });
-
-
-
 
 })(jQuery);

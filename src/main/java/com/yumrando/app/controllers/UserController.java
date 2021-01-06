@@ -141,6 +141,13 @@ public class UserController {
         return "redirect:/profile";
     }
 
+    @GetMapping("/friend/{id}")
+    public String viewFriend (@PathVariable long id){
+        User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), id);
+        return "user/friend";
+    }
+
 
     //This is for the REVIEW CONTROLLER
     //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE

@@ -101,6 +101,7 @@ I expect to see an immediate list of five restaurants near me on load.
 I expect to see an option to have a restaurant randomly chosen based on what I type in.
 I expect to be able to add that specific chosen restaurant to my visible list.
 I expect to be able to pick a list to add a randomly chosen restaurant from random search.
+I expect to have a privacy option to the list to hide from friends.
 
 
 
