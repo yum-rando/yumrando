@@ -60,6 +60,14 @@ public class Restaurant {
     )
     private Set<RestaurantTag> tags;
 
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "restaurant_userTag",
+            joinColumns = {@JoinColumn(name = "restaurant_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private Set<Restaurant> restaurants;
+
     //Constructors
     public Restaurant(){}
 
