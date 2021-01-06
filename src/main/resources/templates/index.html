@@ -6,6 +6,13 @@
 <body>
 
 <nav th:replace="partials/navbar :: navbar"/>
+
+<div class="jumbotron jumbotron-fluid homeJumbo">
+    <div class="container fryFriend">
+        <img class="mx-auto d-block img-fluid" src="/img/blueKetchupFries.png" alt="cartoon ketchup and fries">
+    </div>
+</div>
+
 <div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
 <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
 <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>

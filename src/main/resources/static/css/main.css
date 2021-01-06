@@ -135,3 +135,18 @@ body{
 }
 
 
+/* --- 4. Jumbotron --- */
+
+.homeJumbo{
+    background: #AAC6FC;
+    width: 100%;
+    margin: 0;
+    text-align:center;
+}
+
+.fryFriend{
+
+    width: 818px;
+    height: 457px;
+    text-align:center;
+}
