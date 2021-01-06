@@ -3,6 +3,7 @@ package com.yumrando.app.controllers;
 import com.yumrando.app.models.*;
 import com.yumrando.app.repos.ListFriendsRepository;
 import com.yumrando.app.repos.ListRestaurantRepository;
+import com.yumrando.app.repos.ReviewRepository;
 import com.yumrando.app.repos.UserRepository;
 import com.yumrando.app.repos.Users;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,13 +25,17 @@ public class UserController {
     private final UserRepository userDao;
     private final ListRestaurantRepository listDao;
     private final ListFriendsRepository friendDao;
+    private final ReviewRepository reviewDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ListFriendsRepository friendDao) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao){
+
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
         this.listDao = listDao;
         this.friendDao = friendDao;
+        this.reviewDao = reviewDao;
+
     }
 
     @GetMapping("/")
@@ -100,10 +105,13 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
+        List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
         model.addAttribute("friends", friendDao.findAllByUserId(user.getId()));
         model.addAttribute("requests", friendDao.findAllByFriendId(user.getId()));
+        //Need to show the info for the reviews or restaurants in the the descending order for specific user
+        model.addAttribute("history", reviews);
         return "user/profile";
     }
 
@@ -117,6 +125,7 @@ public class UserController {
         userDao.save(userToBeUpdated);
         return "redirect:/profile";
     }
+
 
     @PostMapping("/profile/friend/accept/{id}")
     public String acceptFriend (@PathVariable long id){
