@@ -1,9 +1,7 @@
 package com.yumrando.app.controllers;
 
-import com.yumrando.app.models.ListRestaurant;
-import com.yumrando.app.models.Restaurant;
-import com.yumrando.app.models.Review;
-import com.yumrando.app.models.User;
+import com.yumrando.app.models.*;
+import com.yumrando.app.repos.ListFriendsRepository;
 import com.yumrando.app.repos.ListRestaurantRepository;
 import com.yumrando.app.repos.UserRepository;
 import com.yumrando.app.repos.Users;
@@ -25,12 +23,14 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
     private final ListRestaurantRepository listDao;
+    private final ListFriendsRepository friendDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ListFriendsRepository friendDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
         this.listDao = listDao;
+        this.friendDao = friendDao;
     }
 
     @GetMapping("/")
@@ -102,6 +102,8 @@ public class UserController {
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
+        model.addAttribute("friends", friendDao.findAllByUserId(user.getId()));
+        model.addAttribute("requests", friendDao.findAllByFriendId(user.getId()));
         return "user/profile";
     }
 
@@ -115,6 +117,21 @@ public class UserController {
         userDao.save(userToBeUpdated);
         return "redirect:/profile";
     }
+
+    @PostMapping("/profile/friend/accept/{id}")
+    public String acceptFriend (@PathVariable long id){
+        FriendList updateFriend = friendDao.findById(id);
+        updateFriend.setConfirmation(true);
+        friendDao.save(updateFriend);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/profile/friend/delete/{id}")
+    public String deleteFriend (@PathVariable long id){
+        friendDao.deleteById(id);
+        return "redirect:/profile";
+    }
+
 
     //This is for the REVIEW CONTROLLER
     //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE

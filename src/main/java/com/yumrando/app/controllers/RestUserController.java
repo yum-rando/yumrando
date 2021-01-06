@@ -37,7 +37,8 @@ public class RestUserController {
         }
         User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), friend.getId());
-        if (friendCheck != null){
+        FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(friend.getId(), currUser.getId());
+        if ((friendCheck != null) || (inverseCheck != null)){
             return new ResponseEntity<>(friendCheck, HttpStatus.UNAUTHORIZED);
         } else {
             FriendList addFriend = new FriendList(currUser, friend, false);
