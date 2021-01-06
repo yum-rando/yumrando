@@ -17,17 +17,21 @@ public class FriendList {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "friend_id")
+    @JoinColumn(name = "friend_id", nullable = false)
     private User friend;
+
+    @Column(nullable = false)
+    boolean confirmation;
 
 
     //Constructors
     public FriendList(){}
 
     //Insert/Create/Read
-    public FriendList(User user, User friend) {
+    public FriendList(User user, User friend, boolean confirmation) {
         this.user = user;
         this.friend = friend;
+        this.confirmation= confirmation;
     }
 
     //Read
@@ -61,4 +65,8 @@ public class FriendList {
     public void setFriend(User friend) {
         this.friend = friend;
     }
+
+    public boolean getConfirmation(){return confirmation;}
+
+    public void setConfirmation(boolean confirmation){this.confirmation = confirmation;}
 }
