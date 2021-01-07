@@ -16,25 +16,25 @@ public class UserTag {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "restaurants", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Restaurant> restaurant;
+    @ManyToMany(mappedBy = "userTagsSet", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Restaurant> restaurants;
 
 //     Empty Constructor
     public UserTag (){}
 
 //     Create/Update Constructor
-    public UserTag (String name, User user, Set<Restaurant> restaurant){
+    public UserTag (String name, User user, Set<Restaurant> restaurants){
         this.name = name;
         this.user = user;
-        this.restaurant = restaurant;
+        this.restaurants = restaurants;
     }
 
 //    Read Constructor
-    public UserTag (long id, String name, User user, Set<Restaurant> restaurant) {
+    public UserTag (long id, String name, User user, Set<Restaurant> restaurants) {
         this.id = id;
         this.name = name;
         this.user = user;
-        this.restaurant = restaurant;
+        this.restaurants = restaurants;
     }
 
     public String getName() {
@@ -53,11 +53,22 @@ public class UserTag {
         this.user = user;
     }
 
-    public Set<Restaurant> getRestaurant(){
-        return restaurant;
+    public Set<Restaurant> getRestaurants(){
+        return restaurants;
     }
 
-    public void setRestaurant(Set<Restaurant> restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurants(Set<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
+    public void addingRestaurantToCustomTag(Restaurant restaurant){
+        this.restaurants.add(restaurant);
+        // this referencing UserTagSet object
+        restaurant.getUserTagsSet().add(this);
+    }
+    public void removeRestaurantFromCustomTag(Restaurant restaurant){
+        this.restaurants.remove(restaurant);
+        //this referencing UserTag object
+        restaurant.getUserTagsSet().remove(this);
     }
 }

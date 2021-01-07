@@ -88,18 +88,6 @@ public class RestaurantTag {
         //This by itself is referring to the current list object
         restaurant.getTags().remove(this);
     }
-
-    //Adding a User to the RestaurantTags
-    public void addUserToTag(User user){
-        this.users.add(user);
-        //This by itself is referring to the current list object
-        user.getFavoriteTags().add(this);
-    }
-    //Removing a User from a RestaurantTags
-    public void removeUserFromTag(User user){
-        this.users.remove(user);
-        //This by itself is referring to the current list object
-        user.getFavoriteTags().remove(this);
-    }
+    
 }
 

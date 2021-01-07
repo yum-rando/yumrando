@@ -64,9 +64,9 @@ public class Restaurant {
     @JoinTable(
             name = "restaurant_userTag",
             joinColumns = {@JoinColumn(name = "restaurant_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+            inverseJoinColumns = {@JoinColumn(name = "userTag_id")}
     )
-    private Set<Restaurant> restaurants;
+    private Set<UserTag> userTagsSet;
 
     //Constructors
     public Restaurant(){}
@@ -81,7 +81,7 @@ public class Restaurant {
     }
 
     //Read
-    public Restaurant(long id, String apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date createdTime, List<Review> reviews, Set<ListRestaurant> lists, Set<RestaurantTag> tags) {
+    public Restaurant(long id, String apiId, String name, String phoneNumber, String website, String address, String city, String zipcode, Date createdTime, List<Review> reviews, Set<ListRestaurant> lists, Set<RestaurantTag> tags, Set<UserTag> userTagsSet) {
         this.id = id;
         this.apiId = apiId;
         this.name = name;
@@ -94,6 +94,7 @@ public class Restaurant {
         this.reviews = reviews;
         this.lists = lists;
         this.tags = tags;
+        this.userTagsSet = userTagsSet;
     }
 
     //Getters & Setters
@@ -193,6 +194,13 @@ public class Restaurant {
         this.reviews = reviews;
     }
 
+    public Set<UserTag> getUserTagsSet(){
+        return userTagsSet;
+    }
+    public void setUserTagsSet(Set<UserTag> userTagsSet){
+        this.userTagsSet = userTagsSet;
+    }
+
 
     //Many-To-Many Relationship Methods
 
@@ -215,6 +223,7 @@ public class Restaurant {
         this.tags.add(tag);
         //This by itself is referring to the current list object
         tag.getRestaurants().add(this);
+
     }
 
     //Deleting a tag from Restaurant
@@ -222,6 +231,18 @@ public class Restaurant {
         this.tags.remove(tag);
         //This by itself is referring to the current list object
         tag.getRestaurants().remove(this);
+    }
+
+    //Adding custom tag to Restaurant
+    public void addCustomTagToRestaurant(UserTag customTag){
+        this.userTagsSet.add(customTag);
+        // This referring to current object
+        customTag.getRestaurants().add(this);
+    }
+    public void removingCustomTagFromRestaurant(UserTag customTag){
+        this.userTagsSet.remove(customTag);
+        // This referring to restaurant object
+        customTag.getRestaurants().remove(this);
     }
 
     //Many-to-One Relationship Methods
