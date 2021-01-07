@@ -3,15 +3,12 @@
 <head th:replace="partials/head :: head"></head>
 <body>
 <nav th:replace="partials/navbar :: navbar"/>
+<div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
 
 <script th:replace="partials/scripts :: script"></script>
 
-<script src="js/apiKey.js"></script>
-<script src="js/apiSearch.js"></script>
-<script src="js/apiCreate.js"></script>
-<script src="js/apiShow.js"></script>
-<script src="js/geoLocation.js"></script>
-<script src="js/friend.js"></script>
+<script th:src="@{/js/apiShow.js}"></script>
+<script th:src="@{/js/friend.js}"></script>
 
 </body>
 </html>

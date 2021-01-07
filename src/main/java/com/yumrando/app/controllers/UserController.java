@@ -142,9 +142,25 @@ public class UserController {
     }
 
     @GetMapping("/friend/{id}")
-    public String viewFriend (@PathVariable long id){
+    public String viewFriend (@PathVariable long id, Model model){
         User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), id);
+        FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(id, currUser.getId());
+        if(friendCheck == null || inverseCheck == null){
+            return "redirect:/profile";
+        }
+
+        ListRestaurant chosenList = listDao.findFirstByUserId(id);
+        User friend = userDao.findById(id);
+        List<ListRestaurant> lists = listDao.findAllByUserId(id);
+        model.addAttribute("chosenList", chosenList);
+        model.addAttribute("friend", friend);
+        model.addAttribute("lists", lists);
+        return "user/friend";
+    }
+
+    @GetMapping("/friend/{id}/list/{listId}")
+    public String viewFriendSpecific (@PathVariable long id, @PathVariable long listId){
         return "user/friend";
     }
 
