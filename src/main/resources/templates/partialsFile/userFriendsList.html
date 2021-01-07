@@ -53,7 +53,7 @@
                                 Request Sent
                             </div>
                             <div th:if="${friend.confirmation}">
-                                <button th:id="${'g' + friend.getFriend().id}" class="btn btn-primary" type="button">View</button>
+                                <button th:id="${'g' + friend.getFriend().id}" class="btn btn-primary friend-view" type="button">View</button>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                             <h3 th:text="${request.getUser().username}"></h3>
                                 </div>
                                 <div class="col-2">
-                                    <button th:id="${'g' + request.getUser().id}" class="btn btn-primary" type="button">View</button>
+                                    <button th:id="${'g' + request.getUser().id}" class="btn btn-primary friend-view" type="button">View</button>
                                 </div>
                             </div>
                     </div>

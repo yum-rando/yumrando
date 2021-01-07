@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -146,21 +147,37 @@ public class UserController {
         User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), id);
         FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(id, currUser.getId());
-        if(friendCheck == null || inverseCheck == null){
-            return "redirect:/profile";
+        if(friendCheck != null || inverseCheck != null){
+            if (friendCheck == null && inverseCheck.getConfirmation()){
+                ListRestaurant chosenList = listDao.findFirstByUserId(id);
+                return getString(id, model, chosenList);
+            } else if (inverseCheck == null && friendCheck.getConfirmation()){
+                ListRestaurant chosenList = listDao.findFirstByUserId(id);
+                return getString(id, model, chosenList);
+            }
         }
-
-        ListRestaurant chosenList = listDao.findFirstByUserId(id);
-        User friend = userDao.findById(id);
-        List<ListRestaurant> lists = listDao.findAllByUserId(id);
-        model.addAttribute("chosenList", chosenList);
-        model.addAttribute("friend", friend);
-        model.addAttribute("lists", lists);
-        return "user/friend";
+        return "redirect:/profile";
     }
 
     @GetMapping("/friend/{id}/list/{listId}")
-    public String viewFriendSpecific (@PathVariable long id, @PathVariable long listId){
+    public String viewFriendSpecific (@PathVariable long id, @PathVariable long listId, Model model){
+        User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), id);
+        FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(id, currUser.getId());
+        if(friendCheck != null || inverseCheck != null){
+            ListRestaurant chosenList = listDao.findById(listId);
+            return getString(id, model, chosenList);
+        }
+        return "redirect:/profile";
+    }
+
+    private String getString(@PathVariable long id, Model model, ListRestaurant chosenList) {
+        User friend = userDao.findById(id);
+        List<ListRestaurant> lists = listDao.findAllByUserId(id);
+        List<ListRestaurant> filteredList = lists.stream().filter(l -> l.getId() != chosenList.getId()).collect(Collectors.toList());
+        model.addAttribute("chosenList", chosenList);
+        model.addAttribute("friend", friend);
+        model.addAttribute("lists", filteredList);
         return "user/friend";
     }
 

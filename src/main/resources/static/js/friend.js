@@ -10,7 +10,7 @@
 
         $('.user-restaurants').click(function () {
             let restId = $(this).attr("id").substring(1);
-            apiShow(restId, "restaurant/show/").then(response => {
+            apiShow(restId, "/restaurant/show/").then(response => {
                 console.log(response);
                 $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
                 $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`)

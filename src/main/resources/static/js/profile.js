@@ -94,4 +94,10 @@
         })
     });
 
+    $(".friend-view").click(function(){
+        let friendId = $(this).attr("id").substring(1);
+        let url = `/friend/${friendId}`;
+        window.location.assign(url);
+    })
+
 })(jQuery);
