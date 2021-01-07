@@ -24,7 +24,7 @@ public class ListRestaurantController {
         this.userDao = userDao;
     }
 
-    //Viewing all restaurants from a specific list
+    //Viewing all restaurants from a specific list --> currently not being used
     @GetMapping("/lists/{listName}/restaurants")
     private String viewSpecificRestaurantList(@PathVariable String listName, Model vModel){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

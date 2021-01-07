@@ -25,6 +25,8 @@ User can add on friend list through a search functionality. (Or through invite).
 User can add on a review to a friends restaurant specific listing.
 Delivery links.
 
+Use api collections to give the guest or user the ability to have more options like restaurants that are currently trending and etc...
+
 User Stories:
 
 
@@ -49,6 +51,9 @@ I expect to remove tags from my filter list of tags and then click on a button.
 I expect to see a dropdown element that contains all my custom lists.
 I expect to see my custom list on the list container when it is selected on the dropdown element.
 I expect to see a button to "Add New List" to create a new custom list.
+I expect to see an immediate list of five restaurants near me on load.
+I expect to see an option to have a restaurant randomly chosen based on what I type in.
+I expect to be able to add that specific chosen restaurant to my visible list.
 
 
 As a User ...
@@ -91,6 +96,12 @@ I expect to be able to move one of my restaurant listings to be copied to anothe
 I expect to see any connections with other user as friends. (NTH)
 I expect to see my reviews of my restaurant listings. (NTH)
 I expect to see an average of the review ratings between my friends (NTH)
+
+I expect to see an immediate list of five restaurants near me on load.
+I expect to see an option to have a restaurant randomly chosen based on what I type in.
+I expect to be able to add that specific chosen restaurant to my visible list.
+I expect to be able to pick a list to add a randomly chosen restaurant from random search.
+
 
 
 OTHER FEATURES:

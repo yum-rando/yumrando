@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="user-history-list">
+<div th:fragment="user-history-list" class="container my-3">
     <div class="row">
         <div class="col-8">
             <h4>My History</h4>
@@ -38,6 +38,12 @@
                 </tr>
                 </tbody>
             </table>
+<!--            Below is bringing in all of the restaurants in descending order via the updateTime, the if statement limits its to 5-->
+            <div th:each="rando : ${history}">
+                <div th:if="${randoStat.count} <= 5">
+                <h1 th:text="${rando.getRestaurant().name}"></h1>
+                </div>
+            </div>
         </div>
     </div>
 </div>

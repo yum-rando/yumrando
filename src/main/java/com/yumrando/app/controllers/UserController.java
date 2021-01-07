@@ -1,10 +1,9 @@
 package com.yumrando.app.controllers;
 
-import com.yumrando.app.models.ListRestaurant;
-import com.yumrando.app.models.Restaurant;
-import com.yumrando.app.models.Review;
-import com.yumrando.app.models.User;
+import com.yumrando.app.models.*;
+import com.yumrando.app.repos.ListFriendsRepository;
 import com.yumrando.app.repos.ListRestaurantRepository;
+import com.yumrando.app.repos.ReviewRepository;
 import com.yumrando.app.repos.UserRepository;
 import com.yumrando.app.repos.Users;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,12 +24,18 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
     private final ListRestaurantRepository listDao;
+    private final ListFriendsRepository friendDao;
+    private final ReviewRepository reviewDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao){
+
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.users = users;
         this.listDao = listDao;
+        this.friendDao = friendDao;
+        this.reviewDao = reviewDao;
+
     }
 
     @GetMapping("/")
@@ -44,7 +49,7 @@ public class UserController {
 
     //User will go to a page with the list options
     @GetMapping("/{id}")
-    public String showUsersLists(Model vModel, Principal user, @PathVariable long id){
+    public String showUsersLists(Model vModel, Principal user, @PathVariable long id) {
         if (user != null) {
             User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -56,7 +61,7 @@ public class UserController {
             List<ListRestaurant> lists = listDao.findAllByUser(userDb);
 
             for (ListRestaurant list : lists) {
-                if (list.getId() != id){
+                if (list.getId() != id) {
                     nonChosenList.add(list);
                 }
             }
@@ -90,7 +95,7 @@ public class UserController {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
-            return "redirect:/index"; // If password equals confirmPassword redirect to index)
+            return "redirect:/"; // If password equals confirmPassword redirect to index)
         }
         return "user/register";
     }
@@ -100,14 +105,19 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
+        List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
+        model.addAttribute("friends", friendDao.findAllByUserId(user.getId()));
+        model.addAttribute("requests", friendDao.findAllByFriendId(user.getId()));
+        //Need to show the info for the reviews or restaurants in the the descending order for specific user
+        model.addAttribute("history", reviews);
         return "user/profile";
     }
 
     //Would have liked to used a Patch but used a Post instead due to the html form not accepting a Patch method
     @PostMapping("/profile")
-    public String editProfileBtn(@ModelAttribute User userToBeUpdated){
+    public String editProfileBtn(@ModelAttribute User userToBeUpdated) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userToBeUpdated.setId(userDb.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
         userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
@@ -115,6 +125,22 @@ public class UserController {
         userDao.save(userToBeUpdated);
         return "redirect:/profile";
     }
+
+
+    @PostMapping("/profile/friend/accept/{id}")
+    public String acceptFriend (@PathVariable long id){
+        FriendList updateFriend = friendDao.findById(id);
+        updateFriend.setConfirmation(true);
+        friendDao.save(updateFriend);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/profile/friend/delete/{id}")
+    public String deleteFriend (@PathVariable long id){
+        friendDao.deleteById(id);
+        return "redirect:/profile";
+    }
+
 
     //This is for the REVIEW CONTROLLER
     //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
@@ -128,14 +154,6 @@ public class UserController {
 //        review.setUpdateTime(mysqlUpdateDate);
 //        reviewDao.save(review);
 //    }
-
-
-    @PostMapping("/logout")
-    @ResponseBody
-    public String executeLogout() {
-        return "redirect:/index";
-    }
-
 
 
 }
