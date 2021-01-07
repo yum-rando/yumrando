@@ -72,13 +72,15 @@
         const obtainRestaurant = num => {
             if (num.includes('u')) {
                 let restaurant = resultSet[parseInt(num.substring(1))]
+                let cuisines = restaurant.cuisines.split(", ")
                 let postObject = {
                     address: restaurant.location.address,
                     apiId: restaurant.id,
                     name: restaurant.name,
                     website: restaurant.url,
                     city: restaurant.location.city,
-                    zipcode: restaurant.location.zipcode
+                    zipcode: restaurant.location.zipcode,
+                    tags: cuisines
                 }
                 updateCurrentList(postObject);
             } else {
@@ -154,9 +156,11 @@
                         // Attach loader to $('#search-results')
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+
                             // Clear loader from $('#search-results) (.empty() works well for that)
                             listResult(data.nearby_restaurants, type)
                         });
+
                         break;
                     default:
                         return;
