@@ -144,6 +144,12 @@
             $("#tag-choice").toggleClass('d-none')
         })
 
+        $(".activate-search").click(()=>{
+            if (localStorage.getItem("yumCoord") === null) {
+                geoLocation();
+            }
+        })
+
         const selectRest = '#search-select';
         const selectRestUser = '#search-select-user'
         const modalBody = '#search-body';
@@ -247,30 +253,30 @@
             updateCurrentList(restaurantName);
         })
 
-        $("#tag-choice").click(function () {
-            $(this).toggleClass('d-none')
-            $("#tag-addon").append(
-                `
-                <div>
-                   <input id="tag-type" type="text">
-                   <button id="tag-submit" class="btn btn-primary">Add Tag</button> 
-                </div>
-`
-            )
-            $("#tag-submit").click(() => {
-                let tagInput = $("#tag-type").val();
-                tagSelection.push(tagInput);
-                $("#tag-choices").empty();
-                tagSelection.map(tag => {
-                    $("#tag-choices").append(
-                        `
-                        <li>${tag}</li>
-                    `
-                    );
-                    $("#tag-type").val("");
-                })
-            })
-        })
+//         $("#tag-choice").click(function () {
+//             $(this).toggleClass('d-none')
+//             $("#tag-addon").append(
+//                 `
+//                 <div>
+//                    <input id="tag-type" type="text">
+//                    <button id="tag-submit" class="btn btn-primary">Add Tag</button>
+//                 </div>
+// `
+//             )
+//             $("#tag-submit").click(() => {
+//                 let tagInput = $("#tag-type").val();
+//                 tagSelection.push(tagInput);
+//                 $("#tag-choices").empty();
+//                 tagSelection.map(tag => {
+//                     $("#tag-choices").append(
+//                         `
+//                         <li>${tag}</li>
+//                     `
+//                     );
+//                     $("#tag-type").val("");
+//                 })
+//             })
+//         })
 
         $('.user-restaurants').click(function () {
             let restId = $(this).attr("id").substring(1);
@@ -293,19 +299,20 @@
         const randomizerLoop = () => Math.floor(Math.random() * Math.floor(8) + 12);
 
         const userInitialList = () => {
-            if(window.location.pathname === "/"){
-                $("#user-add-buttons").addClass('d-none');
-                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-                    let adjustableArr = data.nearby_restaurants;
-                    for (let i = 1; i <= 5; i++) {
-                        let chosenIndex = randomizerChoice(adjustableArr.length);
-                        initialList.push(adjustableArr[chosenIndex]);
-                        adjustableArr = adjustableArr.filter((rest, index) => index !== chosenIndex);
-                    }
-                    initialList.map(({restaurant}, num) => {
-                        $("#user-list-initial").append(
-                            `
+            if (localStorage.getItem("yumCoord") !== null) {
+                if (window.location.pathname === "/") {
+                    $("#user-add-buttons").addClass('d-none');
+                    let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                    apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+                        let adjustableArr = data.nearby_restaurants;
+                        for (let i = 1; i <= 5; i++) {
+                            let chosenIndex = randomizerChoice(adjustableArr.length);
+                            initialList.push(adjustableArr[chosenIndex]);
+                            adjustableArr = adjustableArr.filter((rest, index) => index !== chosenIndex);
+                        }
+                        initialList.map(({restaurant}, num) => {
+                            $("#user-list-initial").append(
+                                `
                             <div class="container">
                                 <div class="row">
                                     <div class="user-restaurants" id="r${num}" data-bs-toggle="modal" data-bs-target="#showModal">
@@ -314,19 +321,20 @@
                                 </div>
                             </div>
                         `
-                        );
+                            );
 
-                        $(`#r${num}`).click(() => {
-                            $('#show-modal-label').empty().append(
-                                `
+                            $(`#r${num}`).click(() => {
+                                $('#show-modal-label').empty().append(
+                                    `
                 <h5 class="modal-title">${restaurant.name}</h5>
                 `
-                            )
+                                )
+                            })
                         })
+                    }).catch(() => {
+                        console.log("Error connecting to obtain initial list.")
                     })
-                }).catch(()=>{
-                    console.log("Error connecting to obtain initial list.")
-                })
+                }
             }
         }
 
