@@ -60,13 +60,15 @@
         const obtainRestaurant = num => {
             if (num.includes('u')){
                 let restaurant = resultSet[parseInt(num.substring(1))]
+                let cuisines = restaurant.cuisines.split(", ")
                 let postObject = {
                     address: restaurant.location.address,
                     apiId: restaurant.id,
                     name: restaurant.name,
                     website: restaurant.url,
                     city: restaurant.location.city,
-                    zipcode: restaurant.location.zipcode
+                    zipcode: restaurant.location.zipcode,
+                    tags: cuisines
                 }
                 const listNumber = $("#currentList").val();
                 const url = `/restaurants/lists/${listNumber}`;
@@ -145,6 +147,7 @@
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                         // Clear loader from $('#search-results) (.empty() works well for that)
+                            console.log(data.nearby_restaurants[0].restaurant.cuisines);
                         listResult(data.nearby_restaurants, type)
                     });
                         break;
