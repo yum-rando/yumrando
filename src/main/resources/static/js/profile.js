@@ -18,10 +18,12 @@
             let listObject = {
                 name: $('#name').val()
             }
-            apiCreate(listObject, "/restaurants/lists/create").then(data=>{
+            apiCreate(listObject, "/restaurants/lists/create").then(()=>{
                 window.location.assign('/profile')
             }).catch(()=>{
-                console.log("We are not champions : (")
+                $("#list-form").empty();
+                $(".list-items").removeClass('d-none');
+                $("#error-message").empty().removeClass("d-none").append(`Connection Error. Could not add on new list.`)
             });
         })
     })
@@ -54,7 +56,9 @@
             apiEdit(listObject,`/lists/${listId}/edit`).then(()=>{
                 window.location.assign('/profile')
             }).catch(()=>{
-                console.log("We are not champions : (")
+                $("#list-form").empty();
+                $(".list-items").removeClass('d-none');
+                $("#error-message").empty().removeClass("d-none").append(`Connection Error. Could not edit list.`)
             });
         })
     })
@@ -86,7 +90,7 @@
             apiCreate(friend, url)
                 .then(()=>{
                     setTimeout(()=>{
-                        window.location.assign('/profile')}, 500)
+                        window.location.assign('/profile')}, 750)
                     })
                 .catch(()=> {
                 $("#friend-username").addClass("is-invalid");

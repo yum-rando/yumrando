@@ -5,6 +5,13 @@
         let tagSelection = [];
         let randomSearchResult = {};
         let initialList = [];
+        const searchResultBody = "#search-results, #search-results-user";
+        const connectErrMessage =
+            `
+                <div class="alert alert-danger" role="alert">
+                    Connection Error...
+                </div>
+        `
 
         const arrayConstructor = () => {
             let listDisplayItems = localStorage.getItem("yumList");
@@ -65,7 +72,7 @@
             apiCreate(rest, url).then(() => {
                 window.location.assign(`/${listNumber}`)
             }).catch(() => {
-                console.error("Nope!")
+                $("#error-message").empty().removeClass("d-none").append(`Connection Error. Could not add restaurant to list.`)
             });
         }
 
@@ -102,24 +109,28 @@
                                 <p>${restaurant.location.address}</p>
                              </div>
                              <div class="col-3">
-
-
-                                 <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button>
-
-
+                                 <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
                     </div>
                         `
                 );
 
-
                 $(`#${type + num}`).click(() => {
                     obtainRestaurant(type + num);
-
-
-                })
+                });
             });
+            if (resultSet.length === 0){
+                $(parent).append(
+                    `
+                    <div class="container">
+                        <div class="row">
+                            No Results Found
+                        </div>
+                    </div>
+                    `
+                )
+            }
         }
 
         $('#add-basic').click(() => {
@@ -140,7 +151,8 @@
         const selectEvent = (selector, type) => {
             $(selector).change(() => {
                 $(modalBody).empty();
-                $('#search-results, #search-results-user').empty();
+
+                $(searchResultBody).empty();
                 switch ($(selector).val()) {
                     case "name":
 
@@ -156,6 +168,10 @@
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                             // Clear loader from $('#search-results) (.empty() works well for that)
                             listResult(data.nearby_restaurants, type)
+                        }).catch(()=>{
+                            $(searchResultBody).append(
+                              connectErrMessage
+                            )
                         });
                         break;
                     default:
@@ -170,6 +186,11 @@
             apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data => {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
+            }).catch(()=>{
+                $(searchResultBody).append(
+                    connectErrMessage
+                );
+
             });
         }
 
@@ -181,7 +202,8 @@
         }
 
         $('#new-list').click(() => {
-            $('#user-list-items, #user-list-initial').addClass('d-none');
+            let userListBody = "#user-list-items, #user-list-initial";
+            $(userListBody).addClass('d-none');
             $('#add-list-form').empty().append(
                 `<form>
                     <div class="mb-3">
@@ -202,11 +224,12 @@
                     window.location.assign(`/${data.id}`)
 
                 }).catch(() => {
-                    console.log("We are not champions : (")
+                    $("#add-list-form").empty();
+                    $(userListBody).removeClass('d-none');
+                    $("#error-message").empty().removeClass("d-none").append(`Error connection. Could not add on new list.`)
                 });
             })
         })
-
 
         // A Select that changes the list view for user
         $("#currentList").change(() => {
@@ -216,7 +239,6 @@
             }
 
         })
-
 
         $("#add-basic-user").click(() => {
             const restaurantName = {
@@ -254,9 +276,14 @@
             let restId = $(this).attr("id").substring(1);
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
-                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
-                $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`)
-            });
+                $("#show-modal-label").empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+                $("#show-modal-review").empty().append(`<a href="/review/${response.id}">Review</a>`);
+                $("#show-modal-body").empty();
+            }).catch(()=>{
+                $("#show-modal-label").empty();
+                $("#show-modal-review").empty();
+                $("#show-modal-body").empty().append(connectErrMessage);
+            })
         });
 
         const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
@@ -297,6 +324,8 @@
                             )
                         })
                     })
+                }).catch(()=>{
+                    console.log("Error connecting to obtain initial list.")
                 })
             }
         }
@@ -381,7 +410,7 @@
         })
 
         $('#random-name, #random-name-user').click(function () {
-            $("#show-modal-review").empty();
+            $("#show-modal-review, #show-modal-body").empty();
             let nameValue = $('#random-search-input').val();
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             let modalLabel = "#show-modal-label";
@@ -420,7 +449,9 @@
                     })
                 }
 
-            });
+            }).catch(()=>{
+                $("#show-modal-body").empty().append(connectErrMessage);
+            })
         })
 
         listBasic(arrayConstructor());
