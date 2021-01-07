@@ -3,6 +3,7 @@ package com.yumrando.app.controllers;
 import ch.qos.logback.core.pattern.util.RestrictedEscapeUtil;
 import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
+import com.yumrando.app.models.RestaurantTag;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
 import com.yumrando.app.repos.RestaurantRepository;
@@ -56,6 +57,20 @@ public class RestRestaurantController {
         }
 
         if (restaurantCheck == null){
+            Set<RestaurantTag> emptyList = new HashSet<>();
+            if(restaurantToBeSaved.getTags() != null){
+                for(RestaurantTag tag : restaurantToBeSaved.getTags()) {
+                    RestaurantTag apiTag = tagDao.findByName(tag.getName());
+                    if (apiTag == null){
+                        RestaurantTag newTag = new RestaurantTag(tag.getName());
+                        emptyList.add(tagDao.save(newTag));
+                    }else{
+                        emptyList.add(apiTag);
+                    }
+                }
+                restaurantToBeSaved.setTags(emptyList);
+            }
+
             listRes.addRestaurantToList(restaurantToBeSaved); //this is working now
             restaurantDao.save(restaurantToBeSaved);
         } else {
