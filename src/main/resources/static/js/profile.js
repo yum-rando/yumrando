@@ -93,5 +93,5 @@
 
 
 
-
+apiTagSearch("/tags").then((data)=>{console.log(data)})
 })(jQuery);

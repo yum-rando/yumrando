@@ -19,11 +19,16 @@ public class RestaurantTag {
     @ManyToMany(mappedBy = "tags")
     private Set<Restaurant> restaurants;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "favoriteTags")
     private Set<User> users;
 
     //Constructors
     public RestaurantTag(){}
+
+    public RestaurantTag(String name){
+        this.name = name;
+    }
 
     //Insert/Create
     public RestaurantTag(String name, Set<Restaurant> restaurants, Set<User> users) {
