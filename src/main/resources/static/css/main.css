@@ -1,4 +1,5 @@
 /*font-family: 'Quando', serif;*/
+/*font-family: 'Lobster Two', cursive;*/
 /*Illustration by <a href="undefined">Icons 8</a> from <a href="https://icons8.com/">Icons8</a>*/
 /*
     Table of contents:
@@ -171,5 +172,24 @@ body{
 }
 #pineapple{
     height: 335px;
+}
 
+/* --- 6. surprise me --- */
+#phone{
+    height: 40em;
+}
+#magicText{
+    position: relative;
+    bottom: 34em;
+    left: 5em;
+}
+
+#predict{
+    font-family: 'Lobster Two', cursive;
+    color: #383A47;
+}
+#random-search-input{
+    background: #AAC6FC;
+    border: 1px solid #3d3f4d;
+    font-family: 'Quando', serif;
 }

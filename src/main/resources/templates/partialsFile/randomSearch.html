@@ -2,13 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="random-search">
-    <h3>Surprise me by name!</h3>
-    <input id="random-search-input" type="text">
-    <div sec:authorize="isAnonymous()">
-        <button id="random-name" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
+    <div>
+        <img id="phone" src="/img/whitePhone.png" alt="magic phone">
     </div>
-    <div sec:authorize ="isAuthenticated()">
-        <button id="random-name-user" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
+    <div id="magicText">
+        <h3 id="predict">Predict My Next Meal</h3>
+
+        <input id="random-search-input" type="text" placeholder="give me a hint">
+
+        <div sec:authorize="isAnonymous()">
+            <button id="random-name" class="btn btn-primary register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
+        </div>
+        <div sec:authorize ="isAuthenticated()">
+            <button id="random-name-user" class="btn btn-primary register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
+        </div>
     </div>
+
+
 </div>
 </html>
