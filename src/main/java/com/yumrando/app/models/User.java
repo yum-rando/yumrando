@@ -53,8 +53,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Review> reviews;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<RestaurantTag> tags;
 
     @ManyToMany
     @JoinTable(
@@ -66,6 +64,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<FriendList> friends;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserTag> userTagList;
 
     public User(User copy) {
         id = copy.id;
@@ -89,7 +90,7 @@ public class User {
     }
 
     //Read
-    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, List<RestaurantTag> tags, Set<RestaurantTag> favoriteTags, List<FriendList> friends) {
+    public User(long id, String username, String password, String email, String phoneNumber, Date createdTime, String zipcode, String imgURL, String firstName, String lastName, List<ListRestaurant> listOfRestaurant, List<Review> reviews, Set<RestaurantTag> favoriteTags, List<FriendList> friends, List<UserTag> userTagList) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -102,9 +103,9 @@ public class User {
         this.lastName = lastName;
         this.listOfRestaurant = listOfRestaurant;
         this.reviews = reviews;
-        this.tags = tags;
         this.favoriteTags = favoriteTags;
         this.friends = friends;
+        this.userTagList = userTagList;
     }
 
     //Getters & Setters
@@ -204,14 +205,6 @@ public class User {
         this.reviews = reviews;
     }
 
-    public List<RestaurantTag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<RestaurantTag> tags) {
-        this.tags = tags;
-    }
-
     public Set<RestaurantTag> getFavoriteTags() {
         return favoriteTags;
     }
@@ -226,6 +219,13 @@ public class User {
 
     public void setFriends(List<FriendList> friends) {
         this.friends = friends;
+    }
+
+    public List<UserTag> getUserTagList(){
+        return userTagList;
+    }
+    public void setUserTagList(List<UserTag> userTagList){
+        this.userTagList = userTagList;
     }
 
     //Many-To-Many Relationship Methods
