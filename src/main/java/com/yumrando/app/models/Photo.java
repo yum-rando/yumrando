@@ -30,6 +30,10 @@ public class Photo {
         this.description = description;
     }
 
+    public Photo(String url) {
+        this.url = url;
+    }
+
     //Read
     public Photo(long id, String url, String description, Review review) {
         this.id = id;

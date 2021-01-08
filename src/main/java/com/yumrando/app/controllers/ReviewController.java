@@ -2,6 +2,8 @@ package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.*;
 import com.yumrando.app.repos.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ public class ReviewController {
     private UserRepository userDao;
     private ListRestaurantRepository listDao;
     private PhotoRepository photoDao;
+    //private final String fileStackApiKey;
 
     public ReviewController(ReviewRepository reviewDao, RestaurantRepository restaurantDao, UserRepository userDao, ListRestaurantRepository listDao, PhotoRepository photoDao){
         this.reviewDao = reviewDao;
@@ -28,6 +31,18 @@ public class ReviewController {
         this.listDao = listDao;
         this.photoDao = photoDao;
     }
+
+    @Value("${filestack.key}")
+    private String fileStackApiKey;
+
+    @GetMapping("/keys.js")
+    @ResponseBody
+    public String apikey(){
+        System.out.println(fileStackApiKey);
+        return "const FileStackApiKey = `" + fileStackApiKey + "`";
+    }
+
+
     //Showing all reviews for a specific restaurants
 //    @GetMapping("/restaurants/{restaurantId}/reviews/")
 //    List<Review> allReviewsForSpecificRestaurantShow(@PathVariable long restaurantId, Model vModel){
@@ -60,10 +75,12 @@ public class ReviewController {
 
     //updating the review
     @PostMapping("/list/{listId}/restaurant/{restaurantId}/review")
-    public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId){
+    public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId, @RequestParam (name = "photo_image_url") String photoUrl){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Restaurant reviewRest = restaurantDao.findById(restaurantId);
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+        Photo newPhoto = new Photo(photoUrl);
+        List<Photo> reviewPhoto = photoDao.findAllByReview(reviewCheck);
         Date now = new Date();
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
@@ -71,12 +88,17 @@ public class ReviewController {
         if (reviewCheck == null){
             reviewToBeSaved.setUser(reviewUser);
             reviewToBeSaved.setRestaurant(reviewRest);
-
             reviewDao.save(reviewToBeSaved);
+            newPhoto.setReview(reviewToBeSaved);
+            photoDao.save(newPhoto);
+
         } else {
             reviewCheck.setRating(reviewToBeSaved.getRating());
             reviewCheck.setComment(reviewToBeSaved.getComment());
             reviewCheck.setUpdateTime(mysqlUpdateDate);
+            newPhoto.setReview(reviewCheck);
+            photoDao.save(newPhoto);
+            //reviewCheck.setPhotos(reviewToBeSaved.getPhotos());
             reviewDao.save(reviewCheck);
         }
         return "redirect:/" + listId; //this needs to be the list the restaurant in id

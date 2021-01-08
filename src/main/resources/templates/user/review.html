@@ -29,6 +29,11 @@
         <label for="exampleFormControlTextarea1"></label>
         <textarea th:field="*{comment}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
+
+    <img id="photoPreview" src="" alt="" >
+    <input type="hidden" id="photo" name="photo_image_url">
+    <button id="add-photo" class="btn btn-success">Add Photo</button>
+
     <div>
         <button type="submit">Submit</button>
     </div>
@@ -38,7 +43,9 @@
     <img th:src="@{${photo.url}}" th:alt="${photo.description}">
 </div>
 <h1>Manage Photos</h1>
-<button type="submit" id="add-photo" class="btn btn-success">Add Photo</button>
+
+
+
 <button type="submit" id="add-multiple-photos" class="btn btn-success">Add More Than 1 Photos</button>
 <button type="submit" id="delete-photo" class="btn btn-danger">Delete Photo</button>
 <button type="submit" id="delete-multiple-photos" class="btn btn-danger">Delete All Photos</button>
@@ -49,5 +56,7 @@
 <!--</form>-->
 
 <script th:replace="partials/scripts :: script"></script>
+<script th:src="@{/js/apiKey.js}"></script>
+<script th:src="@{/js/filestack.js}"></script>
 </body>
 </html>

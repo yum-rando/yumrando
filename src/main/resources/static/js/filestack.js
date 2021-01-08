@@ -10,23 +10,15 @@ const options = {
     onFileUploadFinished: callback =>{
 
         // I save the filestack image url to a const because I plan to use it in multiple places.
-        const imgURL = callback.url;
+        const photoURL = callback.url;
 
-        // this sets my hidden input to the value of my new image url.
-        $('#image').val(imgURL);
+        $('#photo').val(photoURL);
 
-        // this lets the user see a preview of the image that they uploaded.
-        $('#imagePreview').attr('src',imgURL);
+        $('#photoPreview').attr('src',photoURL);
     }
 }
 // This is an event listen for listening to a click on a button
-$('#addPicture').click(function (event){
-
-    // this is what prevents the button from submiting the form
+$('#add-photo').click(function (event){
     event.preventDefault();
-
-    //we use this to tell filestack to open their file picker interface.
-    // the picker method can take an argument of a options object
-    // where you can specify what you want the picker to do
     client.picker(options).open();
 })
