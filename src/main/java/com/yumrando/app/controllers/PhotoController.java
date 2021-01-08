@@ -32,24 +32,24 @@ public class PhotoController {
     }
 
     //Adding photo (1)
-    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/add")
-    public Photo addPhoto(@PathVariable long listId, @PathVariable long restaurantId, @ModelAttribute Photo photoToBeSaved) {
-        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
-        photoToBeSaved.setReview(reviewCheck);
-        photoDao.save(photoToBeSaved);
-        return photoToBeSaved;
-    }
+//    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/add")
+//    public Photo addPhoto(@PathVariable long listId, @PathVariable long restaurantId, @ModelAttribute Photo photoToBeSaved) {
+//        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+//        photoToBeSaved.setReview(reviewCheck);
+//        photoDao.save(photoToBeSaved);
+//        return photoToBeSaved;
+//    }
 
     //Adding Multiple Photos
 
     //Deleting photo (1)
-    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/delete")
-    public Photo deletePhoto(@PathVariable long listId, @PathVariable long restaurantId){
-        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
-
-    }
+//    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/delete")
+//    public Photo deletePhoto(@PathVariable long listId, @PathVariable long restaurantId){
+//        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+//
+//    }
 
     //Deleting Multiple Photos
 
