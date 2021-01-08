@@ -60,16 +60,16 @@
             })
         }
 
-        const geoHandler = ({coords})=>{
-                localStorage.setItem("yumCoord", JSON.stringify({latitude: coords.latitude, longitude: coords.longitude}));
-                $(".geo-disabled").remove();
-                $("#guest-add-buttons").append(
-                    `
+        const geoHandler = ({coords}) => {
+            localStorage.setItem("yumCoord", JSON.stringify({latitude: coords.latitude, longitude: coords.longitude}));
+            $(".geo-disabled").remove();
+            $("#guest-add-buttons").append(
+                `
                     <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
                         Search Restaurant
                     </button>
                     `
-                )
+            )
             $("#user-add-buttons").append(
                 `
                 <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
@@ -82,7 +82,7 @@
                    <button id="random-name" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
                 `
             )
-            $("#user-random-seach").append(
+            $("#user-random-search").append(
                 `
                    <button id="random-name-user" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
                 `
@@ -198,7 +198,7 @@
                     obtainRestaurant(type + num);
                 });
             });
-            if (resultSet.length === 0){
+            if (resultSet.length === 0) {
                 $(parent).append(
                     `
                     <div class="container">
@@ -247,9 +247,9 @@
 
                             // Clear loader from $('#search-results) (.empty() works well for that)
                             listResult(data.nearby_restaurants, type)
-                        }).catch(()=>{
+                        }).catch(() => {
                             $(searchResultBody).append(
-                              connectErrMessage
+                                connectErrMessage
                             )
                         });
 
@@ -266,7 +266,7 @@
             apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data => {
                 // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
-            }).catch(()=>{
+            }).catch(() => {
                 $(searchResultBody).append(
                     connectErrMessage
                 );
@@ -362,18 +362,18 @@
                 $("#show-modal-label").empty().append(`<h5 class="modal-title">${response.name}</h5>`);
                 $("#show-modal-review").empty().append(`<a href="/review/${response.id}">Review</a>`);
                 $("#show-modal-body").empty();
-            }).catch(()=>{
+            }).catch(() => {
                 $("#show-modal-label").empty();
                 $("#show-modal-review").empty();
                 $("#show-modal-body").empty().append(connectErrMessage);
             })
 
-                let listId = window.location.pathname.substring(1);
-                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
-                $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review">Review</a>`)
-            });
-
+            let listId = window.location.pathname.substring(1);
+            $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+            $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review">Review</a>`);
         });
+
+
 
         const randomizerChoice = size => Math.floor(Math.random() * Math.floor(size));
 
@@ -486,8 +486,8 @@
                     return loopFunc(limit, loop + 1, user);
                 }, randomizerDelay());
             }
-
         }
+
         $('#guest-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
