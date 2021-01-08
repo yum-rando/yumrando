@@ -1,11 +1,7 @@
 package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.*;
-import com.yumrando.app.repos.ListFriendsRepository;
-import com.yumrando.app.repos.ListRestaurantRepository;
-import com.yumrando.app.repos.ReviewRepository;
-import com.yumrando.app.repos.UserRepository;
-import com.yumrando.app.repos.Users;
+import com.yumrando.app.repos.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -26,8 +22,9 @@ public class UserController {
     private final ListRestaurantRepository listDao;
     private final ListFriendsRepository friendDao;
     private final ReviewRepository reviewDao;
+    private final TagRepository tagDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao, TagRepository tagDao){
 
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
@@ -35,6 +32,7 @@ public class UserController {
         this.listDao = listDao;
         this.friendDao = friendDao;
         this.reviewDao = reviewDao;
+        this.tagDao = tagDao;
 
     }
 
@@ -106,12 +104,15 @@ public class UserController {
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
         List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
+        List<RestaurantTag> restTag = tagDao.findAllByUsersId(userId);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
         model.addAttribute("friends", friendDao.findAllByUserId(user.getId()));
         model.addAttribute("requests", friendDao.findAllByFriendId(user.getId()));
         //Need to show the info for the reviews or restaurants in the the descending order for specific user
         model.addAttribute("history", reviews);
+        model.addAttribute("faveTagList", restTag);
+
         return "user/profile";
     }
 
