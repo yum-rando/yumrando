@@ -11,7 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -29,6 +31,27 @@ public class PhotoController {
         this.listDao = listDao;
     }
 
+    //Adding photo (1)
+    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/add")
+    public Photo addPhoto(@PathVariable long listId, @PathVariable long restaurantId, @ModelAttribute Photo photoToBeSaved) {
+        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+        photoToBeSaved.setReview(reviewCheck);
+        photoDao.save(photoToBeSaved);
+        return photoToBeSaved;
+    }
+
+    //Adding Multiple Photos
+
+    //Deleting photo (1)
+    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/delete")
+    public Photo deletePhoto(@PathVariable long listId, @PathVariable long restaurantId){
+        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+
+    }
+
+    //Deleting Multiple Photos
 
 //    @GetMapping("/list/{listId}/restaurant/{restaurantId}/review/photos")
 //    public String viewPhotos(@PathVariable long listId, @PathVariable long restaurantId, Model vModel){
