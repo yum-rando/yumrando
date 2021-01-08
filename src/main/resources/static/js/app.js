@@ -35,18 +35,22 @@
                     if ($(this).attr("id") === "random-name") {
                         $(modalLabel).append(
                             `
-                            <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
-                        `
+                                <h5 class="modal-title">${randomSearchResult.name}</h5>
+                                <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
+                            `
                         );
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
                         })
                     } else {
+                        let addListAnchor = "";
+                        if($("#currentList").val() !== 'default') {
+                            addListAnchor = `<a id="add-random-restUser">Add To List</a>`;
+                        }
                         $(modalLabel).append(
                             `
                             <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <a id="add-random-restUser">Add To List</a>
+                            ${addListAnchor}
                         `
                         );
                         $("#add-random-restUser").click(() => {
@@ -291,6 +295,7 @@
                     <input name="name" type="text" class="form-control" id="name">
                     </div>
                      <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
+                     <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
                  </form>
                 `
             )
@@ -308,6 +313,10 @@
                     $(userListBody).removeClass('d-none');
                     $("#error-message").empty().removeClass("d-none").append(`Error connection. Could not add on new list.`)
                 });
+            });
+            $("#submit-list-cancel").click(()=>{
+                $(userListBody).removeClass("d-none");
+                $("#add-list-form").empty();
             })
         })
 
