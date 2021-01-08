@@ -10,6 +10,7 @@
     <link href="/css/main.css" rel="stylesheet" />
 </head>
 <body>
+
 <!--                <div sec:authorize="isAuthenticated()">-->
 <nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
@@ -41,6 +42,7 @@
                         <button class="btn-link btn" style="margin-top: 8px">Logout</button>
                     </form>
             </div>
+
             </div>
         <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
             <a href="/login" class="btn btn-outline-primary login" sec:authorize="!isAuthenticated()" role="button">Sign In</a>
