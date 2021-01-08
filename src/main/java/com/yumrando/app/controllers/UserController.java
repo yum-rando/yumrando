@@ -195,7 +195,7 @@ public class UserController {
   
   @GetMapping("/about")
     public String about(Model model) {
-        return "about";
+        return "user/about";
     }
 
 
