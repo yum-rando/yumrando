@@ -86,7 +86,7 @@
         $("#submit-friend-request").click(()=>{
             let inputValue = $("#friend-username").val()
             let friend = {username: inputValue }
-            const url = "profile/friends/create"
+            const url = "/profile/friends/create"
             apiCreate(friend, url)
                 .then(()=>{
                     setTimeout(()=>{
