@@ -72,13 +72,15 @@
         const obtainRestaurant = num => {
             if (num.includes('u')) {
                 let restaurant = resultSet[parseInt(num.substring(1))]
+                let cuisines = restaurant.cuisines.split(", ")
                 let postObject = {
                     address: restaurant.location.address,
                     apiId: restaurant.id,
                     name: restaurant.name,
                     website: restaurant.url,
                     city: restaurant.location.city,
-                    zipcode: restaurant.location.zipcode
+                    zipcode: restaurant.location.zipcode,
+                    tags: cuisines
                 }
                 updateCurrentList(postObject);
             } else {
@@ -154,9 +156,11 @@
                         // Attach loader to $('#search-results')
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
+
                             // Clear loader from $('#search-results) (.empty() works well for that)
                             listResult(data.nearby_restaurants, type)
                         });
+
                         break;
                     default:
                         return;
@@ -220,7 +224,9 @@
 
         $("#add-basic-user").click(() => {
             const restaurantName = {
-                name: $("#simple-name").val()
+                name: $("#simple-name").val().trim(),
+                address: $("#simple-address").val().trim(),
+                zipcode: $("#simple-zipcode").val().trim()
             }
             updateCurrentList(restaurantName);
         })
@@ -254,8 +260,9 @@
             let restId = $(this).attr("id").substring(1);
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
+                let listId = window.location.pathname.substring(1);
                 $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
-                $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`)
+                $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review">Review</a>`)
             });
         });
 

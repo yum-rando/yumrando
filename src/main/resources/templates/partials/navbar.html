@@ -10,6 +10,7 @@
     <link href="/css/main.css" rel="stylesheet" />
 </head>
 <body>
+<!--                <div sec:authorize="isAuthenticated()">-->
 <nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
         <div class="container-fluid">
@@ -32,18 +33,20 @@
                             <a class="nav-link links" href="#"><img class="icon" src="/img/letter.png" alt="letter">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link links" href="#"><img class="icon" src="/img/notepad.png" alt="notepad">About Us</a>
+                            <a class="nav-link links" href="/about" th:href="@{'/about/'}"><img class="icon" src="/img/notepad.png" alt="notepad">About Us</a>
                         </li>
                     </ul>
                 </section>
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                    </form>
             </div>
-            <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
-                <a href="/login" class="btn btn-outline-primary login" sec:authorize="!isAuthenticated()" role="button">Sign In</a>
-                <a href="/register" class="btn btn-primary register" sec:authorize="!isAuthenticated()" role="button">Sign Up</a>
-                <a href="/logout" class="btn btn-primary register " sec:authorize="isAuthenticated()" role="button">Log Out</a>
             </div>
+        <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
+            <a href="/login" class="btn btn-outline-primary login" sec:authorize="!isAuthenticated()" role="button">Sign In</a>
+            <a href="/register" class="btn btn-primary register" sec:authorize="!isAuthenticated()" role="button">Sign Up</a>
+            <a href="/logout" class="btn btn-primary register " sec:authorize="isAuthenticated()" role="button">Log Out</a>
         </div>
-
     </nav>
 </nav>
 
