@@ -49,6 +49,11 @@ body{
 
 }
 
+.icon{
+    height: 1em;
+    margin: .25em;
+}
+
 .links:hover{
     text-decoration: underline;
 }
