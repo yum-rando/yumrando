@@ -38,6 +38,7 @@ public class ReviewController {
 
     //viewing a specific review
     @GetMapping("/list/{listId}/restaurant/{restaurantId}/review")
+
     public String viewReview(@PathVariable long restaurantId, @PathVariable long listId, Model vModel, @RequestParam(name = "friend") String confirm){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
@@ -51,12 +52,14 @@ public class ReviewController {
         vModel.addAttribute("restaurantId", restaurantId);
         vModel.addAttribute("restaurantName", restaurantDao.findById(restaurantId).getName());
         vModel.addAttribute("listId", listId);
+
         vModel.addAttribute("friendId", confirm );
 
         return "user/review";
     }
 
     //updating the review
+
     @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/{friendId}")
     public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId, @PathVariable String friendId){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -76,6 +79,7 @@ public class ReviewController {
             reviewCheck.setUpdateTime(mysqlUpdateDate);
             reviewDao.save(reviewCheck);
         }
+
         if(friendId.equals("0")){
             return "redirect:/" + listId;
         }else {

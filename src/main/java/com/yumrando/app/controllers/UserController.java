@@ -35,6 +35,7 @@ public class UserController {
         this.reviewDao = reviewDao;
         this.tagDao = tagDao;
 
+
     }
 
     @GetMapping("/")
@@ -130,7 +131,8 @@ public class UserController {
 
 
     @PostMapping("/profile/friend/accept/{id}")
-    public String acceptFriend (@PathVariable long id){
+
+    public String acceptFriend(@PathVariable long id) {
         FriendList updateFriend = friendDao.findById(id);
         updateFriend.setConfirmation(true);
         friendDao.save(updateFriend);
@@ -163,7 +165,7 @@ public class UserController {
                 } else {
                     return "redirect:/friend/" + id + "/list/" + chosenList.getId();
                 }
-//
+
             }
         }
         return "redirect:/profile";
@@ -190,6 +192,11 @@ public class UserController {
         model.addAttribute("lists", filteredList);
         return "user/friend";
     }
+  
+  @GetMapping("/about")
+    public String about(Model model) {
+        return "user/about";
+    }
 
 
     //This is for the REVIEW CONTROLLER
@@ -206,4 +213,29 @@ public class UserController {
 //    }
 
 
+    @GetMapping("/landing")
+    public String landing(Model model) {
+        return "landing";
+    }
+
+    @GetMapping("/contact")
+    public String contact(Model model) {
+        return "contact";
+    }
 }
+
+    //This is for the REVIEW CONTROLLER
+    //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
+//    public void updateReviewTime(Review review){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        review.setUser(userDb);
+//        Date now = new Date();
+//        String pattern = "yyyy-MM-dd HH:mm:ss";
+//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+//        String mysqlUpdateDate = formatter.format(now);
+//        review.setUpdateTime(mysqlUpdateDate);
+//        reviewDao.save(review);
+//    }
+
+
+
