@@ -207,8 +207,9 @@ body{
 }
 
 /* --- 7. error --- */
-error{
+.error{
     font-family: 'Quando', serif;
     color: #383A47;
     text-align: center;
+    background: #ebefdf;
 }
