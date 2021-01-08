@@ -4,7 +4,7 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"/>
 <h1>Tell us about <span th:text="${restaurantName}"></span>!</h1>
-<form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/'}" th:method="POST" th:object="${review}">
+<form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}" th:method="POST" th:object="${review}">
     <div class="form-check form-check-inline">
         <input th:field="*{rating}" class="form-check-input" type="radio" id="inlineCheckbox1" value="1" required>
         <label class="form-check-label" for="inlineCheckbox1">1</label>

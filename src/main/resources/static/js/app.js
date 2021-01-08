@@ -358,19 +358,15 @@
             let restId = $(this).attr("id").substring(1);
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
+                let listId = window.location.pathname.substring(1);
+                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+                $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>`);
 
-                $("#show-modal-label").empty().append(`<h5 class="modal-title">${response.name}</h5>`);
-                $("#show-modal-review").empty().append(`<a href="/review/${response.id}">Review</a>`);
-                $("#show-modal-body").empty();
             }).catch(() => {
                 $("#show-modal-label").empty();
                 $("#show-modal-review").empty();
                 $("#show-modal-body").empty().append(connectErrMessage);
             })
-
-            let listId = window.location.pathname.substring(1);
-            $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
-            $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review">Review</a>`);
         });
 
 

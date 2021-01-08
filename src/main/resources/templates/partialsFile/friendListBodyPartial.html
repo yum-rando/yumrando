@@ -15,7 +15,7 @@
                             <option th:value="${chosenList.id}" th:text="${chosenList.name}" selected></option>
                         </div>
                         <div th:unless="${chosenList != null}">
-                            <option value="default">Select your list</option>
+                            <option value="default"><span th:text="${friend.username}"></span> has no lists yet.</option>
                         </div>
                         <option th:each = "list : ${lists}" th:value="${list.id}" th:text="${list.name}"></option>
                     </select>

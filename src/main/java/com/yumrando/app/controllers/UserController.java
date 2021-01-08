@@ -150,10 +150,19 @@ public class UserController {
         if(friendCheck != null || inverseCheck != null){
             if (friendCheck == null && inverseCheck.getConfirmation()){
                 ListRestaurant chosenList = listDao.findFirstByUserId(id);
-                return getString(id, model, chosenList);
+                if (chosenList == null){
+                    return "redirect:/friend/" + id + "/list/0";
+                } else {
+                    return "redirect:/friend/" + id + "/list/" + chosenList.getId();
+                }
             } else if (inverseCheck == null && friendCheck.getConfirmation()){
                 ListRestaurant chosenList = listDao.findFirstByUserId(id);
-                return getString(id, model, chosenList);
+                if (chosenList == null){
+                    return "redirect:/friend/" + id + "/list/0";
+                } else {
+                    return "redirect:/friend/" + id + "/list/" + chosenList.getId();
+                }
+//
             }
         }
         return "redirect:/profile";

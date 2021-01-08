@@ -18,10 +18,12 @@
 
         $('.user-restaurants').click(function () {
             let restId = $(this).attr("id").substring(1);
+            const friendId = $("#friend-label").attr('data-id');
+            let listId = $("#currentList").val();
             apiShow(restId, "/restaurant/show/").then(response => {
                 console.log(response);
                 $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
-                $('#show-modal-review').empty().append(`<a href="/review/${response.id}">Review</a>`);
+                $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=${friendId}">Review</a>`);
                 $("#show-modal-body").empty();
             }).catch(()=>{
                 $("#show-modal-label").empty();
