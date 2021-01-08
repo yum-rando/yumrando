@@ -95,7 +95,7 @@ public class UserController {
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
-            return "redirect:/"; // If password equals confirmPassword redirect to index)
+            return "redirect:/login"; // If password equals confirmPassword redirect to index)
         }
         return "user/register";
     }
