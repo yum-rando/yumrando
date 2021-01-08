@@ -38,7 +38,7 @@ public class ReviewController {
 
     //viewing a specific review
     @GetMapping("/list/{listId}/restaurant/{restaurantId}/review")
-    public String viewReview(@PathVariable long restaurantId, @PathVariable long listId, Model vModel){
+    public String viewReview(@PathVariable long restaurantId, @PathVariable long listId, Model vModel, @RequestParam(name = "friend") String confirm){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
         //Checks if it is located in the DB if not then create 1
@@ -51,12 +51,14 @@ public class ReviewController {
         vModel.addAttribute("restaurantId", restaurantId);
         vModel.addAttribute("restaurantName", restaurantDao.findById(restaurantId).getName());
         vModel.addAttribute("listId", listId);
+        vModel.addAttribute("friendId", confirm );
+
         return "user/review";
     }
 
     //updating the review
-    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review")
-    public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId){
+    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/{friendId}")
+    public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId, @PathVariable String friendId){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Restaurant reviewRest = restaurantDao.findById(restaurantId);
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
@@ -74,7 +76,11 @@ public class ReviewController {
             reviewCheck.setUpdateTime(mysqlUpdateDate);
             reviewDao.save(reviewCheck);
         }
-        return "redirect:/" + listId; //this needs to be the list the restaurant in id
+        if(friendId.equals("0")){
+            return "redirect:/" + listId;
+        }else {
+           return "redirect:/friend/" + friendId + "/list/" + listId;
+        }
     }
 
     //Adding Pictures and Deleting Pictures from a review

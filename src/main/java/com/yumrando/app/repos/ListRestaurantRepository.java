@@ -26,4 +26,5 @@ public interface ListRestaurantRepository extends JpaRepository<ListRestaurant, 
     List<ListRestaurant> findAllByUser(User user);
     List<ListRestaurant> findAllByUserId(long id);
     Set<ListRestaurant> findAllByRestaurants(Restaurant restaurant);
+    ListRestaurant findFirstByUserId(long id);
 }
