@@ -1,10 +1,7 @@
 package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.*;
-import com.yumrando.app.repos.ListRestaurantRepository;
-import com.yumrando.app.repos.RestaurantRepository;
-import com.yumrando.app.repos.ReviewRepository;
-import com.yumrando.app.repos.UserRepository;
+import com.yumrando.app.repos.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +19,14 @@ public class ReviewController {
     private RestaurantRepository restaurantDao;
     private UserRepository userDao;
     private ListRestaurantRepository listDao;
+    private PhotoRepository photoDao;
 
-    public ReviewController(ReviewRepository reviewDao, RestaurantRepository restaurantDao, UserRepository userDao, ListRestaurantRepository listDao){
+    public ReviewController(ReviewRepository reviewDao, RestaurantRepository restaurantDao, UserRepository userDao, ListRestaurantRepository listDao, PhotoRepository photoDao){
         this.reviewDao = reviewDao;
         this.restaurantDao = restaurantDao;
         this.userDao = userDao;
         this.listDao = listDao;
+        this.photoDao = photoDao;
     }
     //Showing all reviews for a specific restaurants
 //    @GetMapping("/restaurants/{restaurantId}/reviews/")
@@ -41,9 +40,12 @@ public class ReviewController {
     public String viewReview(@PathVariable long restaurantId, @PathVariable long listId, Model vModel){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+        List<Photo> reviewPhotos = photoDao.findAllByReview(reviewCheck);
+
         //Checks if it is located in the DB if not then create 1
         if (reviewCheck == null){
             vModel.addAttribute("review", new Review());
+            //vModel.addAttribute("photo", new Photo());
         } else {
             vModel.addAttribute("review", reviewCheck);
             System.out.println("reviewCheck.getId() = " + reviewCheck.getId()); //this is working
@@ -51,6 +53,8 @@ public class ReviewController {
         vModel.addAttribute("restaurantId", restaurantId);
         vModel.addAttribute("restaurantName", restaurantDao.findById(restaurantId).getName());
         vModel.addAttribute("listId", listId);
+        vModel.addAttribute("photos", reviewPhotos);
+
         return "user/review";
     }
 
@@ -67,6 +71,7 @@ public class ReviewController {
         if (reviewCheck == null){
             reviewToBeSaved.setUser(reviewUser);
             reviewToBeSaved.setRestaurant(reviewRest);
+
             reviewDao.save(reviewToBeSaved);
         } else {
             reviewCheck.setRating(reviewToBeSaved.getRating());

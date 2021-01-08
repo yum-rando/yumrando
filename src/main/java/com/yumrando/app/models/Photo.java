@@ -1,5 +1,7 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -60,7 +62,7 @@ public class Photo {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    @JsonIgnore
     public Review getReview() {
         return review;
     }

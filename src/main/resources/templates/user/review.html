@@ -33,6 +33,20 @@
         <button type="submit">Submit</button>
     </div>
 </form>
+<h1>Review Photo/Photos</h1>
+<div th:each="photo : ${photos}">
+    <img th:src="@{${photo.url}}" th:alt="${photo.description}">
+</div>
+<h1>Manage Photos</h1>
+<button type="submit" id="add-photo" class="btn btn-success">Add Photo</button>
+<button type="submit" id="add-multiple-photos" class="btn btn-success">Add More Than 1 Photos</button>
+<button type="submit" id="delete-photo" class="btn btn-danger">Delete Photo</button>
+<button type="submit" id="delete-multiple-photos" class="btn btn-danger">Delete All Photos</button>
+<!--<form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos'}" th:method="POST" th:object="${photo}">-->
+<!--    <input type="url" th:field="*{url}" placeholder="Photo Url Here">-->
+<!--    <input type="text" th:field="*{description}" placeholder="Picture Description Here">-->
+<!--    <button type="submit">Add Picture</button>-->
+<!--</form>-->
 
 <script th:replace="partials/scripts :: script"></script>
 </body>
