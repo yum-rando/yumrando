@@ -206,4 +206,9 @@ body{
     height: 30em;
 }
 
-/* --- 7. footer --- */
+/* --- 7. error --- */
+error{
+    font-family: 'Quando', serif;
+    color: #383A47;
+    text-align: center;
+}
