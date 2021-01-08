@@ -36,6 +36,9 @@ public class RestUserController {
             return new ResponseEntity<>("User doesn't exist.", HttpStatus.NOT_FOUND);
         }
         User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user.getUsername().equals(currUser.getUsername())){
+            return new ResponseEntity<>(user, HttpStatus.UNAUTHORIZED);
+        }
         FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), friend.getId());
         FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(friend.getId(), currUser.getId());
         if ((friendCheck != null) || (inverseCheck != null)){

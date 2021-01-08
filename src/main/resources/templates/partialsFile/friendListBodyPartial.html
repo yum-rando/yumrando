@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras">
+<div th:fragment="friend-list-body">
+    <div class="container">
+        <div class="row">
+            <h2 id="friend-label" th:attr="data-id=${friend.id}"><span th:text="${friend.username}"></span>'s List</h2>
+        </div>
+        <div class="row">
+            <div th:if="${lists != null}">
+                <form>
+                    <label for="currentList"></label>
+                    <select  class="form-select" name="currentList" id="currentList">
+                        <div th:if="${chosenList != null}">
+                            <option th:value="${chosenList.id}" th:text="${chosenList.name}" selected></option>
+                        </div>
+                        <div th:unless="${chosenList != null}">
+                            <option value="default">Select your list</option>
+                        </div>
+                        <option th:each = "list : ${lists}" th:value="${list.id}" th:text="${list.name}"></option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+                <div th:if="${chosenList == null}" class="container" id="user-list-initial">
+                </div>
+                <div th:if="${chosenList != null}" class="container" id="user-list-items">
+                    <div th:each="rest : ${chosenList.restaurants}">
+                        <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal" data-bs-target="#showModal">
+                                <h6 th:text="${rest.name}"></h6>
+<!--                            <div class="col-3">-->
+<!--                                <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">-->
+<!--                                    <button>Delete</button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</html>
