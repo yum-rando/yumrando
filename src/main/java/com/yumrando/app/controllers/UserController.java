@@ -27,7 +27,7 @@ public class UserController {
     private final ListFriendsRepository friendDao;
     private final ReviewRepository reviewDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao) {
 
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
@@ -128,7 +128,7 @@ public class UserController {
 
 
     @PostMapping("/profile/friend/accept/{id}")
-    public String acceptFriend (@PathVariable long id){
+    public String acceptFriend(@PathVariable long id) {
         FriendList updateFriend = friendDao.findById(id);
         updateFriend.setConfirmation(true);
         friendDao.save(updateFriend);
@@ -136,11 +136,26 @@ public class UserController {
     }
 
     @PostMapping("/profile/friend/delete/{id}")
-    public String deleteFriend (@PathVariable long id){
+    public String deleteFriend(@PathVariable long id) {
         friendDao.deleteById(id);
         return "redirect:/profile";
     }
 
+    @GetMapping("/about")
+    public String about(Model model) {
+        return "about";
+    }
+
+    @GetMapping("/landing")
+    public String landing(Model model) {
+        return "landing";
+    }
+
+    @GetMapping("/contact")
+    public String contact(Model model) {
+        return "contact";
+    }
+}
 
     //This is for the REVIEW CONTROLLER
     //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
@@ -156,4 +171,4 @@ public class UserController {
 //    }
 
 
-}
+
