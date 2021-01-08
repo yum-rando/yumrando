@@ -5,7 +5,9 @@ xmlns:sec="http://www.thymeleaf.org/extras">
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <div>Randomizer Tool</div>
+                <div>
+                    <img id="rain" src="/img/yumRain.gif" alt="food rain">
+                </div>
                 <div id="random-button-tool"></div>
                 <div sec:authorize = "isAnonymous()">
                 <button id="guest-random" class="register" type="button"> Rando </button>

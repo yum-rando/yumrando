@@ -6,16 +6,10 @@
 <body>
 
 <nav th:replace="partials/navbar :: navbar"/>
-<!--header-->
-<div class="jumbotron jumbotron-fluid homeJumbo">
-    <div class="container fryFriend">
-        <img class="mx-auto d-block img-fluid" src="/img/blueKetchupFries.png" alt="cartoon ketchup and fries">
-    </div>
-</div>
+<div th:replace="partials/headerIndex :: header"></div>
+
+
 <div class="container-fluid">
-    <div>
-<!--pink semi circle-->
-    </div>
     <div class="pineapple">
         <img id="pineapple" class="float-end d-none d-md-block" src="/img/pinkPineapple.png" alt="semicircle & pineapple">
     </div>
@@ -25,7 +19,7 @@
 <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
 <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
 <div th:replace="partialsFile/app :: app"></div>
-
+<div th:replace="partials/footer :: foot"></div>
 
 
 <script th:replace="partials/scripts :: script"></script>
