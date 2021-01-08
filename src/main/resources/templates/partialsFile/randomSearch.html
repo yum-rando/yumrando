@@ -2,17 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="random-search">
-    <h3>Surprise me by name!</h3>
-    <input id="random-search-input" type="text">
-    <div sec:authorize="isAnonymous()" id="guest-random-search">
-      <span class="d-inline-block geo-disabled" data-bs-toggle="popover" data-bs-content="Allow browser to know your location to activate feature.">
-                        <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Surprise Me</button>
-                    </span>
+
+    <div>
+        <img id="phone" src="/img/whitePhone.png" alt="magic phone">
     </div>
-    <div sec:authorize ="isAuthenticated()" id="user-random-search">
-          <span class="d-inline-block geo-disabled" data-bs-toggle="popover" data-bs-content="Allow browser to know your location to activate feature.">
-                        <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Surprise Me</button>
+    <div id="magicText">
+        <h3 id="predict">Predict My Next Meal</h3>
+
+        <input id="random-search-input" type="text" placeholder="give me a hint">
+
+
+            <div sec:authorize="isAnonymous()" id="guest-random-search">
+                <span class="d-inline-block geo-disabled" data-bs-toggle="popover"
+                      data-bs-content="Allow browser to know your location to activate feature.">
+                    <button class="btn btn-primary register" style="pointer-events: none;" type="button" disabled>Presto Yum-o</button>
+                </span>
+
+            </div>
+            <div sec:authorize="isAuthenticated()" id="user-random-search">
+          <span class="d-inline-block geo-disabled" data-bs-toggle="popover"
+                data-bs-content="Allow browser to know your location to activate feature.">
+                        <button class="btn btn-primary register" style="pointer-events: none;" type="button" disabled>Presto Yum-o</button>
                     </span>
+
+            </div>
     </div>
 </div>
+
+
+
 </html>

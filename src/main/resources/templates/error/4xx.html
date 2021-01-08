@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head (Title = '500 Error')"></head>
+<body>
+    <!--Not Found-->
+    <th:block th:switch="${error}">
+        <div class="card error">
+            <img src="/img/404error.png" alt="404 error">
+            <div class="card-body error">
+                <h1 class="card-title">Oops! We can't find the page you're looking for.</h1>
+                <h2>Try going back to our <a href="/">homepage.</a></h2>
+            </div>
+        </div>
+
+        <!--Forbidden-->
+        <div th:case="'Forbidden'">
+            <div class="card">
+                <img src="/img/error.png" alt="error">
+                <div class="card-body error">
+                    <h1 class="card-title">Oh no...<br>You don't have permission to go here yet.</h1>
+                    <h2>Try going back to our <a href="/">homepage.</a></h2>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

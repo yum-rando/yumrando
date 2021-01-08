@@ -83,12 +83,12 @@
             )
             $("#guest-random-search").append(
                 `
-                   <button id="random-name" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
+                   <button id="random-name" class="btn btn-primary activate-search register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
                 `
             )
             $("#user-random-search").append(
                 `
-                   <button id="random-name-user" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
+                   <button id="random-name-user" class="btn btn-primary activate-search register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
                 `
             )
             searchRandomEvent();

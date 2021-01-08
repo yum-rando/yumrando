@@ -1,5 +1,7 @@
 package com.yumrando.app.controllers;
 
+
+import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.RestaurantTag;
 import com.yumrando.app.models.User;
 import com.yumrando.app.repos.ListRestaurantRepository;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @CrossOrigin
 @RestController
@@ -37,7 +41,17 @@ public class RestRestaurantTagController {
         long activeUserId = activeUser.getId();
 
         List<RestaurantTag> allTagList = tagDao.findAll();
-        return new ResponseEntity<>(allTagList, HttpStatus.OK);
+
+
+
+        List<RestaurantTag> filteredList = allTagList.stream().filter(tag -> tagDao.findByIdAndUsersId(tag.getId(), activeUserId) == null).collect(Collectors.toList());
+        return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
+
+//    @PostMapping("/tags")
+//    ResponseEntity <Object> acceptSelectedTags(){
+//
+//    }
+
 
 }
