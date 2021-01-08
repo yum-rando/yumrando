@@ -35,18 +35,22 @@
                     if ($(this).attr("id") === "random-name") {
                         $(modalLabel).append(
                             `
-                            <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
-                        `
+                                <h5 class="modal-title">${randomSearchResult.name}</h5>
+                                <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
+                            `
                         );
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
                         })
                     } else {
+                        let addListAnchor = "";
+                        if($("#currentList").val() !== 'default') {
+                            addListAnchor = `<a id="add-random-restUser">Add To List</a>`;
+                        }
                         $(modalLabel).append(
                             `
                             <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <a id="add-random-restUser">Add To List</a>
+                            ${addListAnchor}
                         `
                         );
                         $("#add-random-restUser").click(() => {
