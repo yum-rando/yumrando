@@ -10,9 +10,10 @@
                     <input name="name" type="text" class="form-control" id="name">
                     </div>
                      <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
+                     <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
                  </form>
                 `
-    )
+        )
         $('#submit-list').click(()=>{
 
             let listObject = {
@@ -25,6 +26,10 @@
                 $(".list-items").removeClass('d-none');
                 $("#error-message").empty().removeClass("d-none").append(`Connection Error. Could not add on new list.`)
             });
+        });
+        $("#submit-list-cancel").click(()=>{
+            $(".list-items").removeClass("d-none");
+            $("#list-form").empty();
         })
     })
 
@@ -80,6 +85,7 @@
                     </div>
                     </div>
                      <button id="submit-friend-request" type="button" class="btn btn-primary">Submit</button>
+                     <button id="submit-friend-request-cancel" type="button" class="btn btn-secondary">Cancel</button>
                  </form>
                 `
         )
@@ -95,6 +101,10 @@
                 .catch(()=> {
                 $("#friend-username").addClass("is-invalid");
             })
+        });
+        $("#submit-friend-request-cancel").click(()=>{
+            $("#friend-list").removeClass("d-none");
+            $("#friend-form").empty();
         })
     });
 
