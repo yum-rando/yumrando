@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
-xmlns:sec="http://www.thymeleaf.org/extras">
+      xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="list-body">
     <div class="container">
-        <div sec:authorize = "isAuthenticated()">
-        <div th:replace="partialsFile/userToolbar :: user-toolbar"></div>
+        <div sec:authorize="isAuthenticated()">
+            <div th:replace="partialsFile/userToolbar :: user-toolbar"></div>
         </div>
-    <div class="row">
-        <div sec:authorize = "isAuthenticated()">
-            <div id="add-list-form"></div>
-            <div th:if="${chosenList == null}" class="container" id="user-list-initial">
-            </div>
-            <div th:if="${chosenList != null}" class="container" id="user-list-items">
-                <div th:each="rest : ${chosenList.restaurants}">
-                    <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal" data-bs-target="#showModal">
-                    <div class="col-9">
-                        <h6 th:text="${rest.name}"></h6>
-                    </div>
-                        <div class="col-3">
-                        <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
-                            <button>Delete</button>
-                        </form>
-                        </div>
+        <div class="row">
+            <div sec:authorize="isAuthenticated()">
+                <div id="add-list-form"></div>
+                <div th:if="${chosenList == null}" class="container" id="user-list-initial">
+                </div>
+                <div th:if="${chosenList != null}" class="container" id="user-list-items">
+                    <div th:each="rest : ${chosenList.restaurants}">
+                        <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal"
+                             data-bs-target="#showModal">
+                            <div class="col-9">
+                                <h6 th:text="${rest.name}"></h6>
+                            </div>
+                            <div class="col-3">
+                                <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
+                                    <button>Delete</button>
+                                </form>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div sec:authorize="isAnonymous()">
-            <div id="restaurant-items"></div>
-        </div>
+            <div sec:authorize="isAnonymous()">
+                <div id="restaurant-items"></div>
+            </div>
 
-    </div>
-    <div class="row">
-        <div sec:authorize="isAnonymous()">
-        <div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                Add Restaurant
-            </button>
-            <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
-                Search Restaurant
-            </button>
         </div>
+        <div class="row">
+            <div sec:authorize="isAnonymous()">
+                <div id="guest-add-buttons">
+                    <button type="button" class="btn btn-primary active-search-modal" data-bs-toggle="modal"
+                            data-bs-target="#addModal">
+                        Add Restaurant
+                    </button>
+                    <span class="d-inline-block geo-disabled" data-bs-toggle="popover" data-bs-content="Allow browser to know your location to activate feature.">
+                        <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Search Restaurant</button>
+                    </span>
+                </div>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <div id="user-add-buttons">
+                    <button type="button" class="btn btn-primary active-search-modal" data-bs-toggle="modal"
+                            data-bs-target="#addModal">
+                        Add Restaurant
+                    </button>
+                    <span class="d-inline-block geo-disabled" data-bs-toggle="popover" data-bs-content="Allow browser to know your location to activate feature.">
+                        <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Search Restaurant</button>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div sec:authorize="isAuthenticated()">
-        <div id="user-add-buttons">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-               Add Restaurant
-            </button>
-            <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
-                Search Restaurant
-            </button>
-        </div>
-        </div>
-    </div>
     </div>
 </div>
 </html>

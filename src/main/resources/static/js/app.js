@@ -2,7 +2,7 @@
     "use strict"
     $(document).ready(() => {
 
-        let tagSelection = [];
+        // let tagSelection = [];
         let randomSearchResult = {};
         let initialList = [];
         const searchResultBody = "#search-results, #search-results-user";
@@ -13,6 +13,82 @@
                 </div>
         `
 
+        const searchRandomEvent = () => {
+            $('#random-name, #random-name-user').click(function () {
+                $("#show-modal-review, #show-modal-body").empty();
+                let nameValue = $('#random-search-input').val();
+                let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
+                let modalLabel = "#show-modal-label";
+                $(modalLabel).empty();
+
+                apiSearch(searchName(nameValue, coordInput.latitude, coordInput.longitude)).then(data => {
+                    let chosenIndex = randomizerChoice(data.restaurants.length);
+                    let chosenRestaurant = data.restaurants[chosenIndex].restaurant;
+                    randomSearchResult = {
+                        address: chosenRestaurant.location.address,
+                        apiId: chosenRestaurant.id,
+                        name: chosenRestaurant.name,
+                        website: chosenRestaurant.url,
+                        city: chosenRestaurant.location.city,
+                        zipcode: chosenRestaurant.location.zipcode
+                    }
+                    if ($(this).attr("id") === "random-name") {
+                        $(modalLabel).append(
+                            `
+                            <h5 class="modal-title">${randomSearchResult.name}</h5>
+                            <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
+                        `
+                        );
+                        $("#add-random-rest").click(() => {
+                            updateLocal(chosenRestaurant);
+                        })
+                    } else {
+                        $(modalLabel).append(
+                            `
+                            <h5 class="modal-title">${randomSearchResult.name}</h5>
+                            <a id="add-random-restUser">Add To List</a>
+                        `
+                        );
+                        $("#add-random-restUser").click(() => {
+                            updateCurrentList(randomSearchResult);
+                        })
+                    }
+
+                }).catch(() => {
+                    $("#show-modal-body").empty().append(connectErrMessage);
+                })
+            })
+        }
+
+        const geoHandler = ({coords})=>{
+                localStorage.setItem("yumCoord", JSON.stringify({latitude: coords.latitude, longitude: coords.longitude}));
+                $(".geo-disabled").remove();
+                $("#guest-add-buttons").append(
+                    `
+                    <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        Search Restaurant
+                    </button>
+                    `
+                )
+            $("#user-add-buttons").append(
+                `
+                <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    Search Restaurant
+                </button>
+                `
+            )
+            $("#guest-random-search").append(
+                `
+                   <button id="random-name" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
+                `
+            )
+            $("#user-random-seach").append(
+                `
+                   <button id="random-name-user" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#showModal">Surprise me</button>
+                `
+            )
+            searchRandomEvent();
+        }
         const arrayConstructor = () => {
             let listDisplayItems = localStorage.getItem("yumList");
             if (listDisplayItems === null) {
@@ -141,15 +217,9 @@
             updateLocal(objectConvert);
             basicInput.val("");
             listBasic(arrayConstructor());
-            tagSelection = [];
+            // tagSelection = [];
             $("#tag-choices, #tag-addon").empty();
             $("#tag-choice").toggleClass('d-none')
-        })
-
-        $(".activate-search").click(()=>{
-            if (localStorage.getItem("yumCoord") === null) {
-                geoLocation();
-            }
         })
 
         const selectRest = '#search-select';
@@ -430,51 +500,8 @@
             loopFunc(loopLimit, 0, 'user');
         })
 
-        $('#random-name, #random-name-user').click(function () {
-            $("#show-modal-review, #show-modal-body").empty();
-            let nameValue = $('#random-search-input').val();
-            let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-            let modalLabel = "#show-modal-label";
-            $(modalLabel).empty();
 
-            apiSearch(searchName(nameValue, coordInput.latitude, coordInput.longitude)).then(data => {
-                let chosenIndex = randomizerChoice(data.restaurants.length);
-                let chosenRestaurant = data.restaurants[chosenIndex].restaurant;
-                randomSearchResult = {
-                    address: chosenRestaurant.location.address,
-                    apiId: chosenRestaurant.id,
-                    name: chosenRestaurant.name,
-                    website: chosenRestaurant.url,
-                    city: chosenRestaurant.location.city,
-                    zipcode: chosenRestaurant.location.zipcode
-                }
-                if ($(this).attr("id") === "random-name") {
-                    $(modalLabel).append(
-                        `
-                            <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
-                        `
-                    );
-                    $("#add-random-rest").click(() => {
-                        updateLocal(chosenRestaurant);
-                    })
-                } else {
-                    $(modalLabel).append(
-                        `
-                            <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <a id="add-random-restUser">Add To List</a>
-                        `
-                    );
-                    $("#add-random-restUser").click(() => {
-                        updateCurrentList(randomSearchResult);
-                    })
-                }
-
-            }).catch(()=>{
-                $("#show-modal-body").empty().append(connectErrMessage);
-            })
-        })
-
+        geoLocation(geoHandler);
         listBasic(arrayConstructor());
         selectEvent(selectRest, "");
         selectEvent(selectRestUser, 'u');
@@ -483,6 +510,7 @@
         inputSearchSetup('#nameSearchUser', 'u');
 
         userInitialList();
+        searchRandomEvent();
 
 
     })
