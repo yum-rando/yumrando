@@ -60,7 +60,6 @@ public class ReviewController {
         //Checks if it is located in the DB if not then create 1
         if (reviewCheck == null){
             vModel.addAttribute("review", new Review());
-            //vModel.addAttribute("photo", new Photo());
         } else {
             vModel.addAttribute("review", reviewCheck);
             System.out.println("reviewCheck.getId() = " + reviewCheck.getId()); //this is working
@@ -80,7 +79,7 @@ public class ReviewController {
         Restaurant reviewRest = restaurantDao.findById(restaurantId);
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
         Photo newPhoto = new Photo(photoUrl);
-        List<Photo> reviewPhoto = photoDao.findAllByReview(reviewCheck);
+        //List<Photo> reviewPhotos = photoDao.findAllByReview(reviewCheck);
         Date now = new Date();
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
@@ -91,14 +90,11 @@ public class ReviewController {
             reviewDao.save(reviewToBeSaved);
             newPhoto.setReview(reviewToBeSaved);
             photoDao.save(newPhoto);
-
         } else {
             reviewCheck.setRating(reviewToBeSaved.getRating());
             reviewCheck.setComment(reviewToBeSaved.getComment());
             reviewCheck.setUpdateTime(mysqlUpdateDate);
             newPhoto.setReview(reviewCheck);
-            photoDao.save(newPhoto);
-            //reviewCheck.setPhotos(reviewToBeSaved.getPhotos());
             reviewDao.save(reviewCheck);
         }
         return "redirect:/" + listId; //this needs to be the list the restaurant in id
@@ -118,5 +114,15 @@ public class ReviewController {
         }
         reviewDao.deleteById(reviewCheck.getId());
         return "redirect:/" + listId;
+    }
+
+    //Deleting a Photo
+    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/{photoId}/delete")
+    public String deletePhotoFromReview(@PathVariable long listId, @PathVariable long restaurantId, @PathVariable long photoId){
+        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+        photoDao.deleteById(photoId);
+        //return "redirect: /list/" + listId + "/restaurant/" + restaurantId + "/review";
+        return "redirect: /list/" + listId + "/restaurant/" + restaurantId + "/review";
     }
 }
