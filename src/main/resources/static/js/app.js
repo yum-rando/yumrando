@@ -216,14 +216,16 @@
         }
 
         $('#add-basic').click(() => {
-            let basicInput = $('#simple-name');
-            let objectConvert = {name: basicInput.val()};
-            updateLocal(objectConvert);
-            basicInput.val("");
-            listBasic(arrayConstructor());
-            // tagSelection = [];
-            $("#tag-choices, #tag-addon").empty();
-            $("#tag-choice").toggleClass('d-none')
+            let basicInput = $('#simple-name').val();
+            if(basicInput !== "") {
+                let objectConvert = {name: basicInput};
+                updateLocal(objectConvert);
+                listBasic(arrayConstructor());
+                // tagSelection = [];
+                $("#tag-choices, #tag-addon").empty();
+                $("#tag-choice").toggleClass('d-none');
+                $("#simple-name, #simple-address, #simple-zipcode").val("");
+            }
         })
 
         const selectRest = '#search-select';
