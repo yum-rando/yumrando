@@ -496,12 +496,18 @@
         $('#guest-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
+            if (arrayConstructor().length <= 2){
+                loopLimit = 3;
+            }
             loopFunc(loopLimit, 0, 'guest');
         })
 
         $('#user-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
+            if($('.user-restaurants').length <=2){
+                loopLimit = 3;
+            }
             loopFunc(loopLimit, 0, 'user');
         })
 
