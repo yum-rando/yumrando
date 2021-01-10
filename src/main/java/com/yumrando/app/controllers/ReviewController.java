@@ -126,5 +126,16 @@ public class ReviewController {
         return "redirect:/list/" + listId + "/restaurant/" + restaurantId + "/review";
     }
 
-    //Delete all photos?
+    //Delete all photos
+    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/photos/delete-all")
+    public String deleteAllPhotosFromReview(@PathVariable long listId, @PathVariable long restaurantId){
+        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
+        List<Photo> photosCheck = photoDao.findAllByReview(reviewCheck);
+        if (photosCheck != null){
+            //photoDao.deletePhotosByReview(reviewCheck); //works with the @Transactional annotation
+            photoDao.deleteAllByReview(reviewCheck); //works with the @Transactional annotation
+        }
+        return "redirect:/list/" + listId + "/restaurant/" + restaurantId + "/review";
+    }
 }

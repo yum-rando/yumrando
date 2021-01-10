@@ -39,16 +39,14 @@
     </div>
 </form>
 <h1>Review Photo/Photos</h1>
+<div class="d-inline" th:if="${photos.size()} > 3">
+    <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos/delete-all'}" th:method="POST">
+        <button type="submit" id="delete-all-photos" class="btn btn-danger">Delete All Photos</button>
+    </form>
+</div>
+
 <div class="d-inline" th:each="photo : ${photos}">
     <img th:src="@{${photo.url}}" class="img-fluid" th:alt="${photo.description}">
-    <span>Photo Id# </span>
-    <span th:text="${photo.id}"></span>
-    <span>Review Id# </span>
-    <span th:text="${photo.getReview().id}"></span>
-    <span>Restaurant Id# </span>
-    <span th:text="${photo.getReview().getRestaurant().id}"></span>
-    <span>User Id# </span>
-    <span th:text="${photo.getReview().getUser().id}"></span>
     <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos/' + ${photo.id} + '/delete'}" th:method="POST">
         <button type="submit" id="delete-photo" class="btn btn-danger">Delete Photo</button>
     </form>
