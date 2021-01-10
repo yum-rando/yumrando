@@ -95,6 +95,7 @@ public class ReviewController {
             reviewCheck.setComment(reviewToBeSaved.getComment());
             reviewCheck.setUpdateTime(mysqlUpdateDate);
             newPhoto.setReview(reviewCheck);
+            photoDao.save(newPhoto);
             reviewDao.save(reviewCheck);
         }
         return "redirect:/" + listId; //this needs to be the list the restaurant in id
@@ -122,7 +123,8 @@ public class ReviewController {
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
         photoDao.deleteById(photoId);
-        //return "redirect: /list/" + listId + "/restaurant/" + restaurantId + "/review";
-        return "redirect: /list/" + listId + "/restaurant/" + restaurantId + "/review";
+        return "redirect:/list/" + listId + "/restaurant/" + restaurantId + "/review";
     }
+
+    //Delete all photos?
 }
