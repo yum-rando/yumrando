@@ -277,11 +277,16 @@
 
             });
         }
-
+        let timer;
         const inputSearchSetup = (selector, type) => {
-            $(document).on('change', selector, () => {
-                if (typeof $(selector).val() !== 'undefined')
-                    inputSearch(selector, type);
+            $(document).on('keyup', selector, () => {
+                if (typeof $(selector).val() !== 'undefined'){
+                    clearTimeout(timer);
+                   timer = setTimeout(()=> {
+                       inputSearch(selector, type);
+                   },350);
+                }
+
             })
         }
 
