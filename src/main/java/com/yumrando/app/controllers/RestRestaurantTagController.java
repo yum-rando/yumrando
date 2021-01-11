@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,9 +44,24 @@ public class RestRestaurantTagController {
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
 
-//    @PostMapping("/tags")
-//    ResponseEntity <Object> acceptSelectedTags(){
-//
-//    }
+    @PostMapping("/tags")
+    ResponseEntity <Object> acceptSelectedTags(@RequestBody List<RestaurantTag> requestedRestList){
+    User activeUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    long userID = activeUser.getId();
+
+        for (RestaurantTag requestedRest : requestedRestList ) {
+            RestaurantTag userTag = tagDao.findById(requestedRest.getId());
+            Set<User> setUsers = userTag.getUsers();
+            if(setUsers == null) {
+                Set<User> newUser = new HashSet<>();
+                newUser.add(userDao.findById(userID));
+                userTag.setUsers(newUser);
+            }else{
+                setUsers.add(userDao.findById(userID));
+            }
+                tagDao.save(userTag);
+        }
+        return new ResponseEntity <>(requestedRestList, HttpStatus.OK);
+    }
 
 }
