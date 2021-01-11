@@ -97,6 +97,9 @@ public class ReviewController {
                 newPhoto.setUrl(null);
             }
             photoDao.save(newPhoto);
+            if (newPhoto.getUrl() == null){
+                photoDao.deleteById(newPhoto.getId());
+            }
         } else {
             reviewCheck.setRating(reviewToBeSaved.getRating());
             reviewCheck.setComment(reviewToBeSaved.getComment());
@@ -106,6 +109,9 @@ public class ReviewController {
                 newPhoto.setUrl(null);
             }
             photoDao.save(newPhoto);
+            if (newPhoto.getUrl() == null){
+                photoDao.deleteById(newPhoto.getId());
+            }
             reviewDao.save(reviewCheck);
         }
 
