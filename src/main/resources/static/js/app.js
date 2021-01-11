@@ -221,14 +221,16 @@
         }
 
         $('#add-basic').click(() => {
-            let basicInput = $('#simple-name');
-            let objectConvert = {name: basicInput.val()};
-            updateLocal(objectConvert);
-            basicInput.val("");
-            listBasic(arrayConstructor());
-            // tagSelection = [];
-            $("#tag-choices, #tag-addon").empty();
-            $("#tag-choice").toggleClass('d-none')
+            let basicInput = $('#simple-name').val();
+            if(basicInput !== "") {
+                let objectConvert = {name: basicInput};
+                updateLocal(objectConvert);
+                listBasic(arrayConstructor());
+                // tagSelection = [];
+                $("#tag-choices, #tag-addon").empty();
+                $("#tag-choice").toggleClass('d-none');
+                $("#simple-name, #simple-address, #simple-zipcode").val("");
+            }
         })
 
         const selectRest = '#search-select';
@@ -244,9 +246,9 @@
                     case "name":
 
                         if (type === "") {
-                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearch"/>`)
+                            $(modalBody).append(`<input placeholder="Search by words" id="nameSearch"/>`)
                         } else {
-                            $(modalBody).append(`<input placeholder="Search by Name" id="nameSearchUser"/>`)
+                            $(modalBody).append(`<input placeholder="Search by words" id="nameSearchUser"/>`)
                         }
                         break;
                     case "near":
@@ -283,10 +285,18 @@
             });
         }
 
+        let timer;
+
         const inputSearchSetup = (selector, type) => {
-            $(document).on('change', selector, () => {
-                if (typeof $(selector).val() !== 'undefined')
-                    inputSearch(selector, type);
+            $(document).on('keyup', selector, (e) => {
+                e.preventDefault();
+                if (typeof $(selector).val() !== 'undefined'){
+                    clearTimeout(timer);
+                   timer = setTimeout(()=> {
+                       inputSearch(selector, type);
+                   },350);
+                }
+
             })
         }
 
@@ -297,15 +307,22 @@
                 `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Enter a name for your list:</label>
-                    <input name="name" type="text" class="form-control" id="name">
+                    <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
                      <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
                      <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
                  </form>
                 `
             )
-            $('#submit-list').click(() => {
 
+            $('.deny-submit:not([type="submit"])').keydown(e => {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $('#submit-list').click(() => {
                 let listObject = {
                     name: $('#name').val()
                 }
@@ -368,7 +385,8 @@
 //             })
 //         })
 
-        $('.user-restaurants').click(function () {
+        $('.user-restaurants').click(function (e) {
+            e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
@@ -509,14 +527,25 @@
         $('#guest-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
+            if (arrayConstructor().length <= 2){
+                loopLimit = 3;
+            }
             loopFunc(loopLimit, 0, 'guest');
         })
 
         $('#user-random').click(function () {
             $(this).attr("disabled", true);
             let loopLimit = randomizerLoop();
+            if($('.user-restaurants').length <=2){
+                loopLimit = 3;
+            }
             loopFunc(loopLimit, 0, 'user');
         })
+        const preventInputDef = ()=> {
+            $(document).on("keyup", ".submit-need", e => {
+                e.preventDefault();
+            })
+        }
 
 
         geoLocation(geoHandler);
@@ -529,6 +558,7 @@
 
         userInitialList();
         searchRandomEvent();
+        preventInputDef();
 
 
     })

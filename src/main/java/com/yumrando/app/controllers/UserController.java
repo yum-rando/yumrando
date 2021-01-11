@@ -34,8 +34,6 @@ public class UserController {
         this.friendDao = friendDao;
         this.reviewDao = reviewDao;
         this.tagDao = tagDao;
-
-
     }
 
     @GetMapping("/")
@@ -105,7 +103,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
-        List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
+        List<Review> reviews = reviewDao.findTop5ByUserOrderByUpdateTimeDesc(user);
         List<RestaurantTag> restTag = tagDao.findAllByUsersId(userId);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
@@ -123,6 +121,12 @@ public class UserController {
     public String editProfileBtn(@ModelAttribute User userToBeUpdated) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userToBeUpdated.setId(userDb.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
+        if (userToBeUpdated.getEmail().isEmpty()){
+            userToBeUpdated.setEmail(null);
+        }
+        if(userToBeUpdated.getPhoneNumber().isEmpty()){
+            userToBeUpdated.setPhoneNumber(null);
+        }
         userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
         userToBeUpdated.setUsername(userDb.getUsername()); //Needed this since the username can't be null in a post
         userDao.save(userToBeUpdated);

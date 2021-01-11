@@ -32,16 +32,16 @@ User Stories:
 
 As a guest ...
 
-On the landing page I expect to see the randomizer tool.
-On the landing page I will have two options to create the list to be randomized.
-I can create a restaurant entry by clicking "Add List" will pop up a modal to enter information.
-On the add restaurant to list modal, I can type a name and submit or I can search by location (zipcode).
+On the landing page I expect to see the randomizer tool. DONE
+On the landing page I will have two options to create the list to be randomized. DONE
+I can create a restaurant entry by clicking "Add List" will pop up a modal to enter information. DONE
+On the add restaurant to list modal, I can type a name and submit or I can search by location (zipcode). DONE
 On the landing page I expect to see a "Yum" button to activate the randomizer.
 On the landing page I expect to see some animation on the randomizer.
-On the landing page I expect to see animation for my chosen restaurant.
-I can refresh the browser and still have my created list. (local storage)
+On the landing page I expect to see animation for my chosen restaurant. MODAL
+I can refresh the browser and still have my created list. (local storage) DONE
 On the landing page I expect to be advertised to sign up if I want more control of my list.
-On the landing page I expect to see a sign up link to redirect to a sign up page.
+On the landing page I expect to see a sign up link to redirect to a sign up page. DONE
 On the sign up page I expect to see a form to fill in password, username, and email (optional).
 After signing up, I expect to go back to the landing page as a User.
 After signing up, I expect my list to be already registered in my personal data (db).
