@@ -216,13 +216,34 @@ p{
     height: 100vh;
 }
 
+/* modal */
+.modal-content {
+    background: #F3F6E6;
+}
+.modal-header{
+    background: #F3F6E6;
+}
 
+.modal-footer{
+    background: #7cd0bd;
+}
+.modal-title{
+    color: #383A47;
+    font-weight: bolder;
+}
+.modal-address{
+    color: #7cd0bd;
+}
 
+.modal-close{
+    float: end;
+    color: #E0719E;
+}
 /* custom css */
 
 
 
-/* --- 1. Common Styles --- */
+/* Common Styles */
 *{
     padding:0;
     margin:0;
@@ -233,7 +254,7 @@ body{
     height: 100vh;
     background-color: #383A47;
 }
-/* --- 2. Navbar --- */
+/* Navbar */
 .navbar{
     background: #383A47 !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -313,7 +334,7 @@ body{
 }
 
 
-/* --- 3. Load animation --- */
+/* Load animation */
 #logo{
     position: absolute;
     top:50%;
@@ -357,7 +378,7 @@ body{
 }
 
 
-/* --- 4. Jumbotron --- */
+/* Jumbotron */
 
 .homeJumbo{
     background-image: url("/img/zoomBlueDots.png");
@@ -393,7 +414,7 @@ body{
     height: 335px;
 }
 
-/* --- 6. surprise me --- */
+/* surprise me*/
 #phone{
     height: 40em;
 }
@@ -413,52 +434,17 @@ body{
     font-family: 'Quando', serif;
 }
 
-/* --- 6. randomizer gif --- */
+/* randomizer gif  */
 #rain{
     height: 30em;
 }
 
-/* --- 7. error --- */
+/* error  */
 .error{
     font-family: 'Quando', serif;
     color: #383A47;
     text-align: center;
     background: #ebefdf;
-}
-
-/* Media Queries *
-/
-/*X-Small devices (portrait phones, less than 576px)*/
-/*No media query for `xs` since this is the default in Bootstrap*/
-
-/*Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-
-}
-
-
-/*Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {
-
-}
-
-
-/*Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-
-}
-
-/*X-Large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {
-
-}
-
-/*XX-Large devices (larger desktops, 1400px and up)*/
-@media (min-width: 1400px) {
-
-}
-    border: #F3F6E6 2px solid;
-    margin: 1em;
 }
 
 .btn-green:hover{
@@ -468,281 +454,7 @@ body{
 
 }
 
-/* text colors */
-.navy{
-   color: #383A47;
-}
-
-.yellow{
-    color: #eed949;
-}
-
-.green{
-    color: #7cd0bd;
-}
-
-.pink{
-    color: #E0719E;
-}
-
-.white{
-    color: #F3F6E6;
-}
-
-.lilac{
-    color: #AAC6FC;
-}
-
-/* landing page */
-.jumbotron{
-    background-size: cover;
-    height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-}
-.logoLanding{
-    z-index: 2;
-    width: 20%;
-    position: relative;
-}
-.carousel-item span{
-    font-size: 5em;
-    font-weight: bolder;
-    font-family: 'Quando', serif;
-}
-
-.landingButton{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: relative;
-    top: 5em;
-    right: 2em;
-    z-index: 2;
-}
-
-/* login and register */
-#loginBody, #registerBody{
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    height: 100vh;
-}
-
-
-
-/* custom css */
-
-
-
-/* --- 1. Common Styles --- */
-*{
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
-}
-body{
-    width: 100%;
-    height: 100vh;
-    background-color: #383A47;
-}
-/* --- 2. Navbar --- */
-.navbar{
-    background: #383A47 !important;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#navLogo{
-    width: 229px;
-    height: 46px;
-    left: 58px;
-    top: 7px;
-}
-
-.toggle{
-    color: #AAC6FC !important;
-    border: #AAC6FC;
-}
-
-.collapse:not(.show){
-    display: none;
-}
-
-.links{
-    font-family: 'Quando', serif;    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-    color: #AAC6FC !important;
-}
-
-.icon{
-    height: 1em;
-    margin: .25em;
-}
-
-.links:hover{
-    text-decoration: underline;
-}
-
-.login{
-    font-family: 'Quando', serif;    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-
-    color: #E0719E;
-    background: #F3F6E6;
-    border: 1px solid #E0719E;
-    box-sizing: border-box;
-    border-radius: 6px;
-    margin: .5em;
-}
-
-.login:hover{
-    color: #F3F6E6;
-    background: #E0719E;
-    border: 1px solid #E0719E;
-}
-
-.register{
-    font-family: 'Quando', serif;    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-
-    color: #F3F6E6;
-    background: #E0719E;
-    border-radius: 6px;
-    border: 1px solid #E0719E;
-    margin: .5em;
-}
-
-.register:hover{
-    color: #AAC6FC;
-    background: #E0719E;
-    border: 1px solid #AAC6FC;
-
-}
-
-
-/* --- 3. Load animation --- */
-#logo{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-}
-.yum_0{
-    stroke-dasharray: 3713px;
-    stroke-dashoffset: 3714px;
-    animation: yum_draw_0 3100ms ease-in-out 0ms infinite;
-}
-.yum_1{
-    stroke-dasharray: 3713px;
-    stroke-dashoffset: 3714px;
-    animation: yum_draw_1 3100ms ease-in-out 0ms infinite;
-}
-.yum_2{
-    stroke-dasharray: 3713px;
-    stroke-dashoffset: 3714px;
-    animation: yum_draw_2 3100ms ease-in-out 0ms infinite;
-}
-@keyframes yum_draw {100%{stroke-dashoffset: 0;}}
-@keyframes yum_fade {0%{stroke-opacity: 1;}
-    96.7741935483871%{stroke-opacity:1;}
-    100%{stroke-opacity:0;}
-}
-@keyframes yum_draw_0 {
-    0%{stroke-dashoffset: 3714}
-    96.7741935483871%{ stroke-dashoffset: 0;}
-    100%{ stroke-dashoffset: 0;}
-}
-@keyframes yum_draw_1 {
-    0%{stroke-dashoffset: 3714}
-    96.7741935483871%{ stroke-dashoffset: 0;}
-    100%{ stroke-dashoffset: 0;}
-}
-@keyframes yum_draw_2 {
-    0%{stroke-dashoffset: 3714}
-    96.7741935483871%{ stroke-dashoffset: 0;}
-    100%{ stroke-dashoffset: 0;}
-}
-
-
-/* --- 4. Jumbotron --- */
-
-.homeJumbo{
-    background-image: url("/img/zoomBlueDots.png");
-    height: 460px;
-    margin: 0;
-    text-align:center;
-    vertical-align: center;
-}
-
-.fryFriend{
-    width: 818px;
-    height: 457px;
-}
-
-.blueGrid{
-    background-image: url("img/blueGrid.png");
-    height: 20%;
-}
-/* --- 5. index --- */
-#semiCircle{
-    height: 335px;
-    position: relative;
-    bottom: 8em;
-    z-index: 1;
-}
-
-.pineapple{
-    /*position: absolute;*/
-    /*left: 75%;*/
-    margin-top: 1em;
-}
-#pineapple{
-    height: 335px;
-}
-
-/* --- 6. surprise me --- */
-#phone{
-    height: 40em;
-}
-#magicText{
-    position: relative;
-    bottom: 34em;
-    left: 5em;
-}
-
-#predict{
-    font-family: 'Lobster Two', cursive;
-    color: #383A47;
-}
-#random-search-input{
-    background: #AAC6FC;
-    border: 1px solid #3d3f4d;
-    font-family: 'Quando', serif;
-}
-
-/* --- 6. randomizer gif --- */
-#rain{
-    height: 30em;
-}
-
-/* --- 7. error --- */
-.error{
-    font-family: 'Quando', serif;
-    color: #383A47;
-    text-align: center;
-    background: #ebefdf;
-}
-
-/* Media Queries *
-/
+/* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
 /*No media query for `xs` since this is the default in Bootstrap*/
 

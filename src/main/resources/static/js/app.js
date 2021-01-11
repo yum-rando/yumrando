@@ -30,7 +30,7 @@
                         name: chosenRestaurant.name,
                         website: chosenRestaurant.url,
                         city: chosenRestaurant.location.city,
-                        zipcode: chosenRestaurant.location.zipcode
+                        zipcode: chosenRestaurant.location.zipcode,
                     }
                     if ($(this).attr("id") === "random-name") {
                         $(modalLabel).append(
@@ -191,12 +191,12 @@
                     `<div class="container">
                         <div class="row">
                             <div class="col-9">
-                                <h5>${restaurant.name}</h5>
-                                <p>${restaurant.location.address}</p>
+                                <h5 class="modal-restName">${restaurant.name}</h5>
+                                <p class="modal-restInfo">${restaurant.location.address}</p>
                                 <div>${restaurant.location.tags}</div>
                              </div>
                              <div class="col-3">
-                                 <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button> 
+                                 <button id="${type + num}" type="button" class="btn btn-pink" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
                     </div>
