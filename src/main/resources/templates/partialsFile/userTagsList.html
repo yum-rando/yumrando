@@ -3,7 +3,7 @@
 <div th:fragment="user-lists-tags" class="container my-3">
     <div class="row">
         <div class="col-9">
-            <h4>My Favorite Tags</h4>
+            <h4>My Favorite Cuisine</h4>
         </div>
         <div class="col-3">
             <button id="edit-tag-list" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tagsModal">Edit</button>
@@ -15,7 +15,10 @@
             <div class="col-10" th:text="${faveTags.name}">
             </div>
             <div class="col-2">
-                <button class="btn btn-danger">x</button>
+<!--                <form th:action="@{'/delete/'+ ${faveTags.name} + '/' + ${user.id}}" method="POST">-->
+<!--                    <button>-</button>-->
+<!--                </form>-->
+                <button class="btn btn-danger" >x</button>
             </div>
 
         </div>
