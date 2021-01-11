@@ -34,8 +34,6 @@ public class UserController {
         this.friendDao = friendDao;
         this.reviewDao = reviewDao;
         this.tagDao = tagDao;
-
-
     }
 
     @GetMapping("/")
@@ -105,7 +103,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = user.getId();
         List<ListRestaurant> listings = listDao.findAllByUserId(userId);
-        List<Review> reviews = reviewDao.findAllByUserOrderByUpdateTimeDesc(user);
+        List<Review> reviews = reviewDao.findTop5ByUserOrderByUpdateTimeDesc(user);
         List<RestaurantTag> restTag = tagDao.findAllByUsersId(userId);
         model.addAttribute("lists", listings);
         model.addAttribute("userInfo", userDao.findById(userId));
