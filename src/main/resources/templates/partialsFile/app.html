@@ -4,14 +4,19 @@ xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="app">
     <div class="container">
         <div class="row">
+            <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
+        </div>
+        <div class="row">
             <div class="col-6">
-                <div>Randomizer Tool</div>
+                <div>
+<!--                    <img id="rain" src="/img/yumRain.gif" alt="food rain">-->
+                </div>
                 <div id="random-button-tool"></div>
                 <div sec:authorize = "isAnonymous()">
-                <button id="guest-random" type="button">Randomize</button>
+                <button id="guest-random" class="register" type="button"> Rando </button>
                 </div>
                 <div sec:authorize = "isAuthenticated()">
-                    <button id="user-random" type="button">Randomize</button>
+                    <button id="user-random" class="register" type="button"> Rando </button>
                 </div>
             </div>
             <div class="col-6">

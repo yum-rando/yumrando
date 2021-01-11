@@ -1,13 +1,14 @@
 "use strict"
-const geoLocation = () => {
-    if (localStorage.getItem("yumCoord") === null) {
-        window.navigator.geolocation.getCurrentPosition(
-            ({coords})=> {
-                localStorage.setItem("yumCoord",
-                    JSON.stringify({ latitude: coords.latitude, longitude: coords.longitude}));
-            }
-        )
+
+const geoLocation = callback => {
+    if(navigator.geolocation) {
+        window.navigator.geolocation.getCurrentPosition(callback)
+    } else {
+        alert("Browser doesn't support geolocation");
     }
 }
 
-geoLocation();
+let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+})

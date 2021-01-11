@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head (Title = '500 Error')"></head>
+<body>
+    <th:block>
+        <div class="card">
+            <img src="/img/error.png" alt="error">
+            <div class="card-body error">
+                <h1 class="card-title">Oops! Something went wrong.</h1>
+                <h2>Try going back to our <a href="/">homepage.</a></h2>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>
