@@ -136,6 +136,7 @@
         window.location.assign(url);
     })
 
+<<<<<<< HEAD
 let filterArray = []
   const cancelInputSubmit = ()=>{
       $('.deny-submit:not([type="submit"])').keydown(e => {
@@ -145,6 +146,10 @@ let filterArray = []
           }
       });
   }
+=======
+
+let filterArray = []
+>>>>>>> a5a7bf363dd32925f0bd58eda80c73dd8d5cabe0
 
 
 
@@ -185,6 +190,19 @@ apiTagSearch("/tags").then((data)=>{console.log(data)})
         })
     })
 
+<<<<<<< HEAD
+=======
+
+  const cancelInputSubmit = ()=>{
+      $('.deny-submit:not([type="submit"])').keydown(e => {
+          if (e.keyCode == 13) {
+              e.preventDefault();
+              return false;
+          }
+      });
+  }
+
+>>>>>>> a5a7bf363dd32925f0bd58eda80c73dd8d5cabe0
 
 
 })(jQuery);
