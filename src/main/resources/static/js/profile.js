@@ -7,13 +7,14 @@
             `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Enter a name for your list:</label>
-                    <input name="name" type="text" class="form-control" id="name">
+                    <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
                      <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
                      <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
                  </form>
                 `
         )
+        cancelInputSubmit();
         $('#submit-list').click(()=>{
 
             let listObject = {
@@ -47,12 +48,13 @@
             `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Edit the name of your list:</label>
-                    <input name="name" value="${listName}" type="text" class="form-control" id="nameEdit">
+                    <input name="name" value="${listName}" type="text" class="form-control deny-submit" id="nameEdit">
                     </div>
                      <button id="submit-listEdit" type="button" class="btn btn-primary">Submit</button>
                  </form>
                 `
         )
+        cancelInputSubmit();
         $('#submit-listEdit').click(()=>{
 
             let listObject = {
@@ -79,7 +81,7 @@
             `<form>
                     <div class="mb-3">
                     <label for="name" class="form-label">Type the username you would like to send a friend request:</label>
-                    <input name="name" type="text" class="form-control" id="friend-username">
+                    <input name="name" type="text" class="form-control deny-submit" id="friend-username">
                     <div class="invalid-feedback">
                     Invalid username entered.
                     </div>
@@ -89,6 +91,7 @@
                  </form>
                 `
         )
+        cancelInputSubmit();
         $("#submit-friend-request").click(()=>{
             let inputValue = $("#friend-username").val()
             let friend = {username: inputValue }
@@ -115,8 +118,14 @@
         window.location.assign(url);
     })
 
-
-
+  const cancelInputSubmit = ()=>{
+      $('.deny-submit:not([type="submit"])').keydown(e => {
+          if (e.keyCode == 13) {
+              e.preventDefault();
+              return false;
+          }
+      });
+  }
 
 apiTagSearch("/tags").then((data)=>{console.log(data)})
 
