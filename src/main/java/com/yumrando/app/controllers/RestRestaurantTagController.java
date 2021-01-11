@@ -1,5 +1,6 @@
 package com.yumrando.app.controllers;
 
+
 import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.RestaurantTag;
 import com.yumrando.app.models.User;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 @CrossOrigin
 @RestController
@@ -40,6 +42,9 @@ public class RestRestaurantTagController {
         long activeUserId = activeUser.getId();
 
         List<RestaurantTag> allTagList = tagDao.findAll();
+
+
+
         List<RestaurantTag> filteredList = allTagList.stream().filter(tag -> tagDao.findByIdAndUsersId(tag.getId(), activeUserId) == null).collect(Collectors.toList());
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
@@ -63,5 +68,6 @@ public class RestRestaurantTagController {
         }
         return new ResponseEntity <>(requestedRestList, HttpStatus.OK);
     }
+
 
 }

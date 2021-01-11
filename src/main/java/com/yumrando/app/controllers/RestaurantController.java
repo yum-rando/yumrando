@@ -44,61 +44,6 @@ public class RestaurantController {
         return "index";
     }
 
-    //Reading/Selecting 10 most recent Restaurant Choices
-    @GetMapping("/restaurants/{username}/most-recent")
-    public String showMostRecent(@PathVariable String username, Model vModel){
-        System.out.println(username);
-        User user = userDao.findByUsername(username);
-        //Review review = reviewDao.findReviewByRestaurantId(1).getUser();
-
-        //Need to review all the restaurants to sort out by the 10 most recent chosen
-        //Used the stream method to further apply limit of 10 option to the list of restaurants
-        //List<Restaurant> mostRecent = restaurantDao.findByOrderByChosenTimeDesc();
-
-        List<Review> reviews = reviewDao.findAllByUser(user);
-
-        //Send to the front
-        vModel.addAttribute("recentReviews", reviews);
-
-
-        //Issue --> How to tie this in with the specific user and their choices for restaurants
-            //Might have to go thru the Review table since that is a direct connection between Users and Restaurants without a list
-
-        return "user/test";
-    }
-
-    //Randomizer Button --> POST REQUEST
-    //Front end will randomize the restaurant and send the final randomized choice to back end with an ID
-    //That will then be search on the back end via that ID to find specific restaurant to update its chosen date
-//    @PostMapping("/restaurant/randomizer/{id}")
-//    public String randomizerBtn(@PathVariable long id){
-////        //This is not needed since it will be done on the front end
-////        List<Restaurant> restaurants = restaurantDao.findAll();
-////        int randomizerIndex = new Random().nextInt(restaurants.size());
-////        Restaurant randomizedRestaurant = restaurants.get(randomizerIndex);
-//
-//        //User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = reviewDao.findReviewByRestaurantId(id).getUser();
-//        Restaurant restaurantChosen = restaurantDao.findById(id);
-//        restaurantChosen.setChosenTime(new Date());
-//
-//        //New updated date save to the chosen randomized restaurant
-//        restaurantDao.save(restaurantChosen);
-//
-//
-//        //Formatting the current date to send to DB for update
-//        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        //Current Date
-//        String currentDate = sdFormat.format(new Date());
-//
-//        //Sending the new updated time to the DB restaurant table as an object
-//        //restaurantDao.save();
-//
-//        //vModel.addAttribute("randomRestaurant", randomizedRestaurant);
-//
-//        return "redirect:/user/profile";
-//    }
-
 
     //Deleting a restaurant from a list
     @PostMapping("/delete/{listId}/{restaurantIdToBeDeleted}")
@@ -111,42 +56,6 @@ public class RestaurantController {
         listDao.save(list);
 
         return "redirect:/" + listId;
-    }
-    @GetMapping("/review/{id}")
-    public String reviewRestaurantForm(Model model, @PathVariable long id){
-//        check to see if restaurant has reviews if so does logged in user have one for this restaurant
-        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Restaurant restCheck = restaurantDao.findById(id);
-
-
-        // **** Ad Error page for 404 ****
-        if(restCheck == null){
-            return "redirect:/"; // if User has review for restaurant then redirect to home
-        }
-
-        Review reviewCheck = reviewDao.findReviewByUserIdAndRestaurantId(reviewUser.getId(), id);
-
-        if(reviewCheck == null){
-            model.addAttribute("review", new Review());
-        }else{
-            model.addAttribute("review", reviewCheck);
-        }
-        model.addAttribute("id", id);
-        model.addAttribute("restaurantName", restaurantDao.findById(id).getName());
-        return "user/review";
-
-
-
-    }
-    @PostMapping("/review/{id}")
-    public String saveReview(@ModelAttribute Review review, @PathVariable long id){
-        User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        review.setUser(reviewUser);
-        Restaurant revRestaurant = restaurantDao.findById(id);
-        review.setRestaurant(revRestaurant);
-        reviewDao.save(review);
-//        have to redirect to specific list item
-        return "redirect:/" + id;
     }
 
     //Deleting Restaurant (Admin)

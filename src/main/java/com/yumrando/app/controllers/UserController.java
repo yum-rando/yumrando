@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -33,6 +34,7 @@ public class UserController {
         this.friendDao = friendDao;
         this.reviewDao = reviewDao;
         this.tagDao = tagDao;
+
 
     }
 
@@ -129,7 +131,8 @@ public class UserController {
 
 
     @PostMapping("/profile/friend/accept/{id}")
-    public String acceptFriend (@PathVariable long id){
+
+    public String acceptFriend(@PathVariable long id) {
         FriendList updateFriend = friendDao.findById(id);
         updateFriend.setConfirmation(true);
         friendDao.save(updateFriend);
@@ -140,6 +143,59 @@ public class UserController {
     public String deleteFriend (@PathVariable long id){
         friendDao.deleteById(id);
         return "redirect:/profile";
+    }
+
+    @GetMapping("/friend/{id}")
+    public String viewFriend (@PathVariable long id, Model model){
+        User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), id);
+        FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(id, currUser.getId());
+        if(friendCheck != null || inverseCheck != null){
+            if (friendCheck == null && inverseCheck.getConfirmation()){
+                ListRestaurant chosenList = listDao.findFirstByUserId(id);
+                if (chosenList == null){
+                    return "redirect:/friend/" + id + "/list/0";
+                } else {
+                    return "redirect:/friend/" + id + "/list/" + chosenList.getId();
+                }
+            } else if (inverseCheck == null && friendCheck.getConfirmation()){
+                ListRestaurant chosenList = listDao.findFirstByUserId(id);
+                if (chosenList == null){
+                    return "redirect:/friend/" + id + "/list/0";
+                } else {
+                    return "redirect:/friend/" + id + "/list/" + chosenList.getId();
+                }
+
+            }
+        }
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/friend/{id}/list/{listId}")
+    public String viewFriendSpecific (@PathVariable long id, @PathVariable long listId, Model model){
+        User currUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        FriendList friendCheck = friendDao.findAllByUserIdAndFriendId(currUser.getId(), id);
+        FriendList inverseCheck = friendDao.findAllByUserIdAndFriendId(id, currUser.getId());
+        if(friendCheck != null || inverseCheck != null){
+            ListRestaurant chosenList = listDao.findById(listId);
+            return getString(id, model, chosenList);
+        }
+        return "redirect:/profile";
+    }
+
+    private String getString(@PathVariable long id, Model model, ListRestaurant chosenList) {
+        User friend = userDao.findById(id);
+        List<ListRestaurant> lists = listDao.findAllByUserId(id);
+        List<ListRestaurant> filteredList = lists.stream().filter(l -> l.getId() != chosenList.getId()).collect(Collectors.toList());
+        model.addAttribute("chosenList", chosenList);
+        model.addAttribute("friend", friend);
+        model.addAttribute("lists", filteredList);
+        return "user/friend";
+    }
+  
+  @GetMapping("/about")
+    public String about(Model model) {
+        return "user/about";
     }
 
 
@@ -157,4 +213,29 @@ public class UserController {
 //    }
 
 
+    @GetMapping("/landing")
+    public String landing(Model model) {
+        return "landing";
+    }
+
+    @GetMapping("/contact")
+    public String contact(Model model) {
+        return "contact";
+    }
 }
+
+    //This is for the REVIEW CONTROLLER
+    //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
+//    public void updateReviewTime(Review review){
+//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        review.setUser(userDb);
+//        Date now = new Date();
+//        String pattern = "yyyy-MM-dd HH:mm:ss";
+//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+//        String mysqlUpdateDate = formatter.format(now);
+//        review.setUpdateTime(mysqlUpdateDate);
+//        reviewDao.save(review);
+//    }
+
+
+

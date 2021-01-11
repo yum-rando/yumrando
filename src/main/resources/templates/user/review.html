@@ -4,9 +4,9 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"/>
 <h1>Tell us about <span th:text="${restaurantName}"></span>!</h1>
-<form th:action="@{'/review/' + ${id}}" th:method="post" th:object="${review}">
+<form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}" th:method="POST" th:object="${review}">
     <div class="form-check form-check-inline">
-        <input th:field="*{rating}" class="form-check-input" type="radio" id="inlineCheckbox1" value="1">
+        <input th:field="*{rating}" class="form-check-input" type="radio" id="inlineCheckbox1" value="1" required>
         <label class="form-check-label" for="inlineCheckbox1">1</label>
     </div>
     <div class="form-check form-check-inline">
@@ -29,11 +29,32 @@
         <label for="exampleFormControlTextarea1"></label>
         <textarea th:field="*{comment}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
+
+    <img id="photoPreview" src="" alt="" >
+    <input type="hidden" id="photo" name="photo_image_url">
+    <button id="add-photo" class="btn btn-success">Add Photo</button>
+
     <div>
         <button type="submit">Submit</button>
     </div>
 </form>
+<h1>Review Photo/Photos</h1>
+<div class="d-inline" th:if="${photos.size()} > 3">
+    <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos/delete-all'}" th:method="POST">
+        <button type="submit" id="delete-all-photos" class="btn btn-danger">Delete All Photos</button>
+    </form>
+</div>
+
+<div class="d-inline" th:each="photo : ${photos}">
+    <img th:src="@{${photo.url}}" class="img-fluid" th:alt="${photo.description}">
+    <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos/' + ${photo.id} + '/delete'}" th:method="POST">
+        <button type="submit" id="delete-photo" class="btn btn-danger">Delete Photo</button>
+    </form>
+</div>
+
 
 <script th:replace="partials/scripts :: script"></script>
+<script th:src="@{/js/apiKey.js}"></script>
+<script th:src="@{/js/filestack.js}"></script>
 </body>
 </html>
