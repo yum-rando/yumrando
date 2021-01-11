@@ -52,7 +52,6 @@ public class ReviewController {
 
     //viewing a specific review
     @GetMapping("/list/{listId}/restaurant/{restaurantId}/review")
-
     public String viewReview(@PathVariable long restaurantId, @PathVariable long listId, Model vModel, @RequestParam(name = "friend") String confirm){
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
@@ -75,7 +74,6 @@ public class ReviewController {
     }
 
     //updating the review
-
     @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/{friendId}")
     public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId, @PathVariable String friendId, @RequestParam (name = "photo_image_url") String photoUrl){
 
@@ -83,7 +81,6 @@ public class ReviewController {
         Restaurant reviewRest = restaurantDao.findById(restaurantId);
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
         Photo newPhoto = new Photo(photoUrl);
-        //List<Photo> reviewPhotos = photoDao.findAllByReview(reviewCheck);
         Date now = new Date();
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
@@ -122,16 +119,14 @@ public class ReviewController {
         }
     }
 
-
     //Deleting Review --> not needed but will add anyway
     @PostMapping("/delete/list/{listId}/restaurant/{restaurantId}/review")
     public String deleteRestaurantFromList(@PathVariable long listId, @PathVariable long restaurantId) {
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
-        if (reviewCheck.getPhotos() != null){
-            for (Photo photo : reviewCheck.getPhotos() ) {
-                reviewCheck.getPhotos().remove(photo);
-            }
+        List<Photo> photosCheck = photoDao.findAllByReview(reviewCheck);
+        if (photosCheck != null){
+            photoDao.deleteAllByReview(reviewCheck); //works with the @Transactional annotation
         }
         reviewDao.deleteById(reviewCheck.getId());
         return "redirect:/" + listId;
@@ -158,7 +153,6 @@ public class ReviewController {
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
         List<Photo> photosCheck = photoDao.findAllByReview(reviewCheck);
         if (photosCheck != null){
-            //photoDao.deletePhotosByReview(reviewCheck); //works with the @Transactional annotation
             photoDao.deleteAllByReview(reviewCheck); //works with the @Transactional annotation
         }
         if(friendId.equals("0")){
