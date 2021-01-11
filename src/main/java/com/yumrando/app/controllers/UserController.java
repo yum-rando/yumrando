@@ -127,7 +127,6 @@ public class UserController {
         if(userToBeUpdated.getPhoneNumber().isEmpty()){
             userToBeUpdated.setPhoneNumber(null);
         }
-        System.out.println(userToBeUpdated.getEmail());
         userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
         userToBeUpdated.setUsername(userDb.getUsername()); //Needed this since the username can't be null in a post
         userDao.save(userToBeUpdated);
