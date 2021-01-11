@@ -13,14 +13,14 @@
                     <div sec:authorize="isAnonymous()">
                     <select id="search-select" class="form-select form-select-lg mb-3">
                         <option selected>Search by ...</option>
-                        <option value="name">Restaurant Name</option>
+                        <option value="name">Words</option>
                         <option value="near">Restaurants Near Me</option>
                     </select>
                     </div>
                     <div sec:authorize="isAuthenticated()">
                         <select id="search-select-user" class="form-select form-select-lg mb-3">
                             <option selected>Search by ...</option>
-                            <option value="name">Restaurant Name</option>
+                            <option value="name">Words</option>
                             <option value="near">Restaurants Near Me</option>
                         </select>
                     </div>
