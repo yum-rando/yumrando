@@ -50,6 +50,94 @@
     color: #383A47;
 }
 
+.btn-green {
+    background-color: #7cd0bd;
+    color: #383A47;
+    font-weight: bold;
+}
+/* basic text */
+h1 {
+    color: #AAC6FC;
+    font-family: 'Quando', serif;
+    font-weight: bold;
+}
+h2{
+    color: #AAC6FC;
+    font-family: 'Lobster Two', cursive;
+}
+h3{
+    color: #AAC6FC;
+    font-family: 'Quando', serif;
+}
+h4{
+    color: #AAC6FC;
+    font-family: 'Quando', serif;
+
+}
+h5{
+    color: #AAC6FC;
+    font-family: 'Quando', serif;
+
+}
+h6{
+    color: #AAC6FC;
+    font-family: 'Quando', serif;
+
+}
+p{
+    color: #AAC6FC;
+    font-family: 'Quando', serif;
+}
+
+
+/* background colors*/
+.bg-navy{
+    background-color: #383A47;
+}
+
+.bg-yellow{
+    background-color: #eed949;
+}
+
+.bg-green{
+    background-color: #7cd0bd;
+}
+
+.bg-pink{
+    background-color: #E0719E;
+}
+
+.bg-white{
+    background-color: #F3F6E6;
+}
+
+.bg-lilac{
+    background-color: #AAC6FC;
+}
+
+/* button colors */
+.btn-pink{
+    background-color: #E0719E;
+    color: #F3F6E6;
+    font-weight: bold;
+}
+
+.btn-pink:hover{
+    background-color: #dda8b8;
+    color: #F3F6E6;
+}
+
+.btn-yellow{
+    background-color: #eed949;
+    color: #383A47;
+    font-weight: bold;
+}
+
+.btn-yellow:hover {
+    background-color: #e9e3bf;
+    color: #383A47;
+}
+
 .btn-green{
     background-color: #7cd0bd;
     color: #383A47;
@@ -67,7 +155,7 @@
 
 /* text colors */
 .navy{
-   color: #383A47;
+    color: #383A47;
 }
 
 .yellow{
@@ -128,13 +216,34 @@
     height: 100vh;
 }
 
+/* modal */
+.modal-content {
+    background: #F3F6E6;
+}
+.modal-header{
+    background: #F3F6E6;
+}
 
+.modal-footer{
+    background: #7cd0bd;
+}
+.modal-title{
+    color: #383A47;
+    font-weight: bolder;
+}
+.modal-address{
+    color: #7cd0bd;
+}
 
+.modal-close{
+    float: end;
+    color: #E0719E;
+}
 /* custom css */
 
 
 
-/* --- 1. Common Styles --- */
+/* Common Styles */
 *{
     padding:0;
     margin:0;
@@ -145,7 +254,7 @@ body{
     height: 100vh;
     background-color: #383A47;
 }
-/* --- 2. Navbar --- */
+/* Navbar */
 .navbar{
     background: #383A47 !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -225,7 +334,7 @@ body{
 }
 
 
-/* --- 3. Load animation --- */
+/* Load animation */
 #logo{
     position: absolute;
     top:50%;
@@ -269,7 +378,7 @@ body{
 }
 
 
-/* --- 4. Jumbotron --- */
+/* Jumbotron */
 
 .homeJumbo{
     background-image: url("/img/zoomBlueDots.png");
@@ -305,7 +414,7 @@ body{
     height: 335px;
 }
 
-/* --- 6. surprise me --- */
+/* surprise me*/
 #phone{
     height: 40em;
 }
@@ -325,12 +434,12 @@ body{
     font-family: 'Quando', serif;
 }
 
-/* --- 6. randomizer gif --- */
+/* randomizer gif  */
 #rain{
     height: 30em;
 }
 
-/* --- 7. error --- */
+/* error  */
 .error{
     font-family: 'Quando', serif;
     color: #383A47;
@@ -338,8 +447,14 @@ body{
     background: #ebefdf;
 }
 
-/* Media Queries *
-/
+.btn-green:hover{
+    background-color: #c7e2e2;
+    color: #383A47;
+    border: #F3F6E6 2px solid;
+
+}
+
+/* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
 /*No media query for `xs` since this is the default in Bootstrap*/
 
