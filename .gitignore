@@ -34,4 +34,4 @@ build/
 
 src/main/resources/application.properties
 
-src/main/resources/static/apiKey.js
+src/main/resources/static/js/apiKey.js

@@ -39,11 +39,9 @@ public class ListRestaurantController {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ListRestaurant list = listDao.findAllByUserAndId(userDb, listId);
         Set<Restaurant> restaurants = list.getRestaurants();
+        //Removing all the restaurants from the lists 1st
         if (restaurants != null){
-            //Removing the restaurants from the Lists 1st to satisfy the many-to-many relationship
-            for (Restaurant res : restaurants) {
-                res.removeListFromRestaurant(list);
-            }
+            list.removeAllRestaurantsFromList(restaurants);
         }
         //Removing the list from the user
         listDao.deleteById(listId); //this works
