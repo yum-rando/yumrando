@@ -40,6 +40,10 @@ public class RestRestaurantController {
         listDao.findAllByUser(userDb);
         ListRestaurant listRes = listDao.findAllByUserAndId(userDb, id);
         String restName = restaurantToBeSaved.getName();
+        if (restName.isEmpty()){
+            return listRes.getRestaurants();
+        }
+
         String restZipcode = restaurantToBeSaved.getZipcode();
 
         //Find a restaurant by the ZIPCODE and RESTAURANT NAME CONTAINING

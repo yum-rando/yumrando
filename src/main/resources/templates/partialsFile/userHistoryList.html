@@ -56,9 +56,7 @@
 <!--            </table>-->
 <!--            Below is bringing in all of the restaurants in descending order via the updateTime, the if statement limits its to 5-->
             <div th:each="rando : ${history}">
-                <div th:if="${randoStat.count} <= 5">
                 <h1 th:text="${rando.getRestaurant().name}"></h1>
-                </div>
             </div>
         </div>
     </div>
