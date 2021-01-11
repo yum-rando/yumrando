@@ -1,5 +1,7 @@
 package com.yumrando.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +28,10 @@ public class Photo {
     public Photo(String url, String description) {
         this.url = url;
         this.description = description;
+    }
+
+    public Photo(String url) {
+        this.url = url;
     }
 
     //Read
@@ -60,7 +66,7 @@ public class Photo {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    @JsonIgnore
     public Review getReview() {
         return review;
     }
