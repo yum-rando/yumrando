@@ -1,5 +1,6 @@
 ($ => {
     "use strict"
+    let userTag = []
 
     $('#add-list').click(()=>{
         $('.list-items').addClass('d-none');
@@ -116,8 +117,42 @@
     })
 
 
+    $("#edit-tag-list").click(() => {
+        apiTagSearch("/tags").then(data=>{
+            console.log(data)
+            $("#check-tags").empty()
+            data.map(faveTags =>{
+                $("#check-tags").append(
+                    `
+                    <div class="col-3">
+                        <input class="form-check-input tag-form-input" type="checkbox" value="" id="flexCheckDefault" data-tagID="${faveTags.id}" data-tagName="${faveTags.name}">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            ${faveTags.name}
+                         </label>
+                    </div>
+                    `
+                )
+            })
+        })
+    })
+
+    $("#save-tags").click(() => {
+        $(".tag-form-input").each(function(){
+            if($(this).prop("checked") === true){
+                let tagID=$(this).attr("data-tagID")
+                let tagName=$(this).attr("data-tagName")
+                userTag.push(
+                    {id:tagID, name:tagName}
+                )
+            }
+        })
+        console.log(userTag)
+        const url= "/tags"
+        apiCreate(userTag, url).then(data =>{
+            console.log(data)
+        })
+    })
 
 
-apiTagSearch("/tags").then((data)=>{console.log(data)})
 
 })(jQuery);

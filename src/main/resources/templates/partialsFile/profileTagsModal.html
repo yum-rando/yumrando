@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:fragment="tags-modal" class="modal fade" id="tagsModal" tabindex="-1" aria-labelledby="tagsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header">
+                <h5 class="modal-title">Select Your Favorite Cuisine Types</h5>
+            </div>
+            <div id="tag-modal-body" class="modal-body"></div>
+                <div class="row">
+                    <input type="search" id="tag-search" class="deny-submit">
+                </div>
+                        <div id="check-tags" class="row"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="save-tags">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
