@@ -380,7 +380,8 @@
 //             })
 //         })
 
-        $('.user-restaurants').click(function () {
+        $('.user-restaurants').click(function (e) {
+            e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
