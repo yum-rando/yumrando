@@ -76,7 +76,7 @@ public class ReviewController {
 
     //updating the review
 
-    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review")
+    @PostMapping("/list/{listId}/restaurant/{restaurantId}/review/{friendId}")
     public String submitReview(@ModelAttribute Review reviewToBeSaved, @PathVariable long restaurantId, @PathVariable long listId, @PathVariable String friendId, @RequestParam (name = "photo_image_url") String photoUrl){
 
         User reviewUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
