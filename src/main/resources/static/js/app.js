@@ -30,12 +30,13 @@
                         name: chosenRestaurant.name,
                         website: chosenRestaurant.url,
                         city: chosenRestaurant.location.city,
-                        zipcode: chosenRestaurant.location.zipcode
+                        zipcode: chosenRestaurant.location.zipcode,
                     }
                     if ($(this).attr("id") === "random-name") {
                         $(modalLabel).append(
                             `
                                 <h5 class="modal-title">${randomSearchResult.name}</h5>
+                                <p class="modal-address">${randomSearchResult.address}</p>
                                 <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
                             `
                         );
@@ -50,6 +51,7 @@
                         $(modalLabel).append(
                             `
                             <h5 class="modal-title">${randomSearchResult.name}</h5>
+                            <p class="modal-address">${randomSearchResult.address}</p>
                             ${addListAnchor}
                         `
                         );
@@ -133,6 +135,8 @@
                     $('#show-modal-label').empty().append(
                         `
                 <h5 class="modal-title">${item.name}</h5>
+                <p class="modal-address">${item.address}</p>
+              
                 `
                     )
                 })
@@ -167,7 +171,7 @@
                     website: restaurant.url,
                     city: restaurant.location.city,
                     zipcode: restaurant.location.zipcode,
-                    tags: cuisines
+                    tags: cuisines,
                 }
                 updateCurrentList(postObject);
             } else {
@@ -187,11 +191,12 @@
                     `<div class="container">
                         <div class="row">
                             <div class="col-9">
-                                <h5>${restaurant.name}</h5>
-                                <p>${restaurant.location.address}</p>
+                                <h5 class="modal-restName">${restaurant.name}</h5>
+                                <p class="modal-restInfo">${restaurant.location.address}</p>
+                                <div>${restaurant.location.tags}</div>
                              </div>
                              <div class="col-3">
-                                 <button id="${type + num}" type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to List</button> 
+                                 <button id="${type + num}" type="button" class="btn btn-pink" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
                     </div>
@@ -368,7 +373,12 @@
             apiShow(restId, "restaurant/show/").then(response => {
                 console.log(response);
                 let listId = window.location.pathname.substring(1);
-                $('#show-modal-label').empty().append(`<h5 class="modal-title">${response.name}</h5>`);
+                $('#show-modal-label').empty().append(
+                    `<h5 class="modal-title">${response.name}</h5>
+                     <p class="modal-address">${response.address}</p>
+                     <div clsass="modal-tag">${response.tags}</div>
+                     `
+                );
                 $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>`);
 
             }).catch(() => {
@@ -414,8 +424,11 @@
                             $(`#r${num}`).click(() => {
                                 $('#show-modal-label').empty().append(
                                     `
-                <h5 class="modal-title">${restaurant.name}</h5>
-                `
+                                    <h5 class="modal-title">${restaurant.name}</h5>
+                                    <h6 class="modal-address">${restaurant.address}</h6>
+                                    <div clsass="modal-tag">${restaurant.tags}</div>
+
+                                    `
                                 )
                             })
                         })
