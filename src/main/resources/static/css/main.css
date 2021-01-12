@@ -336,10 +336,10 @@ body{
 
 /* Load animation */
 #logo{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    /*position: absolute;*/
+    /*top:50%;*/
+    /*left:50%;*/
+    /*transform: translate(-50%,-50%);*/
 }
 .yum_0{
     stroke-dasharray: 3713px;

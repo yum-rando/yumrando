@@ -4,7 +4,9 @@
 
         <div class="row">
             <div class="col-3">
-                <button id="yummies">My Yummies!</button>
+                <div th:if="${favorites}">
+                <button id="yummies">Filter List By My Favorite Tags</button>
+                </div>
             </div>
             <div th:if="${lists != null}" class="col-3">
                 <form>

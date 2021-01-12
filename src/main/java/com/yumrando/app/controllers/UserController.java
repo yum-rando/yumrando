@@ -24,8 +24,9 @@ public class UserController {
     private final ListFriendsRepository friendDao;
     private final ReviewRepository reviewDao;
     private final TagRepository tagDao;
+    private final RestaurantRepository restaurantDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao, TagRepository tagDao){
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, Users users, ListRestaurantRepository listDao, ReviewRepository reviewDao, ListFriendsRepository friendDao, TagRepository tagDao, RestaurantRepository restaurantDao){
 
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
@@ -34,6 +35,7 @@ public class UserController {
         this.friendDao = friendDao;
         this.reviewDao = reviewDao;
         this.tagDao = tagDao;
+        this.restaurantDao = restaurantDao;
     }
 
     @GetMapping("/")
@@ -45,14 +47,62 @@ public class UserController {
         return "index";
     }
 
-    //User will go to a page with the list options
     @GetMapping("/{id}")
     public String showUsersLists(Model vModel, Principal user, @PathVariable long id) {
         if (user != null) {
             User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User currUser = userDao.findById(userDb.getId());
+            ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
+            if (chosenList == null){
+                return "redirect:/";
+            }
+            List<ListRestaurant> nonChosenList = new ArrayList<>();
+            List<ListRestaurant> lists = listDao.findAllByUser(userDb);
+            for (ListRestaurant list : lists) {
+                if (list.getId() != id) {
+                    nonChosenList.add(list);
+                }
+            }
+            Set<RestaurantTag> userList = currUser.getFavoriteTags();
+            if(userList.isEmpty()){
+                vModel.addAttribute("favorites", false);
+            } else {
+                vModel.addAttribute("favorites", true);
+            }
+            //Chosen List Object to the View
+            vModel.addAttribute("chosenList", chosenList);
+            //Other list should not include the chosen list
+            vModel.addAttribute("lists", nonChosenList);
+        }
+        return "index";
+    }
 
+    @GetMapping("/{id}/filter")
+    public String showUsersListsFilter(Model vModel, Principal user, @PathVariable long id) {
+        if (user != null) {
+            User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User currUser = userDao.findById(userDb.getId());
+            Set<RestaurantTag> userFavCheck = currUser.getFavoriteTags();
+
+            if(userFavCheck.isEmpty()){
+                return "redirect:/" + id;
+            }
             //Chosen List should not be part of the Other list options
             ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
+            if (chosenList == null){
+                return "redirect:/";
+            }
+            Set<Restaurant> restList = new HashSet<>();
+            ListRestaurant newList = new ListRestaurant(chosenList.getId(), chosenList.getName(), chosenList.getUser(), restList);
+            Set<Restaurant> originalList = restaurantDao.findAllByLists(chosenList);
+            List<RestaurantTag> userFavorites = tagDao.findAllByUsersId(userDb.getId());
+            for(Restaurant rest: originalList){
+                for(RestaurantTag tag : userFavorites){
+                    if(restaurantDao.findByTagsAndId(tag, rest.getId()) != null){
+                        newList.addRestaurantToList(rest);
+                    }
+                }
+            }
             //This is the Other Lists
             List<ListRestaurant> nonChosenList = new ArrayList<>();
             //Get all of the List from the User
@@ -63,14 +113,14 @@ public class UserController {
                     nonChosenList.add(list);
                 }
             }
+            vModel.addAttribute("favorites", true);
             //Chosen List Object to the View
-            vModel.addAttribute("chosenList", chosenList);
+            vModel.addAttribute("chosenList", newList);
             //Other list should not include the chosen list
             vModel.addAttribute("lists", nonChosenList);
         }
         return "index";
     }
-
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model) {

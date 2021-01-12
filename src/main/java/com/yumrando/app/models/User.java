@@ -236,7 +236,7 @@ public class User {
         //This by itself is referring to the current list object
         tag.getUsers().add(this);
     }
-    //Removing a tage from the User's Favorite
+    //Removing a tag from the User's Favorite
     public void removeFavoriteTagFromUser(RestaurantTag tag){
         this.favoriteTags.remove(tag);
         //This by itself is referring to the current list object
