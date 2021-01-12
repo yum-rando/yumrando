@@ -160,6 +160,12 @@
             });
         }
 
+        $("#yummies").click(()=>{
+            const listNumber = $("#currentList").val();
+            const url= `/${listNumber}/filter`;
+            window.location.assign(url);
+        })
+
         const obtainRestaurant = num => {
             if (num.includes('u')) {
                 let restaurant = resultSet[parseInt(num.substring(1))]
@@ -388,9 +394,9 @@
         $('.user-restaurants').click(function (e) {
             e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
-            apiShow(restId, "restaurant/show/").then(response => {
+            apiShow(restId, "/restaurant/show/").then(response => {
                 console.log(response);
-                let listId = window.location.pathname.substring(1);
+                let listId = $("#currentList").val();
                 $('#show-modal-label').empty().append(
                     `<h5 class="modal-title">${response.name}</h5>
                      <p class="modal-address">${response.address}</p>
@@ -417,7 +423,7 @@
         const userInitialList = () => {
             if (localStorage.getItem("yumCoord") !== null) {
                 if (window.location.pathname === "/") {
-                    $("#user-add-buttons").addClass('d-none');
+                    $("#user-add-buttons, #yummies").addClass('d-none');
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                     apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                         let adjustableArr = data.nearby_restaurants;
