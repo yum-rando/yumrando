@@ -52,18 +52,23 @@ public class UserController {
     public String showUsersLists(Model vModel, Principal user, @PathVariable long id) {
         if (user != null) {
             User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+            User currUser = userDao.findById(userDb.getId());
             //Chosen List should not be part of the Other list options
             ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
             //This is the Other Lists
             List<ListRestaurant> nonChosenList = new ArrayList<>();
             //Get all of the List from the User
             List<ListRestaurant> lists = listDao.findAllByUser(userDb);
-
             for (ListRestaurant list : lists) {
                 if (list.getId() != id) {
                     nonChosenList.add(list);
                 }
+            }
+            Set<RestaurantTag> userList = currUser.getFavoriteTags();
+            if(userList.isEmpty()){
+                vModel.addAttribute("favorites", false);
+            } else {
+                vModel.addAttribute("favorites", true);
             }
             //Chosen List Object to the View
             vModel.addAttribute("chosenList", chosenList);
@@ -77,6 +82,12 @@ public class UserController {
     public String showUsersListsFilter(Model vModel, Principal user, @PathVariable long id) {
         if (user != null) {
             User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User currUser = userDao.findById(userDb.getId());
+            Set<RestaurantTag> userFavCheck = currUser.getFavoriteTags();
+
+            if(userFavCheck.isEmpty()){
+                return "redirect:/" + id;
+            }
             //Chosen List should not be part of the Other list options
             ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
             Set<Restaurant> restList = new HashSet<>();
@@ -100,6 +111,7 @@ public class UserController {
                     nonChosenList.add(list);
                 }
             }
+            vModel.addAttribute("favorites", true);
             //Chosen List Object to the View
             vModel.addAttribute("chosenList", newList);
             //Other list should not include the chosen list
