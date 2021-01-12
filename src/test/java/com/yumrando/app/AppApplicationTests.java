@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,6 +61,9 @@ public class AppApplicationTests {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+//    @Autowired
+//    private TestRestTemplate restTemplate;
+
 
     @Before
     public void setup() throws Exception {
@@ -87,9 +91,17 @@ public class AppApplicationTests {
     }
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
         // Sanity Test, just to make sure the MVC bean is working
         assertNotNull(mvc);
     }
+
+    @Test
+    public void testIfUserSessionIsActive() throws Exception {
+        //It makes sure the returned session is not null
+        assertNotNull(httpSession);
+    }
+
+
 
 }
