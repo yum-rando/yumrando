@@ -5,14 +5,20 @@
 <nav th:replace="partials/navbar :: navbar"/>
 <h1>Log In</h1>
 <div class="container">
+    <div th:if="${param.error}" class="p-3 mb-2 bg-danger text-white rounded">
+        Invalid Username and Password.
+    </div>
+    <div th:if="${param.logout}" class="p-3 mb-2 bg-info text-dark rounded">
+        You have been logged out.
+    </div>
     <form th:action="@{/login}" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Enter a username</label>
-            <input name="username" type="text" class="form-control" id="username">
+            <input name="username" type="text" class="form-control" id="username" placeholder="Enter Username">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
