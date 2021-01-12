@@ -2,6 +2,7 @@ package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.*;
 import com.yumrando.app.repos.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,7 +39,12 @@ public class UserController {
         this.tagDao = tagDao;
         this.restaurantDao = restaurantDao;
     }
-
+    @ExceptionHandler({SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class, NumberFormatException.class})
+    public String handleException(Model model){
+        model.addAttribute("user", new User());
+        model.addAttribute("dupError", true);
+        return "user/register";
+    }
     @GetMapping("/")
     public String showIndexPage(Model model, Principal user) {
         if (user != null) {
