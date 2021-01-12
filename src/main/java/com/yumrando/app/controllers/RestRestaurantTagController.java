@@ -65,6 +65,16 @@ public class RestRestaurantTagController {
                 setUsers.add(userDao.findById(userID));
             }
                 tagDao.save(userTag);
+                User findUser = userDao.findById(userID);
+                Set<RestaurantTag> setTags = findUser.getFavoriteTags();
+                if(setTags == null){
+                    Set<RestaurantTag> newTag = new HashSet<>();
+                    newTag.add(userTag);
+                    findUser.setFavoriteTags(newTag);
+                } else {
+                    setTags.add(userTag);
+                }
+                userDao.save(findUser);
         }
         return new ResponseEntity <>(requestedRestList, HttpStatus.OK);
     }

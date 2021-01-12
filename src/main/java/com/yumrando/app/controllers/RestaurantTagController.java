@@ -7,10 +7,11 @@ import com.yumrando.app.repos.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
+@Controller
 public class RestaurantTagController {
     private UserRepository userDao;
     private TagRepository tagDao;
@@ -23,8 +24,10 @@ public class RestaurantTagController {
     @PostMapping("/tags/delete/{tagId}")
     public String deleteRestTag(@PathVariable long tagId) {
         User activeUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        activeUser.removeFavoriteTagFromUser(tagDao.findById(tagId));
-
+        User removeUserTag = userDao.findById(activeUser.getId());
+        RestaurantTag removeRestTag = tagDao.findById(tagId);
+        removeUserTag.removeFavoriteTagFromUser(removeRestTag);
+        userDao.save(removeUserTag);
       return "redirect:/profile";
     }
 }
