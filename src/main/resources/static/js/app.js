@@ -11,11 +11,14 @@
                 <div class="alert alert-danger" role="alert">
                     Connection Error...
                 </div>
-        `
+        `;
+        const modalBody = "#show-modal-body";
+        const userListInitial = "#user-list-initial";
 
         const searchRandomEvent = () => {
             $('#random-name, #random-name-user').click(function () {
                 $("#show-modal-review, #show-modal-body").empty();
+                $(modalBody).append(loader());
                 let nameValue = $('#random-search-input').val();
                 let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                 let modalLabel = "#show-modal-label";
@@ -40,6 +43,7 @@
                                 <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
                             `
                         );
+                        $(modalBody).empty();
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
                         })
@@ -55,6 +59,7 @@
                             ${addListAnchor}
                         `
                         );
+                        $(modalBody).empty();
                         $("#add-random-restUser").click(() => {
                             updateCurrentList(randomSearchResult);
                         })
@@ -241,35 +246,30 @@
 
         const selectRest = '#search-select';
         const selectRestUser = '#search-select-user'
-        const modalBody = '#search-body';
+        const modalSearchBody = '#search-body';
 
         const selectEvent = (selector, type) => {
             $(selector).change(() => {
-                $(modalBody).empty();
-
+                $(modalSearchBody).empty();
                 $(searchResultBody).empty();
                 switch ($(selector).val()) {
                     case "name":
-
                         if (type === "") {
-                            $(modalBody).append(`<input placeholder="Search by words" id="nameSearch"/>`)
+                            $(modalSearchBody).append(`<input placeholder="Search by words" id="nameSearch"/>`)
                         } else {
-                            $(modalBody).append(`<input placeholder="Search by words" id="nameSearchUser"/>`)
+                            $(modalSearchBody).append(`<input placeholder="Search by words" id="nameSearchUser"/>`)
                         }
                         break;
                     case "near":
-                        // Attach loader to $('#search-results')
+                        $(searchResultBody).append(loader())
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
-
-                            // Clear loader from $('#search-results) (.empty() works well for that)
                             listResult(data.nearby_restaurants, type)
                         }).catch(() => {
                             $(searchResultBody).append(
                                 connectErrMessage
                             )
                         });
-
                         break;
                     default:
                         return;
@@ -278,10 +278,9 @@
         }
 
         const inputSearch = (selector, type) => {
-            // Attach loader to $('#search-results')
+            $(searchResultBody).empty().append(loader());
             let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
             apiSearch(searchName($(selector).val(), coordInput.latitude, coordInput.longitude)).then(data => {
-                // Clear loader from $('#search-results) (.empty() works well for that)
                 listResult(data.restaurants, type);
             }).catch(() => {
                 $(searchResultBody).append(
@@ -333,9 +332,7 @@
                     name: $('#name').val()
                 }
                 apiCreate(listObject, "/restaurants/lists/create").then(data => {
-
                     window.location.assign(`/${data.id}`)
-
                 }).catch(() => {
                     $("#add-list-form").empty();
                     $(userListBody).removeClass('d-none');
@@ -348,13 +345,11 @@
             })
         })
 
-        // A Select that changes the list view for user
         $("#currentList").change(() => {
             const listNum = $("#currentList").val()
             if (listNum !== 'default') {
                 window.location.assign(`/${listNum}`)
             }
-
         })
 
         $("#add-basic-user").click(() => {
@@ -394,21 +389,23 @@
         $('.user-restaurants').click(function (e) {
             e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
+            $(modalBody).append(loader());
             apiShow(restId, "/restaurant/show/").then(response => {
                 console.log(response);
                 let listId = $("#currentList").val();
                 $('#show-modal-label').empty().append(
                     `<h5 class="modal-title">${response.name}</h5>
                      <p class="modal-address">${response.address}</p>
-                     <div clsass="modal-tag">${response.tags}</div>
+                     <div class="modal-tag">${response.tags}</div>
                      `
                 );
+                $(modalBody).empty();
                 $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>`);
 
             }).catch(() => {
                 $("#show-modal-label").empty();
                 $("#show-modal-review").empty();
-                $("#show-modal-body").empty().append(connectErrMessage);
+                $(modalBody).empty().append(connectErrMessage);
             })
         });
 
@@ -424,6 +421,7 @@
             if (localStorage.getItem("yumCoord") !== null) {
                 if (window.location.pathname === "/") {
                     $("#user-add-buttons, #yummies").addClass('d-none');
+                    $(userListInitial).empty().append(loader());
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                     apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                         let adjustableArr = data.nearby_restaurants;
@@ -432,8 +430,9 @@
                             initialList.push(adjustableArr[chosenIndex]);
                             adjustableArr = adjustableArr.filter((rest, index) => index !== chosenIndex);
                         }
+                        $(userListInitial).empty();
                         initialList.map(({restaurant}, num) => {
-                            $("#user-list-initial").append(
+                            $(userListInitial).append(
                                 `
                             <div class="container">
                                 <div class="row">
@@ -444,13 +443,12 @@
                             </div>
                         `
                             );
-
                             $(`#r${num}`).click(() => {
                                 $('#show-modal-label').empty().append(
                                     `
                                     <h5 class="modal-title">${restaurant.name}</h5>
                                     <h6 class="modal-address">${restaurant.address}</h6>
-                                    <div clsass="modal-tag">${restaurant.tags}</div>
+                                    <div class="modal-tag">${restaurant.tags}</div>
 
                                     `
                                 )
@@ -553,7 +551,6 @@
             })
         }
 
-
         geoLocation(geoHandler);
         listBasic(arrayConstructor());
         selectEvent(selectRest, "");
@@ -565,7 +562,6 @@
         userInitialList();
         searchRandomEvent();
         preventInputDef();
-
 
     })
 })(jQuery);
