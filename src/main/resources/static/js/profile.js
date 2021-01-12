@@ -136,22 +136,7 @@
         window.location.assign(url);
     })
 
-
-let filterArray = []
-  const cancelInputSubmit = ()=>{
-      $('.deny-submit:not([type="submit"])').keydown(e => {
-          if (e.keyCode == 13) {
-              e.preventDefault();
-              return false;
-          }
-      });
-  }
-
-
-let filterArray = []
-
-
-
+    let filterArray = []
 
     $("#edit-tag-list").click(() => {
         apiTagSearch("/tags").then(data=>{
@@ -171,8 +156,6 @@ let filterArray = []
             })
         })
     })
-apiTagSearch("/tags").then((data)=>{console.log(data)})
-
 
     $("#save-tags").click(() => {
         $(".tag-form-input").each(function(){
@@ -190,8 +173,6 @@ apiTagSearch("/tags").then((data)=>{console.log(data)})
         })
     })
 
-
-
   const cancelInputSubmit = ()=>{
       $('.deny-submit:not([type="submit"])').keydown(e => {
           if (e.keyCode == 13) {
@@ -200,17 +181,5 @@ apiTagSearch("/tags").then((data)=>{console.log(data)})
           }
       });
   }
-
-
-  const cancelInputSubmit = ()=>{
-      $('.deny-submit:not([type="submit"])').keydown(e => {
-          if (e.keyCode == 13) {
-              e.preventDefault();
-              return false;
-          }
-      });
-  }
-
-
 
 })(jQuery);
