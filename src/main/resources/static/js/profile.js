@@ -138,6 +138,18 @@
 
 
 let filterArray = []
+  const cancelInputSubmit = ()=>{
+      $('.deny-submit:not([type="submit"])').keydown(e => {
+          if (e.keyCode == 13) {
+              e.preventDefault();
+              return false;
+          }
+      });
+  }
+
+
+let filterArray = []
+
 
 
 
@@ -159,6 +171,7 @@ let filterArray = []
             })
         })
     })
+apiTagSearch("/tags").then((data)=>{console.log(data)})
 
 
     $("#save-tags").click(() => {
@@ -176,6 +189,17 @@ let filterArray = []
             window.location.assign("/profile");
         })
     })
+
+
+
+  const cancelInputSubmit = ()=>{
+      $('.deny-submit:not([type="submit"])').keydown(e => {
+          if (e.keyCode == 13) {
+              e.preventDefault();
+              return false;
+          }
+      });
+  }
 
 
   const cancelInputSubmit = ()=>{
