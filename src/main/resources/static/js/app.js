@@ -36,7 +36,7 @@
                         zipcode: chosenRestaurant.location.zipcode,
                     }
                     if ($(this).attr("id") === "random-name") {
-                        $(modalLabel).append(
+                        $(modalLabel).empty().append(
                             `
                                 <h5 class="modal-title">${randomSearchResult.name}</h5>
                                 <p class="modal-address">${randomSearchResult.address}</p>
