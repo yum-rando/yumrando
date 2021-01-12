@@ -102,6 +102,59 @@ public class AppApplicationTests {
         assertNotNull(httpSession);
     }
 
+    //Editing a User --> User Controller
+    @Test
+    public void testEditUserInfo() throws Exception{
+        //Looks for the testUser
+        User existingTestUser = userDao.findByUsername("testUser");
+        //Makes a POST request to /profile and expect redirection to the /profile page
+        this.mvc.perform(
+                post("/profile").with(csrf())
+                    .session((MockHttpSession) httpSession)
+                    .param("firstName", "testDude")
+                    .param("lastName", "McGee")
+                    .param("email", "testUser1@yumrando.com")
+                    .param("phoneNumber", "123456789")
+                    .param("zipcode", "33333"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    //Creating a List --> RestListRestaurant Controller
+//    @Test
+//    public void testCreatingList() throws Exception {
+//        User existingTestUser = userDao.findByUsername("testUser");
+//        //Makes a POST request to /list# and expect ListRestaurant Object
+//        this.mvc.perform(
+//                post("/restaurants/lists/create").with(csrf())
+//                    .session((MockHttpSession) httpSession)
+//                    .param("name", "testUser list #1"))
+//                .andExpect(status().is3xxRedirection());
+//    }
+
+    //Adding a Restaurant --> RestRestaurant Controller
+
+    //Creating a Review --> Review Controller
+
+    //Edit a Review --> Review Controller
+
+    //Deleting a Photo --> Photo Review Controller
+
+    //Deleting a Restaurant from a User's Lists --> RestRestaurant Controller
+
+    //Deleting a User's Lists --> User Controller
+
+    //Adding Restaurant Tags --> RestRestaurantTag Controller
+
+    //Adding Fav Restaurant Tags --> RestRestaurantTag Controller
+
+    //Removing Fav Restaurant Tag --> RestRestaurantTag Controller
+
+    //Adding User Custom Tag --> RestUserTag Controller
+
+    //Removing User Custom Tag --> RestUserTag Controller
+
+
+
 
 
 }
