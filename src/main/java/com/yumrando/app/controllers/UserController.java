@@ -47,17 +47,16 @@ public class UserController {
         return "index";
     }
 
-    //User will go to a page with the list options
     @GetMapping("/{id}")
     public String showUsersLists(Model vModel, Principal user, @PathVariable long id) {
         if (user != null) {
             User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User currUser = userDao.findById(userDb.getId());
-            //Chosen List should not be part of the Other list options
             ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
-            //This is the Other Lists
+            if (chosenList == null){
+                return "redirect:/";
+            }
             List<ListRestaurant> nonChosenList = new ArrayList<>();
-            //Get all of the List from the User
             List<ListRestaurant> lists = listDao.findAllByUser(userDb);
             for (ListRestaurant list : lists) {
                 if (list.getId() != id) {
@@ -90,6 +89,9 @@ public class UserController {
             }
             //Chosen List should not be part of the Other list options
             ListRestaurant chosenList = listDao.findAllByUserAndId(userDb, id);
+            if (chosenList == null){
+                return "redirect:/";
+            }
             Set<Restaurant> restList = new HashSet<>();
             ListRestaurant newList = new ListRestaurant(chosenList.getId(), chosenList.getName(), chosenList.getUser(), restList);
             Set<Restaurant> originalList = restaurantDao.findAllByLists(chosenList);
