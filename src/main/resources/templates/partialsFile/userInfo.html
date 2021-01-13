@@ -5,24 +5,68 @@
         <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
     </div>
     <div class="row">
-        <div class="col-8">
-            <div class="container">
-                <form th:action="@{'/profile/'}" th:method="POST" th:object="${userInfo}">
-                    <input class="user-info-input" th:field="*{firstName}" name="firstName" placeholder="First Name" type="text" disabled>
-                    <input class="user-info-input" th:field="*{lastName}" name="lastName" placeholder="Last Name" type="text" disabled>
-                    <input class="user-info-input" th:field="*{email}" name="email" placeholder="Email" type="email" disabled>
-                    <input class="user-info-input" th:field="*{phoneNumber}" name="phoneNumber" placeholder="Phone Number" type="text" disabled>
-                    <input class="user-info-input" th:field="*{zipcode}" name="zipcode" placeholder="Zipcode" type="text" disabled>
-                    <div>
-                    <button id="toggle-user-info" class="btn btn-primary" type="button">Edit Profile</button>
-                    <button id="user-info-submit" class="btn btn-primary d-none" type="submit">Submit Changes</button>
-                </div>
-            </form>
-            </div>
-        </div>
         <div class="col-4">
             Profile Picture
         </div>
+        <div class="col-8">
+            <div class="container bg-green">
+                <form th:action="@{'/profile/'}" th:method="POST" th:object="${userInfo}">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <label for="firstName">First Name</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="user-info-input" th:field="*{firstName}" name="firstName" type="text"
+                                   id="firstName" disabled>
+                        </div>
+                    </div>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <label for="lastName">Last Name</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="user-info-input" th:field="*{lastName}" name="lastName" id="lastName"
+                                   type="text" disabled>
+                        </div>
+                    </div>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="user-info-input" th:field="*{email}" name="email" id="email" type="email"
+                                   disabled>
+
+                        </div>
+                    </div>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <label for="phoneNumber">Phone Number</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="user-info-input" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber"
+                                   type="text" disabled>
+                        </div>
+                    </div>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-4">
+                            <label for="zipcode">Zipcode</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="user-info-input" th:field="*{zipcode}" name="zipcode" id="zipcode" type="text"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="d-flex flex-row-reverse">
+                        <button id="toggle-user-info" class="btn login" type="button">Edit Profile</button>
+                        <button id="user-info-submit" class="btn login d-none" type="submit">Submit Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 
 
