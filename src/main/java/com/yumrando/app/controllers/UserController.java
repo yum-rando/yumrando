@@ -2,6 +2,7 @@ package com.yumrando.app.controllers;
 
 import com.yumrando.app.models.*;
 import com.yumrando.app.repos.*;
+import org.hibernate.DuplicateMappingException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class UserController {
         this.tagDao = tagDao;
         this.restaurantDao = restaurantDao;
     }
+
 
     @GetMapping("/")
     public String showIndexPage(Model model, Principal user) {
@@ -252,21 +254,6 @@ public class UserController {
         return "user/about";
     }
 
-
-    //This is for the REVIEW CONTROLLER
-    //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
-//    public void updateReviewTime(Review review){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        review.setUser(userDb);
-//        Date now = new Date();
-//        String pattern = "yyyy-MM-dd HH:mm:ss";
-//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-//        String mysqlUpdateDate = formatter.format(now);
-//        review.setUpdateTime(mysqlUpdateDate);
-//        reviewDao.save(review);
-//    }
-
-
     @GetMapping("/landing")
     public String landing(Model model) {
         return "landing";
@@ -278,18 +265,6 @@ public class UserController {
     }
 }
 
-    //This is for the REVIEW CONTROLLER
-    //UPDATING THE DATE IN THE SYSTEM --> MADE IT A STRING INSTEAD OF A DATE SINCE IT WAS MESSING UP WITH THE HIBERNATE
-//    public void updateReviewTime(Review review){
-//        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        review.setUser(userDb);
-//        Date now = new Date();
-//        String pattern = "yyyy-MM-dd HH:mm:ss";
-//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-//        String mysqlUpdateDate = formatter.format(now);
-//        review.setUpdateTime(mysqlUpdateDate);
-//        reviewDao.save(review);
-//    }
 
 
 
