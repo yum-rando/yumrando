@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="partials/head :: head">
+<head th:include="partials/headProfile :: head-profile">
 <body>
 <nav th:replace="partials/navbar :: navbar"/>
-<div th:replace="partialsFile/profileTagsModal :: tags-modal"></div>
+<div th:replace="partialsFile/profileTagsModal :: tags-modal"/>
 <div th:replace="partialsFile/userInfo :: user-info"/>
-<div th:replace="partialsFile/userLists :: user-lists-profile"/>
-<div th:replace="partialsFile/userTagsList :: user-lists-tags"/>
+<div class="row">
+    <div class="col-6">
+        <div th:replace="partialsFile/userTagsList :: user-lists-tags"/>
+    </div>
+    <div class="col-6">
+    <div th:replace="partialsFile/userLists :: user-lists-profile"/>
+    </div>
+</div>
 <div th:replace="partialsFile/userHistoryList :: user-history-list"/>
 <div th:replace="partialsFile/userFriendsList :: user-friends-list"/>
 <script th:replace="partials/scripts :: script"></script>
