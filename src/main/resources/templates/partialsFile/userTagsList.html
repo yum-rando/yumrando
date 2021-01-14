@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="user-lists-tags" class="container my-3">
+<div th:fragment="user-lists-tags" class="my-3">
     <div class="row">
-        <div class="col-9">
-            <h4 class="lilac">My Favorite Cuisine</h4>
+        <div class="col-9 d-flex align-items-center">
+            <h4 class="lilac profile-list-item">My Favorite Cuisines</h4>
         </div>
-        <div class="col-3">
+        <div class="col-3 d-flex flex-row-reverse">
             <button id="edit-tag-list" class="btn login" type="button" data-bs-toggle="modal" data-bs-target="#tagsModal">Edit</button>
         </div>
     </div>
     <div class="container bg-green">
-        <div class="row" th:each="faveTags : ${faveTagList}">
-
-            <div class="col-10" th:text="${faveTags.name}">
+        <div th:if="${#lists.isEmpty(faveTagList)}" class="d-flex justify-content-center align-items-center">
+            <h5 class="navy label-font my-5">No Favorite Tags Have Been Chosen</h5>
+        </div>
+        <div class="row py-2" th:each="faveTags : ${faveTagList}">
+            <div class="col-10 d-flex align-items-center" >
+                <h4 class="navy label-font profile-list-item" th:text="${faveTags.name}"></h4>
             </div>
             <div class="col-2">
                 <form th:action="@{'/tags/delete/'+ ${faveTags.id}}" method="POST">
-                    <button type="submit">-</button>
+                    <button class="btn btn-pink" type="submit">-</button>
                 </form>
 <!--                <button class="btn btn-danger" >x</button>-->
             </div>

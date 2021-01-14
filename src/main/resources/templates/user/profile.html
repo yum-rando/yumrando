@@ -5,6 +5,7 @@
 <nav th:replace="partials/navbar :: navbar"/>
 <div th:replace="partialsFile/profileTagsModal :: tags-modal"/>
 <div th:replace="partialsFile/userInfo :: user-info"/>
+<div class="container">
 <div class="row">
     <div class="col-6">
         <div th:replace="partialsFile/userTagsList :: user-lists-tags"/>
@@ -12,6 +13,7 @@
     <div class="col-6">
     <div th:replace="partialsFile/userLists :: user-lists-profile"/>
     </div>
+</div>
 </div>
 <div th:replace="partialsFile/userHistoryList :: user-history-list"/>
 <div th:replace="partialsFile/userFriendsList :: user-friends-list"/>

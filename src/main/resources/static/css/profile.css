@@ -2,3 +2,15 @@
     font-family: 'Quando', serif;
     font-size: 18px;
 }
+
+#toggle-user-info, #user-info-submit, #edit-tag-list, .button-default {
+    margin-right: 0 !important;
+}
+
+.profile-list-item{
+    margin-bottom: 0 !important;
+}
+
+.icon-container{
+    cursor: pointer;
+}
