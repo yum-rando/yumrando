@@ -23,7 +23,7 @@
 
                 <tr th:each="rando : ${history}">
                     <td class="navy label-font" th:text="${rando.getRestaurant().name}"></td>
-                    <td class="navy label-font" th:text="${#strings.substring(rando.updateTime,0,16)}"></td>
+                    <td class="navy label-font" th:text="${rando.updateTime}"></td>
                 </tr>
                 </tbody>
             </table>

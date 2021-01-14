@@ -38,7 +38,7 @@ public class RestReviewController {
         Restaurant restaurant = restaurantDao.findById(restReviewToBeUpdated.getId());
         Review reviewDb = reviewDao.findReviewByUserIdAndRestaurantId(userDb.getId(), restReviewToBeUpdated.getId());
         Date now = new Date();
-        String pattern = "yyyy-MM-dd HH:mm:ss";
+        String pattern = "EEE, MMM d, yyyy";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         String mysqlUpdateDate = formatter.format(now);
 
