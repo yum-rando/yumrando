@@ -178,6 +178,11 @@ p{
     color: #AAC6FC;
 }
 
+/*corners*/
+.roundCorners{
+    border-radius: 15px;
+}
+
 /* landing page */
 .jumbotron{
     background-size: cover;
