@@ -10,7 +10,7 @@
             <button id="add-list" class="btn btn-pink my-2" type="button">+</button>
         </div>
     </div>
-    <div class="container bg-green">
+    <div class="container bg-green roundCorners">
         <div id="list-form"></div>
         <div th:if="${#lists.isEmpty(lists)}" class="d-flex justify-content-center align-items-center list-items">
             <h5 class="navy label-font my-5">Lists Have Not Been Created</h5>
@@ -21,7 +21,6 @@
                     <h4 class="navy label-font profile-list-item"><span th:text="${list.name}" th:remove="tag"></span>
                         <span th:attr="data-id=${list.id}, data-name=${list.name}" class="icon-container d-none"><i class="fas fa-edit"></i></span>
                     </h4>
-
                 </div>
                 <div class="col-2">
                     <form th:method="POST" th:action="@{'/delete/lists/' + ${list.id}}">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="user-friends-list" class="container my-3">
+<div th:fragment="user-friends-list" class="container mb-5">
     <div class="row mb-2">
         <div class="col-9 d-flex align-items-center">
             <h4 class="lilac profile-list-item">My Friends</h4>
@@ -9,55 +9,63 @@
             <button id="add-friend" type="button" class="btn btn-pink">+</button>
         </div>
     </div>
-    <div class="container bg-green">
+    <div class="container bg-green roundCorners">
         <div id="friend-form"></div>
         <div id="friend-list">
             <div class="row">
-                <div class="col-8">
+                <div class="col-7">
+                    <div th:if="${#lists.isEmpty(friends) && #lists.isEmpty(requests)}" class="d-flex justify-content-center align-items-center list-items">
+                        <h5 class="navy label-font my-5">Send a Friend Request!</h5>
+                    </div>
                     <div th:each="friend : ${friends}">
-                        <div class="row">
-                            <div class="col-6">
-                                <h3 th:text="${friend.getFriend().username}"></h3>
+                        <div class="row py-2">
+                            <div class="col-6 d-flex align-items-center">
+                                <h4 class="navy label-font profile-list-item" th:text="${friend.getFriend().username}"></h4>
                             </div>
-                            <div class="col-6 d-flex justify-content-center">
+                            <div class="col-6 d-flex justify-content-end">
                                 <div th:if="${!friend.confirmation}">
-                                    Request Sent
+                                    <h4 class="navy label-font profile-list-item">Request Sent</h4>
                                 </div>
-                                <div th:if="${friend.confirmation}">
-
-                                    <button th:id="${'g' + friend.getFriend().id}" class="btn btn-primary friend-view" type="button">View</button>
-
+                                <div th:if="${friend.confirmation}" class="row">
+                                        <div class="col-4">
+                                    <button th:id="${'g' + friend.getFriend().id}" class="btn login friend-view" type="button">View</button>
+                                        </div>
+                                    <div class="col-8 d-flex align-items-center">
                                     <form th:action="@{'/profile/friend/delete/' + ${friend.id}}" method="POST">
-                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-danger">Remove
+                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-pink">Remove
                                             Friend
                                         </button>
                                     </form>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div th:each="request : ${requests}">
-                        <div class="row">
-                            <div th:if="${request.confirmation}">
-                                <div class="col-6">
-                                    <h3 th:text="${request.getUser().username}"></h3>
+                            <div th:if="${request.confirmation}" class="row py-2">
+                                <div class="col-6 d-flex align-items-center">
+                                    <h4 class="navy label-font profile-list-item" th:text="${request.getUser().username}"></h4>
                                 </div>
-                                <div class="col-6 d-flex justify-content-center">
-                                    <button th:id="${'g' + request.getUser().id}" class="btn btn-primary friend-view" type="button">View</button>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <div class="row">
+                                        <div class="col-4">
+                                    <button th:id="${'g' + request.getUser().id}" class="btn login friend-view" type="button">View</button>
+                                        </div>
+                                        <div class="col-8 d-flex align-items-center">
                                     <form th:action="@{'/profile/friend/delete/' + ${request.id}}" method="POST">
-                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-danger">Remove Friend</button>
+                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-pink">Remove Friend</button>
                                     </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-5">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed login" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 Requests
                             </button>
@@ -65,22 +73,28 @@
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <div class="row" th:each="request : ${requests}">
-                                    <div th:if="${!request.confirmation}" class="row">
-                                        <div class="col-9">
-                                            <h5 th:text="${request.getUser().username}"></h5>
+                                <div th:each="request : ${requests}">
+                                    <div th:if="${!request.confirmation}" class="row py-2">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <h4 class="navy label-font profile-list-item" th:text="${request.getUser().username}"></h4>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-6">
+                                            <div class="row g-1">
+                                                <div class="col d-flex justify-content-end">
                                             <form th:action="@{'/profile/friend/accept/' + ${request.id}}"
                                                   method="POST">
-                                                <button type="submit" class="btn btn-success">Accept</button>
+                                                <button type="submit" class="btn login">Accept</button>
                                             </form>
+                                                </div>
+                                                <div class="col d-flex align-items-center">
                                             <form th:action="@{'/profile/friend/delete/' + ${request.id}}"
                                                   method="POST">
                                                 <button th:id="${'d' + request.id}" type="submit"
-                                                        class="btn btn-danger">Reject
+                                                        class="btn btn-pink">Reject
                                                 </button>
                                             </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +105,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 </html>
