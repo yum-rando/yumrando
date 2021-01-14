@@ -23,12 +23,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-green" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-pink" data-bs-dismiss="modal">Close</button>
                 <div sec:authorize="isAnonymous()">
-                <button id="add-basic" type="button" class="btn btn-primary btn-white" data-bs-dismiss="modal">Save changes</button>
+                <button id="add-basic" type="button" class="btn login" data-bs-dismiss="modal">Save changes</button>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <button id="add-basic-user" type="button" class="btn btn-primary btn-white" data-bs-dismiss="modal">Save changes</button>
+                    <button id="add-basic-user" type="button" class="btn login" data-bs-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>

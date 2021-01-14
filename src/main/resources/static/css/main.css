@@ -119,7 +119,10 @@ p{
 .btn-pink{
     background-color: #E0719E;
     color: #F3F6E6;
-    font-weight: bold;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .btn-pink:hover{
@@ -130,7 +133,10 @@ p{
 .btn-yellow{
     background-color: #eed949;
     color: #383A47;
-    font-weight: bold;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .btn-yellow:hover {
@@ -139,12 +145,15 @@ p{
 }
 
 .btn-green{
-    background-color: #7cd0bd;
-    color: #383A47;
-    font-weight: bold;
-    border: #F3F6E6 2px solid;
-    margin: 1em;
-}
+     background-color: #7cd0bd;
+     color: #383A47;
+     font-weight: bold;
+     border: #F3F6E6 2px solid;
+     margin: 1em;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-size: 18px;
+    line-height: 22px;
+ }
 
 .btn-green:hover{
     background-color: #c7e2e2;
