@@ -14,3 +14,7 @@
 .icon-container{
     cursor: pointer;
 }
+
+.custom-padding{
+    padding: 19px 0;
+}

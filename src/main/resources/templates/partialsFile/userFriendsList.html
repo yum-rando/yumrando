@@ -13,7 +13,7 @@
         <div id="friend-form"></div>
         <div id="friend-list">
             <div class="row">
-                <div class="col-7">
+                <div class="col-6">
                     <div th:if="${#lists.isEmpty(friends) && #lists.isEmpty(requests)}" class="d-flex justify-content-center align-items-center list-items">
                         <h5 class="navy label-font my-5">Send a Friend Request!</h5>
                     </div>
@@ -23,7 +23,7 @@
                                 <h4 class="navy label-font profile-list-item" th:text="${friend.getFriend().username}"></h4>
                             </div>
                             <div class="col-6 d-flex justify-content-end">
-                                <div th:if="${!friend.confirmation}">
+                                <div th:if="${!friend.confirmation}" class="custom-padding">
                                     <h4 class="navy label-font profile-list-item">Request Sent</h4>
                                 </div>
                                 <div th:if="${friend.confirmation}" class="row">
@@ -61,7 +61,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-5">
+                <div class="col-6">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
