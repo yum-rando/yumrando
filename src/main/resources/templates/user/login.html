@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="partials/head :: head">
+<head th:replace="partials/register.login-head :: head">
 <body>
 <nav th:replace="partials/navbar :: navbar"/>
-<h1>Log In</h1>
 <div class="container">
-    <div th:if="${param.logout}" class="p-3 mb-2 bg-info text-dark rounded">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post">
-        <div th:if="${param.error}" class="form-control is-invalid">
-            <div class="mb-3">
-                <label for="username" class="form-label">Enter a username</label>
+    <h1>Sign In</h1>
+    <article class="row">
+        <div th:if="${param.logout}" class="p-3 mb-2 bg-info text-dark rounded">
+            You have been logged out.
+        </div>
+        <form class="col-lg-6" th:action="@{/login}" method="post">
+            <div class="col-lg-12 my-3" th:if="${param.error}">
+                <label for="username" class="form-label">Username</label>
+                <input name="username" type="text" class="form-control is-invalid" id="username" placeholder="Enter Username">
+            </div>
+            <div class="col-lg-12 my-3" th:if="${param.error}">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control is-invalid" id="password" name="password" placeholder="Enter Password">
+                <p class="errorValid">Invalid Username or Password</p>
+            </div>
+
+            <div class="col-lg-12 my-3" th:unless="${param.error}">
+                <label for="username" class="form-label">Username</label>
                 <input name="username" type="text" class="form-control" id="username" placeholder="Enter Username">
             </div>
 
-            <div class="mb-3">
+            <div class="col-lg-12 my-3" th:unless="${param.error}">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
             </div>
-            <p class="p-3 mb-2 bg-danger text-white rounded">Invalid Username or Password.</p>
-        </div>
-        <div th:unless="${param.error}">
-            <div class="mb-3">
-                <label for="username" class="form-label">Enter a username</label>
-                <input name="username" type="text" class="form-control" id="username" placeholder="Enter Username">
-            </div>
+            <button type="submit" class="col-lg-6 my-3 btn login">Submit</button>
+        </form>
+    </article>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
 </div>
 <script th:replace="partials/scripts :: script"></script>
 </body>

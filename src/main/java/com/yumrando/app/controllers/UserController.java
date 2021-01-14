@@ -12,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.Validation;
 import java.security.Principal;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
@@ -144,18 +145,24 @@ public class UserController {
             Errors validation,
             @RequestParam(name = "confirmPassword") String checkPassword,
             Model model) {
+        if(!user.getPassword().equals(checkPassword)){
+            validation.rejectValue(
+                "password",
+                "user.password",
+                "Passwords do not match"
+            );
+        }
         if (validation.hasErrors()) {
             model.addAttribute("errors", validation);
             model.addAttribute("user", user);
             System.out.println(validation.getAllErrors());
             return "user/register";
-        } else if (user.getPassword().equals(checkPassword)) {
+        }
             String hash = passwordEncoder.encode(user.getPassword());
             user.setPassword(hash);
             users.save(user);
             return "redirect:/login"; // If password equals confirmPassword redirect to index)
-        }
-        return "user/register";
+
     }
 
     @GetMapping("/profile")

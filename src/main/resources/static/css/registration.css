@@ -1,0 +1,27 @@
+body{
+    background-image: url("../img/login-design.png");
+}
+.container{
+    margin-top: 1em;
+}
+.form-label {
+    color: #F3F6E6;
+    font-family: 'Quando', serif
+}
+.errorValid {
+    color: indianred;
+}
+
+.login{
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #E0719E;
+    background: #F3F6E6;
+    border: 1px solid #E0719E;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin: .5em;
+}
