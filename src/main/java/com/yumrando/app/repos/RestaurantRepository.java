@@ -2,6 +2,7 @@ package com.yumrando.app.repos;
 
 import com.yumrando.app.models.ListRestaurant;
 import com.yumrando.app.models.Restaurant;
+import com.yumrando.app.models.RestaurantTag;
 import com.yumrando.app.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,10 +11,9 @@ import java.util.Set;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findById(long id);
-
     Restaurant save(Restaurant restaurant);
     Restaurant findAllByApiId (String apiId);
-
+    Restaurant findByTagsAndId(RestaurantTag restaurantTag, long id);
     Set<Restaurant> findAllByLists (ListRestaurant list);
 
     //Search query that only relies on the zipcode and the name

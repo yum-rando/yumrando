@@ -32,14 +32,12 @@ public class RestListRestaurantController {
    ListRestaurant newList(@RequestBody ListRestaurant list){
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         for (ListRestaurant listItem : listDao.findAllByUser(userDb)) {
-            if (listItem.getName().equalsIgnoreCase(list.getName())){
+            if ((listItem.getName().equalsIgnoreCase(list.getName())) || list.getName().isEmpty()){
                 return list;
             }
         }
         list.setUser(userDb);
         return listDao.save(list);
-//        return "redirect:/restaurants/lists/" + dbListRestaurant.getName();
-
     }
 
     @CrossOrigin

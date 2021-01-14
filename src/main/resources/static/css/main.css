@@ -226,7 +226,7 @@ p{
     background: #F3F6E6;
 }
 .modal-header{
-    background: #F3F6E6;
+    background: #7cd0bd;
 }
 
 .modal-footer{
@@ -234,6 +234,8 @@ p{
 }
 .modal-title{
     color: #383A47;
+    background: #7cd0bd;
+    font-family: 'Quando', serif;
     font-weight: bolder;
 }
 .modal-address{
@@ -243,6 +245,56 @@ p{
 .modal-close{
     float: end;
     color: #E0719E;
+}
+
+input{
+    background: #AAC6FC;
+    border: #383A47 solid 1px;
+    color: #383A47;
+}
+
+/*show modal*/
+.search-show{
+    background: #f3f6e6;
+}
+.search-name{
+    background: #F3F6E6;
+    color: #7cd0bd!important;
+    font-family: 'Quando', serif;
+
+}
+.addRest{
+    display: flex;
+    flex-direction: column;
+}
+.indexMainContainer{
+    margin-top: 2em;
+    width: 100%;
+}
+
+#random-button-tool{
+    display: flex;
+    align-items: center;
+    position: relative;
+    bottom: 50em;
+
+}
+/*footer*/
+.foot{
+    background: #7cd0bd;
+    color: #F3F6E6;
+
+}
+.footLogo{
+    height: 5em;
+}
+.footer-right{
+    display: flex;
+    align-items: flex-end;
+}
+.footer-left{
+    display: flex;
+    align-items: flex-start;
 }
 /* custom css */
 
@@ -341,10 +393,10 @@ body{
 
 /* Load animation */
 #logo{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    /*position: absolute;*/
+    /*top:50%;*/
+    /*left:50%;*/
+    /*transform: translate(-50%,-50%);*/
 }
 .yum_0{
     stroke-dasharray: 3713px;
@@ -441,7 +493,15 @@ body{
 
 /* randomizer gif  */
 #rain{
-    height: 30em;
+    height: 15em;
+    display: flex;
+    justify-content: center;
+}
+
+/*randomizer btn*/
+.rando{
+    position: relative;
+
 }
 
 /* error  */

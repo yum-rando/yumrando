@@ -6,7 +6,13 @@
     <h1>Create an Account</h1>
     <div class="container">
         <form th:action="@{/register}" th:method="post" th:object="${user}">
-            <div class="mb-3">
+            <div class="mb-3" th:if="${dupError}">
+                <label for="username" class="form-label">Enter a username</label>
+                <input type="text" class="form-control is-invalid" th:field="*{username}" id="username">
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                <p>Please enter a username that is not in use</p>
+            </div>
+            <div class="mb-3" th:unless="${dupError}">
                 <label for="username" class="form-label">Enter a username</label>
                 <input type="text" class="form-control" th:field="*{username}" id="username">
                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
