@@ -12,7 +12,48 @@
     <div class="container bg-green">
         <div id="friend-form"></div>
         <div id="friend-list">
-            <div class="Row">
+            <div class="row">
+                <div class="col-8">
+                    <div th:each="friend : ${friends}">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 th:text="${friend.getFriend().username}"></h3>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <div th:if="${!friend.confirmation}">
+                                    Request Sent
+                                </div>
+                                <div th:if="${friend.confirmation}">
+
+                                    <button th:id="${'g' + friend.getFriend().id}" class="btn btn-primary friend-view" type="button">View</button>
+
+                                    <form th:action="@{'/profile/friend/delete/' + ${friend.id}}" method="POST">
+                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-danger">Remove
+                                            Friend
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:each="request : ${requests}">
+                        <div class="row">
+                            <div th:if="${request.confirmation}">
+                                <div class="col-6">
+                                    <h3 th:text="${request.getUser().username}"></h3>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center">
+                                    <button th:id="${'g' + request.getUser().id}" class="btn btn-primary friend-view" type="button">View</button>
+                                    <form th:action="@{'/profile/friend/delete/' + ${request.id}}" method="POST">
+                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-danger">Remove Friend</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
@@ -47,51 +88,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div th:each="friend : ${friends}">
-                    <div class="row">
-                        <div class="col-10">
-                            <h3 th:text="${friend.getFriend().username}"></h3>
-                        </div>
-                        <div class="col-2">
-                            <div th:if="${!friend.confirmation}">
-                                Request Sent
-                            </div>
-
-                            <div th:if="${friend.confirmation}">
-                                <button th:id="${'g' + friend.getFriend().id}" class="btn btn-primary friend-view"
-                                        type="button">View
-                                </button>
-
-                                <form th:action="@{'/profile/friend/delete/' + ${friend.id}}" method="POST">
-                                    <button th:id="${'d' + friend.id}" type="submit" class="btn btn-danger">Remove
-                                        Friend
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div th:each="request : ${requests}">
-                    <div class="row">
-                        <div th:if="${request.confirmation}">
-                            <div class="col-10">
-                                <h3 th:text="${request.getUser().username}"></h3>
-                            </div>
-                            <div class="col-2">
-                                <button th:id="${'g' + request.getUser().id}" class="btn btn-primary friend-view"
-                                        type="button">View
-                                </button>
-
-                                <form th:action="@{'/profile/friend/delete/' + ${request.id}}" method="POST">
-                                    <button th:id="${'d' + request.id}" type="submit" class="btn btn-danger">Remove
-                                        Friend
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
