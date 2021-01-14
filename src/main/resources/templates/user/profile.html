@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="partials/head :: head">
+<head th:include="partials/headProfile :: head-profile">
 <body>
 <nav th:replace="partials/navbar :: navbar"/>
-<div th:replace="partialsFile/profileTagsModal :: tags-modal"></div>
+<div th:replace="partials/profileJumbo :: profile-jumbo"/>
+<div th:replace="partialsFile/profileTagsModal :: tags-modal"/>
 <div th:replace="partialsFile/userInfo :: user-info"/>
-<div th:replace="partialsFile/userLists :: user-lists-profile"/>
-<div th:replace="partialsFile/userTagsList :: user-lists-tags"/>
-<div th:replace="partialsFile/userHistoryList :: user-history-list"/>
+<div class="container mb-5">
+<div class="row">
+    <div class="col-6">
+        <div th:replace="partialsFile/userTagsList :: user-lists-tags"/>
+    </div>
+    <div class="col-6">
+    <div th:replace="partialsFile/userLists :: user-lists-profile"/>
+    </div>
+</div>
+</div>
 <div th:replace="partialsFile/userFriendsList :: user-friends-list"/>
+<div th:replace="partialsFile/userHistoryList :: user-history-list"/>
 <script th:replace="partials/scripts :: script"></script>
 <script th:src="@{/js/apiSearch.js}"></script>
 <script th:src="@{/js/apiCreate.js}"></script>

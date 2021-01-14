@@ -5,14 +5,17 @@
     $('#add-list').click(()=>{
         $('.list-items').addClass('d-none');
         $('#list-form').empty().append(
-            `<form>
+                `
+               <div class="container py-2">
+                <form>
                     <div class="mb-3">
-                    <label for="name" class="form-label">Enter a name for your list:</label>
+                    <label  for="name" class="form-label navy label-font">Enter a name for your list:</label>
                     <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
-                     <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
-                     <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
+                     <button id="submit-list" type="button" class="btn login">Submit</button>
+                     <button id="submit-list-cancel" type="button" class="btn btn-pink">Cancel</button>
                  </form>
+                </div>
                 `
         )
         cancelInputSubmit();
@@ -29,33 +32,46 @@
                 $("#error-message").empty().removeClass("d-none").append(`Connection Error. Could not add on new list.`)
             });
         });
+
         $("#submit-list-cancel").click(()=>{
             $(".list-items").removeClass("d-none");
             $("#list-form").empty();
         })
     })
 
-    $('#edit-list').click(()=> {
-        $('#list-form').empty();
-        $('.list-items').removeClass('d-none');
-        $('.delete-list, .icon-container').toggleClass('d-none');
-    })
+        $("#edit-list").click(() => {
+            $('#list-form').empty();
+            $('.list-items').removeClass('d-none');
+            $('.delete-list, .icon-container').toggleClass('d-none');
+        })
 
     $('.icon-container').click(function(){
         let listName = $(this).attr('data-name');
         let listId = $(this).attr('data-id');
         $('.list-items').addClass('d-none');
         $('#list-form').empty().append(
-            `<form>
+            `
+            <div class="container py-2">
+                <form>
                     <div class="mb-3">
-                    <label for="name" class="form-label">Edit the name of your list:</label>
+                    <label for="name" class="form-label navy label-font">Edit the name of your list:</label>
                     <input name="name" value="${listName}" type="text" class="form-control deny-submit" id="nameEdit">
                     </div>
-                     <button id="submit-listEdit" type="button" class="btn btn-primary">Submit</button>
+                     <button id="submit-listEdit" type="button" class="btn login">Submit</button>
+                     <button id="submit-listEdit-cancel" type="button" class="btn btn-pink">Cancel</button>
                  </form>
+            </div>
+                 
                 `
         )
         cancelInputSubmit();
+
+        $("#submit-listEdit-cancel").click(()=>{
+            $(".list-items").removeClass("d-none");
+            $("#list-form").empty();
+            $(".icon-container, .delete-list").addClass("d-none");
+        })
+
         $('#submit-listEdit').click(()=>{
 
             let listObject = {
@@ -79,17 +95,20 @@
     $("#add-friend").click(()=> {
         $('#friend-list').addClass('d-none');
         $('#friend-form').empty().append(
-            `<form>
-                    <div class="mb-3">
-                    <label for="name" class="form-label">Type the username you would like to send a friend request:</label>
-                    <input name="name" type="text" class="form-control deny-submit" id="friend-username">
-                    <div class="invalid-feedback">
-                    Invalid username entered.
-                    </div>
-                    </div>
-                     <button id="submit-friend-request" type="button" class="btn btn-primary">Submit</button>
-                     <button id="submit-friend-request-cancel" type="button" class="btn btn-secondary">Cancel</button>
-                 </form>
+            `
+                <div class="container py-2">
+                    <form>
+                        <div class="mb-3">
+                        <label for="name" class="form-label navy label-font">Type the username you would like to send a friend request:</label>
+                        <input name="name" type="text" class="form-control deny-submit" id="friend-username">
+                        <div class="invalid-feedback">
+                            Invalid username entered.
+                        </div>
+                        </div>
+                        <button id="submit-friend-request" type="button" class="btn login">Submit</button>
+                        <button id="submit-friend-request-cancel" type="button" class="btn btn-pink">Cancel</button>
+                    </form>
+                </div>    
                 `
         )
         cancelInputSubmit();
