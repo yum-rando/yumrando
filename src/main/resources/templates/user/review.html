@@ -15,7 +15,7 @@
                 <div class="roundCorners">
                     <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}"
                           th:method="POST" th:object="${review}">
-                        <div class="d-flex justify-content-around">
+                        <div class="d-flex justify-content-around my-3">
                             <div class="form-check form-check-inline">
                                 <input th:field="*{rating}" class="form-check-input pink" type="radio" id="inlineCheckbox1"
                                        value="1" required>
@@ -50,9 +50,9 @@
                         <div class="d-flex justify-content-end">
                             <button type="button" id="review-comment-edit" class="btn white">Edit</button>
                             <div>
-                                <img id="photoPreview" src="" alt="">
+                                <img id="photoPreview" src="" alt="" class="w-100">
                                 <input type="hidden" id="photo" name="photo_image_url">
-                                <button id="add-photo" class="btn btn-success d-none"><i class="fas fa-plus"> Add Photo</i>
+                                <button id="add-photo" class="btn btn-pink d-none"><i class="fas fa-plus"> Add Photo</i>
                                 </button>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="roundedCorner">
+                <div class="roundCorners">
                     <div>
                         <div class="d-flex justify-content-between">
                             <h1 class="lilac">Photos</h1>
@@ -84,10 +84,10 @@
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active img-fluid">
-                                <img th:src="@{/img/yumlogo.png}" class="d-block w-100" alt="YumRando Logo">
+                                <img th:src="@{/img/yumlogo.png}" class="d-block w-25 m-auto" alt="YumRando Logo" id="yumCarLogo">
                             </div>
                             <div class="carousel-item img-fluid" th:each="photo : ${photos}">
-                                <img th:src="@{${photo.url}}" class="d-block w-100" th:alt="${photo.url}">
+                                <img th:src="@{${photo.url}}" class="d-block w-75 m-auto" th:alt="${photo.url}">
                                 <form class="text-center" th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos/' + ${photo.id} +'/' + ${friendId} +'/delete'}"
                                       th:method="POST">
                                     <button type="submit" class="btn btn-danger delete-photo-list d-none"><i class="fas fa-trash-alt"></i></button>
