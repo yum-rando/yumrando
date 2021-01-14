@@ -26,8 +26,6 @@ public class RestReviewController {
         this.reviewDao = reviewDao;
     }
 
-
-
     //Checking to see if the review is already in the system;
     // if it is, then just update the update_time column filled out;
     // if not, then create a review with the update_time column filled out;
