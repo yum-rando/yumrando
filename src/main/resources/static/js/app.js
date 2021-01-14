@@ -40,7 +40,7 @@
                             `
                                 <h5 class="modal-title">${randomSearchResult.name}</h5>
                                 <p class="modal-address">${randomSearchResult.address}</p>
-                                <a id="add-random-rest" data-bs-dismiss="modal">Add To List</a>
+                                <a id="add-random-rest" class="btn-green"modal">Add To List</a>
                             `
                         );
                         $(modalBody).empty();
@@ -50,7 +50,7 @@
                     } else {
                         let addListAnchor = "";
                         if($("#currentList").val() !== 'default') {
-                            addListAnchor = `<a id="add-random-restUser">Add To List</a>`;
+                            addListAnchor = `<a id="add-random-restUser" class="btn-green">Add To List</a>`;
                         }
                         $(modalLabel).append(
                             `
@@ -76,14 +76,14 @@
             $(".geo-disabled").remove();
             $("#guest-add-buttons").append(
                 `
-                    <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <button type="button" class="btn btn-primary activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
                         Search Restaurant
                     </button>
                     `
             )
             $("#user-add-buttons").append(
                 `
-                <button type="button" class="btn btn-primary activate-search" data-bs-toggle="modal" data-bs-target="#searchModal">
+                <button type="button" class="btn btn-primary activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
                     Search Restaurant
                 </button>
                 `
@@ -121,13 +121,13 @@
             array.map((item, num) => {
                 $(parent).append(
                     `
-                      <div class="container">
+                      <div class="container search-show">
                       <div class="row">
-                      <div id="r${num}" class="col-9" data-bs-toggle="modal" data-bs-target="#showModal">
-                      <h6>${item.name}</h6>
+                      <div id="r${num}" class="col-9 search-name" data-bs-toggle="modal" data-bs-target="#showModal">
+                      <h6 >${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button id="delete${num}" type="button" class="btn btn-danger">-</button>
+                     <button id="delete${num}" type="button" class="btn register">-</button>
                     </div>
                       </div>
                         </div>`
@@ -204,10 +204,10 @@
                             <div class="col-9">
                                 <h5 class="modal-restName">${restaurant.name}</h5>
                                 <p class="modal-restInfo">${restaurant.location.address}</p>
-                                <div>${restaurant.location.tags}</div>
+                  
                              </div>
                              <div class="col-3">
-                                 <button id="${type + num}" type="button" class="btn btn-pink" data-bs-dismiss="modal">Add to List</button> 
+                                 <button id="${type + num}" type="button" class="btn btn-green" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
                     </div>

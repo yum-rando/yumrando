@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment ="head">
     <meta charset="UTF-8">
-    <title>Yum•Rando<th:block th:text="${title}"></th:block></title>
+
+    <title>Yum•Rando  <th:block th:text="${title}"></th:block></title>
+    <link rel="icon" href="/img/taco.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>

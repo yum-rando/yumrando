@@ -119,7 +119,10 @@ p{
 .btn-pink{
     background-color: #E0719E;
     color: #F3F6E6;
-    font-weight: bold;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .btn-pink:hover{
@@ -130,7 +133,10 @@ p{
 .btn-yellow{
     background-color: #eed949;
     color: #383A47;
-    font-weight: bold;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .btn-yellow:hover {
@@ -139,12 +145,15 @@ p{
 }
 
 .btn-green{
-    background-color: #7cd0bd;
-    color: #383A47;
-    font-weight: bold;
-    border: #F3F6E6 2px solid;
-    margin: 1em;
-}
+     background-color: #7cd0bd;
+     color: #383A47;
+     font-weight: bold;
+     border: #F3F6E6 2px solid;
+     margin: 1em;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-size: 18px;
+    line-height: 22px;
+ }
 
 .btn-green:hover{
     background-color: #c7e2e2;
@@ -176,6 +185,11 @@ p{
 
 .lilac{
     color: #AAC6FC;
+}
+
+/*corners*/
+.roundCorners{
+    border-radius: 15px;
 }
 
 /* landing page */
@@ -221,7 +235,7 @@ p{
     background: #F3F6E6;
 }
 .modal-header{
-    background: #F3F6E6;
+    background: #7cd0bd;
 }
 
 .modal-footer{
@@ -229,6 +243,8 @@ p{
 }
 .modal-title{
     color: #383A47;
+    background: #7cd0bd;
+    font-family: 'Quando', serif;
     font-weight: bolder;
 }
 .modal-address{
@@ -238,6 +254,56 @@ p{
 .modal-close{
     float: end;
     color: #E0719E;
+}
+
+input{
+    background: #AAC6FC;
+    border: #383A47 solid 1px;
+    color: #383A47;
+}
+
+/*show modal*/
+.search-show{
+    background: #f3f6e6;
+}
+.search-name{
+    background: #F3F6E6;
+    color: #7cd0bd!important;
+    font-family: 'Quando', serif;
+
+}
+.addRest{
+    display: flex;
+    flex-direction: column;
+}
+.indexMainContainer{
+    margin-top: 2em;
+    width: 100%;
+}
+
+#random-button-tool{
+    display: flex;
+    align-items: center;
+    position: relative;
+    bottom: 50em;
+
+}
+/*footer*/
+.foot{
+    background: #7cd0bd;
+    color: #F3F6E6;
+
+}
+.footLogo{
+    height: 5em;
+}
+.footer-right{
+    display: flex;
+    align-items: flex-end;
+}
+.footer-left{
+    display: flex;
+    align-items: flex-start;
 }
 /* custom css */
 
@@ -436,7 +502,15 @@ body{
 
 /* randomizer gif  */
 #rain{
-    height: 30em;
+    height: 15em;
+    display: flex;
+    justify-content: center;
+}
+
+/*randomizer btn*/
+.rando{
+    position: relative;
+
 }
 
 /* error  */
