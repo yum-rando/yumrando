@@ -16,7 +16,7 @@
                 <div class="roundCorners">
                     <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}"
                           th:method="POST" th:object="${review}">
-                        <div class="d-flex justify-content-evenly m-3 text-center">
+                        <div class="d-flex justify-content-evenly m-3 text-center" id="rating-container">
                             <div class="form-check form-check-inline" id="radio-1-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox1"

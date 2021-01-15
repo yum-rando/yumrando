@@ -25,6 +25,17 @@
      margin-bottom: 30vh;
  }
 
+@media (min-width: 260px) and (max-width: 319.98px) {
+    .emojis {
+        width: 15px !important;
+        height: 15px !important;
+    }
+    #rating-container{
+        display: flex !important;
+        justify-content: space-around !important;
+    }
+}
+
 @media (min-width: 768px) {
     #submit-review-btn {
         width: 25% !important;
