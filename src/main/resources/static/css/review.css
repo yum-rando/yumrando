@@ -29,7 +29,7 @@
      color: #cc5500;
  }
 
-@media (min-width: 260px) and (max-width: 319.98px) {
+    @media (max-width: 319.98px){
     .emojis {
         width: 15px !important;
         height: 15px !important;
