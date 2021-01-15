@@ -2,34 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="partials/register.login-head :: head">
 <body>
-<nav th:replace="partials/navbar :: navbar"/>
+<nav th:replace="partials/registerNav :: nav"/>
 <div class="container">
-    <h1>Sign In</h1>
     <article class="row">
-        <div th:if="${param.logout}" class="p-3 mb-2 bg-info text-dark rounded">
-            You have been logged out.
-        </div>
-        <form class="col-lg-6" th:action="@{/login}" method="post">
+        <form class="col-12 col-lg-6 col-xl-6" th:action="@{/login}" method="post">
+            <h1>Sign In</h1>
+            <div th:if="${param.logout}" class="col-12 col-lg-12 col-xl-12 p-3 mb-2 alert alert-success rounded">
+                <p id="logOutMsg">You have been logged out.</p>
+            </div>
             <div class="col-lg-12 my-3" th:if="${param.error}">
                 <label for="username" class="form-label">Username</label>
                 <input name="username" type="text" class="form-control is-invalid" id="username" placeholder="Enter Username">
             </div>
-            <div class="col-lg-12 my-3" th:if="${param.error}">
+            <div class="col-12 col-lg-12 col-xl-12 my-3" th:if="${param.error}">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control is-invalid" id="password" name="password" placeholder="Enter Password">
                 <p class="errorValid">Invalid Username or Password</p>
             </div>
 
-            <div class="col-lg-12 my-3" th:unless="${param.error}">
+            <div class="col-12 col-lg-12 col-xl-12 my-3" th:unless="${param.error}">
                 <label for="username" class="form-label">Username</label>
                 <input name="username" type="text" class="form-control" id="username" placeholder="Enter Username">
             </div>
 
-            <div class="col-lg-12 my-3" th:unless="${param.error}">
+            <div class="col-12 col-lg-12 col-xl-12 my-3" th:unless="${param.error}">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
             </div>
-            <button type="submit" class="col-lg-6 my-3 btn login">Submit</button>
+            <div class="col-12 col-lg-6 col-xl-6 my-3">
+                <button type="submit" class="text-center btn login regLog">Submit</button>
+            </div>
+
         </form>
     </article>
 

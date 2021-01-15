@@ -132,8 +132,8 @@
     });
 
     $("#tag-search").keyup(function() {
-        let inputValue = $(this).val()
-        let tagList = filterArray.filter(({name}) => name.includes(inputValue))
+        let inputValue = $(this).val().toLowerCase();
+        let tagList = filterArray.filter(({name}) => name.toLowerCase().includes(inputValue))
         $("#check-tags").empty()
         tagList.map(faveTags =>{
             $("#check-tags").append(
@@ -155,16 +155,20 @@
         window.location.assign(url);
     })
 
-    let filterArray = []
+    let filterArray = [];
+    let checkBody = "#check-tags";
 
     $("#edit-tag-list").click(() => {
+        $(".tag-modal-info").addClass("d-none");
+        $(checkBody).empty().append(loader());
         apiTagSearch("/tags").then(data=>{
-            $("#check-tags").empty()
+            $(".tag-modal-info").removeClass("d-none");
+            $(checkBody).empty();
             filterArray = [...data]
             filterArray.map(faveTags =>{
-                $("#check-tags").append(
+                $(checkBody).append(
                     `
-                    <div class="col-3">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
                         <input class="form-check-input tag-form-input" type="checkbox" value="" id="flexCheckDefault" data-tagID="${faveTags.id}" data-tagName="${faveTags.name}">
                         <label class="form-check-label" for="flexCheckDefault">
                             ${faveTags.name}
@@ -187,7 +191,7 @@
             }
         })
         const url= "/tags"
-        apiCreate(userTag, url).then(data =>{
+        apiCreate(userTag, url).then(()=>{
             window.location.assign("/profile");
         })
     })

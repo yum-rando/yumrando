@@ -5,15 +5,21 @@
         <div class="modal-content">
             <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-header">
-                <h5 class="modal-title">Select Your Favorite Cuisine Types</h5>
+                <h5 class="modal-title tag-modal-info">Select Your Favorite Cuisine Types</h5>
             </div>
-            <div id="tag-modal-body" class="modal-body"></div>
-                <div class="row">
-                    <input type="search" id="tag-search" class="deny-submit">
+            <div id="tag-modal-body" class="modal-body">
+                <div class="row g-3 align-items-center mb-3 tag-modal-info">
+                    <div class="col-xs-5 col-lg-3">
+                    <label class="col-form-label" for="tag-search">Search for tags</label>
+                    </div>
+                    <div class="col-xs-7 col-lg-5">
+                    <input type="search" id="tag-search" class="deny-submit form-control">
+                    </div>
                 </div>
-                        <div id="check-tags" class="row"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="save-tags">Submit</button>
+            <div id="check-tags" class="row"></div>
+            </div>
+            <div class="modal-footer tag-modal-info">
+                <button type="button" class="btn login" data-bs-dismiss="modal" id="save-tags">Submit</button>
             </div>
         </div>
     </div>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="user-history-list" class="container">
+<div th:fragment="user-history-list" id="history-table" class="container">
     <div class="row my-3">
         <div class="col-8 d-flex align-items-center">
-            <h4 class="lilac profile-list-item">Your Recent Randomly Chosen Restaurants!</h4>
+            <h4 class="lilac profile-list-item">My Recent Chosen Restaurants!</h4>
         </div>
 
     </div>
     <div class="container bg-green roundCorners">
         <div th:if="${#lists.isEmpty(history)}" class="d-flex justify-content-center align-items-center list-items">
-            <h5 class="navy label-font my-5">Your Restaurant History is Empty.</h5>
+            <h5 class="navy label-font my-5">My Restaurant History is Empty.</h5>
         </div>
         <div th:unless="${#lists.isEmpty(history)}">
             <table class="table table-hover">
