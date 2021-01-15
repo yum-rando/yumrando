@@ -387,22 +387,22 @@ body{
 
 .login{
     font-family: 'Quando', serif;    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
+    font-weight: normal !important;
+    font-size: 18px !important;
+    line-height: 22px !important;
 
-    color: #E0719E;
-    background: #F3F6E6;
-    border: 1px solid #E0719E;
+    color: #E0719E !important;
+    background: #F3F6E6 !important;
+    border: 1px solid #E0719E !important;
     box-sizing: border-box;
     border-radius: 6px;
     margin: .5em;
 }
 
 .login:hover{
-    color: #F3F6E6;
-    background: #E0719E;
-    border: 1px solid #E0719E;
+    color: #F3F6E6 !important;
+    background: #E0719E !important;
+    border: 1px solid #E0719E !important;
 }
 
 .register{
