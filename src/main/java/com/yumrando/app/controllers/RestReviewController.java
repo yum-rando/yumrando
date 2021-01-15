@@ -26,8 +26,6 @@ public class RestReviewController {
         this.reviewDao = reviewDao;
     }
 
-
-
     //Checking to see if the review is already in the system;
     // if it is, then just update the update_time column filled out;
     // if not, then create a review with the update_time column filled out;
@@ -38,7 +36,7 @@ public class RestReviewController {
         Restaurant restaurant = restaurantDao.findById(restReviewToBeUpdated.getId());
         Review reviewDb = reviewDao.findReviewByUserIdAndRestaurantId(userDb.getId(), restReviewToBeUpdated.getId());
         Date now = new Date();
-        String pattern = "yyyy-MM-dd HH:mm:ss";
+        String pattern = "EEE, MMM d, yyyy";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         String mysqlUpdateDate = formatter.format(now);
 
