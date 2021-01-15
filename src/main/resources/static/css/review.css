@@ -7,17 +7,10 @@
     padding: 0;
 }
 
-/*#review-container-row{*/
-/*    border: #E0719E 1px solid;*/
-/*}*/
-
 .review-caro-img{
     height: 12em;
 }
 
-/*input[type="radio"] {*/
-/*    bottom: 3px; !* vertically align radio with corresponding label *!*/
-/*}*/
  .side-banner-roundedCorners{
      border-bottom-left-radius: 15px;
      border-top-left-radius: 15px;
@@ -30,23 +23,21 @@
 
 @media (min-width: 768px) {
     #submit-review-btn {
-        width: 50% !important;
-        text-align: start !important;
+        width: 25% !important;
+        /*text-align: start !important;*/
     }
 
     #review-submit-div{
         text-align: start !important;
     }
 
-    #emoji-1, #emoji-2, #emoji-3, #emoji-4, #emoji-5{
+    .emojis{
         width: 75%!important;
     }
-
-    /*#radio-1-btn, #radio-2-btn, #radio-3-btn, #radio-4-btn, #radio-5-btn*/
-    /*{*/
-    /*    display: flex;*/
-    /*    align-items: center;*/
+    /*#emoji-1, #emoji-2, #emoji-3, #emoji-4, #emoji-5{*/
+    /*    width: 75%!important;*/
     /*}*/
+
 }
 
 @media (min-width: 992px) {
