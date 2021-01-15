@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="partials/review-head :: head">
-<body>
+<body class="bg-navy">
 <nav th:replace="partials/navbar :: navbar"/>
-<div class="main my-5">
+<div class="main my-5 bg-navy">
     <div class="container">
         <div class="row roundCorners" id="review-container-row">
-            <div class="col-12 col-md-4 roundCorners d-none d-md-block" id="review-side-panel">
+            <div class="col-12 col-md-4 d-none d-md-block bg-green side-banner-roundedCorners" id="review-side-panel">
 <!--                <img th:src="@{/img/rating.png}" alt="YumRando Review Page" class="w-100 m-auto">-->
             </div>
-            <div class="col-12 col-md-8">
-                <div class="text-center mb-5">
+            <div class="col-12 col-md-8 bg-white review-form-container">
+                <div class="text-center mb-5 mt-3">
                     <h1 class="text-center lilac">Rate Your Experience At </h1>
                     <h1 th:text="${restaurantName}" class="text-center lilac"><span>!</span></h1>
                 </div>
                 <div class="roundCorners">
                     <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}"
                           th:method="POST" th:object="${review}">
-                        <div class="d-flex justify-content-evenly my-3">
-                            <div class="form-check form-check-inline">
-                                <input th:field="*{rating}" class="form-check-input pink" type="radio"
+                        <div class="d-flex justify-content-evenly m-3 text-center">
+                            <div class="form-check form-check-inline" id="radio-1-btn">
+                                <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox1"
                                        value="1" required>
-                                <label class="form-check-label pink" for="inlineCheckbox1">
-                                    <img th:src="@{/img/rating-1.png}" alt="rating-1-terrible" class="w-100 m-auto">
+                                <label class="form-check-label" for="inlineCheckbox1">
+                                    <img th:src="@{/img/rating-1.png}" alt="rating-1-terrible" class="w-100 m-auto" id="emoji-1">
                                     <!--                                    <i class="far fa-frown"></i> Terrible-->
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input th:field="*{rating}" class="form-check-input pink" type="radio"
+                            <div class="form-check form-check-inline" id="radio-2-btn">
+                                <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox2"
                                        value="2">
-                                <label class="form-check-label pink" for="inlineCheckbox2">
-                                    <img th:src="@{/img/rating-2.png}" alt="rating-2-bad" class="w-100 m-auto">
+                                <label class="form-check-label" for="inlineCheckbox2">
+                                    <img th:src="@{/img/rating-2.png}" alt="rating-2-bad" class="w-100 m-auto" id="emoji-2">
                                     <!--                                    <i class="far fa-meh"></i> Bad-->
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input th:field="*{rating}" class="form-check-input pink" type="radio"
+                            <div class="form-check form-check-inline" id="radio-3-btn">
+                                <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox3"
                                        value="3">
-                                <label class="form-check-label pink" for="inlineCheckbox3">
-                                    <img th:src="@{/img/rating-3.png}" alt="rating-3-ok" class="w-100 m-auto">
+                                <label class="form-check-label" for="inlineCheckbox3">
+                                    <img th:src="@{/img/rating-3.png}" alt="rating-3-ok" class="w-100 m-auto" id="emoji-3">
                                     <!--                                    <i class="far fa-smile"></i> Ok-->
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input th:field="*{rating}" class="form-check-input pink" type="radio"
+                            <div class="form-check form-check-inline" id="radio-4-btn">
+                                <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox4"
                                        value="4">
-                                <label class="form-check-label pink" for="inlineCheckbox4">
-                                    <img th:src="@{/img/rating-4.png}" alt="rating-4-good" class="w-100 m-auto">
+                                <label class="form-check-label" for="inlineCheckbox4">
+                                    <img th:src="@{/img/rating-4.png}" alt="rating-4-good" class="w-100 m-auto" id="emoji-4">
                                     <!--                                    <i class="far fa-smile-beam"></i>Good-->
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input th:field="*{rating}" class="form-check-input pink" type="radio"
+                            <div class="form-check form-check-inline" id="radio-5-btn">
+                                <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox5"
                                        value="5">
-                                <label class="form-check-label pink" for="inlineCheckbox5">
-                                    <img th:src="@{/img/rating-5.png}" alt="rating-5-excellent" class="w-100 m-auto">
+                                <label class="form-check-label" for="inlineCheckbox5">
+                                    <img th:src="@{/img/rating-5.png}" alt="rating-5-excellent" class="w-100 m-auto" id="emoji-5">
                                     <!--                                    <i class="far fa-grin-hearts"></i> Excellent-->
                                 </label>
                             </div>
@@ -78,7 +78,7 @@
                             <textarea th:field="*{comment}" class="form-control" id="exampleFormControlTextarea1"
                                       rows="3" placeholder="Leave Comment Here"></textarea>
                         </div>
-                        <div class="my-3 text-center">
+                        <div class="my-3 text-center" id="review-submit-div">
                             <button type="submit" class="w-100 btn btn-pink" id="submit-review-btn">Submit</button>
                         </div>
                     </form>
