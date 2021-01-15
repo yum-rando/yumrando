@@ -34,7 +34,7 @@
                                         </div>
                                     <div class="col d-flex align-items-center">
                                     <form th:action="@{'/profile/friend/delete/' + ${friend.id}}" method="POST">
-                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-pink">Remove</button>
+                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-red">Remove</button>
                                     </form>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="col d-flex align-items-center">
                                     <form th:action="@{'/profile/friend/delete/' + ${request.id}}" method="POST">
-                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-pink">Remove</button>
+                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-red">Remove</button>
                                     </form>
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                             <form class="d-flex justify-content-center" th:action="@{'/profile/friend/delete/' + ${request.id}}"
                                                   method="POST">
                                                 <button th:id="${'d' + request.id}" type="submit"
-                                                        class="btn btn-pink">Reject
+                                                        class="btn btn-red">Reject
                                                 </button>
                                             </form>
                                                 </div>
