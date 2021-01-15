@@ -52,11 +52,27 @@
     margin-left: .5rem;
 }
 
+#profile-img-content{
+    height: 332px !important;
+    border-color:  #7cd0bd !important;
+}
+
+#request-button{
+    margin-left: 0 !important;
+}
+/*#welcome-container{*/
+/*    position: relative;*/
+
+/*}*/
+
+/*#welcome-username{*/
+/*    position: absolute;*/
+/*    top: 240px;*/
+/*}*/
+
 
 @media screen and (max-width:768px) {
     .small-profile-item {
         margin-bottom: 3rem !important;
     }
 }
-
-
