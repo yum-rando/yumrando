@@ -2,30 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
 xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="app">
-    <div class="container">
+    <div class="container indexMainContainer" >
         <div class="row">
             <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
         </div>
         <div class="row">
-            <div class="col-6">
-                <div>
-<!--                    <img id="rain" src="/img/yumRain.gif" alt="food rain">-->
-                </div>
-                <div id="random-button-tool"></div>
-                <div sec:authorize = "isAnonymous()">
-                <button id="guest-random" class="register" type="button"> Rando </button>
-                </div>
-                <div sec:authorize = "isAuthenticated()">
-                    <button id="user-random" class="register" type="button"> Rando </button>
+            <div class="col-4">
+                <div th:replace="partialsFile/randomSearch :: random-search"></div>
+            </div>
+            <div class="col-4">
+                <div class="text-center" style="display: flex; justify-content: center">
+                    <img id="rain" src="/img/cloudRain.png" alt="food rain">
+                    <div id="random-button-tool"></div>
+                    <div style="position: relative; right: 7.5em; top: 2em;" sec:authorize = "isAnonymous()">
+                        <button id="guest-random" class="register btn-white rando" type="button"> Rando </button>
+                    </div>
+                    <div style="position: relative; right: 7.5em; top: 2em;" sec:authorize = "isAuthenticated()">
+                     <button id="user-random" class="register btn-white rando" type="button"> Rando </button>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
+                <div class="col-4">
+                    <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
+                </div>
+            </div>
 
-            </div>
-        </div>
-        <div class="row">
-            <div th:replace="partialsFile/randomSearch :: random-search"></div>
         </div>
     </div>
 </div>

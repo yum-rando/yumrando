@@ -5,51 +5,52 @@
         <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
     </div>
     <div class="row">
-        <div class="col-6 container">
-            <div class="rounded-circle bg-green h-100 d-flex align-items-center justify-content-center">
-           <h1 class="navy" th:text="${userInfo.username}"></h1>
+        <div class="col-xs-12 col-md-6 container small-profile-item">
+            <div class="rounded-circle d-flex align-items-center justify-content-center" id="welcome-container">
+                <img id="profile-img-content" src="/img/pinkPineapple.png" th:alt="${userInfo.username}" class="rounded-circle border border-5">
+<!--                <h2 id="welcome-username" class="green">Welcome <span th:text="${userInfo.username}"></span></h2>-->
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-xs-12 col-md-6 d-flex justify-content-center">
             <div class="container bg-green roundCorners">
                 <form th:action="@{'/profile/'}" th:method="POST" th:object="${userInfo}">
-                    <div class="row g-2 align-items-center mb-3">
-                        <div class="col-4">
+                    <div class="row g-2 align-items-center mt-3 mb-3">
+                        <div class="col-xs-12 col-md-4">
                             <label class="navy label-font" for="firstName">First Name</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-xs-12 col-md-8">
                             <input class="user-info-input form-control" th:field="*{firstName}" name="firstName" type="text" id="firstName" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
-                        <div class="col-4">
+                        <div class="col-xs-12 col-md-4">
                             <label class="navy label-font" for="lastName">Last Name</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-xs-12 col-md-8">
                             <input class="user-info-input form-control" th:field="*{lastName}" name="lastName" id="lastName" type="text" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
-                        <div class="col-4">
+                        <div class="col-xs-12 col-md-4">
                             <label class="navy label-font" for="email">Email</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-xs-12 col-md-8">
                             <input class="user-info-input form-control" th:field="*{email}" name="email" id="email" type="email" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
-                        <div class="col-4">
+                        <div class="col-xs-12 col-md-4">
                             <label class="navy label-font" for="phoneNumber">Phone Number</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-xs-12 col-md-8">
                             <input class="user-info-input form-control" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" type="text" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
-                        <div class="col-4">
+                        <div class="col-xs-12 col-md-4">
                             <label class="navy label-font" for="zipcode">Zipcode</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-xs-12 col-md-8">
                             <input class="user-info-input form-control" th:field="*{zipcode}" name="zipcode" id="zipcode" type="text" disabled>
                         </div>
                     </div>
@@ -62,7 +63,5 @@
         </div>
 
     </div>
-
-
 </div>
 </html>

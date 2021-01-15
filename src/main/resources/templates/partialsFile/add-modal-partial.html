@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="guestAddModalLabel">Add A Restaurant</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-pink" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
@@ -15,20 +15,20 @@
                     <input id="simple-zipcode" type="text" placeholder="Zipcode of Restaurant" class="submit-need">
                 </div>
                 <div>
-                    <a id="tag-choice">Add Tags</a>
-                    <div id="tag-addon"></div>
-                    <ul>
-                    <div id="tag-choices"></div>
-                    </ul>
+<!--                    <a id="tag-choice">Add Tags</a>-->
+<!--                    <div id="tag-addon"></div>-->
+<!--                    <ul>-->
+<!--                    <div id="tag-choices"></div>-->
+<!--                    </ul>-->
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-pink" data-bs-dismiss="modal">Close</button>
                 <div sec:authorize="isAnonymous()">
-                <button id="add-basic" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                <button id="add-basic" type="button" class="btn login" data-bs-dismiss="modal">Save changes</button>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <button id="add-basic-user" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    <button id="add-basic-user" type="button" class="btn login" data-bs-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>

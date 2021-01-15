@@ -8,20 +8,22 @@
 <div th:replace="partialsFile/userInfo :: user-info"/>
 <div class="container mb-5">
 <div class="row">
-    <div class="col-6">
+    <div class="col-xs-12 col-md-6 small-profile-item">
         <div th:replace="partialsFile/userTagsList :: user-lists-tags"/>
     </div>
-    <div class="col-6">
+    <div class="col-xs-12 col-md-6">
     <div th:replace="partialsFile/userLists :: user-lists-profile"/>
     </div>
 </div>
 </div>
 <div th:replace="partialsFile/userFriendsList :: user-friends-list"/>
 <div th:replace="partialsFile/userHistoryList :: user-history-list"/>
+<div th:replace="partials/footer :: foot"></div>
 <script th:replace="partials/scripts :: script"></script>
 <script th:src="@{/js/apiSearch.js}"></script>
 <script th:src="@{/js/apiCreate.js}"></script>
 <script th:src="@{/js/apiEdit.js}"></script>
 <script th:src="@{/js/profile.js}"></script>
+<script th:src="@{/js/loader.js}"></script>
 </body>
 </html>
