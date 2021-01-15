@@ -74,11 +74,11 @@ h4{
     font-family: 'Quando', serif;
 
 }
-h5{
-    color: #AAC6FC;
-    font-family: 'Quando', serif;
+/*h5{*/
+/*    color: #AAC6FC;*/
+/*    font-family: 'Quando', serif;*/
 
-}
+/*}*/
 h6{
     color: #AAC6FC;
     font-family: 'Quando', serif;
@@ -162,6 +162,18 @@ p{
 
 }
 
+.btn-red{
+    background: #9b1d20;
+    color: #f3f6e6;
+    border: #f3f6e6;
+}
+
+.btn-red:hover{
+    background: #f3f6e6;
+    color: #9b1d20;
+    border: #9b1d20;
+}
+
 /* text colors */
 .navy{
     color: #383A47;
@@ -185,6 +197,9 @@ p{
 
 .lilac{
     color: #AAC6FC;
+}
+.red{
+    color: #9b1d20;
 }
 
 /*corners*/
@@ -233,33 +248,44 @@ p{
 /* modal */
 .modal-content {
     background: #F3F6E6;
+    border: #7cd0bd solid 4px;
 }
 .modal-header{
-    background: #7cd0bd;
+    background: #383A47;
+    border-bottom: #383A47 solid 0;
+    align-content: center;
 }
 
-.modal-footer{
-    background: #7cd0bd;
 }
 .modal-title{
-    color: #383A47;
-    background: #7cd0bd;
-    font-family: 'Quando', serif;
+    color: #7cd0bd!important;
+    font-family: 'Roboto', sans-serif!important;
     font-weight: bolder;
+    line-height: 0;
+    font-size: x-large;
+
 }
 .modal-address{
-    color: #7cd0bd;
+    color: #383A47;
+    font-family: 'Quando', serif;
 }
 
 .modal-close{
     float: end;
     color: #E0719E;
+    background: #383A47;
 }
 
 input{
     background: #AAC6FC;
     border: #383A47 solid 1px;
     color: #383A47;
+}
+.modal-body{
+    background: #383A47;
+}
+.modal-footer{
+    border: #383A47 solid 0;
 }
 
 /*show modal*/

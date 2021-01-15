@@ -3,12 +3,12 @@
 <div th:fragment="user-toolbar">
 
         <div class="row">
-            <div class="col-3">
+            <div class="col-4">
                 <div th:if="${favorites}">
                 <button id="yummies">Filter List By My Favorite Tags</button>
                 </div>
             </div>
-            <div th:if="${lists != null}" class="col-3">
+            <div th:if="${lists != null}" class="col-4">
                 <form>
                     <label for="currentList"></label>
                     <select  class="form-select" name="currentList" id="currentList">
@@ -22,7 +22,7 @@
                     </select>
                 </form>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <button id="new-list">New List</button>
             </div>
         </div>
