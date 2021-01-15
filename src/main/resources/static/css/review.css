@@ -21,6 +21,9 @@
      border-bottom-right-radius: 15px;
  }
 
+ .main{
+     margin-bottom: 30vh;
+ }
 
 @media (min-width: 768px) {
     #submit-review-btn {
