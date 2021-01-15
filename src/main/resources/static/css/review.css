@@ -25,6 +25,10 @@
      margin-bottom: 30vh;
  }
 
+ .burnt-orange{
+     color: #cc5500;
+ }
+
 @media (min-width: 260px) and (max-width: 319.98px) {
     .emojis {
         width: 15px !important;
