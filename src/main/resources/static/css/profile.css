@@ -18,3 +18,45 @@
 .custom-padding{
     padding: 19px 0;
 }
+#profile-jumbo{
+    background: url(../img/profile.background.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding: 0;
+}
+.reject-small {
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #E0719E;
+    background: #F3F6E6;
+    border: 1px solid #E0719E;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+#history-table{
+    margin-bottom: 30vh;
+}
+
+#friend-star {
+    width: 18px;
+    height: 18px;
+}
+
+#request-text{
+    margin-left: .5rem;
+}
+
+
+@media screen and (max-width:768px) {
+    .small-profile-item {
+        margin-bottom: 3rem !important;
+    }
+}
+
+
