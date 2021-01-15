@@ -40,7 +40,7 @@
                             `
                                 <h5 class="modal-title">${randomSearchResult.name}</h5>
                                 <p class="modal-address">${randomSearchResult.address}</p>
-                                <a id="add-random-rest" class="btn-green"modal">Add To List</a>
+                                <a id="add-random-rest" class="btn-green modal">Add To List</a>
                             `
                         );
                         $(modalBody).empty();
@@ -140,7 +140,7 @@
                     $('#show-modal-label').empty().append(
                         `
                 <h5 class="modal-title">${item.name}</h5>
-                <p class="modal-address">${item.address}</p>
+   
               
                 `
                     )
@@ -237,7 +237,6 @@
                 let objectConvert = {name: basicInput};
                 updateLocal(objectConvert);
                 listBasic(arrayConstructor());
-                // tagSelection = [];
                 $("#tag-choices, #tag-addon").empty();
                 $("#tag-choice").toggleClass('d-none');
                 $("#simple-name, #simple-address, #simple-zipcode").val("");
@@ -419,7 +418,7 @@
 
         const userInitialList = () => {
             if (localStorage.getItem("yumCoord") !== null) {
-                if (window.location.pathname === "/") {
+                if ($("#currentList").length > 0) {
                     $("#user-add-buttons, #yummies").addClass('d-none');
                     $(userListInitial).empty().append(loader());
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
@@ -447,8 +446,7 @@
                                 $('#show-modal-label').empty().append(
                                     `
                                     <h5 class="modal-title">${restaurant.name}</h5>
-                                    <h6 class="modal-address">${restaurant.address}</h6>
-                                    <div class="modal-tag">${restaurant.tags}</div>
+                                   
 
                                     `
                                 )
@@ -500,7 +498,10 @@
                     apiCreate(rest, url).then(() => {
                         $(finalSelection).click();
                     })
+                } else{
+                    $(finalSelection).click();
                 }
+
                 $('#user-random').attr("disabled", false);
             } else {
                 userRandomizer();

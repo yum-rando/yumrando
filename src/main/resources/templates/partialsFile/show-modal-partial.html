@@ -3,14 +3,18 @@
 <div th:fragment="show-modal" class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <button type="button" class="btn-close modal-close btn-pink" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-header" >
-                <div id="show-modal-label"></div>
+            <div class="modal-header d-flex justify-content-center" >
+                <div class="row d-flex justify-content-end w-100">
+                    <button type="button" class="btn-close modal-close btn-pink" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="row d-flex justify-content-center w-100">
+                    <div id="show-modal-label"></div>
+                    </div>
+                </div>
             </div>
             <div id="show-modal-body" class="modal-body"></div>
             <div id="show-modal-review"></div>
             <div class="modal-footer">
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
