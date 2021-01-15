@@ -21,10 +21,10 @@
      border-bottom-right-radius: 15px;
  }
 
+
 @media (min-width: 768px) {
     #submit-review-btn {
         width: 25% !important;
-        /*text-align: start !important;*/
     }
 
     #review-submit-div{
@@ -34,14 +34,11 @@
     .emojis{
         width: 75%!important;
     }
-    /*#emoji-1, #emoji-2, #emoji-3, #emoji-4, #emoji-5{*/
-    /*    width: 75%!important;*/
-    /*}*/
 
 }
 
 @media (min-width: 992px) {
-    #emoji-1, #emoji-2, #emoji-3, #emoji-4, #emoji-5{
+    .emojis{
         width: 50%!important;
     }
 }

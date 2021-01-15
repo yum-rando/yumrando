@@ -6,12 +6,11 @@
 <div class="main my-5 bg-navy">
     <div class="container">
         <div class="row roundCorners" id="review-container-row">
-            <div class="col-12 col-md-4 d-none d-md-block bg-green side-banner-roundedCorners" id="review-side-panel">
-<!--                <img th:src="@{/img/rating.png}" alt="YumRando Review Page" class="w-100 m-auto">-->
-            </div>
-            <div class="col-12 col-md-8 bg-white review-form-container">
+            <div class="col-12 col-md-4 d-none d-md-block bg-green side-banner-roundedCorners" id="review-side-panel"></div>
+            <div class="col-12 col-md-8 review-form-container bg-white">
                 <div class="text-center mb-5 mt-3">
                     <h1 class="text-center lilac">Rate Your Experience At </h1>
+                    <hr class="border border-0 mx-auto w-75 pink">
                     <h1 th:text="${restaurantName}" class="text-center lilac"><span>!</span></h1>
                 </div>
                 <div class="roundCorners">
@@ -23,8 +22,7 @@
                                        id="inlineCheckbox1"
                                        value="1" required>
                                 <label class="form-check-label" for="inlineCheckbox1">
-                                    <img th:src="@{/img/rating-1.png}" alt="rating-1-terrible" class="w-100 m-auto emojis" id="emoji-1">
-                                    <!--                                    <i class="far fa-frown"></i> Terrible-->
+                                    <img th:src="@{/img/rating-1.png}" alt="rating-1-terrible" class="w-100 m-auto emojis">
                                 </label>
                             </div>
                             <div class="form-check form-check-inline" id="radio-2-btn">
@@ -32,8 +30,7 @@
                                        id="inlineCheckbox2"
                                        value="2">
                                 <label class="form-check-label" for="inlineCheckbox2">
-                                    <img th:src="@{/img/rating-2.png}" alt="rating-2-bad" class="w-100 m-auto emojis" id="emoji-2">
-                                    <!--                                    <i class="far fa-meh"></i> Bad-->
+                                    <img th:src="@{/img/rating-2.png}" alt="rating-2-bad" class="w-100 m-auto emojis">
                                 </label>
                             </div>
                             <div class="form-check form-check-inline" id="radio-3-btn">
@@ -41,8 +38,7 @@
                                        id="inlineCheckbox3"
                                        value="3">
                                 <label class="form-check-label" for="inlineCheckbox3">
-                                    <img th:src="@{/img/rating-3.png}" alt="rating-3-ok" class="w-100 m-auto emojis" id="emoji-3">
-                                    <!--                                    <i class="far fa-smile"></i> Ok-->
+                                    <img th:src="@{/img/rating-3.png}" alt="rating-3-ok" class="w-100 m-auto emojis">
                                 </label>
                             </div>
                             <div class="form-check form-check-inline" id="radio-4-btn">
@@ -50,8 +46,7 @@
                                        id="inlineCheckbox4"
                                        value="4">
                                 <label class="form-check-label" for="inlineCheckbox4">
-                                    <img th:src="@{/img/rating-4.png}" alt="rating-4-good" class="w-100 m-auto emojis" id="emoji-4">
-                                    <!--                                    <i class="far fa-smile-beam"></i>Good-->
+                                    <img th:src="@{/img/rating-4.png}" alt="rating-4-good" class="w-100 m-auto emojis">
                                 </label>
                             </div>
                             <div class="form-check form-check-inline" id="radio-5-btn">
@@ -59,16 +54,13 @@
                                        id="inlineCheckbox5"
                                        value="5">
                                 <label class="form-check-label" for="inlineCheckbox5">
-                                    <img th:src="@{/img/rating-5.png}" alt="rating-5-excellent" class="w-100 m-auto emojis" id="emoji-5">
-                                    <!--                                    <i class="far fa-grin-hearts"></i> Excellent-->
+                                    <img th:src="@{/img/rating-5.png}" alt="rating-5-excellent" class="w-100 m-auto emojis">
                                 </label>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end align-items-center">
-<!--                            <button type="button" id="review-comment-edit" class="btn login"><i class="fas fa-edit"></i>-->
-<!--                            </button>-->
                             <div class="text-center">
-                                <img id="photoPreview" src="" alt="" class="w-100">
+                                <img id="photoPreview" src="" alt="" class="w-50 m-auto">
                                 <input type="hidden" id="photo" name="photo_image_url">
                                 <button id="add-photo" class="btn login"><i class="fas fa-plus"></i> Photo</button>
                             </div>
@@ -78,13 +70,14 @@
                             <textarea th:field="*{comment}" class="form-control" id="exampleFormControlTextarea1"
                                       rows="3" placeholder="Leave Comment Here"></textarea>
                         </div>
-                        <div class="my-3 text-center" id="review-submit-div">
+                        <div class="my-4 text-center" id="review-submit-div">
                             <button type="submit" class="w-100 btn btn-pink" id="submit-review-btn">Submit</button>
                         </div>
                     </form>
                 </div>
+                <hr class="border border-0 mx-auto w-100 pink">
                 <div class="roundCorners">
-                    <div class="d-flex justify-content-between align-items-center my-5">
+                    <div class="d-flex justify-content-between align-items-center my-3">
                         <h1 class="lilac">Photos</h1>
                         <button type="button" id="photo-edit" class="btn login"><i class="fas fa-edit"></i> Photos</button>
                     </div>
@@ -94,7 +87,8 @@
                               th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId} + '/photos/delete-all'}"
                               th:method="POST">
                             <button type="submit" id="delete-all-photos"
-                                    class="btn btn-danger delete-photo-list d-none">Delete All Photos
+                                    class="btn btn-red delete-photo-list d-none"><i
+                                    class="fas fa-trash-alt"></i> All Photos
                             </button>
                         </form>
                     </div>
@@ -110,7 +104,7 @@
                                 <form class="text-center"
                                       th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/photos/' + ${photo.id} +'/' + ${friendId} +'/delete'}"
                                       th:method="POST">
-                                    <button type="submit" class="btn btn-danger delete-photo-list d-none"><i
+                                    <button type="submit" class="btn btn-red delete-photo-list d-none"><i
                                             class="fas fa-trash-alt"></i></button>
                                 </form>
                             </div>
