@@ -1,4 +1,44 @@
-#yumCarLogo{
-    width: 260px;
-    height: 260px;
+#review-side-panel{
+    background: url(../img/rating.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding: 0;
+}
+
+.review-caro-img{
+    height: 12em;
+}
+
+ .side-banner-roundedCorners{
+     border-bottom-left-radius: 15px;
+     border-top-left-radius: 15px;
+ }
+
+ .review-form-container{
+     border-top-right-radius: 15px;
+     border-bottom-right-radius: 15px;
+ }
+
+
+@media (min-width: 768px) {
+    #submit-review-btn {
+        width: 25% !important;
+    }
+
+    #review-submit-div{
+        text-align: start !important;
+    }
+
+    .emojis{
+        width: 75%!important;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .emojis{
+        width: 50%!important;
+    }
 }
