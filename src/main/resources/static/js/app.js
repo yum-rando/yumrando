@@ -212,18 +212,20 @@
             array.map(({restaurant}, num) => {
                 resultSet.push(restaurant);
                 $(parent).append(
-                    `<div class="container">
-                        <div class="row">
+                    `
+                        <div class="row align-items-center">
                             <div class="col-9">
-                                <h5 class="modal-restName">${restaurant.name}</h5>
-                                <p class="modal-restInfo">${restaurant.location.address}</p>
-                  
+                                <div class="row">
+                                    <h5 class="modal-address">${restaurant.name}</h5>
+                                </div>
+                                <div class="row">
+                                    <p class="modal-address">${restaurant.location.address}</p>
+                                </div>
                              </div>
                              <div class="col-3">
                                  <button id="${type + num}" type="button" class="btn btn-green" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
-                    </div>
                         `
                 );
 
@@ -261,19 +263,29 @@
         const modalSearchBody = '#search-body';
 
         const selectEvent = (selector, type) => {
+            const inputStructure = id => {
+                return`
+                <div class="row g-2 align-items-center my-3">
+                    <div class="col-12">
+                        <input class="user-info-input form-control" placeholder="Type to search for restaurants." id="${id}"/>
+                    </div>
+                </div>
+                       `
+
+            }
             $(selector).change(() => {
                 $(modalSearchBody).empty();
                 $(searchResultBody).empty();
                 switch ($(selector).val()) {
                     case "name":
                         if (type === "") {
-                            $(modalSearchBody).append(`<input placeholder="Search by words" id="nameSearch"/>`)
+                            $(modalSearchBody).append(inputStructure("nameSearch"));
                         } else {
-                            $(modalSearchBody).append(`<input placeholder="Search by words" id="nameSearchUser"/>`)
+                            $(modalSearchBody).append(inputStructure("nameSearchUser"));
                         }
                         break;
                     case "near":
-                        $(searchResultBody).append(loader())
+                        $(searchResultBody).append(loader());
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                             listResult(data.nearby_restaurants, type)
