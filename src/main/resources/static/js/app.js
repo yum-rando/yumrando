@@ -15,14 +15,18 @@
         const modalBody = "#show-modal-body";
         const userListInitial = "#user-list-initial";
         const addList = "#add-list-option";
+        const imgCol = "#show-img-col";
+        const modBodyCont = "#modal-body-container";
+        const modalLabel = "#show-modal-label";
 
         const searchRandomEvent = () => {
             $('#random-name, #random-name-user').click(function () {
                 $("#show-modal-review, #show-modal-body").empty();
-                $(modalBody).append(loader());
+                $(imgCol).addClass("d-none");
+                $(modBodyCont).append(loader());
                 let nameValue = $('#random-search-input').val();
                 let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                let modalLabel = "#show-modal-label";
+
 
                 $(modalLabel + ", " + addList).empty();
 
@@ -37,31 +41,33 @@
                         city: chosenRestaurant.location.city,
                         zipcode: chosenRestaurant.location.zipcode,
                     }
-                    if ($(this).attr("id") === "random-name") {
+
+                        $("#loader").remove();
                         $(modalLabel).empty().append(`<h5 class="modal-title">${randomSearchResult.name}</h5>`);
-                         $(addList).empty().append(`<h5 id="add-random-rest" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">+</h5>`);
-                        $(modalBody).empty();
+                    if ($(this).attr("id") === "random-name") {
+                        $(addList).empty().append(`<h5 id="add-random-rest" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">+</h5>`);
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
                         })
                     } else {
-                        let addListAnchor = "";
-                        if($("#currentList").val() !== 'default') {
-                            addListAnchor = `<a id="add-random-restUser" class="btn-green">Add To List</a>`;
+                        if ($("#currentList").val() !== 'default') {
+                            $(addList).empty().append(`<h5 id="add-random-restUser" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">+</h5>`);
+                            $("#add-random-restUser").click(() => {
+                                updateCurrentList(randomSearchResult);
+                            })
                         }
-                        $(modalLabel).append(
-                            `
-                            <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <p class="modal-address">${randomSearchResult.address}</p>
-                            ${addListAnchor}
-                        `
-                        );
-                        $(modalBody).empty();
-                        $("#add-random-restUser").click(() => {
-                            updateCurrentList(randomSearchResult);
-                        })
                     }
-
+                    $(modalBody).empty().append(
+                        `
+                           <div class="col-12">
+                               <p class="modal-address">${randomSearchResult.address}</p>
+                           </div>
+                            <div class="col-12">
+                                <a class="modal-address" href="${randomSearchResult.website}" target="_blank">More Info</a>
+                            </div>
+                            `
+                        );
+                        $(imgCol).removeClass("d-none");
                 }).catch(() => {
                     $("#show-modal-body").empty().append(connectErrMessage);
                 })
@@ -358,45 +364,27 @@
             updateCurrentList(restaurantName);
         })
 
-//         $("#tag-choice").click(function () {
-//             $(this).toggleClass('d-none')
-//             $("#tag-addon").append(
-//                 `
-//                 <div>
-//                    <input id="tag-type" type="text">
-//                    <button id="tag-submit" class="btn btn-primary">Add Tag</button>
-//                 </div>
-// `
-//             )
-//             $("#tag-submit").click(() => {
-//                 let tagInput = $("#tag-type").val();
-//                 tagSelection.push(tagInput);
-//                 $("#tag-choices").empty();
-//                 tagSelection.map(tag => {
-//                     $("#tag-choices").append(
-//                         `
-//                         <li>${tag}</li>
-//                     `
-//                     );
-//                     $("#tag-type").val("");
-//                 })
-//             })
-//         })
-
         $('.user-restaurants').click(function (e) {
             e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
-            $(modalBody).append(loader());
+            $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
+            $(imgCol).addClass("d-none");
+            $(modBodyCont).append(loader());
             apiShow(restId, "/restaurant/show/").then(response => {
-                console.log(response);
+                $("#loader").remove();
+                $(modalLabel).append(`<h5 class="modal-title">${response.name}</h5>`);
+                $(modalBody).append(
+                    `
+                           <div class="col-12">
+                               <p class="modal-address">${response.address}</p>
+                           </div>
+                            <div class="col-12">
+                                <a class="modal-address" href="${response.website}" target="_blank">More Info</a>
+                            </div>
+                            `
+                )
                 let listId = $("#currentList").val();
-                $('#show-modal-label').empty().append(
-                    `<h5 class="modal-title">${response.name}</h5>
-                     <p class="modal-address">${response.address}</p>
-                     <div class="modal-tag">${response.tags}</div>
-                     `
-                );
-                $(modalBody).empty();
+                $(imgCol).removeClass("d-none");
                 $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>`);
 
             }).catch(() => {

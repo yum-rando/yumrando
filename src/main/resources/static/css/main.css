@@ -251,6 +251,10 @@ p{
     border: #383A47 solid 2px;
 }
 
+.modal-body-content{
+    background: #F3F6E6 !important;
+}
+
 .modal-header{
     background: #383A47;
     border-bottom: #383A47 solid 0;
@@ -284,6 +288,10 @@ p{
     float: end;
     color: #E0719E;
     background: #383A47;
+}
+
+#show-modal-img{
+    width: 150px !important;
 }
 
 input{
