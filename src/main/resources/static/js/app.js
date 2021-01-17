@@ -18,6 +18,7 @@
         const imgCol = "#show-img-col";
         const modBodyCont = "#modal-body-container";
         const modalLabel = "#show-modal-label";
+        const currList = "#currentList";
 
         const searchRandomEvent = () => {
             $('#random-name, #random-name-user').click(function () {
@@ -63,7 +64,9 @@
                                <p class="modal-address">${randomSearchResult.address}</p>
                            </div>
                             <div class="col-12">
-                                <a class="modal-address" href="${randomSearchResult.website}" target="_blank">More Info</a>
+                                <p>
+                                    <a class="modal-address" href="${randomSearchResult.website}" target="_blank">More Info</a>
+                                </p>
                             </div>
                             `
                         );
@@ -140,13 +143,19 @@
                 });
 
                 $(`#r${num}`).click(() => {
-                    $(addList).empty();
-                    $('#show-modal-label').empty().append(
+                    $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
+                    $(modalLabel).append(`<h5 class="modal-title">${item.name}</h5>`);
+                    $(modalBody).append(
                         `
-                <h5 class="modal-title">${item.name}</h5>
-   
-              
-                `
+                           <div class="col-12">
+                               <p class="modal-address">${item.location.address}</p>
+                           </div>
+                            <div class="col-12">
+                                <p>
+                                    <a class="modal-address" href="${item.url}" target="_blank">More Info</a>
+                                </p>
+                            </div>
+                            `
                     )
                 })
             })
@@ -154,6 +163,7 @@
         }
 
         const updateLocal = object => {
+            console.log(object);
             localStorage.setItem("yumList", JSON.stringify(
                 [...arrayConstructor(), object]
             ))
@@ -201,7 +211,6 @@
             resultSet = [];
             array.map(({restaurant}, num) => {
                 resultSet.push(restaurant);
-
                 $(parent).append(
                     `<div class="container">
                         <div class="row">
@@ -367,6 +376,7 @@
         $('.user-restaurants').click(function (e) {
             e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
+            let listId = $("#currentList").val();
             $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
             $(imgCol).addClass("d-none");
             $(modBodyCont).append(loader());
@@ -379,14 +389,19 @@
                                <p class="modal-address">${response.address}</p>
                            </div>
                             <div class="col-12">
-                                <a class="modal-address" href="${response.website}" target="_blank">More Info</a>
+                                <p>
+                                    <a class="modal-address" href="${response.website}" target="_blank">More Info</a>
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p>
+                                    <a class="modal-address" href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>
+                                </p>
                             </div>
                             `
                 )
-                let listId = $("#currentList").val();
-                $(imgCol).removeClass("d-none");
-                $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>`);
 
+                $(imgCol).removeClass("d-none");
             }).catch(() => {
                 $("#show-modal-label").empty();
                 $("#show-modal-review").empty();
@@ -404,7 +419,7 @@
 
         const userInitialList = () => {
             if (localStorage.getItem("yumCoord") !== null) {
-                if ($("#currentList").length > 0) {
+                if ($(currList).length > 0 && ($(currList).val() === "default")) {
                     $("#user-add-buttons, #yummies").addClass('d-none');
                     $(userListInitial).empty().append(loader());
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
@@ -429,13 +444,21 @@
                         `
                             );
                             $(`#r${num}`).click(() => {
-                                $('#show-modal-label').empty().append(
-                                    `
-                                    <h5 class="modal-title">${restaurant.name}</h5>
-                                   
+                                $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
 
+                                $(modalLabel).append(`<h5 class="modal-title">${restaurant.name}</h5>`);
+                                $(modalBody).append(
                                     `
-                                )
+                                        <div class="col-12">
+                                            <p class="modal-address">${restaurant.location.address}</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <p>
+                                                <a class="modal-address" href="${restaurant.url}" target="_blank">More Info</a>
+                                            </p>
+                                        </div>
+                                    `
+                                );
                             })
                         })
                     }).catch(() => {
@@ -539,7 +562,9 @@
         }
 
         geoLocation(geoHandler);
-        listBasic(arrayConstructor());
+        if($(currList).length === 0) {
+            listBasic(arrayConstructor());
+        }
         selectEvent(selectRest, "");
         selectEvent(selectRestUser, 'u');
 
