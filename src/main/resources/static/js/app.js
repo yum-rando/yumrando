@@ -14,6 +14,7 @@
         `;
         const modalBody = "#show-modal-body";
         const userListInitial = "#user-list-initial";
+        const addList = "#add-list-option";
 
         const searchRandomEvent = () => {
             $('#random-name, #random-name-user').click(function () {
@@ -22,7 +23,8 @@
                 let nameValue = $('#random-search-input').val();
                 let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                 let modalLabel = "#show-modal-label";
-                $(modalLabel).empty();
+
+                $(modalLabel + ", " + addList).empty();
 
                 apiSearch(searchName(nameValue, coordInput.latitude, coordInput.longitude)).then(data => {
                     let chosenIndex = randomizerChoice(data.restaurants.length);
@@ -36,13 +38,8 @@
                         zipcode: chosenRestaurant.location.zipcode,
                     }
                     if ($(this).attr("id") === "random-name") {
-                        $(modalLabel).empty().append(
-                            `
-                                <h5 class="modal-title">${randomSearchResult.name}</h5>
-                                <p class="modal-address">${randomSearchResult.address}</p>
-                                <a id="add-random-rest" class="btn-green modal">Add To List</a>
-                            `
-                        );
+                        $(modalLabel).empty().append(`<h5 class="modal-title">${randomSearchResult.name}</h5>`);
+                         $(addList).empty().append(`<h5 id="add-random-rest" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">+</h5>`);
                         $(modalBody).empty();
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
@@ -137,6 +134,7 @@
                 });
 
                 $(`#r${num}`).click(() => {
+                    $(addList).empty();
                     $('#show-modal-label').empty().append(
                         `
                 <h5 class="modal-title">${item.name}</h5>
