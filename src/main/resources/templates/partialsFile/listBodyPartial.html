@@ -13,14 +13,14 @@
                 </div>
                 <div th:if="${chosenList != null}" class="container" id="user-list-items">
                     <div th:each="rest : ${chosenList.restaurants}">
-                        <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal"
+                        <div class="row user-restaurants bg-white align-items-center" style="padding: .5em; border: #AAC6FC solid 1px;" th:id="${'r' + rest.id }" data-bs-toggle="modal"
                              data-bs-target="#showModal">
                             <div class="col-9">
                                 <h6 th:text="${rest.name}"></h6>
                             </div>
                             <div class="col-3">
                                 <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
-                                    <button class="btn-pink">Delete</button>
+                                    <button class="btn-pink" style="padding: .5em">-</button>
                                 </form>
                             </div>
 
@@ -33,24 +33,26 @@
             </div>
 
         </div>
-        <div class="row">
+        <div class="row container">
             <div sec:authorize="isAnonymous()">
                 <div id="guest-add-buttons">
                     <button type="button" class="col-6 btn btn-green active-search-modal" data-bs-toggle="modal"
                             data-bs-target="#addModal">
-                        Add Restaurant
+                        <i class="fas fa-plus"></i>
                     </button>
 
-                    <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Search Restaurant</a>
+                    <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
+                        <i class="fas fa-search"></i></a>
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()">
                 <div id="user-add-buttons">
                     <button type="button" class="col-6 btn btn-green active-search-modal" data-bs-toggle="modal"
                             data-bs-target="#addModal">
-                        Add Restaurant
+                        <i class="fas fa-plus"></i>
                     </button>
-                    <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Search Restaurant</a>
+                    <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
+                        <i class="fas fa-search"></i></a>
                 </div>
             </div>
         </div>

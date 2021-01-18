@@ -83,14 +83,14 @@
             $("#guest-add-buttons").append(
                 `
                     <button type="button" class="btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
-                        Search Restaurant
+                        <i class="fas fa-search"></i>
                     </button>
                     `
             )
             $("#user-add-buttons").append(
                 `
                 <button type="button" class="btn activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
-                    Search Restaurant
+                    <i class="fas fa-search"></i>
                 </button>
                 `
             )

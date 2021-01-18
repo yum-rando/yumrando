@@ -82,6 +82,7 @@ p{
     font-size: 18px;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
 }
 
 .btn-pink:hover{
@@ -100,6 +101,7 @@ p{
     font-size: 18px;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
 }
 
 .btn-white:hover{
@@ -118,6 +120,8 @@ p{
     font-size: 18px;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
+
 }
 
 .btn-yellow:hover {
@@ -131,7 +135,7 @@ p{
     border-color: #7cd0bd;
     color: #383A47;
     font-weight: bold;
-    margin: 1em;
+    margin: .5em;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-size: 18px;
@@ -160,6 +164,7 @@ p{
     font-style: normal;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
 }
 
 .btn-red:hover{
@@ -257,8 +262,8 @@ p{
 }
 
 .modal-header{
-    background: #F3F6E6;
-    border-bottom: #F3F6E6 solid 0;
+    background: #383A47;
+    border-bottom: #383A47 solid 0;
     align-content: center;
 }
 
@@ -297,6 +302,8 @@ p{
 
 input{
     background: #f3f6e6!important;
+    border: #383A47 1px solid;
+    color: #383A47;
 }
 .modal-body{
     background: #383A47;
@@ -422,7 +429,7 @@ body{
     border: 1px solid #E0719E !important;
 }
 
-.btn-white{
+.btn-register{
     background-color: #F3F6E6;
     border-color: #F3F6E6;
     color: #E0719E;

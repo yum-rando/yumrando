@@ -16,10 +16,10 @@ xmlns:sec="http://www.thymeleaf.org/extras">
                         <h1 class="instructions">Build your list with your favorite restaurants,<br>
                                                 then hit Rando to find out where you're going!</h1>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                         <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
                     </div>
-                    <div class="col-6" style="padding-left: 2em;">
+                    <div class="col-4" style="padding-left: 2em;">
                         <div class="text-center">
                             <div id="random-button-tool"></div>
                             <div sec:authorize = "isAnonymous()">
