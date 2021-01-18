@@ -8,11 +8,15 @@
 <nav th:replace="partials/navbar :: navbar"/>
 <div th:replace="partials/headerIndex :: header"></div>
 
-<div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
-<div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
-<div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
-<div th:replace="partialsFile/app :: app"></div>
+<div class="container-fluid bg-lilac roundCorners row" style="width: 90%; margin: 5em;padding: 2em;">
+    <div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
+    <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
+    <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
+    <div th:replace="partialsFile/app :: app"></div>
+</div>
 <div th:replace="partials/footer :: foot"></div>
+
+
 
 
 <script th:replace="partials/scripts :: script"></script>

@@ -127,7 +127,7 @@
                       <h6 >${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button id="delete${num}" type="button" class="btn register">-</button>
+                     <button id="delete${num}" type="button" class="btn btn-pink">-</button>
                     </div>
                       </div>
                         </div>`

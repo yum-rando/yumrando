@@ -87,7 +87,7 @@ p{
 .btn-pink:hover{
     background-color: #F3F6E6;
     border: #E0719E 2px solid;
-    color: #F3F6E6;
+    color: #E0719E;
 }
 
 .btn-white{
@@ -518,7 +518,7 @@ body{
 
 /* randomizer gif  */
 #rain{
-    height: 15em;
+    height: 20em;
     display: flex;
     justify-content: center;
 }
@@ -527,6 +527,14 @@ body{
 .rando{
     position: relative;
 
+}
+
+.instructions{
+    font-size: larger;
+    font-family: 'Quando', serif!important;
+    padding-top: 2em;
+    justify-content: center;
+    display: flex;
 }
 
 /* error  */

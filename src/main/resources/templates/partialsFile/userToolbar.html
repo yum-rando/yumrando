@@ -2,28 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <div th:fragment="user-toolbar">
 
-        <div class="row">
+        <div class="row bg-lilac roundCorners">
             <div class="col-4">
                 <div th:if="${favorites}">
-                <button id="yummies">Filter List By My Favorite Tags</button>
+                <button id="yummies" class="image-fluid" style="height: 1em;" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="Favorite Cuisine"><img src="img/marker.png"></button>
                 </div>
             </div>
             <div th:if="${lists != null}" class="col-4">
                 <form>
                     <label for="currentList"></label>
-                    <select  class="form-select" name="currentList" id="currentList">
+                    <select  class="form-select" name="currentList" id="currentList" style="margin: -1em;">
                         <div th:if="${chosenList != null}">
                         <option th:value="${chosenList.id}" th:text="${chosenList.name}" selected></option>
                         </div>
                         <div th:unless="${chosenList != null}">
-                            <option value="default">Select your list</option>
+                            <option value="default" class="image-fluid" style="height: 1em;" data-bs-toggle="tooltip" data-bs-placement="top"
+                             title="Your Lists"><img src="img/list.png"></option>
                         </div>
                         <option th:each = "list : ${lists}" th:value="${list.id}" th:text="${list.name}"></option>
                     </select>
                 </form>
             </div>
             <div class="col-4">
-                <button id="new-list">New List</button>
+                <button id="new-list" style="margin: 1em -1em;" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="New List">New List</button>
             </div>
         </div>
 

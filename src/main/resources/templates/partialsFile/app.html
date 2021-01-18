@@ -10,21 +10,31 @@ xmlns:sec="http://www.thymeleaf.org/extras">
             <div class="col-4">
                 <div th:replace="partialsFile/randomSearch :: random-search"></div>
             </div>
-            <div class="col-4">
-                <div class="text-center" style="display: flex; justify-content: center">
-                    <img id="rain" src="/img/cloudRain.png" alt="food rain">
-                    <div id="random-button-tool"></div>
-                    <div style="position: relative; right: 7.5em; top: 2em;" sec:authorize = "isAnonymous()">
-                        <button id="guest-random" class="btn-pink rando" type="button"> Rando </button>
+            <div class="col-8">
+                <div class="row container-fluid bg-navy roundCorners" style="width: 90%; margin-bottom: 3em;">
+                    <div>
+                        <h1 class="instructions">Build your list with your favorite restaurants,<br>
+                                                then hit Rando to find out where you're going!</h1>
                     </div>
-                    <div style="position: relative; right: 7.5em; top: 2em;" sec:authorize = "isAuthenticated()">
-                        <button id="user-random" class="btn-pink rando" type="button"> Rando </button>
+                    <div class="col-6">
+                        <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
+                    </div>
+                    <div class="col-6" style="padding-left: 2em;">
+                        <div class="text-center">
+                            <div id="random-button-tool"></div>
+                            <div sec:authorize = "isAnonymous()">
+                                <button id="guest-random" class="btn-pink rando roundCorners" type="button" style="font-size: larger; padding:.25em; position: relative; top: 4.25em; right: 1em;">
+                                    Rando </button>
+                            </div>
+                            <div sec:authorize = "isAuthenticated()">
+                                <button id="user-random" class="btn-pink rando roundCorners" type="button" style="font-size: larger; padding:.5em; position: relative; top: 4.25em; right: 1em;">
+                                    Rando </button>
+                            </div>
+                            <img class="image-fluid" id="rain" src="/img/cloudRain.png" alt="food rain">
+                        </div>
                     </div>
                 </div>
             </div>
-                <div class="col-4">
-                    <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
-                </div>
             </div>
 
         </div>
