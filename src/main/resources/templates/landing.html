@@ -1,45 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"lang="en">
-<head th:replace="partials/head :: head">
+<head th:replace="partials/head :: head"></head>
+<body class="bg-navy">
 
-</head>
-<body class="bg-navy>
-
-<div class="container-fluid">
-    <div class="landingButton">
-        <a href="/login" class="btn btn-outline-primary btn-green" style="width: 10em" sec:authorize="!isAuthenticated()" role="button">Sign In</a>
-        <a href="/register" class="btn btn-primary btn-green" sec:authorize="!isAuthenticated()" role="button" style="width: 10em">Sign Up</a>
-    </div>
-    <div>
-        <img id="semiCircle" class="float-end d-none d-md-block" src="/img/semicircle-shape.png" alt="semicircle">
-    </div>
-</div>
-
-<!--<div class="jumbotron m-0" > style="background-image: url('img/dots.png')"-->
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="container-fluid col-12 text-center mb-5">
-                <div>
-                    <img src="img/yumRainLogo.gif" alt="rainingFood" style="z-index:1;position:relative;bottom: 10em;width: 75%;">
-                </div>
+        <div class="container-fluid">
+            <div class="landingButton">
+                <a href="/login" class="btn btn-outline-primary btn-green" style="width: 10em" sec:authorize="!isAuthenticated()" role="button">Sign In</a>
+                <a href="/register" class="btn btn-primary btn-green" sec:authorize="!isAuthenticated()" role="button" style="width: 10em">Sign Up</a>
             </div>
-            <div id="headerSlide" class="carousel carousel-fade" data-ride="carousel" data-interval="3000" data-pause="false">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <span class="white">hungry? where to?</span>
-                    </div>
-                    <div class="carousel-item">
-                        <span class="white">let's pick your next meal together!</span>
-                    </div>
-                    <div class="carousel-item">
-                        <span class="white">pizza, sushi, donuts? only yumrando knows!</span>
-                    </div>
-                </div>
-            </div>
+            <div>
+                <img id="semiCircle" class="float-end d-none d-md-block" src="/img/semicircle-shape.png" alt="semicircle">
             </div>
         </div>
+        <!--tag line carousel-->
+        <div class="col-12 text-center">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" style="height: 240px;">
+                    <div class="carousel-item active justify-content-center">
+                        <span class="white">hungry? where to?</span>
+                    </div>
+                    <div class="carousel-item justify-content-center">
+                        <span class="white">let's pick your next meal together!</span>
+                    </div>
+                    <div class="carousel-item justify-content-center">
+                        <span class="white">pizza, sushi, donuts?</span>
+                    </div>
+                    <div class="carousel-item justify-content-center">
+                        <span class="white">only yumrando knows!</span>
+                    </div>
+                    <div class="carousel-item justify-content-center">
+                        <span class="white">welcome to the yum side</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="position: relative; top: 10em;" >
+                <div class="container-fluid col-12 text-center mb-5">
+                    <div>
+                        <img src="img/yumRainLogo.gif" alt="rainingFood" style="z-index:1;position:relative;bottom: 17em;width: 75%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="container-fluid" style="position: relative; top: 10em;" >-->
+<!--            <div class="container-fluid col-12 text-center mb-5">-->
+<!--                <div>-->
+<!--                    <img src="img/yumRainLogo.gif" alt="rainingFood" style="z-index:1;position:relative;bottom: 10em;width: 75%;">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
-</div>
+
+
 
 <!--guest view of random and list-->
 <div th:replace="partialsFile/show-modal-partial :: show-modal"></div>

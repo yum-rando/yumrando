@@ -76,26 +76,26 @@
             $(".geo-disabled").remove();
             $("#guest-add-buttons").append(
                 `
-                    <button type="button" class="btn btn-primary activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <button type="button" class="btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
                         Search Restaurant
                     </button>
                     `
             )
             $("#user-add-buttons").append(
                 `
-                <button type="button" class="btn btn-primary activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
+                <button type="button" class="btn activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
                     Search Restaurant
                 </button>
                 `
             )
             $("#guest-random-search").append(
                 `
-                   <button id="random-name" class="btn btn-primary activate-search register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
+                   <button id="random-name" class="btn activate-search btn-pink" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
                 `
             )
             $("#user-random-search").append(
                 `
-                   <button id="random-name-user" class="btn btn-primary activate-search register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
+                   <button id="random-name-user" class="btn activate-search btn-pink" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
                 `
             )
             searchRandomEvent();
@@ -314,8 +314,8 @@
                     <label for="name" class="form-label">Enter a name for your list:</label>
                     <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
-                     <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
-                     <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
+                     <button id="submit-list" type="button" class="btn btn-green">Submit</button>
+                     <button id="submit-list-cancel" type="button" class="btn btn-red">Cancel</button>
                  </form>
                 `
             )

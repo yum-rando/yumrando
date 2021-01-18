@@ -15,14 +15,14 @@
             <div sec:authorize="isAnonymous()" id="guest-random-search">
                 <span class="d-inline-block geo-disabled" data-bs-toggle="popover"
                       data-bs-content="Allow browser to know your location to activate feature.">
-                    <button class="btn btn-primary register" style="pointer-events: none;" type="button" disabled>Presto Yum-o</button>
+                    <button class="btn register" style="pointer-events: none;" type="button" disabled>Presto Yum-o</button>
                 </span>
 
             </div>
             <div sec:authorize="isAuthenticated()" id="user-random-search">
           <span class="d-inline-block geo-disabled" data-bs-toggle="popover"
                 data-bs-content="Allow browser to know your location to activate feature.">
-                        <button class="btn btn-primary register" style="pointer-events: none;" type="button" disabled>Presto Yum-o</button>
+                        <button class="btn register" style="pointer-events: none;" type="button" disabled>Presto Yum-o</button>
                     </span>
 
             </div>
