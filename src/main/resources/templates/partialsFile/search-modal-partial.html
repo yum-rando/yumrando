@@ -4,20 +4,28 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-end">
+                        <button type="button" class="modal-title btn-close modal-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="row d-flex justify-content-start mb-3">
+                        <div class="col-12">
                 <h5 class="modal-title" id="searchModalContent">Search A Restaurant To Add</h5>
-                <button type="button" class="btn-close btn-pink" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="search-modal-body" class="modal-body">
+            <div id="search-modal-body" class="modal-body-content">
                 <div id="search-container">
-                    <div class=" isAnonymous()">
+                    <div sec:authorize="isAnonymous()" class="container my-4">
                     <select id="search-select" class="addRest form-select form-select-lg mb-3">
                         <option selected>Search by ...</option>
                         <option value="name">Words</option>
                         <option value="near">Restaurants Near Me</option>
                     </select>
                     </div>
-                    <div sec:authorize="isAuthenticated()">
+                    <div sec:authorize="isAuthenticated()" class="container my-4">
                         <select id="search-select-user" class="form-select form-select-lg mb-3">
                             <option selected>Search by ...</option>
                             <option value="name">Words</option>
@@ -26,19 +34,19 @@
                     </div>
                 </div>
 
-                <div id="search-body"></div>
+                <div id="search-body" class="container"></div>
 
                 <div sec:authorize="isAnonymous()">
                     <div style="overflow: scroll" data-bs-spy="scroll" data-bs-target="search-container"
-                         data-bs-offset="0" tabindex="0" id="search-results"></div>
+                         data-bs-offset="0" tabindex="0" id="search-results" class="container"></div>
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <div style="overflow: scroll" data-bs-spy="scroll" data-bs-target="search-container"
-                         data-bs-offset="0" tabindex="0" id="search-results-user"></div>
+                         data-bs-offset="0" tabindex="0" id="search-results-user" class="container"></div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-pink" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-pink" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

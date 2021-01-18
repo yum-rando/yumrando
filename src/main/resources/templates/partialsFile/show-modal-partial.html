@@ -3,14 +3,37 @@
 <div th:fragment="show-modal" class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <button type="button" class="btn-close modal-close btn-pink" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-header" >
-                <div id="show-modal-label"></div>
+            <div class="modal-header d-flex justify-content-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-end">
+                        <button type="button" class="modal-title btn-close modal-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="row g-3 d-flex justify-content-start">
+                        <div class="col-12">
+                        <div id="show-modal-label" class="modal-title">
+                        </div>
+                        </div>
+                        <div class="col-12">
+                            <div id="add-list-option"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="show-modal-body" class="modal-body"></div>
+            <div id="modal-body-container" class="modal-body modal-body-content">
+                <div class="row">
+                    <div class="col-7">
+                    <div id="show-modal-body"></div>
+                    </div>
+                    <div id="show-img-col" class="col-5">
+                        <div class="bg-lilac d-flex justify-content-center align-items-center">
+                        <img id="show-modal-img" src="/img/abstract-1420.png" alt="" class="">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="show-modal-review"></div>
             <div class="modal-footer">
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-pink" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
