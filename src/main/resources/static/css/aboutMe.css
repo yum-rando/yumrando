@@ -1,0 +1,26 @@
+#about-jumbo {
+    background: url(../img/about-background.png) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding: 0;
+}
+
+.main {
+    margin-bottom: 30vh;
+}
+
+.icons {
+    font-size: 2em !important;
+    color: #383A47;
+}
+
+.icons:hover{
+    color: #7cd0bd;
+}
+
+.card-body > h5 {
+    font-family: 'Quando', serif;
+    font-weight: bold;
+}

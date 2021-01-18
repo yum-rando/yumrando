@@ -40,9 +40,8 @@
                             data-bs-target="#addModal">
                         Add Restaurant
                     </button>
-                    <span class="d-inline-block geo-disabled" data-bs-toggle="popover" data-bs-content="Allow browser to know your location to activate feature.">
-                        <button class="col-6 btn login" style="pointer-events: none;" type="button">Search Restaurant</button>
-                    </span>
+
+                    <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Search Restaurant</a>
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()">
@@ -51,9 +50,7 @@
                             data-bs-target="#addModal">
                         Add Restaurant
                     </button>
-                    <span class="d-inline-block geo-disabled" data-bs-toggle="popover" data-bs-content="Allow browser to know your location to activate feature.">
-                        <button class="col-6 btn login" style="pointer-events: none;" type="button">Search Restaurant</button>
-                    </span>
+                    <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Search Restaurant</a>
                 </div>
             </div>
         </div>
