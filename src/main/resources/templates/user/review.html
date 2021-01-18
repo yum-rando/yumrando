@@ -3,7 +3,7 @@
 <head th:replace="partials/review-head :: head">
 <body class="bg-navy">
 <nav th:replace="partials/navbar :: navbar"/>
-<div class="main my-5 bg-navy">
+<div class="main mt-5 bg-navy">
     <div class="container">
         <div class="row roundCorners" id="review-container-row">
             <div class="col-12 col-md-4 d-none d-md-block bg-green side-banner-roundedCorners" id="review-side-panel"></div>
@@ -16,7 +16,7 @@
                 <div class="roundCorners">
                     <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}"
                           th:method="POST" th:object="${review}">
-                        <div class="d-flex justify-content-evenly m-3 text-center">
+                        <div class="d-flex justify-content-evenly m-3 text-center" id="rating-container">
                             <div class="form-check form-check-inline" id="radio-1-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox1"
@@ -76,10 +76,10 @@
                     </form>
                 </div>
                 <hr class="border border-0 mx-auto w-100 pink">
-                <div class="roundCorners">
+                <div class="mb-4">
                     <div class="d-flex justify-content-between align-items-center my-3">
                         <h1 class="lilac">Photos</h1>
-                        <button type="button" id="photo-edit" class="btn login"><i class="fas fa-edit"></i> Photos</button>
+                        <button type="button" id="photo-edit" class="btn login"><i class="fas fa-edit"></i></button>
                     </div>
 
                     <div class="d-inline" th:if="${photos.size()} >= 3">
@@ -111,12 +111,12 @@
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <i class="fas fa-arrow-circle-left fs-1 burnt-orange" aria-hidden="true"></i>
                             <span class="visually-hidden">Previous</span>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleControls" role="button"
                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <i class="fas fa-arrow-circle-right fs-1 burnt-orange" aria-hidden="true"></i>
                             <span class="visually-hidden">Next</span>
                         </a>
                     </div>
