@@ -155,6 +155,11 @@ p{
     line-height: 22px;
  }
 
+.green-secondary{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 .btn-green:hover{
     background-color: #c7e2e2;
     color: #383A47;
@@ -248,23 +253,37 @@ p{
 /* modal */
 .modal-content {
     background: #F3F6E6;
-    border: #7cd0bd solid 4px;
+    border: #383A47 solid 2px;
 }
+
+.modal-body-content{
+    background: #F3F6E6 !important;
+}
+
 .modal-header{
     background: #383A47;
     border-bottom: #383A47 solid 0;
     align-content: center;
 }
 
-}
-.modal-title{
+.modal-add{
     color: #7cd0bd!important;
+    font-family: 'Roboto', sans-serif!important;
+    font-weight: bolder;
+    line-height: 0;
+    font-size: x-large;
+    cursor: pointer !important;
+}
+
+.modal-title{
+    color: #F3F6E6!important;
     font-family: 'Roboto', sans-serif!important;
     font-weight: bolder;
     line-height: 0;
     font-size: x-large;
 
 }
+
 .modal-address{
     color: #383A47;
     font-family: 'Quando', serif;
@@ -274,6 +293,10 @@ p{
     float: end;
     color: #E0719E;
     background: #383A47;
+}
+
+#show-modal-img{
+    width: 150px !important;
 }
 
 input{
@@ -287,6 +310,8 @@ input{
 .modal-footer{
     border: #383A47 solid 0;
 }
+
+
 
 /*show modal*/
 .search-show{
