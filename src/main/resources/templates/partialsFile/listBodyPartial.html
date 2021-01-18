@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="list-body">
-    <div class="container">
+    <div>
         <div sec:authorize="isAuthenticated()">
             <div th:replace="partialsFile/userToolbar :: user-toolbar"></div>
         </div>
@@ -29,23 +29,24 @@
                 </div>
             </div>
             <div sec:authorize="isAnonymous()">
-                <div id="restaurant-items"></div>
+                <div style="margin-top: 2em; margin-bottom: 2em;" id="restaurant-items"></div>
             </div>
 
         </div>
         <div class="row">
             <div sec:authorize="isAnonymous()">
                 <div id="guest-add-buttons">
-                    <button type="button" class="btn btn-green active-search-modal" data-bs-toggle="modal"
+                    <button type="button" class="col-6 btn btn-green active-search-modal" data-bs-toggle="modal"
                             data-bs-target="#addModal">
                         Add Restaurant
                     </button>
+
                     <a tabindex="0" class="btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Search Restaurant</a>
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()">
                 <div id="user-add-buttons">
-                    <button type="button" class="btn btn-green active-search-modal" data-bs-toggle="modal"
+                    <button type="button" class="col-6 btn btn-green active-search-modal" data-bs-toggle="modal"
                             data-bs-target="#addModal">
                         Add Restaurant
                     </button>
