@@ -151,9 +151,7 @@
                                <p class="modal-address">${item.location.address}</p>
                            </div>
                             <div class="col-12">
-                                <p>
-                                    <a class="modal-address" href="${item.url}" target="_blank">More Info</a>
-                                </p>
+                                ${nullWebCheck(item.url)}
                             </div>
                             `
                     )
@@ -163,7 +161,6 @@
         }
 
         const updateLocal = object => {
-            console.log(object);
             localStorage.setItem("yumList", JSON.stringify(
                 [...arrayConstructor(), object]
             ))
@@ -213,17 +210,17 @@
                 resultSet.push(restaurant);
                 $(parent).append(
                     `
-                        <div class="row align-items-center">
-                            <div class="col-9">
+                        <div class="row align-items-center my-3 py-2">
+                            <div class="col-8">
                                 <div class="row">
-                                    <h5 class="modal-address">${restaurant.name}</h5>
+                                    <h5 class="modal-address green-secondary">${restaurant.name}</h5>
                                 </div>
                                 <div class="row">
-                                    <p class="modal-address">${restaurant.location.address}</p>
+                                    <p class="modal-address green-secondary">${restaurant.location.address}</p>
                                 </div>
                              </div>
-                             <div class="col-3">
-                                 <button id="${type + num}" type="button" class="btn btn-green" data-bs-dismiss="modal">Add to List</button> 
+                             <div class="col-4 d-flex align-items-center">
+                                 <button id="${type + num}" type="button" class="btn btn-green green-secondary" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
                         `
@@ -236,9 +233,9 @@
             if (resultSet.length === 0) {
                 $(parent).append(
                     `
-                    <div class="container">
+                    <div class="container d-flex justify-content-center align-items-center">
                         <div class="row">
-                            No Results Found
+                            <h4 class="modal-address">No Search Results Found</h4>
                         </div>
                     </div>
                     `
@@ -248,8 +245,16 @@
 
         $('#add-basic').click(() => {
             let basicInput = $('#simple-name').val();
+            let basicAddress = $("#simple-address").val();
+            let basicZipcode = $("#simple-zipcode").val();
             if(basicInput !== "") {
-                let objectConvert = {name: basicInput};
+                let objectConvert = {
+                    name: basicInput,
+                    location: {
+                        address: basicAddress,
+                        zipcode: basicZipcode
+                    }
+                };
                 updateLocal(objectConvert);
                 listBasic(arrayConstructor());
                 $("#tag-choices, #tag-addon").empty();
@@ -385,6 +390,17 @@
             updateCurrentList(restaurantName);
         })
 
+        const nullWebCheck = response =>{
+            if(typeof response === "string" && response !== ""){
+                return  `<div class="col-12">
+                    <p>
+                    <a class="modal-address" href="${response}" target="_blank">More Info</a>
+                </p>
+                </div>`
+            }
+            return "";
+        }
+
         $('.user-restaurants').click(function (e) {
             e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
@@ -400,11 +416,7 @@
                            <div class="col-12">
                                <p class="modal-address">${response.address}</p>
                            </div>
-                            <div class="col-12">
-                                <p>
-                                    <a class="modal-address" href="${response.website}" target="_blank">More Info</a>
-                                </p>
-                            </div>
+                           ${nullWebCheck(response.website)}
                             <div class="col-12">
                                 <p>
                                     <a class="modal-address" href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>
@@ -412,6 +424,7 @@
                             </div>
                             `
                 )
+
 
                 $(imgCol).removeClass("d-none");
             }).catch(() => {

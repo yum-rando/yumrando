@@ -155,6 +155,11 @@ p{
     line-height: 22px;
  }
 
+.green-secondary{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 .btn-green:hover{
     background-color: #c7e2e2;
     color: #383A47;
