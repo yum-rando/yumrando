@@ -5,7 +5,7 @@
     <title>Title</title>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-   <!-- FontAwesome CSS -->
+    <!-- FontAwesome CSS -->
     <!--  CSS -->
     <link href="/css/main.css" rel="stylesheet" />
 </head>
@@ -15,7 +15,7 @@
 <!--                <div sec:authorize="isAuthenticated()">-->
 <nav>
     <nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
-        <div class="container-fluid">
+        <div class="container-fluid flex-d-column">
             <a class="navbar-brand" href="/">
                 <img src="/img/yumLong.png" alt="YumRando" id="navLogo">
             </a>
@@ -31,22 +31,22 @@
                         <li class="nav-item">
                             <a class="nav-link links" href="/profile" sec:authorize="isAuthenticated()" th:href="@{'/profile/'}"><img class="icon" src="/img/userpng.png" alt="user">Profile</a>
                         </li>
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link links" href="#"><img class="icon" src="/img/letter.png" alt="letter">Contact</a>-->
-<!--                        </li>-->
                         <li class="nav-item">
-                            <a class="nav-link links" href="/about"><img class="icon" src="/img/notepad.png" alt="notepad">About</a>
+                            <a class="nav-link links" href="#"><img class="icon" src="/img/letter.png" alt="letter">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link links" href="/about"><img class="icon" src="/img/notepad.png" alt="notepad">About Us</a>
                         </li>
                     </ul>
                 </section>
+
+                <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
+                    <form th:action="@{/logout}" sec:authorize="isAuthenticated()" th:method="post">
+                        <button class="btn btn-primary register" style="margin-top: 8px">Log Out</button>
+                    </form>
+
+                </div>
             </div>
-        </div>
-        <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
-            <a th:href="@{/login}" class="btn btn-white" sec:authorize="!isAuthenticated()" role="button">Sign In</a>
-            <a th:href="@{/register}" class="btn btn-pink" sec:authorize="!isAuthenticated()" role="button">Sign Up</a>
-            <form th:action="@{/logout}" sec:authorize="isAuthenticated()" th:method="post">
-                <button class="btn btn-primary register" style="margin-top: 8px">Log Out</button>
-            </form>
         </div>
     </nav>
 </nav>
