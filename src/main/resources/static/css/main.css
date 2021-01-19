@@ -350,7 +350,8 @@ input{
     flex-direction: column;
 }
 .indexMainContainer{
-    margin-top: 2em;
+    margin-left: 0;
+    margin-right: 0;
     width: 100%;
 }
 
@@ -554,7 +555,7 @@ body{
 
 /* surprise me*/
 #phone{
-    height: 40em;
+    height: 50em;
     margin-left: 0;
 }
 #magicText{
@@ -660,7 +661,7 @@ body{
 .rest-list{
     width: 95%;
     margin-bottom: 3em;
-    margin-right: 2em;
+
 }
 
 /* Media Queries */
@@ -679,11 +680,12 @@ body{
         height: 32em;
     }
     #magicText{
-        left: 3.5em;
-        bottom: 28em;
+        font-size: larger;
+        left: 5em;
+        bottom: 32em;
     }
     .rest-list{
-        width: 120%;
+        width: 100%;
         margin: 0;
     }
 }
@@ -698,9 +700,14 @@ body{
     }
 
     #phone {
+        height: 45em;
     }
 
     #magicText {
+        font-size: larger;
+        left: 5em;
+        bottom: 32em;
+    }
     }
 }
 

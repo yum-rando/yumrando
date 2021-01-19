@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras">
-<div th:fragment="app">
-    <div class="container indexMainContainer">
+<div th:fragment="app" class="container indexMainContainer">
         <div class="row">
             <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
         </div>
-        <article class="row">
-            <div class="col-lg-12 col-xl-8">
+        <div class="row">
+            <div class="col-md-6 col-xs-12 d-flex justify-content-center">
 <!--                col-md-12 col-lg-4 col-xl-4-->
+                <!--phone-->
                 <div th:replace="partialsFile/randomSearch :: random-search"></div>
             </div>
-            <div class="col-lg-12 col-xl-8 container-fluid bg-navy roundCorners rest-list w-100">
+            <!--navy bg-->
+            <div class="col-md-6 col-xs-12 d-flex justify-content-center container-fluid bg-navy roundCorners">
 <!--                col-md-12 col-lg-8 col-xl-8-->
-                <div>
+                <div class="row">
                     <h1 class="instructions text-center">Build your list with your favorite restaurants,<br>
                         then hit Rando to find out where you're going!</h1>
                 </div>
-                <div class="col-md-12 col-lg-8 col-xl-8">
-                    <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
-                </div>
-                <div class="col-md-12 col-lg-4 col-xl-4" style="padding-left: 2em;">
-                    <div>
+                <!--list-->
+                <div>
+                    <div class="col-5">
+                        <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
+                    </div>
+                    <div class="col-2" style="padding-left: 2em;">
+                        <!--rando button-->
                         <div id="random-button-tool"></div>
                         <div sec:authorize="isAnonymous()">
                             <button id="guest-random" class="btn-pink rando" type="button">
@@ -33,14 +36,16 @@
                                 Rando
                             </button>
                         </div>
-                        <img class="image-fluid col-xs-12 col-md-6" style="margin-bottom: 3em; margin-left: 1em"
-                             id="rain"
-                             src="/img/cloudRain.png" alt="food rain">
+
+                        <!--cloud-->
+                        <div class="col-2">
+                            <img class="image-fluid " style="margin-bottom: 3em; margin-left: 1em"
+                                 id="rain"
+                                 src="/img/cloudRain.png" alt="food rain">
+                        </div>
                     </div>
                 </div>
             </div>
-        </article>
-
     </div>
 </div>
 </div>

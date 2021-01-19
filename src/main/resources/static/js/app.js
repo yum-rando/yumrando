@@ -46,13 +46,15 @@
                         $("#loader").remove();
                         $(modalLabel).empty().append(`<h5 class="modal-title">${randomSearchResult.name}</h5>`);
                     if ($(this).attr("id") === "random-name") {
-                        $(addList).empty().append(`<h5 id="add-random-rest" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">+</h5>`);
+                        $(addList).empty().append(`<h5 id="add-random-rest" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">
+                        <i class="fas fa-plus"></i></h5>`);
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
                         })
                     } else {
                         if ($("#currentList").val() !== 'default') {
-                            $(addList).empty().append(`<h5 id="add-random-restUser" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">+</h5>`);
+                            $(addList).empty().append(`<h5 id="add-random-restUser" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">
+                        <i class="fas fa-plus"></i></h5>`);
                             $("#add-random-restUser").click(() => {
                                 updateCurrentList(randomSearchResult);
                             })
@@ -133,7 +135,7 @@
                       <h6 >${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button id="delete${num}" type="button" class="btn btn-pink">
+                     <button id="delete${num}" type="button" class="btn btn-red">
                      <i class="fas fa-minus"></i>
 </button>
                     </div>
