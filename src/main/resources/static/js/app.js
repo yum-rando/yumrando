@@ -82,7 +82,7 @@
             $(".geo-disabled").remove();
             $("#guest-add-buttons").append(
                 `
-                    <button type="button" class="btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <button type="button" class=" btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
                         <i class="fas fa-search"></i>
                     </button>
                     `

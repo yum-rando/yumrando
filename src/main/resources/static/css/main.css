@@ -586,7 +586,6 @@ body{
 .rando{
     position: relative;
     top: 6em;
-    right: 1em;
     font-size: larger;
     padding: .25em;
     z-index: 2;
@@ -646,38 +645,62 @@ body{
 .restaurant-delete{
 
 }
-restaurant-search-display{
+.restaurant-search-display{
     border: #AAC6FC 1px solid;
 }
 
+.index-bg{
+    width: 90%;
+    margin: 5em;
+    padding: 2em;
+}
+.rest-list{
+    width: 95%;
+    margin-bottom: 3em;
+    margin-right: 2em;
+}
 
 /* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
 /*No media query for `xs` since this is the default in Bootstrap*/
 
 /*Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-
+@media (min-width: 320px) {
+    .index-bg{
+        width: 97%;
+        margin: 1em .25em;
+        padding: 2em;
+    }
+    #phone{
+        margin-left: 0;
+        height: 32em;
+    }
+    #magicText{
+        left: 3.5em;
+        bottom: 28em;
+    }
+    .rest-list{
+        width: 120%;
+        margin: 0;
+    }
 }
 
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
+    .index-bg{
+        width: 100%;
+        margin: 2em 0;
+        padding: 2em;
+    }
+    #phone{
+        margin-left: 7em;
+    }
+    #magicText{
+        margin-left: 7em;
+    }
+/*    .rando{*/
+/*        left: 2em;*/
+/*    }*/
+/*}*/
 
-}
-
-
-/*Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-
-}
-
-/*X-Large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {
-
-}
-
-/*XX-Large devices (larger desktops, 1400px and up)*/
-@media (min-width: 1400px) {
-
-}
