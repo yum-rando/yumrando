@@ -578,12 +578,14 @@ body{
 
 /* randomizer gif  */
 #rain{
-    height: 22em;
+    /*height: 22em;*/
+    height: 85%;
     display: flex;
     justify-content: center;
     position: relative;
     right: 2.5em;
     z-index: 1;
+    width: 80%;
 }
 
 /*randomizer btn*/
@@ -688,9 +690,7 @@ body{
     #random-search-input{
         width: 68%;
     }
-    #rain{
-        height: 27em;
-    }
+
     #rando{
         top: 7em;
         width: 13em;
@@ -702,9 +702,7 @@ body{
     .rando{
         width: 9em;
     }
-    #rain{
-        height: 21em;
-    }
+
 }
 
 /*Medium devices (tablets, 768px and up)*/
@@ -724,9 +722,7 @@ body{
         bottom: 31.5em;
         left: 4.5em;
     }
-    #rain{
-        height: 14em;
-    }
+
     #rando{
         top: 4em;
         width: 5em;
