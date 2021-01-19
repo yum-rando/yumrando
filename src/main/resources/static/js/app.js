@@ -14,15 +14,22 @@
         `;
         const modalBody = "#show-modal-body";
         const userListInitial = "#user-list-initial";
+        const addList = "#add-list-option";
+        const imgCol = "#show-img-col";
+        const modBodyCont = "#modal-body-container";
+        const modalLabel = "#show-modal-label";
+        const currList = "#currentList";
 
         const searchRandomEvent = () => {
             $('#random-name, #random-name-user').click(function () {
                 $("#show-modal-review, #show-modal-body").empty();
-                $(modalBody).append(loader());
+                $(imgCol).addClass("d-none");
+                $(modBodyCont).append(loader());
                 let nameValue = $('#random-search-input').val();
                 let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
-                let modalLabel = "#show-modal-label";
-                $(modalLabel).empty();
+
+
+                $(modalLabel + ", " + addList).empty();
 
                 apiSearch(searchName(nameValue, coordInput.latitude, coordInput.longitude)).then(data => {
                     let chosenIndex = randomizerChoice(data.restaurants.length);
@@ -35,36 +42,37 @@
                         city: chosenRestaurant.location.city,
                         zipcode: chosenRestaurant.location.zipcode,
                     }
+
+                        $("#loader").remove();
+                        $(modalLabel).empty().append(`<h5 class="modal-title">${randomSearchResult.name}</h5>`);
                     if ($(this).attr("id") === "random-name") {
-                        $(modalLabel).empty().append(
-                            `
-                                <h5 class="modal-title">${randomSearchResult.name}</h5>
-                                <p class="modal-address">${randomSearchResult.address}</p>
-                                <a id="add-random-rest" class="btn-green"modal">Add To List</a>
-                            `
-                        );
-                        $(modalBody).empty();
+                        $(addList).empty().append(`<h5 id="add-random-rest" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">
+                        <i class="fas fa-plus"></i></h5>`);
                         $("#add-random-rest").click(() => {
                             updateLocal(chosenRestaurant);
                         })
                     } else {
-                        let addListAnchor = "";
-                        if($("#currentList").val() !== 'default') {
-                            addListAnchor = `<a id="add-random-restUser" class="btn-green">Add To List</a>`;
+                        if ($("#currentList").val() !== 'default') {
+                            $(addList).empty().append(`<h5 id="add-random-restUser" data-bs-toggle="tooltip" data-bs-placement="left" title="Add To List" class="modal-add py-3">
+                        <i class="fas fa-plus"></i></h5>`);
+                            $("#add-random-restUser").click(() => {
+                                updateCurrentList(randomSearchResult);
+                            })
                         }
-                        $(modalLabel).append(
-                            `
-                            <h5 class="modal-title">${randomSearchResult.name}</h5>
-                            <p class="modal-address">${randomSearchResult.address}</p>
-                            ${addListAnchor}
-                        `
-                        );
-                        $(modalBody).empty();
-                        $("#add-random-restUser").click(() => {
-                            updateCurrentList(randomSearchResult);
-                        })
                     }
-
+                    $(modalBody).empty().append(
+                        `
+                           <div class="col-12">
+                               <p class="modal-address">${randomSearchResult.address}</p>
+                           </div>
+                            <div class="col-12">
+                                <p>
+                                    <a class="modal-address" href="${randomSearchResult.website}" target="_blank">More Info</a>
+                                </p>
+                            </div>
+                            `
+                        );
+                        $(imgCol).removeClass("d-none");
                 }).catch(() => {
                     $("#show-modal-body").empty().append(connectErrMessage);
                 })
@@ -76,26 +84,26 @@
             $(".geo-disabled").remove();
             $("#guest-add-buttons").append(
                 `
-                    <button type="button" class="btn btn-primary activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
-                        Search Restaurant
+                    <button type="button" class=" btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        <i class="fas fa-search"></i>
                     </button>
                     `
             )
             $("#user-add-buttons").append(
                 `
-                <button type="button" class="btn btn-primary activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
-                    Search Restaurant
+                <button type="button" class="btn activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fas fa-search"></i>
                 </button>
                 `
             )
             $("#guest-random-search").append(
                 `
-                   <button id="random-name" class="btn btn-primary activate-search register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
+                   <button id="random-name" class="btn activate-search btn-pink" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
                 `
             )
             $("#user-random-search").append(
                 `
-                   <button id="random-name-user" class="btn btn-primary activate-search register" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
+                   <button id="random-name-user" class="btn activate-search btn-pink" data-bs-toggle="modal" data-bs-target="#showModal">Presto Yum-o</button>
                 `
             )
             searchRandomEvent();
@@ -121,13 +129,15 @@
             array.map((item, num) => {
                 $(parent).append(
                     `
-                      <div class="container search-show">
+                      <div class="container search-show ">
                       <div class="row">
                       <div id="r${num}" class="col-9 search-name" data-bs-toggle="modal" data-bs-target="#showModal">
                       <h6 >${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button id="delete${num}" type="button" class="btn register">-</button>
+                     <button id="delete${num}" type="button" class="btn btn-red">
+                     <i class="fas fa-minus"></i>
+</button>
                     </div>
                       </div>
                         </div>`
@@ -137,12 +147,17 @@
                 });
 
                 $(`#r${num}`).click(() => {
-                    $('#show-modal-label').empty().append(
+                    $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
+                    $(modalLabel).append(`<h5 class="modal-title">${item.name}</h5>`);
+                    $(modalBody).append(
                         `
-                <h5 class="modal-title">${item.name}</h5>
-                <p class="modal-address">${item.address}</p>
-              
-                `
+                           <div class="col-12">
+                               <p class="modal-address">${item.location.address}</p>
+                           </div>
+                            <div class="col-12">
+                                ${nullWebCheck(item.url)}
+                            </div>
+                            `
                     )
                 })
             })
@@ -197,20 +212,21 @@
             resultSet = [];
             array.map(({restaurant}, num) => {
                 resultSet.push(restaurant);
-
                 $(parent).append(
-                    `<div class="container">
-                        <div class="row">
-                            <div class="col-9">
-                                <h5 class="modal-restName">${restaurant.name}</h5>
-                                <p class="modal-restInfo">${restaurant.location.address}</p>
-                  
+                    `
+                        <div class="row align-items-center my-3 py-2">
+                            <div class="col-8">
+                                <div class="row">
+                                    <h5 class="modal-address green-secondary">${restaurant.name}</h5>
+                                </div>
+                                <div class="row">
+                                    <p class="modal-address green-secondary">${restaurant.location.address}</p>
+                                </div>
                              </div>
-                             <div class="col-3">
-                                 <button id="${type + num}" type="button" class="btn btn-green" data-bs-dismiss="modal">Add to List</button> 
+                             <div class="col-4 d-flex align-items-center">
+                                 <button id="${type + num}" type="button" class="btn btn-green green-secondary" data-bs-dismiss="modal">Add to List</button> 
                              </div>
                          </div>
-                    </div>
                         `
                 );
 
@@ -221,9 +237,9 @@
             if (resultSet.length === 0) {
                 $(parent).append(
                     `
-                    <div class="container">
+                    <div class="container d-flex justify-content-center align-items-center">
                         <div class="row">
-                            No Results Found
+                            <h4 class="modal-address">No Search Results Found</h4>
                         </div>
                     </div>
                     `
@@ -233,11 +249,18 @@
 
         $('#add-basic').click(() => {
             let basicInput = $('#simple-name').val();
+            let basicAddress = $("#simple-address").val();
+            let basicZipcode = $("#simple-zipcode").val();
             if(basicInput !== "") {
-                let objectConvert = {name: basicInput};
+                let objectConvert = {
+                    name: basicInput,
+                    location: {
+                        address: basicAddress,
+                        zipcode: basicZipcode
+                    }
+                };
                 updateLocal(objectConvert);
                 listBasic(arrayConstructor());
-                // tagSelection = [];
                 $("#tag-choices, #tag-addon").empty();
                 $("#tag-choice").toggleClass('d-none');
                 $("#simple-name, #simple-address, #simple-zipcode").val("");
@@ -249,19 +272,29 @@
         const modalSearchBody = '#search-body';
 
         const selectEvent = (selector, type) => {
+            const inputStructure = id => {
+                return`
+                <div class="row g-2 align-items-center my-3">
+                    <div class="col-12">
+                        <input class="user-info-input form-control" placeholder="Type to search for restaurants." id="${id}"/>
+                    </div>
+                </div>
+                       `
+
+            }
             $(selector).change(() => {
                 $(modalSearchBody).empty();
                 $(searchResultBody).empty();
                 switch ($(selector).val()) {
                     case "name":
                         if (type === "") {
-                            $(modalSearchBody).append(`<input placeholder="Search by words" id="nameSearch"/>`)
+                            $(modalSearchBody).append(inputStructure("nameSearch"));
                         } else {
-                            $(modalSearchBody).append(`<input placeholder="Search by words" id="nameSearchUser"/>`)
+                            $(modalSearchBody).append(inputStructure("nameSearchUser"));
                         }
                         break;
                     case "near":
-                        $(searchResultBody).append(loader())
+                        $(searchResultBody).append(loader());
                         let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
                         apiSearch(searchLocal(coordInput.latitude, coordInput.longitude)).then(data => {
                             listResult(data.nearby_restaurants, type)
@@ -314,8 +347,8 @@
                     <label for="name" class="form-label">Enter a name for your list:</label>
                     <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
-                     <button id="submit-list" type="button" class="btn btn-primary">Submit</button>
-                     <button id="submit-list-cancel" type="button" class="btn btn-secondary">Cancel</button>
+                     <button id="submit-list" type="button" class="btn btn-green">Submit</button>
+                     <button id="submit-list-cancel" type="button" class="btn btn-red">Cancel</button>
                  </form>
                 `
             )
@@ -361,47 +394,43 @@
             updateCurrentList(restaurantName);
         })
 
-//         $("#tag-choice").click(function () {
-//             $(this).toggleClass('d-none')
-//             $("#tag-addon").append(
-//                 `
-//                 <div>
-//                    <input id="tag-type" type="text">
-//                    <button id="tag-submit" class="btn btn-primary">Add Tag</button>
-//                 </div>
-// `
-//             )
-//             $("#tag-submit").click(() => {
-//                 let tagInput = $("#tag-type").val();
-//                 tagSelection.push(tagInput);
-//                 $("#tag-choices").empty();
-//                 tagSelection.map(tag => {
-//                     $("#tag-choices").append(
-//                         `
-//                         <li>${tag}</li>
-//                     `
-//                     );
-//                     $("#tag-type").val("");
-//                 })
-//             })
-//         })
+        const nullWebCheck = response =>{
+            if(typeof response === "string" && response !== ""){
+                return  `<div class="col-12">
+                    <p>
+                    <a class="modal-address" href="${response}" target="_blank">More Info</a>
+                </p>
+                </div>`
+            }
+            return "";
+        }
 
         $('.user-restaurants').click(function (e) {
             e.stopPropagation();
             let restId = $(this).attr("id").substring(1);
-            $(modalBody).append(loader());
+            let listId = $("#currentList").val();
+            $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
+            $(imgCol).addClass("d-none");
+            $(modBodyCont).append(loader());
             apiShow(restId, "/restaurant/show/").then(response => {
-                console.log(response);
-                let listId = $("#currentList").val();
-                $('#show-modal-label').empty().append(
-                    `<h5 class="modal-title">${response.name}</h5>
-                     <p class="modal-address">${response.address}</p>
-                     <div class="modal-tag">${response.tags}</div>
-                     `
-                );
-                $(modalBody).empty();
-                $('#show-modal-review').empty().append(`<a href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>`);
+                $("#loader").remove();
+                $(modalLabel).append(`<h5 class="modal-title">${response.name}</h5>`);
+                $(modalBody).append(
+                    `
+                           <div class="col-12">
+                               <p class="modal-address">${response.address}</p>
+                           </div>
+                           ${nullWebCheck(response.website)}
+                            <div class="col-12">
+                                <p>
+                                    <a class="modal-address" href="/list/${listId}/restaurant/${response.id}/review?friend=0">Review</a>
+                                </p>
+                            </div>
+                            `
+                )
 
+
+                $(imgCol).removeClass("d-none");
             }).catch(() => {
                 $("#show-modal-label").empty();
                 $("#show-modal-review").empty();
@@ -419,7 +448,7 @@
 
         const userInitialList = () => {
             if (localStorage.getItem("yumCoord") !== null) {
-                if (window.location.pathname === "/") {
+                if ($(currList).length > 0 && ($(currList).val() === "default")) {
                     $("#user-add-buttons, #yummies").addClass('d-none');
                     $(userListInitial).empty().append(loader());
                     let coordInput = JSON.parse(localStorage.getItem("yumCoord"));
@@ -444,14 +473,21 @@
                         `
                             );
                             $(`#r${num}`).click(() => {
-                                $('#show-modal-label').empty().append(
-                                    `
-                                    <h5 class="modal-title">${restaurant.name}</h5>
-                                    <h6 class="modal-address">${restaurant.address}</h6>
-                                    <div class="modal-tag">${restaurant.tags}</div>
+                                $("#show-modal-review, #show-modal-body, #show-modal-label, #add-list-option").empty();
 
+                                $(modalLabel).append(`<h5 class="modal-title">${restaurant.name}</h5>`);
+                                $(modalBody).append(
                                     `
-                                )
+                                        <div class="col-12">
+                                            <p class="modal-address">${restaurant.location.address}</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <p>
+                                                <a class="modal-address" href="${restaurant.url}" target="_blank">More Info</a>
+                                            </p>
+                                        </div>
+                                    `
+                                );
                             })
                         })
                     }).catch(() => {
@@ -500,7 +536,10 @@
                     apiCreate(rest, url).then(() => {
                         $(finalSelection).click();
                     })
+                } else{
+                    $(finalSelection).click();
                 }
+
                 $('#user-random').attr("disabled", false);
             } else {
                 userRandomizer();
@@ -552,7 +591,9 @@
         }
 
         geoLocation(geoHandler);
-        listBasic(arrayConstructor());
+        if($(currList).length === 0) {
+            listBasic(arrayConstructor());
+        }
         selectEvent(selectRest, "");
         selectEvent(selectRestUser, 'u');
 

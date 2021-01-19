@@ -1,4 +1,4 @@
-#review-side-panel{
+#review-side-panel {
     background: url(../img/rating.png) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -7,38 +7,75 @@
     padding: 0;
 }
 
-.review-caro-img{
+.review-caro-img {
     height: 12em;
 }
 
- .side-banner-roundedCorners{
-     border-bottom-left-radius: 15px;
-     border-top-left-radius: 15px;
+.side-banner-roundedCorners {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.review-form-container {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.main {
+    margin-bottom: 30vh;
+}
+
+.burnt-orange {
+    color: #cc5500;
+}
+
+.header-1 {
+    font-family: 'Quando', serif !important;
+    font-weight: bold !important;
+}
+
+.radio-color > .form-check-input {
+    background-color: #7cd0bd !important;
+}
+
+.radio-color > .form-check-input:checked {
+    background-color: #e0719e !important;
+    border-color: #e0719e !important;
+}
+
+ .radio-color > .form-check-input:checked[type=radio] {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e") !important;
  }
 
- .review-form-container{
-     border-top-right-radius: 15px;
-     border-bottom-right-radius: 15px;
- }
+@media (max-width: 319.98px) {
+    .emojis {
+        width: 15px !important;
+        height: 15px !important;
+    }
 
+    #rating-container {
+        display: flex !important;
+        justify-content: space-around !important;
+    }
+}
 
 @media (min-width: 768px) {
     #submit-review-btn {
         width: 25% !important;
     }
 
-    #review-submit-div{
+    #review-submit-div {
         text-align: start !important;
     }
 
-    .emojis{
-        width: 75%!important;
+    .emojis {
+        width: 75% !important;
     }
 
 }
 
 @media (min-width: 992px) {
-    .emojis{
-        width: 50%!important;
+    .emojis {
+        width: 50% !important;
     }
 }

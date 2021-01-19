@@ -8,11 +8,27 @@
 <nav th:replace="partials/navbar :: navbar"/>
 <div th:replace="partials/headerIndex :: header"></div>
 
-<div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
-<div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
-<div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
-<div th:replace="partialsFile/app :: app"></div>
+<div class="container-fluid bg-lilac roundCorners row index-bg">
+
+    <figure class="row text-center">
+        <blockquote class=" col-12 blockquote">
+            <h1 class="navy" style="font-family: 'Lobster Two', cursive">
+                What do you want to eat? YumRando knows!
+            </h1>
+            <p class="navy" style="font-family: 'Quando', serif">
+                Inspire your next meal with a list of nearby restaurants, or make the perfect list for what you're in the mood for!<br>
+                Brunch? Dinner with the kids? Date night? Something healthy? Find what hits the spot!
+            </p>
+        </blockquote>
+    </figure>
+    <div th:replace="partialsFile/show-modal-partial :: show-modal"></div>
+    <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
+    <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
+    <div th:replace="partialsFile/app :: app"></div>
+</div>
 <div th:replace="partials/footer :: foot"></div>
+
+
 
 
 <script th:replace="partials/scripts :: script"></script>
