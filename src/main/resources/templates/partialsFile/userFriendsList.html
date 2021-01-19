@@ -6,7 +6,7 @@
             <h4 class="lilac profile-list-item">My Friends</h4>
         </div>
         <div class="col-3 d-flex justify-content-end">
-            <button id="add-friend" type="button" class="btn btn-pink">+</button>
+            <button id="add-friend" type="button" class="btn btn-pink"><i class="fas fa-plus"></i></button>
         </div>
     </div>
     <div class="container bg-green roundCorners">
@@ -34,7 +34,7 @@
                                         </div>
                                     <div class="col d-flex align-items-center">
                                     <form th:action="@{'/profile/friend/delete/' + ${friend.id}}" method="POST">
-                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-red">Remove</button>
+                                        <button th:id="${'d' + friend.id}" type="submit" class="btn btn-red"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="col d-flex align-items-center">
                                     <form th:action="@{'/profile/friend/delete/' + ${request.id}}" method="POST">
-                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-red">Remove</button>
+                                        <button th:id="${'d' + request.id}" type="submit" class="btn btn-red"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                         </div>
                                     </div>

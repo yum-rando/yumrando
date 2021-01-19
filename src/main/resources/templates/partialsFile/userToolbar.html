@@ -5,8 +5,8 @@
         <div class="row bg-lilac roundCorners">
             <div class="col-4">
                 <div th:if="${favorites}">
-                <button id="yummies" class="image-fluid" style="height: 1em;" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Favorite Cuisine"><img src="img/marker.png"></button>
+                <button id="yummies" class="col-7 image-fluid navy btn btn-pink heart" style="height: 2em;" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="Favorite Cuisine"><i class="fas fa-heart"></i></button>
                 </div>
             </div>
             <div th:if="${lists != null}" class="col-4">
@@ -18,15 +18,16 @@
                         </div>
                         <div th:unless="${chosenList != null}">
                             <option value="default" class="image-fluid" style="height: 1em;" data-bs-toggle="tooltip" data-bs-placement="top"
-                             title="Your Lists"><img src="img/list.png"></option>
+                             title="Your Lists"></option>
                         </div>
                         <option th:each = "list : ${lists}" th:value="${list.id}" th:text="${list.name}"></option>
                     </select>
                 </form>
             </div>
             <div class="col-4">
-                <button id="new-list" style="margin: 1em -1em;" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="New List">New List</button>
+                <button class="col-7 btn btn-green greenAdd" id="new-list" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="New List"><i class="fas fa-plus"></i>
+                </button>
             </div>
         </div>
 

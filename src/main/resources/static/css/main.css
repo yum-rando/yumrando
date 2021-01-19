@@ -20,7 +20,7 @@
 }
 
 .bg-white{
-    background-color: #F3F6E6;
+    background-color: #f3f6e6!important;
 }
 
 .bg-lilac{
@@ -75,24 +75,26 @@ p{
 .btn-pink{
     background-color: #E0719E;
     border-color: #E0719E;
-    color: #F3F6E6;
+    color: #f3f6e6;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
 }
 
 .btn-pink:hover{
-    background-color: #F3F6E6;
+    background-color: #f3f6e6;
     border: #E0719E 2px solid;
     color: #E0719E;
+    font-weight: bolder;
 }
 
 .btn-white{
-    background-color: #F3F6E6;
-    border-color: #F3F6E6;
+    background-color: #f3f6e6;
+    border-color: #f3f6e6;
     color: #E0719E;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -100,12 +102,14 @@ p{
     font-size: 18px;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
 }
 
 .btn-white:hover{
     background-color: #E0719E;
     border: #e0719e 2px solid;
-    color: #F3F6E6;
+    color: #f3f6e6;
+    font-weight: bolder;
 }
 
 .btn-yellow{
@@ -118,21 +122,24 @@ p{
     font-size: 18px;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
+
 }
 
 .btn-yellow:hover {
-    background-color: #e9e3bf;
+    background-color: #f3f6e6;
     border: #eed949 2px solid;
     color: #383A47;
+    font-weight: bolder;
 }
 
 .btn-green{
-    background-color: #7cd0bd;
-    border-color: #7cd0bd;
-    color: #383A47;
+    background-color: #7cd0bd!important;
+    border-color: #7cd0bd!important;
+    color: #383A47!important;
     font-weight: bold;
-    margin: 1em;
-    font-family: 'Roboto', sans-serif;
+    margin: .5em;
+    font-family: 'Roboto', sans-serif!important;
     font-style: normal;
     font-size: 18px;
     line-height: 22px;
@@ -145,9 +152,10 @@ p{
 }
 
 .btn-green:hover{
-    background-color: #c7e2e2;
-    color: #383A47;
-    border: #7cd0bd 2px solid;
+    background-color: #f3f6e6!important;
+    color: #7cd0bd!important;
+    border: #7cd0bd 2px solid!important;
+    font-weight: bolder!important;
 
 }
 
@@ -160,12 +168,22 @@ p{
     font-style: normal;
     line-height: 22px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: .5em;
 }
 
 .btn-red:hover{
     background: #f3f6e6;
     color: #9b1d20;
     border: #9b1d20 2px solid;
+    font-weight: bolder;
+}
+.pink-heart{
+    display: flex;
+    justify-items: center;
+}
+.greenAdd{
+    display: flex;
+    justify-content: center;
 }
 
 /* text colors */
@@ -257,8 +275,8 @@ p{
 }
 
 .modal-header{
-    background: #F3F6E6;
-    border-bottom: #F3F6E6 solid 0;
+    background: #383A47;
+    border-bottom: #383A47 solid 0;
     align-content: center;
 }
 
@@ -296,7 +314,17 @@ p{
 }
 
 input{
+    background: #AAC6FC!important;
+    border: #383A47 1px solid;
+    color: #383A47;
+}
+.input-white{
     background: #f3f6e6!important;
+    border: #383A47 1px solid;
+    color: #383A47;
+}
+.input:after{
+    border: #383A47;
 }
 .modal-body{
     background: #383A47;
@@ -309,10 +337,10 @@ input{
 
 /*show modal*/
 .search-show{
-    background: #f3f6e6;
+    background: #f3f6e6!important;
 }
 .search-name{
-    background: #F3F6E6;
+    background: #F3F6E6!important;
     color: #7cd0bd!important;
     font-family: 'Quando', serif;
 
@@ -417,12 +445,13 @@ body{
 }
 
 .login:hover{
-    color: #F3F6E6 !important;
-    background: #E0719E !important;
-    border: 1px solid #E0719E !important;
+    color: #E0719E !important;
+    background: #F3F6E6 !important;
+    border: 2px solid #F3F6E6 !important;
+    font-weight: bolder;
 }
 
-.btn-white{
+.register{
     background-color: #F3F6E6;
     border-color: #F3F6E6;
     color: #E0719E;
@@ -439,6 +468,7 @@ body{
     color: #F3F6E6;
     background: #E0719E;
     border: 1px solid #E0719E;
+    font-weight: bolder;
 }
 
 /* Load animation */
@@ -544,15 +574,31 @@ body{
 
 /* randomizer gif  */
 #rain{
-    height: 20em;
+    height: 22em;
     display: flex;
     justify-content: center;
+    position: relative;
+    right: 2.5em;
+    z-index: 1;
 }
 
 /*randomizer btn*/
 .rando{
     position: relative;
-
+    top: 6em;
+    font-size: larger;
+    padding: .25em;
+    z-index: 2;
+    width: 10em;
+}
+.rando-user{
+    position: relative;
+    top: 6em;
+    right: 1em;
+    font-size: larger;
+    padding: .25em;
+    z-index: 2;
+    width: 10em;
 }
 
 .instructions{
@@ -568,38 +614,93 @@ body{
     font-family: 'Quando', serif;
     color: #383A47;
     text-align: center;
-    background: #ebefdf;
+    background: #f3f6e6;
 }
 
+#restaurant-items{
+    padding: .5em;
+}
+.search-name {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1em;
+    text-align: end;
+}
+#user-list-initial{
 
+    padding-top: 1em;
+    text-align: start;
+    background: #f3f6e6;
+}
+#user-list-items{
+    padding: .5em;
+}
+.restaurant-show{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1em;
+    text-align: end;
+    background: #f3f6e6;
+}
+.restaurant-delete{
+
+}
+.restaurant-search-display{
+    border: #AAC6FC 1px solid;
+}
+
+.index-bg{
+    width: 90%;
+    margin: 5em;
+    padding: 2em;
+}
+.rest-list{
+    width: 95%;
+    margin-bottom: 3em;
+    margin-right: 2em;
+}
 
 /* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
 /*No media query for `xs` since this is the default in Bootstrap*/
 
 /*Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-
+@media (min-width: 320px) {
+    .index-bg{
+        width: 97%;
+        margin: 1em .25em;
+        padding: 2em;
+    }
+    #phone{
+        margin-left: 0;
+        height: 32em;
+    }
+    #magicText{
+        left: 3.5em;
+        bottom: 28em;
+    }
+    .rest-list{
+        width: 120%;
+        margin: 0;
+    }
 }
 
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
+    .index-bg{
+        width: 100%;
+        margin: 2em 0;
+        padding: 2em;
+    }
+    #phone{
+        margin-left: 7em;
+    }
+    #magicText{
+        margin-left: 7em;
+    }
+/*    .rando{*/
+/*        left: 2em;*/
+/*    }*/
+/*}*/
 
-}
-
-
-/*Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-
-}
-
-/*X-Large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {
-
-}
-
-/*XX-Large devices (larger desktops, 1400px and up)*/
-@media (min-width: 1400px) {
-
-}

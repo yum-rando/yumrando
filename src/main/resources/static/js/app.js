@@ -82,15 +82,15 @@
             $(".geo-disabled").remove();
             $("#guest-add-buttons").append(
                 `
-                    <button type="button" class="btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
-                        Search Restaurant
+                    <button type="button" class=" btn activate-search login btn-white" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        <i class="fas fa-search"></i>
                     </button>
                     `
             )
             $("#user-add-buttons").append(
                 `
                 <button type="button" class="btn activate-search btn-white login" data-bs-toggle="modal" data-bs-target="#searchModal">
-                    Search Restaurant
+                    <i class="fas fa-search"></i>
                 </button>
                 `
             )
@@ -127,13 +127,15 @@
             array.map((item, num) => {
                 $(parent).append(
                     `
-                      <div class="container search-show">
+                      <div class="container search-show ">
                       <div class="row">
                       <div id="r${num}" class="col-9 search-name" data-bs-toggle="modal" data-bs-target="#showModal">
                       <h6 >${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button id="delete${num}" type="button" class="btn btn-pink">-</button>
+                     <button id="delete${num}" type="button" class="btn btn-pink">
+                     <i class="fas fa-minus"></i>
+</button>
                     </div>
                       </div>
                         </div>`
