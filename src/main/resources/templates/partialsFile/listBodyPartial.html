@@ -34,25 +34,25 @@
             </div>
 
         </div>
-        <div class="row container">
+        <div class="row">
             <div sec:authorize="isAnonymous()">
                 <div id="guest-add-buttons">
-                    <button type="button" class="col-md-2 col-xs-4 btn btn-green active-search-modal" data-bs-toggle="modal"
+                    <button type="button" class="col-md-5 col-xs-12 btn btn-green active-search-modal" data-bs-toggle="modal"
                             data-bs-target="#addModal">
                         <i class="fas fa-plus"></i>
                     </button>
 
-                    <a tabindex="0" class="col-md-2 col-xs-4 btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
+                    <a tabindex="0" class="col-md-5 col-xs-12 btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
                         <i class="fas fa-search"></i></a>
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()">
                 <div id="user-add-buttons">
-                    <button type="button" class="col-2 btn btn-green active-search-modal" data-bs-toggle="modal"
+                    <button type="button" class="col-md-5 col-xs-12 btn btn-green active-search-modal" data-bs-toggle="modal"
                             data-bs-target="#addModal">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <a tabindex="0" class="col-2 btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
+                    <a tabindex="0" class="col-md-5 col-xs-12 btn login geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
                         <i class="fas fa-search"></i></a>
                 </div>
             </div>
