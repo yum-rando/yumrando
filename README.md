@@ -1,4 +1,4 @@
-![header](../src/main/resources/static/yumLong.png)
+![header](src/main/resources/static/img/yumLong.png)
 
 <h3 align="center">⭐️ A little bit about Yum-Rando ⭐️</h3>
 <br>
