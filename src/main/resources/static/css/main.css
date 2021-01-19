@@ -350,7 +350,8 @@ input{
     flex-direction: column;
 }
 .indexMainContainer{
-    margin-top: 2em;
+    margin-left: 0;
+    margin-right: 0;
     width: 100%;
 }
 
@@ -554,7 +555,8 @@ body{
 
 /* surprise me*/
 #phone{
-    height: 40em;
+    height: 50em;
+    margin-left: 0;
 }
 #magicText{
     position: relative;
@@ -565,6 +567,8 @@ body{
 #predict{
     font-family: 'Lobster Two', cursive;
     color: #383A47;
+    font-size: x-large;
+    width: 10em;
 }
 #random-search-input{
     background: #AAC6FC;
@@ -589,7 +593,7 @@ body{
     font-size: larger;
     padding: .25em;
     z-index: 2;
-    width: 10em;
+    width: 65%;
 }
 .rando-user{
     position: relative;
@@ -598,7 +602,7 @@ body{
     font-size: larger;
     padding: .25em;
     z-index: 2;
-    width: 10em;
+    width: 65%;
 }
 
 .instructions{
@@ -657,7 +661,7 @@ body{
 .rest-list{
     width: 95%;
     margin-bottom: 3em;
-    margin-right: 2em;
+
 }
 
 /* Media Queries */
@@ -676,31 +680,38 @@ body{
         height: 32em;
     }
     #magicText{
-        left: 3.5em;
-        bottom: 28em;
+        font-size: larger;
+        bottom: 23.5em;
+        left: 3em;
     }
     .rest-list{
-        width: 120%;
+        width: 100%;
         margin: 0;
+    }
+    #random-search-input{
+        width: 68%;
     }
 }
 
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-    .index-bg{
+    .index-bg {
         width: 100%;
         margin: 2em 0;
         padding: 2em;
     }
-    #phone{
-        margin-left: 7em;
+
+    #phone {
+        height: 45em;
     }
-    #magicText{
-        margin-left: 7em;
+
+    #magicText {
+        font-size: larger;
+        bottom: 31.5em;
+        left: 4.5em;
     }
-/*    .rando{*/
-/*        left: 2em;*/
-/*    }*/
-/*}*/
+}
+
+
 
