@@ -12,18 +12,20 @@
                 <div th:replace="partialsFile/randomSearch :: random-search"></div>
             </div>
             <!--navy bg-->
-            <div class="col-md-6 col-xs-12 d-flex justify-content-center container-fluid bg-navy roundCorners">
-<!--                col-md-12 col-lg-8 col-xl-8-->
-                <div class="row">
-                    <h1 class="instructions text-center">Build your list with your favorite restaurants,<br>
-                        then hit Rando to find out where you're going!</h1>
-                </div>
+            <div class="col-md-6 col-xs-12 container-fluid bg-navy roundCorners">
+                    <div class="row d-flex justify-content-center">
+                        <h1 class="instructions text-center col-12">
+                            Build your list with your favorite restaurants,<br>
+                            then hit Rando to find out where you're going!
+                        </h1>
+                    </div>
+
                 <!--list-->
-                <div>
-                    <div class="col-5">
+                <div class="row">
+                    <div class="col-7">
                         <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
                     </div>
-                    <div class="col-2" style="padding-left: 2em;">
+                    <div class="col-5" style="padding-left: 2em;">
                         <!--rando button-->
                         <div id="random-button-tool"></div>
                         <div sec:authorize="isAnonymous()">
@@ -38,7 +40,7 @@
                         </div>
 
                         <!--cloud-->
-                        <div class="col-2">
+                        <div class="col-5">
                             <img class="image-fluid " style="margin-bottom: 3em; margin-left: 1em"
                                  id="rain"
                                  src="/img/cloudRain.png" alt="food rain">

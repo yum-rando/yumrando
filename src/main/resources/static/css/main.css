@@ -681,12 +681,15 @@ body{
     }
     #magicText{
         font-size: larger;
-        left: 5em;
-        bottom: 32em;
+        bottom: 23.5em;
+        left: 3em;
     }
     .rest-list{
         width: 100%;
         margin: 0;
+    }
+    #random-search-input{
+        width: 68%;
     }
 }
 
@@ -705,10 +708,10 @@ body{
 
     #magicText {
         font-size: larger;
-        left: 5em;
-        bottom: 32em;
-    }
+        bottom: 31.5em;
+        left: 4.5em;
     }
 }
+
 
 
