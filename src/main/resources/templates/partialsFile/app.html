@@ -11,7 +11,7 @@ xmlns:sec="http://www.thymeleaf.org/extras">
                 <div th:replace="partialsFile/randomSearch :: random-search"></div>
             </div>
             <div class="col-8">
-                <div class="row container-fluid bg-navy roundCorners" style="width: 90%; margin-bottom: 3em;">
+                <div class="row container-fluid bg-navy roundCorners" style="width: 95%; margin-bottom: 3em; margin-right: 2em;">
                     <div>
                         <h1 class="instructions">Build your list with your favorite restaurants,<br>
                                                 then hit Rando to find out where you're going!</h1>
@@ -20,17 +20,17 @@ xmlns:sec="http://www.thymeleaf.org/extras">
                         <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
                     </div>
                     <div class="col-4" style="padding-left: 2em;">
-                        <div class="text-center">
+                        <div>
                             <div id="random-button-tool"></div>
                             <div sec:authorize = "isAnonymous()">
-                                <button id="guest-random" class="btn-pink rando roundCorners" type="button" style="font-size: larger; padding:.25em; position: relative; top: 4.25em; right: 1em;">
+                                <button id="guest-random" class="btn-pink rando" type="button">
                                     Rando </button>
                             </div>
                             <div sec:authorize = "isAuthenticated()">
-                                <button id="user-random" class="btn-pink rando roundCorners" type="button" style="font-size: larger; padding:.5em; position: relative; top: 4.25em; right: 1em;">
+                                <button id="user-random" class="btn-pink rando-user" type="button">
                                     Rando </button>
                             </div>
-                            <img class="image-fluid" id="rain" src="/img/cloudRain.png" alt="food rain">
+                            <img class="image-fluid" style="margin-bottom: 3em; margin-left: 1em" id="rain" src="/img/cloudRain.png" alt="food rain">
                         </div>
                     </div>
                 </div>

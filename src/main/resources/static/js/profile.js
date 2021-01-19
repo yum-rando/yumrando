@@ -169,7 +169,7 @@
                 $(checkBody).append(
                     `
                     <div class="col-sm-6 col-lg-4">
-                        <input class="form-check-input tag-form-input modal-address" type="checkbox" value="" id="flexCheckDefault" data-tagID="${faveTags.id}" data-tagName="${faveTags.name}">
+                        <input class="tag-form-input modal-address" type="checkbox" value="" id="flexCheckDefault" data-tagID="${faveTags.id}" data-tagName="${faveTags.name}">
                         <label class="form-check-label modal-address" for="flexCheckDefault">
                             ${faveTags.name}
                          </label>

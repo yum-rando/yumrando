@@ -127,13 +127,15 @@
             array.map((item, num) => {
                 $(parent).append(
                     `
-                      <div class="container search-show">
+                      <div class="container search-show ">
                       <div class="row">
                       <div id="r${num}" class="col-9 search-name" data-bs-toggle="modal" data-bs-target="#showModal">
                       <h6 >${item.name}</h6>
                       </div>
                      <div class="col-3">
-                     <button id="delete${num}" type="button" class="btn btn-pink">-</button>
+                     <button id="delete${num}" type="button" class="btn btn-pink">
+                     <i class="fas fa-minus"></i>
+</button>
                     </div>
                       </div>
                         </div>`

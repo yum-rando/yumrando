@@ -19,7 +19,7 @@
                             <label class="navy label-font" for="firstName">First Name</label>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <input class="user-info-input form-control" th:field="*{firstName}" name="firstName" type="text" id="firstName" disabled>
+                            <input class="user-info-input input-white form-control" th:field="*{firstName}" name="firstName" type="text" id="firstName" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
@@ -27,7 +27,7 @@
                             <label class="navy label-font" for="lastName">Last Name</label>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <input class="user-info-input form-control" th:field="*{lastName}" name="lastName" id="lastName" type="text" disabled>
+                            <input class="user-info-input input-white form-control" th:field="*{lastName}" name="lastName" id="lastName" type="text" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
@@ -35,7 +35,7 @@
                             <label class="navy label-font" for="email">Email</label>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <input class="user-info-input form-control" th:field="*{email}" name="email" id="email" type="email" disabled>
+                            <input class="user-info-input input-white form-control" th:field="*{email}" name="email" id="email" type="email" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
@@ -43,7 +43,7 @@
                             <label class="navy label-font" for="phoneNumber">Phone Number</label>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <input class="user-info-input form-control" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" type="text" disabled>
+                            <input class="user-info-input input-white form-control" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" type="text" disabled>
                         </div>
                     </div>
                     <div class="row g-2 align-items-center mb-3">
@@ -51,11 +51,11 @@
                             <label class="navy label-font" for="zipcode">Zipcode</label>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <input class="user-info-input form-control" th:field="*{zipcode}" name="zipcode" id="zipcode" type="text" disabled>
+                            <input class="user-info-input input-white form-control" th:field="*{zipcode}" name="zipcode" id="zipcode" type="text" disabled>
                         </div>
                     </div>
                         <div class="d-flex flex-row-reverse">
-                        <button id="toggle-user-info" class="btn login mr-0" type="button">Edit Profile</button>
+                        <button id="toggle-user-info" class="btn login mr-0" type="button"><i class="fas fa-edit"></i></button>
                         <button id="user-info-submit" class="btn login d-none" type="submit">Submit Changes</button>
                         </div>
                 </form>
