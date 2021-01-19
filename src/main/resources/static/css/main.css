@@ -565,6 +565,8 @@ body{
 #predict{
     font-family: 'Lobster Two', cursive;
     color: #383A47;
+    font-size: x-large;
+    width: 10em;
 }
 #random-search-input{
     background: #AAC6FC;
@@ -688,19 +690,19 @@ body{
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-    .index-bg{
+    .index-bg {
         width: 100%;
         margin: 2em 0;
         padding: 2em;
     }
-    #phone{
+
+    #phone {
         margin-left: 7em;
     }
-    #magicText{
+
+    #magicText {
         margin-left: 7em;
     }
-/*    .rando{*/
-/*        left: 2em;*/
-/*    }*/
-/*}*/
+}
+
 
