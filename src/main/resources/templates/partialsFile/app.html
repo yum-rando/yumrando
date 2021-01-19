@@ -22,10 +22,10 @@
 
                 <!--list-->
                 <div class="row">
-                    <div class="col-7">
+                    <div class="col-md-7 col-xs-12">
                         <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
                     </div>
-                    <div class="col-5" style="padding-left: 2em;">
+                    <div class="col-md-5 col-xs-12" style="padding-left: 2em;">
                         <!--rando button-->
                         <div id="random-button-tool"></div>
                         <div sec:authorize="isAnonymous()">
@@ -40,7 +40,7 @@
                         </div>
 
                         <!--cloud-->
-                        <div class="col-5">
+                        <div class="col-md-5 col-xs-12">
                             <img class="image-fluid " style="margin-bottom: 3em; margin-left: 1em"
                                  id="rain"
                                  src="/img/cloudRain.png" alt="food rain">
