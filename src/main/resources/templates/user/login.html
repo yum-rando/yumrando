@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:replace="partials/register.login-head :: head">
 <body>
 <nav th:replace="partials/logInNav :: nav"/>
@@ -31,8 +31,8 @@
             </div>
             <div class="col-12 col-lg-6 col-xl-6 my-3">
                 <button type="submit" class="text-center btn login regLog">Submit</button>
+                <a th:href="@{/register}" class="btn signLog" sec:authorize="!isAuthenticated()" role="button">Sign Up</a>
             </div>
-
         </form>
     </article>
 

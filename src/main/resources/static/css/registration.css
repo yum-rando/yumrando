@@ -28,6 +28,26 @@ h1{
     margin-top: 1.3em;
     width: 100%;
 }
+.signLog {
+    margin-left: 0;
+    margin-top: 1.3em;
+    width: 100%;
+    font-family: 'Quando', serif;    font-style: normal;
+    font-weight: normal;
+    font-size: 18px !important;
+    line-height: 20px;
+
+    color: #E0719E !important;
+    background: #E0719E;
+    border-radius: 6px;
+    border: 1px solid #F3F6E6;
+}
+.signLog:hover {
+    color: #F3F6E6 !important;
+    background: #E0719E;
+    border: 1px solid #F3F6E6;
+}
+
 .alert{
     margin-left: 0;
 }

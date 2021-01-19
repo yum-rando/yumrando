@@ -15,7 +15,7 @@
 <!--                <div sec:authorize="isAuthenticated()">-->
 <nav>
     <nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
-        <div class="container-fluid">
+        <div class="container-fluid flex-d-column">
             <a class="navbar-brand" href="/">
                 <img src="/img/yumLong.png" alt="YumRando" id="navLogo">
             </a>
@@ -40,16 +40,16 @@
                     </ul>
                 </section>
 
-                <a th:href="@{/register}" class="justify-content-lg-end btn register" sec:authorize="!isAuthenticated()" role="button">Sign Up</a>
-
                 <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="250">
                     <form th:action="@{/logout}" sec:authorize="isAuthenticated()" th:method="post">
                         <button class="btn btn-primary register" style="margin-top: 8px">Log Out</button>
                     </form>
+
                 </div>
             </div>
         </div>
     </nav>
 </nav>
+
 </body>
 </html>
