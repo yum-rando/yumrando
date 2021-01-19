@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="random-search">
 
-    <div>
+    <div class="col-xs-12 col-md-2 col-lg-4">
         <img id="phone" src="/img/whitePhone.png" alt="magic phone">
     </div>
     <div id="magicText">
@@ -13,10 +13,12 @@
 
 
             <div sec:authorize="isAnonymous()" id="guest-random-search">
-                <a tabindex="0" class="btn btn-primary register geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Presto Yum-o</a>
+                <a tabindex="0" class="btn btn-primary register geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
+                    Presto Yum-o</a>
             </div>
             <div sec:authorize="isAuthenticated()" id="user-random-search">
-                <a tabindex="0" class="btn btn-primary register geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">Presto Yum-o</a>
+                <a tabindex="0" class="btn btn-primary register geo-disabled" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
+                    Presto Yum-o</a>
             </div>
     </div>
 </div>

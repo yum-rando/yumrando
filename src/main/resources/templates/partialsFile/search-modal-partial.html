@@ -7,11 +7,13 @@
             <div class="modal-header d-flex justify-content-center">
                 <div class="container">
                     <div class="row d-flex justify-content-end">
-                        <button type="button" class="modal-title btn-close modal-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="modal-title btn-close modal-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                     <div class="row d-flex justify-content-start mb-3">
                         <div class="col-12">
-                <h5 class="modal-title" id="searchModalContent">Search A Restaurant To Add</h5>
+                <h5 class="modal-title" id="searchModalContent">Search Nearby Restaurants</h5>
                         </div>
                     </div>
                 </div>
@@ -21,14 +23,14 @@
                     <div sec:authorize="isAnonymous()" class="container my-4">
                     <select id="search-select" class="addRest form-select form-select-lg mb-3">
                         <option selected>Search by ...</option>
-                        <option value="name">Words</option>
+                        <option value="name">Key Word</option>
                         <option value="near">Restaurants Near Me</option>
                     </select>
                     </div>
                     <div sec:authorize="isAuthenticated()" class="container my-4">
                         <select id="search-select-user" class="form-select form-select-lg mb-3">
                             <option selected>Search by ...</option>
-                            <option value="name">Words</option>
+                            <option value="name">Key Word</option>
                             <option value="near">Restaurants Near Me</option>
                         </select>
                     </div>
@@ -46,7 +48,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-pink" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-pink" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
     </div>

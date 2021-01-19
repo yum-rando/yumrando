@@ -9,15 +9,15 @@
             <div class="col-12 col-md-4 d-none d-md-block bg-green side-banner-roundedCorners" id="review-side-panel"></div>
             <div class="col-12 col-md-8 review-form-container bg-white">
                 <div class="text-center mb-5 mt-3">
-                    <h1 class="text-center lilac">Rate Your Experience At </h1>
+                    <h1 class="text-center lilac header-1">Rate Your Experience At </h1>
                     <hr class="border border-0 mx-auto w-75 pink">
-                    <h1 th:text="${restaurantName}" class="text-center lilac"><span>!</span></h1>
+                    <h1 th:text="${restaurantName}" class="text-center lilac header-1"><span>!</span></h1>
                 </div>
                 <div class="roundCorners">
                     <form th:action="@{'/list/' + ${listId} + '/restaurant/' + ${restaurantId} + '/review/' + ${friendId}}"
                           th:method="POST" th:object="${review}">
                         <div class="d-flex justify-content-evenly m-3 text-center" id="rating-container">
-                            <div class="form-check form-check-inline" id="radio-1-btn">
+                            <div class="form-check form-check-inline radio-color" id="radio-1-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox1"
                                        value="1" required>
@@ -25,7 +25,7 @@
                                     <img th:src="@{/img/rating-1.png}" alt="rating-1-terrible" class="w-100 m-auto emojis">
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline" id="radio-2-btn">
+                            <div class="form-check form-check-inline radio-color" id="radio-2-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox2"
                                        value="2">
@@ -33,7 +33,7 @@
                                     <img th:src="@{/img/rating-2.png}" alt="rating-2-bad" class="w-100 m-auto emojis">
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline" id="radio-3-btn">
+                            <div class="form-check form-check-inline radio-color" id="radio-3-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox3"
                                        value="3">
@@ -41,7 +41,7 @@
                                     <img th:src="@{/img/rating-3.png}" alt="rating-3-ok" class="w-100 m-auto emojis">
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline" id="radio-4-btn">
+                            <div class="form-check form-check-inline radio-color" id="radio-4-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox4"
                                        value="4">
@@ -49,7 +49,7 @@
                                     <img th:src="@{/img/rating-4.png}" alt="rating-4-good" class="w-100 m-auto emojis">
                                 </label>
                             </div>
-                            <div class="form-check form-check-inline" id="radio-5-btn">
+                            <div class="form-check form-check-inline radio-color" id="radio-5-btn">
                                 <input th:field="*{rating}" class="form-check-input" type="radio"
                                        id="inlineCheckbox5"
                                        value="5">
@@ -62,7 +62,7 @@
                             <div class="text-center">
                                 <img id="photoPreview" src="" alt="" class="w-50 m-auto">
                                 <input type="hidden" id="photo" name="photo_image_url">
-                                <button id="add-photo" class="btn login"><i class="fas fa-plus"></i> Photo</button>
+                                <button id="add-photo" class="btn login"><i class="fas fa-plus"></i>    <i class="fas fa-camera-retro"></i></button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -71,14 +71,14 @@
                                       rows="3" placeholder="Leave Comment Here"></textarea>
                         </div>
                         <div class="my-4 text-center" id="review-submit-div">
-                            <button type="submit" class="w-100 btn btn-pink" id="submit-review-btn">Submit</button>
+                            <button type="submit" class="w-75 btn btn-pink" id="submit-review-btn">Submit</button>
                         </div>
                     </form>
                 </div>
                 <hr class="border border-0 mx-auto w-100 pink">
                 <div class="mb-4">
                     <div class="d-flex justify-content-between align-items-center my-3">
-                        <h1 class="lilac">Photos</h1>
+                        <h1 class="lilac header-1">Photos</h1>
                         <button type="button" id="photo-edit" class="btn login"><i class="fas fa-edit"></i></button>
                     </div>
 
@@ -96,7 +96,7 @@
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active img-fluid">
-                                <img th:src="@{/img/yumlogo.png}" class="d-block m-auto p-1 review-caro-img" alt="YumRando Logo"
+                                <img th:src="@{/img/yum_square.png}" class="d-block m-auto p-1 review-caro-img" alt="YumRando Logo"
                                      id="yumCarLogo">
                             </div>
                             <div class="carousel-item img-fluid" th:each="photo : ${photos}">
