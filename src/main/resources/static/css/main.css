@@ -555,6 +555,7 @@ body{
 /* surprise me*/
 #phone{
     height: 40em;
+    margin-left: 0;
 }
 #magicText{
     position: relative;
@@ -591,7 +592,7 @@ body{
     font-size: larger;
     padding: .25em;
     z-index: 2;
-    width: 10em;
+    width: 65%;
 }
 .rando-user{
     position: relative;
@@ -600,7 +601,7 @@ body{
     font-size: larger;
     padding: .25em;
     z-index: 2;
-    width: 10em;
+    width: 65%;
 }
 
 .instructions{
@@ -697,11 +698,9 @@ body{
     }
 
     #phone {
-        margin-left: 7em;
     }
 
     #magicText {
-        margin-left: 7em;
     }
 }
 

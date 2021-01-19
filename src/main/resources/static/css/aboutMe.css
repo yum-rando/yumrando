@@ -24,3 +24,8 @@
     font-family: 'Quando', serif;
     font-weight: bold;
 }
+
+.header-1 {
+    font-family: 'Quando', serif !important;
+    font-weight: bold !important;
+}

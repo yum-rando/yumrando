@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
-xmlns:sec="http://www.thymeleaf.org/extras">
+      xmlns:sec="http://www.thymeleaf.org/extras">
 <div th:fragment="app">
-    <div class="container indexMainContainer" >
+    <div class="container indexMainContainer">
         <div class="row">
             <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-12 col-lg-4">
+        <article class="row">
+            <div class="col-lg-12 col-xl-8">
+<!--                col-md-12 col-lg-4 col-xl-4-->
                 <div th:replace="partialsFile/randomSearch :: random-search"></div>
             </div>
-            <div class="col-xs-12 col-md-12 col-lg-8">
-                <div class="row container-fluid bg-navy roundCorners rest-list">
+            <div class="col-lg-12 col-xl-8 container-fluid bg-navy roundCorners rest-list w-100">
+<!--                col-md-12 col-lg-8 col-xl-8-->
+                <div>
+                    <h1 class="instructions text-center">Build your list with your favorite restaurants,<br>
+                        then hit Rando to find out where you're going!</h1>
+                </div>
+                <div class="col-md-12 col-lg-8 col-xl-8">
+                    <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
+                </div>
+                <div class="col-md-12 col-lg-4 col-xl-4" style="padding-left: 2em;">
                     <div>
-                        <h1 class="instructions text-center">Build your list with your favorite restaurants,<br>
-                                                then hit Rando to find out where you're going!</h1>
-                    </div>
-                    <div class="col-xs-12 col-md-12 col-lg-8">
-                        <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
-                    </div>
-                    <div class="col-xs-12 col-md-12 col-lg-4" style="padding-left: 2em;">
-                        <div>
-                            <div id="random-button-tool"></div>
-                            <div sec:authorize = "isAnonymous()">
-                                <button id="guest-random" class="btn-pink rando" type="button">
-                                    Rando </button>
-                            </div>
-                            <div sec:authorize = "isAuthenticated()">
-                                <button id="user-random" class="btn-pink rando-user" type="button">
-                                    Rando </button>
-                            </div>
-                            <img class="image-fluid col-xs-12 col-md-5 col-lg-12" style="margin-bottom: 3em; margin-left: 1em" id="rain"
-                                 src="/img/cloudRain.png" alt="food rain">
+                        <div id="random-button-tool"></div>
+                        <div sec:authorize="isAnonymous()">
+                            <button id="guest-random" class="btn-pink rando" type="button">
+                                Rando
+                            </button>
                         </div>
+                        <div sec:authorize="isAuthenticated()">
+                            <button id="user-random" class="btn-pink rando-user" type="button">
+                                Rando
+                            </button>
+                        </div>
+                        <img class="image-fluid col-xs-12 col-md-6" style="margin-bottom: 3em; margin-left: 1em"
+                             id="rain"
+                             src="/img/cloudRain.png" alt="food rain">
                     </div>
                 </div>
             </div>
-            </div>
+        </article>
 
-        </div>
     </div>
+</div>
 </div>
 </html>
