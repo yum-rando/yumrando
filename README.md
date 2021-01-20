@@ -11,7 +11,7 @@
 4. [Contact Us](https://github.com/yum-rando/yumrando#Contact-Us)
 
 ### Try us out!
-[yumrando.com](https://yumrando.com/)
+<a href="https://yumrando.com/" target="_blank">yumrando.com</a>
 
 ### Technology and Software:
 
@@ -87,23 +87,31 @@ Code Snippet:
 
 <h2>Amanda Garrison Woods</h2>
 <br>
-[Github](https://github.com/amandagwoods)
-[LinkedIn](https://www.linkedin.com/in/amandagarrison787/)
+<ul>
+  <li><a href="https://github.com/amandagwoods" target="_blank">GitHub</a></li>
+  <li><a href="https://www.linkedin.com/in/amandagarrison787/" target="_blank">LinkedIn</a></li>
+</ul>
 
 <h2>Chelsea Rolland</h2>
 <br>
-[Github](https://github.com/ChelseaRolland)
-[LinkedIn](https://www.linkedin.com/in/chelsea-rolland-657ab31b7/)
+<ul>
+  <li><a href="https://github.com/ChelseaRolland" target="_blank">GitHub</a></li>
+  <li><a href="https://www.linkedin.com/in/chelsea-rolland-657ab31b7/" target="_blank">LinkedIn</a></li>
+</ul>
 
 <h2>Roberto Cuyar</h2>
 <br>
-[Github](https://github.com/robertocuyar)
-[LinkedIn](https://www.linkedin.com/in/roberto-cuyar-5b9815124/)
+<ul>
+  <li><a href="https://github.com/robertocuyar" target="_blank">GitHub</a></li>
+  <li><a href="https://www.linkedin.com/in/roberto-cuyar-5b9815124/" target="_blank">LinkedIn</a></li>
+</ul>
 
 <h2>Rocco Paccione</h2>
 <br>
-[Github](https://github.com/roccopaccione)
-[LinkedIn](https://www.linkedin.com/in/rocco-paccione0321/)
+<ul>
+  <li><a href="https://github.com/roccopaccione" target="_blank">GitHub</a></li>
+  <li><a href="https://www.linkedin.com/in/rocco-paccione0321/" target="_blank">LinkedIn</a></li>
+</ul>
 
 
 
