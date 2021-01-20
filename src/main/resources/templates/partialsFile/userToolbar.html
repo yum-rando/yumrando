@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<div th:fragment="user-toolbar">
+<div th:fragment="user-toolbar" class="d-flex justify-content-center my-2">
 
-        <div class="row bg-lilac roundCorners">
-            <div class="col-4">
+        <div class="row container-fluid bg-lilac roundCorners">
+            <div class="col-3 justify-content-start">
                 <div th:if="${favorites}">
                 <button id="yummies" class="col-7 image-fluid navy btn btn-pink heart" style="height: 2em;" data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Favorite Cuisine"><i class="fas fa-heart"></i></button>
                 </div>
             </div>
-            <div th:if="${lists != null}" class="col-4">
+            <div th:if="${lists != null}" class="col-6">
                 <form>
                     <label for="currentList"></label>
                     <select  class="form-select" name="currentList" id="currentList" style="margin: -1em;">
@@ -24,7 +24,7 @@
                     </select>
                 </form>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <button class="col-7 btn btn-green greenAdd" id="new-list" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="New List"><i class="fas fa-plus"></i>
                 </button>

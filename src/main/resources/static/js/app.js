@@ -342,14 +342,18 @@
             let userListBody = "#user-list-items, #user-list-initial";
             $(userListBody).addClass('d-none');
             $('#add-list-form').empty().append(
-                `<form>
+
+                `
+                <div class="container py-2" id="add-list-app">
+                <form>
                     <div class="mb-3">
-                    <label for="name" class="form-label">Enter a name for your list:</label>
+                    <label for="name" class="form-label navy label-font">Enter a name for your list:</label>
                     <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
                      <button id="submit-list" type="button" class="btn btn-green">Submit</button>
-                     <button id="submit-list-cancel" type="button" class="btn btn-red">Cancel</button>
+                     <button id="submit-list-cancel" type="button" class="btn btn-pink">Cancel</button>
                  </form>
+                 </div>
                 `
             )
 
@@ -465,7 +469,7 @@
                                 `
                             <div class="container">
                                 <div class="row">
-                                    <div class="user-restaurants" id="r${num}" data-bs-toggle="modal" data-bs-target="#showModal">
+                                    <div class="user-restaurants restaurant-show" id="r${num}" data-bs-toggle="modal" data-bs-target="#showModal">
                                         <h6>${restaurant.name}</h6>
                                     </div>
                                 </div>
@@ -499,16 +503,17 @@
 
         const guestRandomizer = () => {
             let chosenIndex = randomizerChoice(arrayConstructor().length);
-            $(`#r${chosenIndex}`).css('background-color', 'cyan');
+            $(`#r${chosenIndex}`).css('background-color', '#383A47').css("opacity","0.5");
+            console.log("This works.")
             return `#r${chosenIndex}`;
         }
 
         const userRandomizer = () => {
             let chosenIndex = randomizerChoice($('.user-restaurants').length);
             let chosenElement = "";
-            $(".user-restaurants").css('background-color', "").each(function (index) {
+            $(".user-restaurants").css('background-color', "#f3f6e6").css("opacity", "1").each(function (index) {
                 if (index === chosenIndex) {
-                    $(this).css('background-color', 'cyan');
+                    $(this).css('background-color', '#383A47').css("opacity", "0.5");
                     chosenElement = '#' + $(this).attr('id');
                 }
             })

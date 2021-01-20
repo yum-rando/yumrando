@@ -12,7 +12,7 @@
                     <label  for="name" class="form-label navy label-font">Enter a name for your list:</label>
                     <input name="name" type="text" class="form-control deny-submit" id="name">
                     </div>
-                     <button id="submit-list" type="button" class="btn login">Submit</button>
+                     <button id="submit-list" type="button" class="btn btn-white">Submit</button>
                      <button id="submit-list-cancel" type="button" class="btn btn-pink">Cancel</button>
                  </form>
                 </div>
