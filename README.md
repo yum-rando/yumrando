@@ -29,7 +29,7 @@
 - Java <br>
 
 <h5>Resources</h5>
-- [Zomato Restaurant API](https://developers.zomato.com/)<br>
+<a href="https://developers.zomato.com/" target="_blank">- Zomato Restaurant API</a>
 <hr>
 
 ### Developer Favorites:
