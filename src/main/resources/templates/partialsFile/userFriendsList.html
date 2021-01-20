@@ -27,7 +27,7 @@
                                     <h4 class="navy label-font profile-list-item">Request Sent</h4>
                                 </div>
                                 <div th:if="${friend.confirmation}" class="row g-1">
-                                        <div class="col">
+                                        <div class="col d-flex align-items-center">
                                             <form>
                                                 <button th:id="${'g' + friend.getFriend().id}" class="btn reject-small friend-view" type="button">View</button>
                                             </form>
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-xs-12 col-lg-6 d-flex justify-content-end">
                                     <div class="row g-1">
-                                        <div class="col">
+                                        <div class="col d-flex align-items-center">
                                             <form>
                                                 <button th:id="${'g' + request.getUser().id}" class="btn reject-small friend-view" type="button">View</button>
                                             </form>

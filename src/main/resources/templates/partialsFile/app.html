@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras">
-<div th:fragment="app" class="container indexMainContainer">
+<div th:fragment="app" class="container-fluid indexMainContainer">
         <div class="row">
             <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
         </div>
@@ -29,12 +29,12 @@
                         <!--rando button-->
                         <div id="random-button-tool"></div>
                         <div sec:authorize="isAnonymous()">
-                            <button id="guest-random" class="btn-pink rando" type="button">
+                            <button id="guest-random" class="btn btn-pink rando" type="button">
                                 Rando
                             </button>
                         </div>
                         <div sec:authorize="isAuthenticated()">
-                            <button id="user-random" class="btn-pink rando-user" type="button">
+                            <button id="user-random" class="btn btn-pink rando-user" type="button">
                                 Rando
                             </button>
                         </div>

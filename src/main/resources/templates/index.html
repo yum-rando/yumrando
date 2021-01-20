@@ -7,9 +7,9 @@
 
 <nav th:replace="partials/navbar :: navbar"/>
 <div th:replace="partials/headerIndex :: header"></div>
-
-<div class="container-fluid bg-lilac roundCorners row index-bg">
-
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+<div class="bg-lilac roundCorners index-bg my-4">
     <figure class="row text-center">
         <blockquote class=" col-12 blockquote">
             <h1 class="navy" style="font-family: 'Lobster Two', cursive">
@@ -25,6 +25,8 @@
     <div th:replace="partialsFile/add-modal-partial :: add-modal"></div>
     <div th:replace="partialsFile/search-modal-partial :: search-modal"></div>
     <div th:replace="partialsFile/app :: app"></div>
+</div>
+    </div>
 </div>
 <div th:replace="partials/footer :: foot"></div>
 

@@ -20,7 +20,7 @@
 }
 
 .bg-white{
-    background-color: #f3f6e6!important;
+    background-color: #f3f6e6;
 }
 
 .bg-lilac{
@@ -340,7 +340,7 @@ input{
     background: #f3f6e6!important;
 }
 .search-name{
-    background: #F3F6E6!important;
+    background: #F3F6E6;
     color: #7cd0bd!important;
     font-family: 'Quando', serif;
 
@@ -350,8 +350,6 @@ input{
     flex-direction: column;
 }
 .indexMainContainer{
-    margin-left: 0;
-    margin-right: 0;
     width: 100%;
 }
 
@@ -598,6 +596,7 @@ body{
     padding: .25em;
     z-index: 2;
     width: 60%;
+
 }
 .rando-user{
     position: relative;
@@ -644,19 +643,26 @@ body{
 }
 #user-list-items{
     padding: .5em;
+    background-color: #f3f6e6;
+}
+#add-list-app{
+    background-color: #f3f6e6;
 }
 .restaurant-show{
     display: flex;
     justify-content: flex-end;
     padding-top: 1em;
     text-align: end;
-    background: #f3f6e6;
 }
 .restaurant-delete{
 
 }
 .restaurant-search-display{
     border: #AAC6FC 1px solid;
+}
+.label-font{
+    font-family: 'Quando', serif;
+    font-size: 18px;
 }
 
 .index-bg{
