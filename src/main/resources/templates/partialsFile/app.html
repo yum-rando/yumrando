@@ -25,25 +25,28 @@
                     <div class="col-md-7 col-xs-12">
                         <div th:replace="partialsFile/listBodyPartial :: list-body"></div>
                     </div>
-                    <div class="col-md-5 col-xs-12" style="padding-left: 2em;">
+                    <div class="col-md-5 col-xs-12 d-flex justify-content-center align-items-center">
+                        <div class="container">
                         <!--rando button-->
+                        <div class="row">
                         <div id="random-button-tool"></div>
-                        <div sec:authorize="isAnonymous()">
+                        <div sec:authorize="isAnonymous()" class="d-flex justify-content-center my-3">
                             <button id="guest-random" class="btn btn-pink rando" type="button">
                                 Rando
                             </button>
                         </div>
-                        <div sec:authorize="isAuthenticated()">
+                        <div sec:authorize="isAuthenticated()" class="d-flex justify-content-center">
                             <button id="user-random" class="btn btn-pink rando-user" type="button">
                                 Rando
                             </button>
                         </div>
+                        </div>
+                        <div class="row d-flex justify-content-center">
 
                         <!--cloud-->
-                        <div class="">
-                            <img class="image-fluid " style="margin-bottom: 3em; margin-left: 1em"
-                                 id="rain"
+                            <img class="image-fluid" id="rain"
                                  src="/img/cloudRain.png" alt="food rain">
+                        </div>
                         </div>
                     </div>
                 </div>
