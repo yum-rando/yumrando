@@ -8,7 +8,7 @@
 1. [Try our site out!](https://github.com/yum-rando/yumrando#Try-us-out!)
 2. [Technology and Software](https://github.com/yum-rando/yumrando#Technology-and-Software:)
 3. [Developer Favorites](https://github.com/yum-rando/yumrando#Developer-Favorites:)
-4. [Contact Us]
+4. [Contact Us](https://github.com/yum-rando/yumrando#Contact-Us)
 
 ### Try us out!
 [yumrando.com](https://yumrando.com/)
@@ -18,8 +18,8 @@
 <h5>Frontend</h5>
 - Html 5<br>
 - JavaScript/EcmaScript 6<br>
-- [Bootstrap](https://getbootstrap.com/)<br>
-- jQuery [link](https://jquery.com/)<br>
+- Bootstrap<br>
+- jQuery<br>
 
 <h5>Backend</h5>
 - Spring Boot <br>
@@ -29,7 +29,7 @@
 - Java <br>
 
 <h5>Resources</h5>
-- Zomato Restaurant API [link](https://developers.zomato.com/)<br>
+- [Zomato Restaurant API](https://developers.zomato.com/)<br>
 <hr>
 
 ### Developer Favorites:
@@ -43,6 +43,10 @@ Favorite aspect & a challenge =>
 <p>To add a restaurant to a list required the server to return a Rest Controller. In order to add or update the restaurant to the database, it required checking the restaurant to be added via its name and zip code. If it was not in the system, it would then create an empty set of lists for the restaurant then save the new restaurant. If the check was verified, then you would simply update the restaurant to be saved by adding the new list its set of lists. The challenge here was updating a many-to-many relationship between the lists and restaurants and letting the server know if the chosen restaurant was in the DB to save it. Creating methods that specifically update this type of relationship only, benefited keeping the database clean by not creating a new list every time a user added a restaurant.</p>
 
 Code Snippet :
+<p align="left">
+  <img src="src/main/resources/static/img/Chelsea-RestRestaurant_lines_39-63.png" width="450" title="Chelsea's Java Code">
+  <img src="src/main/resources/static/img/Chelsea-RestRestaurant_lines_78-84.png" width="450" alt="Chelsea's Java Code #2">
+</p>
 <hr>
 
 Roberto:
@@ -57,6 +61,11 @@ Code Snippet:
 <p>The randomizer functionality runs on various randomly generated values. It checks for the length of the array of the displayed list, generates random index values alongside randomly generated milliseconds for the time delay, and generates a random value for the number of times the randomizer runs through a loop. Once the loop is completed, the result is shown through the use of a JQuery click action on the final chosen div which results in a modal showing the restaurant's information. A problem that was encountered was with having the randomizer be responsive to an array with less than 2 restaurants. The solution was to add a layer of filtering that makes sure to lower the ceiling of the randomly generated number of loops to ensure that a random result is generated at a much faster rate.</p>
 
 Code Snippet:
+<p align="left">
+  <img src="src/main/resources/static/img/Roberto_RestUser.png" height="275" width="300" title="Roberto's Rest User Controller">
+  <img src="src/main/resources/static/img/RobertoAppJsRandomizer.png" height="275" width="250" alt="Roberto's JavaScript Randomizer Code">
+  <img src="src/main/resources/static/img/RobertoAppJsUserRandomizer.png" height="250" width="300" alt="Roberto's JavaScript UserRandomizer Code">
+</p>
 
 <hr>
 
@@ -67,5 +76,34 @@ Favorite aspect & a challenge =>
 <p>The Restaurant Cusisine Tags were my favorite aspect to create an also one of the most challenging aspects for me to code. The main issue arrose because the Zomato API returned JSON objects and the cusines were jsut one of many object properties we wanted to grab and store into the database. To do so I created a Rest Controller using the SpringBoot Framework thst would accept the JSON objects that were being sent from the front end and save them to the database. To specifically save cuisine tags to the datatabase I had to first validate that the user was an authorized user which I did through the SpringSecurity component then I had to check to see if the tags I grabbed from the api were tags that were already selected in a user created list then after finding all the cuisine tags that were attached to the user's list then a JSON object was sent back with all the selected tags which was then saved to the database using the Jpa repositiories and Jpa Hibernate feature of SpringBoot.</p>
   
 Code Snippet:
-
+<p align="left">
+  <img src="src/main/resources/static/img/RoccoPaccioneRestTag.png" height="325" width="350" title="Rocco's RestTag Controller">
+</p>
 <hr>
+
+
+
+### Contact Us
+
+<h2>Amanda Garrison Woods</h2>
+<br>
+[Github](https://github.com/amandagwoods)
+[LinkedIn](https://www.linkedin.com/in/amandagarrison787/)
+
+<h2>Chelsea Rolland</h2>
+<br>
+[Github](https://github.com/ChelseaRolland)
+[LinkedIn](https://www.linkedin.com/in/chelsea-rolland-657ab31b7/)
+
+<h2>Roberto Cuyar</h2>
+<br>
+[Github](https://github.com/robertocuyar)
+[LinkedIn](https://www.linkedin.com/in/roberto-cuyar-5b9815124/)
+
+<h2>Rocco Paccione</h2>
+<br>
+[Github](https://github.com/roccopaccione)
+[LinkedIn](https://www.linkedin.com/in/rocco-paccione0321/)
+
+
+
