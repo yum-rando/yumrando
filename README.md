@@ -6,8 +6,8 @@
 
 ### Learn all about us!
 1. [Try our site out!](https://github.com/yum-rando/yumrando#Try-us-out!)
-2. [Technology and Software](https://github.com/yum-rando/yumrando#Technology-and-Software:)
-3. [Developer Favorites](https://github.com/yum-rando/yumrando#Developer-Favorites:)
+2. [Technology and Software](https://github.com/yum-rando/yumrando#Technology-and-Software)
+3. [Developer Favorites](https://github.com/yum-rando/yumrando#Developer-Favorites)
 4. [Contact Us](https://github.com/yum-rando/yumrando#Contact-Us)
 
 ### Try us out!
