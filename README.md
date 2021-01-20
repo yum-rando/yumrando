@@ -58,7 +58,7 @@ Favorite aspect & a challenge =>
 
 Code Snippet:
 <p align="left">
-   <img src="src/main/resources/static/img/Roberto_RestUser.png" height="275" width="350" title="Roberto's Rest User Controller">
+   <img src="src/main/resources/static/img/Roberto_RestUser.png" height="275" width="400" title="Roberto's Rest User Controller">
 </p>
 
 <p>The randomizer functionality runs on various randomly generated values. It checks for the length of the array of the displayed list, generates random index values alongside randomly generated milliseconds for the time delay, and generates a random value for the number of times the randomizer runs through a loop. Once the loop is completed, the result is shown through the use of a JQuery click action on the final chosen div which results in a modal showing the restaurant's information. A problem that was encountered was with having the randomizer be responsive to an array with less than 2 restaurants. The solution was to add a layer of filtering that makes sure to lower the ceiling of the randomly generated number of loops to ensure that a random result is generated at a much faster rate.</p>
@@ -66,7 +66,7 @@ Code Snippet:
 Code Snippet:
 <p align="left">
   <img src="src/main/resources/static/img/RobertoAppJsRandomizer.png" height="275" width="300" alt="Roberto's JavaScript Randomizer Code">
-  <img src="src/main/resources/static/img/RobertoAppJsUserRandomizer.png" height="250" width="300" alt="Roberto's JavaScript UserRandomizer Code">
+  <img src="src/main/resources/static/img/RobertoAppJsUserRandomizer.png" height="250" width="400" alt="Roberto's JavaScript UserRandomizer Code">
 </p>
 
 <hr>
@@ -79,7 +79,7 @@ Favorite aspect & a challenge =>
   
 Code Snippet:
 <p align="left">
-  <img src="src/main/resources/static/img/RoccoPaccioneRestTag.png" height="325" width="350" title="Rocco's RestTag Controller">
+  <img src="src/main/resources/static/img/RoccoPaccioneRestTag.png" height="325" width="400" title="Rocco's RestTag Controller">
 </p>
 <hr>
 
