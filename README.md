@@ -57,13 +57,15 @@ Favorite aspect & a challenge =>
 <p>The add friend request allows a user to send a friend request based on the friend's username. This feature checks to the database to make sure the target username exists and that the relationship between the users doesn't already exist. Once confirmed the friend request is created for the other user to accept or reject through a confirmation boolean value. A problem that was encountered with this feature was that both sides of the relationship had to be checked to be able to confirm if the relationship exists. To fix this problem, the server checks to see if the logged in user initiated the friendship with the targeted user or if the logged in user was the receiver of the friend request by the targeted user.</p>
 
 Code Snippet:
+<p align="left">
+   <img src="src/main/resources/static/img/Roberto_RestUser.png" height="275" width="350" title="Roberto's Rest User Controller">
+</p>
 
 <p>The randomizer functionality runs on various randomly generated values. It checks for the length of the array of the displayed list, generates random index values alongside randomly generated milliseconds for the time delay, and generates a random value for the number of times the randomizer runs through a loop. Once the loop is completed, the result is shown through the use of a JQuery click action on the final chosen div which results in a modal showing the restaurant's information. A problem that was encountered was with having the randomizer be responsive to an array with less than 2 restaurants. The solution was to add a layer of filtering that makes sure to lower the ceiling of the randomly generated number of loops to ensure that a random result is generated at a much faster rate.</p>
 
 Code Snippet:
 <p align="left">
-  <img src="src/main/resources/static/img/Roberto_RestUser.png" height="275" width="300" title="Roberto's Rest User Controller">
-  <img src="src/main/resources/static/img/RobertoAppJsRandomizer.png" height="275" width="250" alt="Roberto's JavaScript Randomizer Code">
+  <img src="src/main/resources/static/img/RobertoAppJsRandomizer.png" height="275" width="300" alt="Roberto's JavaScript Randomizer Code">
   <img src="src/main/resources/static/img/RobertoAppJsUserRandomizer.png" height="250" width="300" alt="Roberto's JavaScript UserRandomizer Code">
 </p>
 
