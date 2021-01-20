@@ -676,6 +676,10 @@ body{
 
 }
 
+#friend-rest-list{
+    padding: 8px;
+}
+
 /* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
 @media (max-width: 321px) {
