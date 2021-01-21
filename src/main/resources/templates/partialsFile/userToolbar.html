@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <div th:fragment="user-toolbar" class="d-flex justify-content-center my-2">
 
-        <div class="row container-fluid bg-lilac roundCorners">
+        <div class="row w-100 bg-lilac roundCorners">
             <div class="col-3 justify-content-start">
                 <div th:if="${favorites}">
-                <button id="yummies" class="col-7 image-fluid navy btn btn-pink heart" style="height: 2em;" data-bs-toggle="tooltip" data-bs-placement="top"
+                <button id="yummies" class="image-fluid navy btn btn-pink heart" style="height: 2em;" data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Favorite Cuisine"><i class="fas fa-heart"></i></button>
                 </div>
             </div>
