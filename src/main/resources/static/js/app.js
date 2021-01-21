@@ -503,7 +503,7 @@
 
         const guestRandomizer = () => {
             let chosenIndex = randomizerChoice(arrayConstructor().length);
-            $(`#r${chosenIndex}`).css('background-color', '#383A47').css("opacity","0.5");
+            $(`#r${chosenIndex}`).css('background-color', '#7cd0bd').css("opacity","0.5");
             console.log("This works.")
             return `#r${chosenIndex}`;
         }
@@ -513,7 +513,7 @@
             let chosenElement = "";
             $(".user-restaurants").css('background-color', "#f3f6e6").css("opacity", "1").each(function (index) {
                 if (index === chosenIndex) {
-                    $(this).css('background-color', '#383A47').css("opacity", "0.5");
+                    $(this).css('background-color', '#7cd0bd').css("opacity", "0.5");
                     chosenElement = '#' + $(this).attr('id');
                 }
             })
@@ -524,6 +524,7 @@
             listBasic(arrayConstructor());
             if (confirm) {
                 let finalSelection = guestRandomizer();
+                triggerCloud();
                 $(finalSelection).click();
                 $('#guest-random').attr("disabled", false);
             } else {
@@ -540,11 +541,12 @@
                     const url = `restaurants/reviews`;
                     apiCreate(rest, url).then(() => {
                         $(finalSelection).click();
+
                     })
                 } else{
                     $(finalSelection).click();
                 }
-
+                triggerCloud();
                 $('#user-random').attr("disabled", false);
             } else {
                 userRandomizer();
@@ -572,8 +574,12 @@
             }
         }
 
+        const triggerCloud = ()=>{
+            $("#rain, #rain-active").toggleClass("d-none");
+        }
         $('#guest-random').click(function () {
             $(this).attr("disabled", true);
+           triggerCloud();
             let loopLimit = randomizerLoop();
             if (arrayConstructor().length <= 2){
                 loopLimit = 3;
@@ -583,6 +589,7 @@
 
         $('#user-random').click(function () {
             $(this).attr("disabled", true);
+           triggerCloud();
             let loopLimit = randomizerLoop();
             if($('.user-restaurants').length <=2){
                 loopLimit = 3;

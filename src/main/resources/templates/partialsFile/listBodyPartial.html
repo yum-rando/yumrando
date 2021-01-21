@@ -12,20 +12,22 @@
             <div th:if="${chosenList == null}" class="container pb-3" id="user-list-initial">
             </div>
             <div th:if="${chosenList != null}" class="container" id="user-list-items">
-                <div th:each="rest : ${chosenList.restaurants}">
-                    <div class="row user-restaurants align-items-center" th:id="${'r' + rest.id }"
-                         data-bs-toggle="modal"
-                         data-bs-target="#showModal">
-                        <div class="col-9 restaurant-show">
-                            <h6 th:text="${rest.name}"></h6>
-                        </div>
-                        <div class="col-3 restaurant-delete">
-                            <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
-                                <button class="btn-red" style="padding: .5em"><i class="fas fa-minus"></i>
-                                </button>
-                            </form>
-                        </div>
-
+                <div th:if="${#lists.isEmpty(chosenList.restaurants)}"
+                     class="d-flex justify-content-center align-items-center list-items">
+                    <h5 class="navy label-font my-5">No restaurants found.</h5>
+                </div>
+                <div th:each="rest : ${chosenList.restaurants}" class="row mx-0 user-restaurants align-items-center"
+                     th:id="${'r' + rest.id }"
+                     data-bs-toggle="modal"
+                     data-bs-target="#showModal">
+                    <div class="col-9 restaurant-show">
+                        <h6 th:text="${rest.name}"></h6>
+                    </div>
+                    <div class="col-3 restaurant-delete">
+                        <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">
+                            <button class="btn-red" style="padding: .5em"><i class="fas fa-minus"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -38,12 +40,11 @@
     <div class="row">
         <div sec:authorize="isAnonymous()">
             <div id="guest-add-buttons">
-                <button type="button" class="col-md-5 col-xs-12 btn btn-green active-search-modal"
+                <button type="button" id="add-guest-buttons" class="col-md-5 col-xs-12 btn btn-green active-search-modal"
                         data-bs-toggle="modal"
                         data-bs-target="#addModal">
                     <i class="fas fa-plus"></i>
                 </button>
-
                 <a tabindex="0" class="col-md-5 col-xs-12 btn login geo-disabled" role="button" data-bs-toggle="popover"
                    data-bs-trigger="focus" data-bs-content="Allow browser to know your location to activate feature.">
                     <i class="fas fa-search"></i></a>
@@ -51,7 +52,7 @@
         </div>
         <div sec:authorize="isAuthenticated()">
             <div id="user-add-buttons">
-                <button type="button" class="col-md-5 col-xs-12 btn btn-green active-search-modal"
+                <button type="button" id="add-user-buttons" class="col-md-5 col-xs-12 btn btn-green active-search-modal"
                         data-bs-toggle="modal"
                         data-bs-target="#addModal">
                     <i class="fas fa-plus"></i>
