@@ -187,15 +187,17 @@ public class UserController {
     @PostMapping("/profile")
     public String editProfileBtn(@ModelAttribute User userToBeUpdated) {
         User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userToBeUpdated.setId(userDb.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
+        User actualUser = userDao.findById(userDb.getId());
+        userToBeUpdated.setId(actualUser.getId()); //Makes sure the userToBeUpdated is the same as the logged in user
         if (userToBeUpdated.getEmail().isEmpty()){
             userToBeUpdated.setEmail(null);
         }
         if(userToBeUpdated.getPhoneNumber().isEmpty()){
             userToBeUpdated.setPhoneNumber(null);
         }
-        userToBeUpdated.setPassword(userDb.getPassword()); //Needed this since the password can't be null in a post
-        userToBeUpdated.setUsername(userDb.getUsername()); //Needed this since the username can't be null in a post
+        userToBeUpdated.setPassword(actualUser.getPassword()); //Needed this since the password can't be null in a post
+        userToBeUpdated.setUsername(actualUser.getUsername()); //Needed this since the username can't be null in a post
+        userToBeUpdated.setFavoriteTags(actualUser.getFavoriteTags());
         userDao.save(userToBeUpdated);
         return "redirect:/profile";
     }

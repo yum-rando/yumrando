@@ -577,36 +577,24 @@ body{
 /* randomizer gif  */
 #rain{
     /*height: 22em;*/
-    height: 85%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    right: 2.5em;
-    z-index: 1;
+    height: 80%;
     width: 80%;
 }
 
 /*randomizer btn*/
 .rando{
-    position: relative;
-    top: 6em;
     font-size: larger;
     display: flex;
     justify-content: center;
     padding: .25em;
-    z-index: 2;
-    width: 60%;
+    width: 50%;
 
 }
 .rando-user{
-    position: relative;
-    top: 6em;
-    right: 1em;
     font-size: larger;
     display: flex;
     justify-content: center;
     padding: .25em;
-    z-index: 2;
     width: 60%;
 }
 
@@ -683,9 +671,7 @@ body{
 /* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
 @media (max-width: 321px) {
-    #rando{
-        top: 5.5em;
-    }
+
 }
 
 /*Small devices (landscape phones, 576px and up)*/
@@ -712,10 +698,10 @@ body{
         width: 68%;
     }
 
-    #rando{
-        top: 7.5em;
-        left: 0em;
-    }
+    /*#rando{*/
+    /*    top: 7.5em;*/
+    /*    left: 0em;*/
+    /*}*/
 }
 
 
@@ -738,17 +724,17 @@ body{
         left: 4.5em;
     }
 
-    #rando {
-        width: 60%;
-        top: 3.5em;
-        left: -1em;
-    }
+    /*#rando {*/
+    /*    width: 60%;*/
+    /*    top: 3.5em;*/
+    /*    left: -1em;*/
+    /*}*/
 }
 
 @media screen and (min-width: 1020px) and (max-width: 1444px) {
-    #rando {
-        top: 4em;
-    }
+    /*#rando {*/
+    /*    top: 4em;*/
+    /*}*/
 }
 
 
@@ -756,10 +742,10 @@ body{
 
 /*Large devices (desktops, 992px and up)*/
 @media screen and (min-width: 1445px) {
-    .rando{
-        top: 6em;
-        left: 0em;
-    }
+    /*.rando{*/
+    /*    top: 6em;*/
+    /*    left: 0em;*/
+    /*}*/
 
 }
 
