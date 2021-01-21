@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras">
-<div th:fragment="friend-list-body">
-    <div class="container">
+<div th:fragment="friend-list-body" class="container my-5 roundCorners bg-green p-3">
+    <div class="container p-3 bg-navy roundCorners">
         <div class="row">
-            <h2 id="friend-label" th:attr="data-id=${friend.id}"><span th:text="${friend.username}"></span>'s List</h2>
+            <h2 id="friend-label" th:attr="data-id=${friend.id}"><span th:text="${friend.username}"></span>'s Lists</h2>
         </div>
-        <div class="row">
-            <div th:if="${lists != null}">
-                <form>
+        <div class="row container-fluid bg-lilac roundCorners py-3 mx-0 my-2">
+            <div th:if="${lists != null}" class="py-2">
+                <form class="d-flex align-items-center">
                     <label for="currentList"></label>
                     <select  class="form-select" name="currentList" id="currentList">
                         <div th:if="${chosenList != null}">
@@ -22,21 +22,17 @@
                 </form>
             </div>
         </div>
-        <div class="row">
-                <div th:if="${chosenList == null}" class="container" id="user-list-initial">
+        <div class="row" id="friend-rest-list">
+            <div th:if="${chosenList != null}" class="" id="user-list-items">
+                <div th:if="${#lists.isEmpty(chosenList.restaurants)}" class="d-flex justify-content-center align-items-center list-items">
+                    <h5 class="navy label-font my-5">There are no restaurants yet.</h5>
                 </div>
-                <div th:if="${chosenList != null}" class="container" id="user-list-items">
-                    <div th:each="rest : ${chosenList.restaurants}">
-                        <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal" data-bs-target="#showModal">
-                                <h6 th:text="${rest.name}"></h6>
-<!--                            <div class="col-3">-->
-<!--                                <form th:action="@{'/delete/'+ ${chosenList.id} + '/' + ${rest.id}}" method="POST">-->
-<!--                                    <button>Delete</button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-                        </div>
+                <div th:each="rest : ${chosenList.restaurants}" class="d-flex align-items-center py-2">
+                    <div class="row user-restaurants" th:id="${'r' + rest.id }" data-bs-toggle="modal" data-bs-target="#showModal">
+                        <h6 th:text="${rest.name}"></h6>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>

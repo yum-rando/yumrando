@@ -1,8 +1,3 @@
-.label-font{
-    font-family: 'Quando', serif;
-    font-size: 18px;
-}
-
 #toggle-user-info, #user-info-submit, #edit-tag-list, .button-default {
     margin-right: 0 !important;
 }

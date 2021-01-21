@@ -20,7 +20,7 @@
 }
 
 .bg-white{
-    background-color: #f3f6e6!important;
+    background-color: #f3f6e6;
 }
 
 .bg-lilac{
@@ -340,7 +340,7 @@ input{
     background: #f3f6e6!important;
 }
 .search-name{
-    background: #F3F6E6!important;
+    background: #F3F6E6;
     color: #7cd0bd!important;
     font-family: 'Quando', serif;
 
@@ -350,8 +350,6 @@ input{
     flex-direction: column;
 }
 .indexMainContainer{
-    margin-left: 0;
-    margin-right: 0;
     width: 100%;
 }
 
@@ -578,31 +576,26 @@ body{
 
 /* randomizer gif  */
 #rain{
-    height: 22em;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    right: 2.5em;
-    z-index: 1;
+    /*height: 22em;*/
+    height: 80%;
+    width: 80%;
 }
 
 /*randomizer btn*/
 .rando{
-    position: relative;
-    top: 6em;
     font-size: larger;
+    display: flex;
+    justify-content: center;
     padding: .25em;
-    z-index: 2;
-    width: 65%;
+    width: 50%;
+
 }
 .rando-user{
-    position: relative;
-    top: 6em;
-    right: 1em;
     font-size: larger;
+    display: flex;
+    justify-content: center;
     padding: .25em;
-    z-index: 2;
-    width: 65%;
+    width: 60%;
 }
 
 .instructions{
@@ -638,19 +631,26 @@ body{
 }
 #user-list-items{
     padding: .5em;
+    background-color: #f3f6e6;
+}
+#add-list-app{
+    background-color: #f3f6e6;
 }
 .restaurant-show{
     display: flex;
     justify-content: flex-end;
     padding-top: 1em;
     text-align: end;
-    background: #f3f6e6;
 }
 .restaurant-delete{
 
 }
 .restaurant-search-display{
     border: #AAC6FC 1px solid;
+}
+.label-font{
+    font-family: 'Quando', serif;
+    font-size: 18px;
 }
 
 .index-bg{
@@ -664,12 +664,18 @@ body{
 
 }
 
+#friend-rest-list{
+    padding: 8px;
+}
+
 /* Media Queries */
 /*X-Small devices (portrait phones, less than 576px)*/
-/*No media query for `xs` since this is the default in Bootstrap*/
+@media (max-width: 321px) {
+
+}
 
 /*Small devices (landscape phones, 576px and up)*/
-@media (min-width: 320px) {
+@media screen and (min-width: 320px) {
     .index-bg{
         width: 97%;
         margin: 1em .25em;
@@ -691,11 +697,17 @@ body{
     #random-search-input{
         width: 68%;
     }
+
+    /*#rando{*/
+    /*    top: 7.5em;*/
+    /*    left: 0em;*/
+    /*}*/
 }
 
 
+
 /*Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {
+@media screen and (min-width: 426px) and (max-width: 769px) {
     .index-bg {
         width: 100%;
         margin: 2em 0;
@@ -711,6 +723,30 @@ body{
         bottom: 31.5em;
         left: 4.5em;
     }
+
+    /*#rando {*/
+    /*    width: 60%;*/
+    /*    top: 3.5em;*/
+    /*    left: -1em;*/
+    /*}*/
+}
+
+@media screen and (min-width: 1020px) and (max-width: 1444px) {
+    /*#rando {*/
+    /*    top: 4em;*/
+    /*}*/
+}
+
+
+
+
+/*Large devices (desktops, 992px and up)*/
+@media screen and (min-width: 1445px) {
+    /*.rando{*/
+    /*    top: 6em;*/
+    /*    left: 0em;*/
+    /*}*/
+
 }
 
 

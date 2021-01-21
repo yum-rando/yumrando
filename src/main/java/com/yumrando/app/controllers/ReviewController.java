@@ -82,9 +82,9 @@ public class ReviewController {
         Review reviewCheck = reviewDao.findAllByUserIdAndRestaurantId(reviewUser.getId(), restaurantId);
         Photo newPhoto = new Photo(photoUrl);
         Date now = new Date();
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        String mysqlUpdateDate = formatter.format(now);
+        String patternReal = "EEE, MMM d, yyyy";
+        SimpleDateFormat formatterReal = new SimpleDateFormat(patternReal);
+        String mysqlUpdateDate = formatterReal.format(now);
         if (reviewCheck == null){
             reviewToBeSaved.setUser(reviewUser);
             reviewToBeSaved.setRestaurant(reviewRest);
