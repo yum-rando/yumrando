@@ -51,7 +51,7 @@ h4{
 
 /*}*/
 h6{
-    color: #AAC6FC;
+    color: #383A47;
     font-family: 'Quando', serif;
 
 }
@@ -601,7 +601,6 @@ body{
 .instructions{
     font-size: larger;
     font-family: 'Quando', serif!important;
-    padding-top: 2em;
     justify-content: center;
     display: flex;
 }

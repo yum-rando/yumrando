@@ -12,6 +12,9 @@
             <div th:if="${chosenList == null}" class="container pb-3" id="user-list-initial">
             </div>
             <div th:if="${chosenList != null}" class="container" id="user-list-items">
+                <div th:if="${#lists.isEmpty(chosenList.restaurants)}" class="d-flex justify-content-center align-items-center list-items">
+                    <h5 class="navy label-font my-5">No restaurants found.</h5>
+                </div>
                 <div th:each="rest : ${chosenList.restaurants}">
                     <div class="row user-restaurants align-items-center" th:id="${'r' + rest.id }"
                          data-bs-toggle="modal"
@@ -25,7 +28,6 @@
                                 </button>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
