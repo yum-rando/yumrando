@@ -643,9 +643,7 @@ body{
     padding-top: 1em;
     text-align: end;
 }
-.restaurant-delete{
 
-}
 .restaurant-search-display{
     border: #AAC6FC 1px solid;
 }
@@ -739,8 +737,6 @@ body{
 }
 
 
-<<<<<<< HEAD
-
 /*Large devices (desktops, 992px and up)*/
 @media screen and (min-width: 1445px) {
     /*.rando{*/
@@ -750,5 +746,3 @@ body{
 
 }
 
-=======
->>>>>>> eb46e1aea8e710e65f0f87b40cbf8d8505365013
